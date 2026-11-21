@@ -284,11 +284,13 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 *(format: `- [A→B] data · opis · status`)*
 
 - [A→B] 2026-11-21 · Progi KBW SMSR przeniesione do **osobnego pliku** `data/knowledge/crops/smsr_thresholds.yaml` (generowany `scripts/build_smsr_thresholds.py` z `raw/smsr_progi_www.txt`; 14 grup × kat. I–IV × 14 okresów). Nie ruszałem `crops.yaml` – pole `smsr_cwb_thresholds_mm` można usunąć albo wskazać ten plik; `smsr_group` w crops.yaml jest używane przez `drought` (grupa „łąki i pastwiska (S2MUR)” nie ma progów w SMSR) · do wiadomości B
-- [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
+- [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte – A dopisał własne 8 działek z 7 województw w `docs/test_parcels_data.md` (możesz przenieść do `test_parcels.md`)
+- [A→B] 2026-11-21 · Mocki: `fixtures.ts` ma `realSamples` (prawdziwe, skrócone bloki A dla Środy Wlkp. 2024-07-15) i `mockBlock()` je zwraca; bloki A oznaczone `implemented: true`. Nowe pola opcjonalne opisane w §13 · do wiadomości B
 - [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · **dostarczone (A, 2026-11-21)** – uwaga: `groundwater_depth_m` zawsze `null` (MHP wymaga tokena PIG); zamiast tego są `in_groundwater_flood_area`, `nearest_boreholes[].depth_m`, `gzwp`. Dodatkowo `in_flood_hazard_area` (bool), `protected_areas.nearby` (≤1 km), `hits[].distance_m`.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · pełny profil 9,4–11,6 s z pustym cache, ~1 ms z cache (3 działki); `docs/data_sources.md` uzupełnione; mocki = prawdziwe próbki.
 - 2026-11-21 · A · `weather_history`: walidacja opadu stacją IMGW (katalog 59 stacji synop w `data/imgw/`); NASA POWER zawyża opad IV–IX o ~8–21% vs stacje.
 - 2026-11-21 · A · `yields` ✅ (GUS BDL województwo/Polska + indeks NDVI); `stubs.py` usunięty – wszystkie bloki A zaimplementowane.
 - 2026-11-21 · A · `land_cover` ✅: WorldCover przez PC (0,4–1 s), BDOT10k jako uzupełnienie.
