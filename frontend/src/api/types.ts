@@ -5,7 +5,7 @@ export type BlockStatus = "ok" | "partial" | "no_data" | "not_applicable" | "err
 
 export type BlockKey =
   | "weather_history" | "weather_forecast" | "drought" | "soil" | "terrain" | "hydrology"
-  | "vegetation" | "land_cover" | "yields" | "protected_areas" | "crop_calendar" | "legal_context";
+  | "vegetation" | "land_cover" | "yields" | "protected_areas" | "crop_calendar" | "legal_context" | "analysis";
 
 export interface Provenance {
   source_name: string;
@@ -78,7 +78,9 @@ export interface CropItem {
   drought_sensitivity?: string; critical?: string[];
 }
 
-// ── payloady bloków zespołu DATA (A) – dodawane addytywnie ──
+// ── payloady bloków zespołu DATA (A) – jedna definicja na interfejs (scalone A+B 2026-11-21) ──
+export type TerrainPosition = "hilltop" | "upper_slope" | "mid_slope" | "flat" | "valley" | "depression";
+export type WaterKind = "river" | "stream" | "ditch" | "lake" | "pond" | "reservoir" | "spring" | "other";
 export interface SoilInfo {
   agri_complex: string | null; soil_type: string | null; texture_class: string | null;
   drought_susceptibility: string | null; bonitation_classes: string[];
@@ -94,16 +96,16 @@ export interface SoilInfo {
 export interface TerrainInfo {
   elevation_mean_m: number | null; elevation_min_m: number | null; elevation_max_m: number | null;
   slope_mean_deg: number | null; slope_max_deg: number | null; aspect_dominant: string | null;
-  position: "hilltop" | "upper_slope" | "mid_slope" | "flat" | "valley" | "depression" | null;
+  position: TerrainPosition | null;
   position_label_pl: string | null; tpi_m: number | null; twi_mean: number | null;
   // FeatureCollection (EPSG:4326); properties: zagłębienia {area_m2, max_depth_m, volume_m3, touches_parcel},
   // linie spływu {length_m, catchment_ha, crosses_parcel}
-  depressions_geojson: Record<string, unknown> | null; flow_lines_geojson: Record<string, unknown> | null;
+  depressions_geojson: GeoJSON.FeatureCollection | null; flow_lines_geojson: GeoJSON.FeatureCollection | null;
   dem_resolution_m: number | null;
 }
 export interface WaterFeature {
-  kind: "river" | "stream" | "ditch" | "lake" | "pond" | "reservoir" | "spring" | "other";
-  name: string | null; distance_m: number; geometry: GeoJSONGeometry | null;
+  kind: WaterKind;
+  name: string | null; distance_m: number; geometry?: GeoJSONGeometry | null;
 }
 export interface HydrologyInfo {
   nearest_water: WaterFeature[];
@@ -114,6 +116,10 @@ export interface HydrologyInfo {
 }
 export interface ProtectedAreaHit { kind: string; name: string | null; code: string | null; distance_m?: number | null }
 export interface ProtectedAreasInfo { hits: ProtectedAreaHit[]; checked_layers: string[]; nearby?: ProtectedAreaHit[] }
+export interface WeatherForecast {
+  provider: string; dates: string[]; precip_mm: (number | null)[]; et0_mm: (number | null)[];
+  tmax_c: (number | null)[]; tmin_c: (number | null)[];
+}
 export interface DroughtIndex {
   source: string; date: string | null; value: number | string | null; class_label?: string | null;
   level?: "commune" | "pixel" | "parcel" | null;
@@ -136,3 +142,45 @@ export interface LandCoverInfo {
 }
 export interface YieldRecord { year: number; crop: string; yield_t_ha: number | null; level: "powiat" | "voivodeship" | "country" | "parcel_proxy"; unit_name?: string | null }
 export interface YieldInfo { official: YieldRecord[]; parcel_productivity_index: { year: number; peak_ndvi: number; rel_index: number }[]; note: string | null }
+export interface CropStage { name: string; start: string; end: string; kc?: number | null }
+export interface CropCalendarInfo {
+  crop: string; crop_name_pl: string; in_season_on_as_of: boolean; current_stage?: string | null;
+  stages: CropStage[]; critical_water_periods: string[]; sowing_ok_now?: boolean | null;
+  warnings: string[]; suggested_crops_now: string[];
+}
+export type KnowledgeStatus = "OK" | "DO_WERYFIKACJI" | "SZACUNEK";
+export interface LegalHint {
+  topic: string; requirement: string; why: string; procedure_id?: string | null;
+  status: KnowledgeStatus; sources: string[];
+  // addytywnie 2026-11-21 (B)
+  title?: string | null; group?: "none" | "notification" | "permit" | "depends" | null;
+  legal_ids?: string[]; fee_pln?: number | null; fee_year?: number | null;
+  facts_used?: string[]; unchecked?: string[]; caution?: string | null;
+}
+export interface LegalContextInfo {
+  hints: LegalHint[]; funding_ids: string[];
+  disclaimer?: string | null; facts_checked?: Record<string, string>;
+}
+
+// ── wyniki analizy F2 – blok `analysis` (propozycja B, 2026-11-21; lustro models.py) ──
+export type RiskLevel = "none" | "low" | "moderate" | "high" | "very_high";
+export interface Evidence { text: string; block?: string | null }
+export interface WaterAssessment {
+  current_level?: RiskLevel | null; current_label_pl?: string | null; current_summary?: string | null;
+  historical_level?: RiskLevel | null; historical_label_pl?: string | null; historical_summary?: string | null;
+  drought_years: number[]; critical_months: number[]; confidence?: "low" | "medium" | "high" | null; evidence: Evidence[];
+}
+export interface Cause { key: string; label_pl: string; share?: number | null; explanation?: string | null; evidence: Evidence[] }
+export interface Recommendation {
+  measure_id: string; group: "retencja_krajobrazowa" | "agrotechnika" | "nawadnianie"; title: string; why: string;
+  priority: number; addresses: string[]; when?: string | null; where_geojson?: GeoJSON.FeatureCollection | GeoJSON.Feature | null;
+  legal_ids: string[]; funding_ids: string[]; evidence: Evidence[];
+}
+export interface IrrigationAdvice {
+  recommended?: "no" | "monitor" | "yes" | null; summary?: string | null; deficit_mm?: number | null; dose_mm?: number | null;
+  horizon_days?: number | null; timing?: string | null; evidence: Evidence[];
+}
+export interface AnalysisResult {
+  assessment?: WaterAssessment | null; causes: Cause[]; recommendations: Recommendation[]; irrigation?: IrrigationAdvice | null;
+  limitations: string[]; method: string[]; missing_blocks: string[];
+}

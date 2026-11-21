@@ -124,8 +124,8 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `land_cover` | A | ✅ | ESA WorldCover 2021 (Planetary Computer, histogram kategorialny dla działki) + BDOT10k (PIG, gdy pokrywa ≥80% działki – kopia niekompletna) | `LandCoverInfo` | `connectors/land_cover.py` |
 | `yields` | A | ✅ | GUS BDL plony z 1 ha (**tylko województwo + Polska** – powiatów w BDL brak) + indeks szczytowego NDVI działki (z `vegetation`) | `YieldInfo` | `connectors/yields.py` |
 | `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
-| `crop_calendar` | B | ⬜ | `crops.yaml` + data analizy (okres wegetacji, fazy Kc, ostrzeżenia siewu) | `CropCalendarInfo` | `blocks.py` |
-| `legal_context` | B | ⬜ | `legal_pl`, `procedures`, `measures`, `funding` + fakty z hydrology, protected_areas, terrain | `LegalContextInfo` | `blocks.py` |
+| `crop_calendar` | B | ✅ | `crops.yaml` + data analizy: kampania (ozime od siewu jesienią, jare/wieloletnie w roku), fazy FAO-56 z datami i Kc, aktualna faza, okres krytyczny (miesiące z „(V–VI)”), `sowing_ok_now`, ostrzeżenia siewu, `suggested_crops_now`; bez uprawy – ogólny okres wegetacji | `CropCalendarInfo` | `blocks.py` (`crop_calendar()` – czysta funkcja) |
+| `legal_context` | B | 🟡 | reguły (nie LLM) z `legal_pl` + `procedures` + `funding`, 8 tematów (staw, oczko, zastawka, studnia ≤30 m, studnia głębinowa, nawadnianie z cieku / ze studni, istniejący zbiornik/rów); opłata wg roku daty analizy; limit 5 m³/d w mm dla powierzchni działki; fakty z hydrology / protected_areas / terrain przez `run_block` – bloki A są już ✅; po scaleniu profil na żywo: wszystkie 12 bloków `ok` (9,3 s) | `LegalContextInfo` | `blocks.py` (`legal_hints()`) |
 
 ### Zweryfikowane endpointy (21.11.2026, HTTP 200, chyba że zaznaczono inaczej)
 
@@ -193,21 +193,22 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | Plik | Zawartość |
 |---|---|
 | `baza_wiedzy_woda.md` | pełny research (źródło prawdy dla treści, oznaczenia OK/DO_WERYFIKACJI/SZACUNEK) |
-| `legal_pl/prawo_wodne.yaml` | reguły: zwykłe korzystanie 5 m³/d, studnia ≤30 m, staw ≤5000 m²/≤3 m, rowy, abolicja do 31.12.2027, opłaty |
-| `procedures/procedures.yaml` | zgłoszenie wodnoprawne (30 dni), pozwolenie wodnoprawne, studnia głębinowa, legalizacja, ocena wodnoprawna |
+| `legal_pl/prawo_wodne.yaml` | reguły: zwykłe korzystanie 5 m³/d, studnia ≤30 m, staw ≤5000 m²/≤3 m (potwierdzone art. 394 ust. 1 pkt 9 t.j. 2026 – broszura gov.pl z 1000 m² jest nieaktualna), rowy, abolicja do 31.12.2027, opłaty, progi decyzji środowiskowej |
+| `procedures/procedures.yaml` | zgłoszenie wodnoprawne (30 dni), pozwolenie wodnoprawne, studnia głębinowa, legalizacja, ocena wodnoprawna, decyzja środowiskowa (progi dla nawadniania, OK); `fees` per rok; `form_url` = oficjalne wzory gov.pl (UI linkuje je przy procedurach) |
 | `procedures/retention_measures.yaml` | katalog działań NWRM, powiązanych z przyczynami (`addresses`), prawem (`legal_ids`) i finansowaniem |
-| `funding/programs.yaml` | ARiMR I.10.1.1, I.10.4, FGR Plus, ekoschemat TUZ, interwencja 8, EPI, NFOŚiGW…; `for_farmer` |
+| `funding/programs.yaml` | ARiMR I.10.1.1, I.10.4, FGR Plus, ekoschemat TUZ, interwencja 8, EPI, NFOŚiGW…; `for_farmer`; `call`/`call_status`/`call_quote` z harmonogramu ARiMR 2026; I.10.4 – zbiorniki kwalifikowane (cytat PODR, `eligibility_quote`); I.10.1.1 – zbiornik nadal DO_WERYFIKACJI |
 | `eu_law/eu_law.yaml` | RDW, azotanowa, powodziowa, reuse 2020/741, WPR 2021/2115 (DKR), Natura 2000, OOŚ, odbudowa przyrody |
-| `crops/crops.yaml` | 14 upraw: terminy siewu i zbioru, fazy i Kc FAO-56, Zr, p, okresy krytyczne, wymagania glebowe, `winter_rules`; **progi SMSR do uzupełnienia** |
+| `crops/crops.yaml` | 17 upraw (+ pszenżyto ozime, jęczmień ozimy, owies): terminy siewu i zbioru, fazy i Kc FAO-56, Zr, p, okresy krytyczne, wymagania glebowe, `winter_rules`; `meta.smsr_groups` = 14 grup SMSR (test sprawdza `smsr_group`); **progi KBW SMSR wpisuje A** |
 | `sources.yaml` + `raw/` | 57 dokumentów (`ok: true` w `manifest.json`): gov.pl, Wody Polskie, ARiMR, EUR-Lex, IUNG SiR; **SMSR: tabela progów KBW (`smsr_progi_www.txt`), kategorie gleb, okresy raportowania, Doroszewski 2012**; Prawo wodne t.j. Dz.U. 2026 poz. 1335 + poz. 1358; stawki opłat M.P. 2025/717 (2026) i 2026/430 (2027); wzory zgłoszenia i wniosku o pozwolenie (PDF + DOCX); CDR e-poradnik 2025; POLSA 2020; NWRM 2015; melioracje A5 2022 i 2025. Wpisy `manual: true` to pliki wrzucone ręcznie (`raw/<id>.pdf\|.docx`). Brakuje tylko FAO-56 (opcjonalne). W repo są `*.txt` i `manifest.json`; PDF i DOCX są gitignorowane |
 
 Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowledge/{crops|legal_pl|eu_law|procedures|funding|measures}`.
+Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_consistent` sprawdza `procedure_id`, `legal_ids`, `funding`, `measures` między plikami.
 
 ## 9. Mapa drogowa
 
 - **F1 – Dane (teraz):** wszystkie bloki z §4 na ✅ albo 🟡 dla działek z 5+ województw, < 30 s. UI pokazuje każdy blok czytelnie.
 - **F2 – Analiza:** `science/assessment.py` (ocena sytuacji: bieżąca vs. historyczna podatność, progi KBW SMSR per uprawa i gleba) → `science/causes.py` (udział: opady/ET, gleba, odpływ, roślinność) → `science/recommendations.py` (reguły z `retention_measures.yaml` + fakty) → nawadnianie FAO-56 z prognozą.
-- **F3 – Raport:** widok raportu, druk i PDF (CSS print albo backend), daty, źródła, ograniczenia.
+- **F3 – Raport:** widok raportu, druk i PDF (CSS print albo backend), daty, źródła, ograniczenia. **B: UI gotowy na mockach (`ReportView`), czeka na blok `analysis` od A.**
 - **F4 – Zgłoszenie:** README 9 punktów, slajdy, film, przykładowe raporty, deploy (link dla jury).
 
 ## 10. Znane pułapki
@@ -238,6 +239,7 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | React, react-dom | MIT | frontend |
 | Leaflet | BSD-2 | frontend |
 | Vite, TypeScript | MIT, Apache-2.0 | frontend |
+| Chart.js 4.4.4 (+ @kurkle/color) | MIT | frontend (wykresy opadów, prognozy, NDVI, plonów) |
 
 | Dane | Licencja / warunki |
 |---|---|
@@ -253,6 +255,7 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | GUS BDL | otwarte dane |
 | IMGW-PIB (dane dobowe synop) | dane publiczne, wymagane podanie źródła IMGW-PIB |
 | OSM | ODbL (podkład mapy) |
+| Ortofotomapa GUGiK (WMS), KIEG (granice działek) | bezpłatne, PZGiK (podkład / warstwa w UI) |
 
 ## 12. README dla jury: 9 obowiązkowych punktów (pkt 4.2 zadania)
 
@@ -278,6 +281,8 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 - 2026-11-21 · A · `HydrologyInfo` +`in_flood_hazard_area`, `in_groundwater_flood_area`, `jcwpd_code`; `ProtectedAreaHit` +`distance_m`; `ProtectedAreasInfo` +`nearby`; `types.ts` +`TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedAreas*`.
 - 2026-11-21 · A · `SoilInfo` +`drought_category`, `drought_category_shares_pct`, `agri_complex_code`, `agri_complex_shares_pct`, `texture_profile`, `samples` (opcjonalne); `types.ts` +`SoilInfo`.
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
+- 2026-11-21 · B · addytywnie, PROPOZYCJA dla A: blok `analysis` (F2) → `AnalysisResult` {`assessment: WaterAssessment`, `causes: Cause[]`, `recommendations: Recommendation[]`, `irrigation: IrrigationAdvice`, `limitations`, `method`, `missing_blocks`} + `Evidence` {text, block}, `RiskLevel`; `types.ts` lustro + `BlockKey` += `"analysis"`; mock w `fixtures.ts`. `SoilInfo.drought_category?` w `types.ts` (typ identyczny jak u A).
+- 2026-11-21 · B · addytywnie: `LegalHint` += `title`, `group` (none/notification/permit/depends), `legal_ids`, `fee_pln`, `fee_year`, `facts_used`, `unchecked`, `caution`; `LegalContextInfo` += `disclaimer`, `facts_checked`. `types.ts`: dopisane TS-lustra wszystkich payloadów bloków (WeatherForecast … LegalContextInfo).
 
 ## 14. Prośby między zespołami
 
@@ -287,9 +292,14 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 - [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte – A dopisał własne 8 działek z 7 województw w `docs/test_parcels_data.md` (możesz przenieść do `test_parcels.md`)
 - [A→B] 2026-11-21 · Mocki: `fixtures.ts` ma `realSamples` (prawdziwe, skrócone bloki A dla Środy Wlkp. 2024-07-15) i `mockBlock()` je zwraca; bloki A oznaczone `implemented: true`. Nowe pola opcjonalne opisane w §13 · do wiadomości B
 - [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · **dostarczone (A, 2026-11-21)** – uwaga: `groundwater_depth_m` zawsze `null` (MHP wymaga tokena PIG); zamiast tego są `in_groundwater_flood_area`, `nearest_boreholes[].depth_m`, `gzwp`. Dodatkowo `in_flood_hazard_area` (bool), `protected_areas.nearby` (≤1 km), `hits[].distance_m`.
+- [B→A] 2026-11-21 · Odpowiedź na prośbę o działki: 17 działek rolnych z 14 województw w `docs/test_parcels.md` (zweryfikowane przez /api/parcel/resolve) · zrobione
+- [B→A] 2026-11-21 · **Silnik analizy F2 = blok `analysis`** (category `derived`, `depends_on` = bloki danych + `crop_calendar`): zwracaj `AnalysisResult` z `contracts/models.py`. Widok raportu (zakładka „Raport”) już go renderuje w kolejności KOWR; dopóki bloku nie ma w `/api/parcel/blocks`, raport pokazuje tylko „Kluczowe wskaźniki z danych” i NIE pokazuje przyczyn ani rekomendacji. Wymagania UI: każde stwierdzenie z `evidence[]` (liczba + jednostka + `block`), `Cause.key` ∈ `measures.meta.cause_keys`, `Recommendation.measure_id` ∈ `retention_measures.yaml`, `legal_ids` ∈ `prawo_wodne.yaml` (UI dobiera kartę formalności z `legal_context` po `legal_ids`), `where_geojson` (EPSG:4326) rysowane na mapie na pomarańczowo. Kształt to propozycja – zmień przed implementacją, jeśli trzeba, i daj znać · otwarte
+- [B→koordynator] 2026-11-21 · **Konflikt przy scalaniu `frontend/src/api/types.ts`:** A i B dopisali na końcu pliku interfejsy `SoilInfo`, `TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedArea*`, `Drought*`, `Vegetation*`, `LandCover`, `Yield*`. Zostaw JEDNĄ definicję każdego (wersja A + pola opcjonalne B), bo TS odrzuca różne typy tego samego pola w scalanych interfejsach (A: `agri_complex: string | null`, B: `agri_complex?: string | null`). · **rozwiązane przy scaleniu (koordynator, 2026-11-21)** – jedna definicja (A) + typy B
+- [B→A] 2026-11-21 · Mocki wszystkich bloków A są w `frontend/src/mocks/fixtures.ts` (syntetyczne, oznaczone MOCK) – UI rysuje na mapie `terrain.depressions_geojson`, `terrain.flow_lines_geojson` i `hydrology.nearest_water[].geometry` (EPSG:4326) – wypełnij geometrię, jeśli możesz · **zrobione (A)** – `mockBlock()` zwraca `realSamples` dla bloków A
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · koordynator · scalono `agent-a-data` + `agent-b-product` do `main`; konflikty: `types.ts` (jedna definicja typów A + typy B), `fixtures.ts` (mocki B + `realSamples` A), AGENTS.md.
 - 2026-11-21 · A · fix `drought`: parser SMSR mylił „Kategoria gleby IV” z „I” (cache SMSR v2); ruff --fix.
 - 2026-11-21 · A · pełny profil 9,4–11,6 s z pustym cache, ~1 ms z cache (3 działki); `docs/data_sources.md` uzupełnione; mocki = prawdziwe próbki.
 - 2026-11-21 · A · `weather_history`: walidacja opadu stacją IMGW (katalog 59 stacji synop w `data/imgw/`); NASA POWER zawyża opad IV–IX o ~8–21% vs stacje.
@@ -300,6 +310,11 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 - 2026-11-21 · A · `hydrology` ✅ (0,3–1,6 s) i `protected_areas` ✅ (0,2–0,5 s); pola dla `legal_context` z §14 dostarczone.
 - 2026-11-21 · A · `terrain` ✅: NMT przez GetHByPointList (paczki po 1000 pkt równolegle), Priority-Flood/D8/TPI/TWI w numpy; zagłębienia i linie spływu jako GeoJSON; 2,3–4 s/działkę.
 - 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.
+- 2026-11-21 · B · raport F3: zakładki „Raport / Wszystkie dane”, `components/report/ReportView.tsx` (ocena → przyczyny → retencja → agrotechnika → nawadnianie → kalendarz → ograniczenia → źródła), blokada rekomendacji bez oceny, dowody z blokiem i datą, miejsca rekomendacji na mapie, druk raportu, „Zapisz dane (JSON)”; kontrakt `AnalysisResult` (propozycja dla A).
+- 2026-11-21 · B · baza wiedzy: I.10.4 (zbiorniki kwalifikowane) i terminy naborów z harmonogramu ARiMR 2026, próg stawu 5000 m² potwierdzony w ustawie, decyzja środowiskowa → OK, +3 uprawy, wzory wniosków gov.pl; 2 błędne odwołania YAML poprawione.
+- 2026-11-21 · B · UI: widoki wszystkich 12 bloków (Chart.js), panel „Skąd te dane”, walidacja formularza („obręb numer”), mapa z ortofoto i warstwami terenu/wód, @media print + „Drukuj / zapisz PDF”, mobile 375 px, `docs/ux.md`, `.claude/launch.json`.
+- 2026-11-21 · B · bloki `crop_calendar` (✅) i `legal_context` (🟡, czeka na fakty z A) + 92 testy; kontrakt: addytywne pola `LegalHint`/`LegalContextInfo` (§13).
+- 2026-11-21 · B · `docs/test_parcels.md`: 17 działek rolnych z 14 województw (zweryfikowane `/api/parcel/resolve`, klasoużytki z KIEG).
 - 2026-11-21 · baza wiedzy: dokumenty pobrane ręcznie (SMSR, Prawo wodne t.j. 2026, M.P. ze stawkami, wzory, CDR, POLSA 2020, NWRM); opłaty w procedures.yaml zweryfikowane (2026/2027); fetch_knowledge: strony HTML + czyszczenie usuniętych wpisów.
 - 2026-11-21 · baza wiedzy: +12 publikacji IUNG-PIB SiR (monitoring suszy, KBW, retencja glebowa, erozja, satelity) → `data/knowledge/raw/iung_sir*.txt`, `zylowska_kozyra_2025.txt`.
 - 2026-11-21 · fetch_knowledge: obsługa DOCX i plików wrzucanych ręcznie (`manual: true`); 12 dokumentów do pobrania ręcznie dopisanych do sources.yaml.

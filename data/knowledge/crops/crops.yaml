@@ -1,5 +1,5 @@
 meta:
-  title: Uprawy – okres wegetacji, terminy, potrzeby wodne
+  title: Uprawy – okres wegetacji, terminy, potrzeby wodne (17 upraw)
   snapshot_date: 2026-11-21
   sources:
     - "FAO-56 (Allen i in.), Tab. 11 (długości faz), Tab. 12 (Kc), Tab. 22 (głębokość korzeni Zr, frakcja p)"
@@ -14,6 +14,9 @@ meta:
     p: "dopuszczalne wyczerpanie wody dostępnej (bez stresu)"
     critical: "okresy krytyczne niedoboru wody"
     smsr_cwb_thresholds_mm: "progi KBW suszy SMSR per kategoria gleby 1–4 – DO UZUPEŁNIENIA z Doroszewski i in. 2012"
+  smsr_groups: [zboża ozime, zboża jare, kukurydza na ziarno, kukurydza na kiszonkę, rzepak i rzepik, ziemniak, burak cukrowy,
+                rośliny strączkowe, truskawki, drzewa owocowe, krzewy owocowe, warzywa gruntowe, chmiel, tytoń]
+  smsr_groups_source: "data/knowledge/raw/smsr_progi_www.txt (tabela progów KBW wg rozp. MRiRW z 11.04.2019)"
   growing_season_pl: "Okres wegetacji w Polsce: średnio od końca marca/kwietnia (t > 5 °C) do października/listopada; 200–230 dni (zach.), 180–200 dni (płn.-wsch.) [SZACUNEK]"
   status_default: SZACUNEK
 
@@ -83,6 +86,57 @@ items:
     critical: ["strzelanie w źdźbło – kwitnienie (V)"]
     drought_sensitivity: niska
     soil_preference: "gleby lekkie i piaszczyste (kompleksy żytnie 5–7) – najlepiej znosi suszę wśród zbóż"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: pszenzyto_ozime
+    name_pl: Pszenżyto ozime
+    smsr_group: zboża ozime
+    type: ozima
+    sowing: "09-15..10-10"
+    harvest: "07-25..08-20"
+    stages_start: "03-25"
+    stages: [30, 40, 50, 30]
+    kc: [0.4, 1.15, 0.3]
+    root_depth_m: 1.5
+    p: 0.55
+    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)", "nalewanie ziarna (VI–VII)"]
+    drought_sensitivity: niska
+    soil_preference: "gleby lżejsze i średnie (kompleksy żytnie bardzo dobre i dobre, pszenne słabe) – lepiej od pszenicy znosi suszę"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: jeczmien_ozimy
+    name_pl: Jęczmień ozimy
+    smsr_group: zboża ozime
+    type: ozima
+    sowing: "09-10..09-30"
+    harvest: "07-01..07-25"
+    stages_start: "03-20"
+    stages: [25, 35, 45, 25]
+    kc: [0.4, 1.15, 0.25]
+    root_depth_m: 1.2
+    p: 0.55
+    critical: ["strzelanie w źdźbło – kłoszenie (IV–V)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby średnie i zasobne, odczyn obojętny; wcześnie schodzi z pola (przed szczytem letnich susz)"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: owies
+    name_pl: Owies
+    smsr_group: zboża jare
+    type: jara
+    sowing: "03-15..04-15"
+    harvest: "08-01..08-25"
+    stages_start: "04-01"
+    stages: [20, 30, 40, 30]
+    kc: [0.3, 1.15, 0.25]
+    root_depth_m: 1.0
+    p: 0.55
+    critical: ["wiechowanie (VI)"]
+    drought_sensitivity: wysoka
+    soil_preference: "znosi gleby lżejsze i kwaśne, ale ma duże potrzeby wodne – wrażliwy na suszę w czerwcu"
     smsr_cwb_thresholds_mm: null
     status: SZACUNEK
 
@@ -212,7 +266,7 @@ items:
 
   - id: tuz
     name_pl: Łąki i pastwiska (TUZ)
-    smsr_group: łąki i pastwiska (S2MUR)
+    smsr_group: "nie dotyczy – łąki i pastwiska monitoruje S2MUR, nie SMSR"
     type: wieloletnia
     sowing: null
     harvest: "pokosy V–IX"

@@ -290,12 +290,91 @@ class LegalHint(BaseModel):
     procedure_id: str | None = None    # → data/knowledge/procedures/*.yaml
     status: Literal["OK", "DO_WERYFIKACJI", "SZACUNEK"] = "OK"
     sources: list[str] = Field(default_factory=list)
+    # ↓ addytywnie 2026-11-21 (B): grupowanie kart w UI i fakty o działce
+    title: str | None = None           # nazwa dla rolnika, np. „Staw lub zbiornik do 5000 m²”
+    group: Literal["none", "notification", "permit", "depends"] | None = None  # bez formalności / zgłoszenie / pozwolenie / zależy
+    legal_ids: list[str] = Field(default_factory=list)   # → data/knowledge/legal_pl/prawo_wodne.yaml
+    fee_pln: float | None = None       # opłata administracyjna dla roku daty analizy
+    fee_year: int | None = None
+    facts_used: list[str] = Field(default_factory=list)  # fakty o działce wykorzystane w regule
+    unchecked: list[str] = Field(default_factory=list)   # czego nie udało się sprawdzić (blok bez danych)
+    caution: str | None = None         # ostrzeżenie (np. strefa powodziowa, Natura 2000)
 
 
 class LegalContextInfo(BaseModel):
     hints: list[LegalHint] = Field(default_factory=list)
     funding_ids: list[str] = Field(default_factory=list)  # → data/knowledge/funding/programs.yaml
+    # ↓ addytywnie 2026-11-21 (B)
+    disclaimer: str | None = None
+    facts_checked: dict[str, str] = Field(default_factory=dict)  # blok → status (ok / brak danych / niezaimplementowany)
 
+
+
+# ─────────────── wyniki analizy (F2) – blok `analysis` ───────────────
+# Dodane 2026-11-21 (B, addytywnie) jako PROPOZYCJA dla A: kształt, który renderuje widok raportu.
+# Kolejność KOWR: ocena sytuacji wodnej → przyczyny → retencja → agrotechnika → (opcjonalnie) nawadnianie.
+# Każde stwierdzenie ma `evidence` = konkretne liczby z bloków danych (z jednostką i datą) – bez tego UI go nie pokaże.
+RiskLevel = Literal["none", "low", "moderate", "high", "very_high"]
+
+
+class Evidence(BaseModel):
+    text: str                          # „KBW 60 dni: −112 mm (norma −25 mm) do 20.11.2026”
+    block: str | None = None           # klucz bloku źródłowego, np. "weather_history"
+
+
+class WaterAssessment(BaseModel):
+    current_level: RiskLevel | None = None      # bieżący niedobór wody na dzień analizy
+    current_label_pl: str | None = None         # „wysoki niedobór wody”
+    current_summary: str | None = None          # 1–2 zdania dla rolnika
+    historical_level: RiskLevel | None = None   # wieloletnia podatność działki na niedobory (10 lat)
+    historical_label_pl: str | None = None
+    historical_summary: str | None = None
+    drought_years: list[int] = Field(default_factory=list)
+    critical_months: list[int] = Field(default_factory=list)   # 1..12 – kiedy ryzyko największe
+    confidence: Literal["low", "medium", "high"] | None = None
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class Cause(BaseModel):
+    key: str                           # cause_keys z retention_measures.yaml: opady_deficyt | gleba_niska_retencja | odplyw_powierzchniowy | uprawa_wrazliwa
+    label_pl: str
+    share: float | None = None         # udział 0..1 (szacunek)
+    explanation: str | None = None
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class Recommendation(BaseModel):
+    measure_id: str                    # → data/knowledge/procedures/retention_measures.yaml
+    group: Literal["retencja_krajobrazowa", "agrotechnika", "nawadnianie"]
+    title: str
+    why: str                           # uzasadnienie z danych tej działki
+    priority: int = 1                  # 1 = najpierw
+    addresses: list[str] = Field(default_factory=list)   # klucze przyczyn
+    when: str | None = None            # termin wykonania, np. „VII–VIII po zbiorze”
+    where_geojson: dict | None = None  # gdzie na działce (np. zagłębienie) – EPSG:4326
+    legal_ids: list[str] = Field(default_factory=list)   # → legal_pl; UI dobiera kartę z legal_context
+    funding_ids: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class IrrigationAdvice(BaseModel):
+    recommended: Literal["no", "monitor", "yes"] | None = None
+    summary: str | None = None
+    deficit_mm: float | None = None    # ETc − opad efektywny w horyzoncie prognozy
+    dose_mm: float | None = None
+    horizon_days: int | None = None
+    timing: str | None = None          # „w ciągu 3 dni, rano lub wieczorem”
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class AnalysisResult(BaseModel):
+    assessment: WaterAssessment | None = None
+    causes: list[Cause] = Field(default_factory=list)
+    recommendations: list[Recommendation] = Field(default_factory=list)
+    irrigation: IrrigationAdvice | None = None
+    limitations: list[str] = Field(default_factory=list)   # czynniki nieuwzględnione, dokładność danych
+    method: list[str] = Field(default_factory=list)        # krótki opis metody (FAO-56, progi SMSR…)
+    missing_blocks: list[str] = Field(default_factory=list)  # bloki bez danych, pominięte w analizie
 
 # ───────────────────────────── odpowiedzi API ─────────────────────────────
 class ParcelProfile(BaseModel):

@@ -1,53 +1,101 @@
-import type { BlockInfo, DataBlock, WeatherHistory } from "../api/types";
+import { Component, type ReactNode } from "react";
+import type {
+  BlockInfo, CropCalendarInfo, DataBlock, DroughtHistory, HydrologyInfo, LandCoverInfo, LegalContextInfo,
+  ProtectedAreasInfo, SoilInfo, TerrainInfo, VegetationInfo, WeatherForecast, WeatherHistory, YieldInfo,
+} from "../api/types";
+import { dateStr, dateTimeStr, modeLabel, STATUS_LABEL } from "../lib/format";
+import { ForecastView, WeatherView } from "./blocks/WeatherView";
+import {
+  DroughtView, HydrologyView, LandCoverView, ProtectedView, SoilView, TerrainView, VegetationView, YieldsView,
+} from "./blocks/EnvViews";
+import { CalendarView } from "./blocks/CalendarView";
+import { LegalView } from "./blocks/LegalView";
 
-const STATUS_LABEL: Record<string, string> = {
-  ok: "dane kompletne", partial: "dane częściowe", no_data: "brak danych", not_applicable: "nie dotyczy",
-  error: "błąd źródła", not_implemented: "w przygotowaniu", loading: "pobieram…",
+const CATEGORY_LABEL: Record<string, string> = {
+  meteo: "pogoda", satellite: "satelita", soil: "gleba", hydro: "woda", spatial: "teren", knowledge: "wiedza", derived: "statystyka",
 };
 
-function WeatherSummary({ d }: { d: WeatherHistory }) {
-  const last = d.seasons[d.seasons.length - 1];
-  return (
-    <ul className="kv">
-      <li>Opad ostatnie 30 dni: <b>{d.last_30d_precip_mm ?? "–"} mm</b> (norma {d.last_30d_precip_normal_mm ?? "–"} mm)</li>
-      <li>Bilans wodny 60 dni (opad − parowanie): <b>{d.cwb_60d_mm ?? "–"} mm</b> (norma {d.cwb_60d_normal_mm ?? "–"} mm)</li>
-      {last && <li>Sezon {last.year}: opad IV–IX {last.precip_apr_sep_mm} mm, najdłuższa susza {last.longest_dry_spell_days} dni</li>}
-      <li className="muted">Źródło: {d.provider}, {d.grid_resolution_note}, {d.start} → {d.end}</li>
-    </ul>
-  );
+const EMPTY_TEXT: Record<string, string> = {
+  not_implemented: "Ten blok jest jeszcze w przygotowaniu – dane pojawią się w kolejnej wersji aplikacji.",
+  no_data: "Źródło odpowiedziało, ale nie ma danych dla tej działki lub daty.",
+  not_applicable: "Te dane nie dotyczą tej działki lub tej pory roku.",
+  error: "Nie udało się pobrać danych ze źródła. Pozostałe bloki działają – spróbuj ponownie później.",
+};
+
+/** Dedykowany widok bloku; nieznany blok → tylko JSON w „Szczegółach”. */
+function View({ b, asOf }: { b: DataBlock; asOf: string }) {
+  const d = b.data as never;
+  switch (b.key) {
+    case "weather_history": return <WeatherView d={d as WeatherHistory} asOf={asOf} />;
+    case "weather_forecast": return <ForecastView d={d as WeatherForecast} />;
+    case "drought": return <DroughtView d={d as DroughtHistory} asOf={asOf} />;
+    case "soil": return <SoilView d={d as SoilInfo} />;
+    case "terrain": return <TerrainView d={d as TerrainInfo} />;
+    case "hydrology": return <HydrologyView d={d as HydrologyInfo} />;
+    case "vegetation": return <VegetationView d={d as VegetationInfo} />;
+    case "land_cover": return <LandCoverView d={d as LandCoverInfo} />;
+    case "yields": return <YieldsView d={d as YieldInfo} />;
+    case "protected_areas": return <ProtectedView d={d as ProtectedAreasInfo} />;
+    case "crop_calendar": return <CalendarView d={d as CropCalendarInfo} asOf={asOf} />;
+    case "legal_context": return <LegalView d={d as LegalContextInfo} asOf={asOf} />;
+    default: return null;
+  }
 }
 
-export function BlockCard({ info, block }: { info: BlockInfo; block?: DataBlock | "loading" }) {
+export function BlockCard({ info, block, asOf, wide }: { info: BlockInfo; block?: DataBlock | "loading"; asOf: string; wide?: boolean }) {
   const status = block === undefined ? "idle" : block === "loading" ? "loading" : block.status;
   const b = typeof block === "object" ? block : null;
   return (
-    <article className={`card status-${status}`}>
+    <article className={`card status-${status}${wide ? " wide" : ""}`} id={`blk-${info.key}`} aria-busy={status === "loading"}>
       <header>
-        <h3>{info.title}</h3>
-        {status !== "idle" && <span className="badge">{STATUS_LABEL[status] ?? status}</span>}
+        <div>
+          <span className="cat">{CATEGORY_LABEL[info.category] ?? info.category}</span>
+          <h3>{info.title}</h3>
+        </div>
+        {status !== "idle" && <span className={`badge b-${status}`}>{STATUS_LABEL[status] ?? status}</span>}
       </header>
-      {b?.data != null && b.key === "weather_history" && <WeatherSummary d={b.data as WeatherHistory} />}
-      {b?.data != null && (
-        <details>
-          <summary>Wszystkie dane (JSON)</summary>
-          <pre>{JSON.stringify(b.data, null, 1).slice(0, 20000)}</pre>
-        </details>
-      )}
-      {b && b.uncertainty.length > 0 && (
-        <ul className="uncertainty">{b.uncertainty.map((u, i) => <li key={i}>⚠ {u}</li>)}</ul>
-      )}
+
+      {status === "idle" && <p className="muted">Wybierz działkę, aby zobaczyć dane.</p>}
+      {status === "loading" && <div className="skeleton" aria-label="Pobieram dane"><span /><span /><span /></div>}
+
+      {b && b.data != null && <ErrorBoundaryView b={b} asOf={asOf} />}
+      {b && b.data == null && <p className="empty">{EMPTY_TEXT[b.status] ?? "Brak danych."}</p>}
+
       {b && b.messages.length > 0 && <ul className="messages">{b.messages.map((m, i) => <li key={i}>{m}</li>)}</ul>}
+      {b && b.uncertainty.length > 0 && (
+        <div className="uncertainty"><b>Ograniczenia i niepewność:</b>
+          <ul>{b.uncertainty.map((u, i) => <li key={i}>{u}</li>)}</ul></div>
+      )}
       {b && b.provenance.length > 0 && (
         <footer className="prov">
           {b.provenance.map((p, i) => (
             <span key={i}>
-              {p.source_name} · {p.mode === "live" ? "na żywo" : p.mode === "cached" ? "z pamięci podręcznej" : `kopia lokalna ${p.snapshot_date ?? ""}`}
-              {p.data_as_of ? ` · dane do ${p.data_as_of}` : ""}{p.licence ? ` · ${p.licence}` : ""}
+              Źródło: {p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer noopener">{p.source_name}</a> : p.source_name}
+              {" · "}{modeLabel(p)}
+              {" · "}{p.data_as_of ? `dane do ${dateStr(p.data_as_of)}` : `pobrano ${dateTimeStr(p.retrieved_at)}`}
+              {p.licence ? ` · licencja: ${p.licence}` : ""}
             </span>
           ))}
-          {b.elapsed_ms != null && <span className="muted"> · {b.elapsed_ms} ms</span>}
         </footer>
+      )}
+      {b && b.data != null && (
+        <details className="raw no-print">
+          <summary>Szczegóły (dane techniczne JSON)</summary>
+          <pre>{JSON.stringify(b.data, null, 1).slice(0, 20000)}</pre>
+        </details>
       )}
     </article>
   );
+}
+
+// Błąd w widoku jednego bloku (np. nieoczekiwany kształt danych) nie może wywrócić całej strony.
+class Boundary extends Component<{ children: ReactNode }, { err: string | null }> {
+  state = { err: null as string | null };
+  static getDerivedStateFromError(e: Error) { return { err: e.message }; }
+  render() {
+    return this.state.err ? <p className="empty">Nie udało się wyświetlić tego bloku ({this.state.err}). Dane są w „Szczegółach”.</p> : this.props.children;
+  }
+}
+function ErrorBoundaryView({ b, asOf }: { b: DataBlock; asOf: string }) {
+  return <Boundary key={`${b.key}-${asOf}`}><View b={b} asOf={asOf} /></Boundary>;
 }

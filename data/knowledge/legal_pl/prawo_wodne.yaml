@@ -85,11 +85,15 @@ items:
     rule: "Staw o powierzchni ≤5000 m² i głębokości ≤3 m, napełniany wyłącznie wodami opadowymi, roztopowymi lub gruntowymi (nie w ramach usług wodnych), o zasięgu oddziaływania w granicach własnego gruntu – wymaga zgłoszenia wodnoprawnego. Na gruntach rolnych nie wymaga pozwolenia na budowę."
     thresholds: {max_area_m2: 5000, max_depth_m: 3}
     conditions: [zasilanie_opady_roztopy_gruntowe, oddzialywanie_w_granicach_gruntu, grunt_wlasny]
-    notes: "Kilka stawów na jednym gruncie się sumuje. Starsze publikacje podają nieaktualne progi (500 m²/2 m, 1000 m²)."
+    notes: "Kilka stawów na jednym gruncie się sumuje. Starsze publikacje (w tym broszura gov.pl o inwestycjach w nawadnianie) podają nieaktualne progi (500 m²/2 m, 1000 m²). Oddziaływanie poza własnym gruntem dopuszczalne przy uprzedniej pisemnej zgodzie właścicieli gruntów objętych oddziaływaniem."
+    legal_basis: "art. 394 ust. 1 pkt 9 Prawa wodnego (t.j. Dz.U. 2026 poz. 1335)"
+    quote: "„wykonanie stawów, które nie są napełniane w ramach usług wodnych, ale wyłącznie wodami opadowymi lub roztopowymi, lub wodami gruntowymi o powierzchni nieprzekraczającej 5000 m2 oraz głębokości nieprzekraczającej 3 m od naturalnej powierzchni terenu”"
     requirement: zgloszenie_wodnoprawne
     procedure_id: zgloszenie_wodnoprawne
     status: OK
-    sources: [https://blog.ongeo.pl/staw-lub-zbiornik-wodny-bez-pozwolenia-na-budowe]
+    sources:
+      - data/knowledge/raw/prawo_wodne_tj_2026.txt
+      - https://blog.ongeo.pl/staw-lub-zbiornik-wodny-bez-pozwolenia-na-budowe
 
   - id: staw_pozwolenie
     topic: staw
@@ -137,6 +141,7 @@ items:
     topic: procedura
     title: Kolejność uzyskiwania zgód
     rule: "Decyzja o środowiskowych uwarunkowaniach (jeśli wymagana) → pozwolenie lub zgłoszenie wodnoprawne → pozwolenie lub zgłoszenie budowlane. Ocena wodnoprawna odbywa się w ramach decyzji środowiskowej, jeśli ta jest wymagana."
+    env_decision_triggers: "Karta informacyjna przedsięwzięcia (decyzja środowiskowa u wójta/burmistrza) m.in. dla: wierceń studni ≥100 m; poboru wód podziemnych ≥10 m³/h (lub ≥1 m³/h, gdy w promieniu 500 m są inne ujęcia ≥1 m³/h, poza zwykłym korzystaniem); melioracji ≥5 ha (≥2 ha przy sąsiednich melioracjach) lub na obszarach chronionych; zbiorników ≥0,5 ha na gruntach innych niż orne w formach ochrony przyrody; stawów o głębokości ≥3 m."
     status: OK
     sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
 
