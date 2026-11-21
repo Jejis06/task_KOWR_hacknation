@@ -68,9 +68,71 @@ export interface WeatherHistory {
   monthly_climatology: MonthlyClimate[]; seasons: SeasonSummary[];
   last_30d_precip_mm: number | null; last_30d_precip_normal_mm: number | null;
   cwb_60d_mm: number | null; cwb_60d_normal_mm: number | null;
+  station_check?: { station: string; station_code: string; distance_km: number; season_bias_pct: number | null;
+    station_last_30d_precip_mm: number | null; mean_abs_season_diff_mm: number | null;
+    seasons_apr_sep: { year: number; reanalysis_mm: number; station_mm: number }[] } | null;
 }
 
 export interface CropItem {
   id: string; name_pl: string; type: string; sowing: string | null; harvest: string | null;
   drought_sensitivity?: string; critical?: string[];
 }
+
+// ── payloady bloków zespołu DATA (A) – dodawane addytywnie ──
+export interface SoilInfo {
+  agri_complex: string | null; soil_type: string | null; texture_class: string | null;
+  drought_susceptibility: string | null; bonitation_classes: string[];
+  clay_pct: number | null; sand_pct: number | null; silt_pct: number | null; soc_g_kg: number | null;
+  awc_mm: number | null; source_used: string | null;
+  drought_category?: number | null;                       // SMSR 1–4
+  drought_category_shares_pct?: Record<string, number>;
+  agri_complex_code?: string | null;
+  agri_complex_shares_pct?: Record<string, number>;
+  texture_profile?: string[];
+  samples?: Record<string, unknown>[];
+}
+export interface TerrainInfo {
+  elevation_mean_m: number | null; elevation_min_m: number | null; elevation_max_m: number | null;
+  slope_mean_deg: number | null; slope_max_deg: number | null; aspect_dominant: string | null;
+  position: "hilltop" | "upper_slope" | "mid_slope" | "flat" | "valley" | "depression" | null;
+  position_label_pl: string | null; tpi_m: number | null; twi_mean: number | null;
+  // FeatureCollection (EPSG:4326); properties: zagłębienia {area_m2, max_depth_m, volume_m3, touches_parcel},
+  // linie spływu {length_m, catchment_ha, crosses_parcel}
+  depressions_geojson: Record<string, unknown> | null; flow_lines_geojson: Record<string, unknown> | null;
+  dem_resolution_m: number | null;
+}
+export interface WaterFeature {
+  kind: "river" | "stream" | "ditch" | "lake" | "pond" | "reservoir" | "spring" | "other";
+  name: string | null; distance_m: number; geometry: GeoJSONGeometry | null;
+}
+export interface HydrologyInfo {
+  nearest_water: WaterFeature[];
+  in_flood_zone: "0.2%" | "1%" | "10%" | null; flood_zone_checked: boolean;
+  catchment_name: string | null; jcwp_code: string | null; groundwater_depth_m: string | null;
+  gzwp: string | null; nearest_boreholes: Record<string, unknown>[]; water_management_board: string | null;
+  in_flood_hazard_area?: boolean | null; in_groundwater_flood_area?: boolean | null; jcwpd_code?: string | null;
+}
+export interface ProtectedAreaHit { kind: string; name: string | null; code: string | null; distance_m?: number | null }
+export interface ProtectedAreasInfo { hits: ProtectedAreaHit[]; checked_layers: string[]; nearby?: ProtectedAreaHit[] }
+export interface DroughtIndex {
+  source: string; date: string | null; value: number | string | null; class_label?: string | null;
+  level?: "commune" | "pixel" | "parcel" | null;
+}
+export interface DroughtHistory {
+  current: DroughtIndex[]; history: DroughtIndex[]; drought_years: number[];
+  drought_years_smsr?: number[]; drought_years_computed?: number[]; crop_group?: string | null;
+  soil_category?: number | null; commune_teryt?: string | null; commune_name?: string | null;
+  periods?: { year: number; period: number; start: string; end: string; drought: boolean; source: "smsr" | "computed";
+              kbw_mm?: number; threshold_mm?: number; commune_area_share_pct?: number | null }[];
+}
+export interface VegetationObs { date: string; ndvi: number | null; ndmi?: number | null; cloud_pct?: number | null; scene_id?: string | null }
+export interface VegetationInfo {
+  latest: VegetationObs | null; latest_age_days: number | null; series: VegetationObs[];
+  baseline_same_doy: number | null; anomaly: number | null; in_growing_season: boolean | null;
+}
+export interface LandCoverInfo {
+  classes: Record<string, number>; agricultural_share_pct: number | null; source_used: string | null;
+  cropland_share_pct?: number | null; bdot_classes?: Record<string, number>;
+}
+export interface YieldRecord { year: number; crop: string; yield_t_ha: number | null; level: "powiat" | "voivodeship" | "country" | "parcel_proxy"; unit_name?: string | null }
+export interface YieldInfo { official: YieldRecord[]; parcel_productivity_index: { year: number; peak_ndvi: number; rel_index: number }[]; note: string | null }

@@ -14,7 +14,7 @@ def et0_penman_monteith(d: date, lat_deg: float, elev_m: float, tmax: float, tmi
     tmean = (tmax + tmin) / 2
     p = 101.3 * ((293 - 0.0065 * elev_m) / 293) ** 5.26                 # kPa
     gamma = 0.000665 * p
-    es_t = lambda t: 0.6108 * math.exp(17.27 * t / (t + 237.3))         # noqa: E731
+    es_t = lambda t: 0.6108 * math.exp(17.27 * t / (t + 237.3))
     es = (es_t(tmax) + es_t(tmin)) / 2
     ea = es * rh_mean / 100
     delta = 4098 * es_t(tmean) / (tmean + 237.3) ** 2

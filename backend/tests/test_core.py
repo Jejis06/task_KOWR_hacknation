@@ -18,6 +18,7 @@ def test_uldk_parse():
 
 def test_uldk_parse_error():
     import pytest
+
     from app.connectors.uldk import ParcelNotFound
     with pytest.raises(ParcelNotFound):
         _parse("-1 brak wyników")

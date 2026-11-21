@@ -17,7 +17,7 @@ import asyncio
 import logging
 import time
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, ClassVar, Literal
 
 from app.config import settings
@@ -30,7 +30,7 @@ Category = Literal["meteo", "satellite", "soil", "hydro", "spatial", "knowledge"
 
 
 def now_utc() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class Connector(ABC):
@@ -70,12 +70,12 @@ class Connector(ABC):
             return blk
         try:
             blk = await asyncio.wait_for(self.fetch(ctx), timeout=self.timeout_s)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             blk = self.block(BlockStatus.error, messages=[f"Przekroczono limit czasu {self.timeout_s:.0f} s."],
                              uncertainty=["Źródło danych nie odpowiedziało na czas – blok pominięty w analizie."])
         except NotImplementedError:
             blk = self.block(BlockStatus.not_implemented, messages=["Konektor jeszcze nie zaimplementowany."])
-        except Exception as e:  # noqa: BLE001 – każdy błąd źródła ma być widoczny, ale nie wywraca profilu
+        except Exception as e:
             log.exception("connector %s failed", self.key)
             blk = self.block(BlockStatus.error, messages=[f"{type(e).__name__}: {e}"],
                              uncertainty=["Błąd pobierania danych – blok pominięty w analizie."])

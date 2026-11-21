@@ -8,13 +8,21 @@ Dane NIE sięgają za as_of (brak „podglądania przyszłości” przy analizie
 """
 from __future__ import annotations
 
+import asyncio
 from datetime import date, timedelta
 from typing import Any
 
 from app.config import settings
+from app.connectors import imgw
 from app.connectors.base import Connector
-from app.contracts.models import (AnalysisContext, BlockStatus, DailySeries, DataBlock, WeatherForecast,
-                                  WeatherHistory)
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    DailySeries,
+    DataBlock,
+    WeatherForecast,
+    WeatherHistory,
+)
 from app.core.http import RateLimited, get_with_retry
 from app.science.et0 import et0_penman_monteith
 from app.science.water_balance import monthly_climatology, season_summaries, window_vs_normal
@@ -52,7 +60,7 @@ async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[D
     prm = j["properties"]["parameter"]
     elev = (j.get("geometry", {}).get("coordinates") or [None, None, 100])[2] or 100
     fill = j.get("header", {}).get("fill_value", -999)
-    clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)  # noqa: E731
+    clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)
     dates, P, TX, TN, E = [], [], [], [], []
     for k in sorted(prm["PRECTOTCORR"].keys()):
         dd = date(int(k[:4]), int(k[4:6]), int(k[6:]))
@@ -65,12 +73,26 @@ async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[D
         {"provider": "nasa-power", "elevation": elev}
 
 
+async def _imgw_check(lat: float, lon: float, start: date, series: DailySeries) -> dict | None:
+    ns = imgw.nearest_station(lat, lon)
+    if not ns or ns[1] > imgw.MAX_DIST_KM:
+        return None
+    st, dist = ns
+    pr = await imgw.station_precip(st, start, series.dates[-1])
+    if not pr:
+        return None
+    out = imgw.compare(series, pr, series.dates[-1])
+    out.update(station=st["name"], station_code=st["station_code"], distance_km=round(dist, 1))
+    return out
+
+
 class WeatherHistoryConnector(Connector):
     key = "weather_history"
     title = "Opady i parowanie – 10 lat"
     category = "meteo"
     live_ttl_s = 6 * 3600
     timeout_s = 20
+    cache_version = 2
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         lon, lat = ctx.parcel.centroid
@@ -109,6 +131,20 @@ class WeatherHistoryConnector(Connector):
         )
         unc = [f"Dane z reanalizy ({grid}), nie z pomiaru na działce – lokalne burze mogą być pominięte.",
                "Norma = średnia z dostępnych lat w oknie 10-letnim, nie klimatologia 30-letnia."]
+        # walidacja: najbliższa stacja synoptyczna IMGW (opad mierzony)
+        try:
+            data.station_check = await asyncio.wait_for(_imgw_check(lat, lon, start, series), timeout=6)
+        except Exception as e:  # noqa: BLE001
+            messages.append(f"IMGW (walidacja opadu): {type(e).__name__}.")
+        if data.station_check:
+            sc = data.station_check
+            provs.append(self.prov(f"IMGW-PIB – dane dobowe stacji synoptycznej {sc['station']}",
+                                   source_url=imgw.BASE, licence=imgw.LIC,
+                                   notes=f"{sc['distance_km']} km od działki; walidacja opadu reanalizy"))
+            if sc.get("season_bias_pct") is not None and abs(sc["season_bias_pct"]) >= 15:
+                unc.append(f"Opad z reanalizy różni się od pomiarów stacji IMGW {sc['station']} "
+                           f"({sc['distance_km']} km) średnio o {sc['season_bias_pct']:+.0f}% w sezonach IV–IX – "
+                           "traktuj sumy opadów ostrożnie.")
         status = BlockStatus.ok
         if (ctx.as_of - series.dates[-1]).days > 3:
             status = BlockStatus.partial

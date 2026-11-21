@@ -114,16 +114,16 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | key | Zespół | Status | Źródło (główne → zapasowe) | Model danych | Plik |
 |---|---|---|---|---|---|
 | *(resolver)* | A | ✅ | GUGiK ULDK (GetParcelByIdOrNr / GetParcelByXY) | `ParcelRef` | `connectors/uldk.py` |
-| `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) | `WeatherHistory` | `connectors/weather.py` |
+| `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) + walidacja opadu najbliższą stacją synoptyczną IMGW (`station_check`) | `WeatherHistory` | `connectors/weather.py`, `connectors/imgw.py` |
 | `weather_forecast` | A | ✅ | Open-Meteo Forecast (tylko gdy data ≈ dziś) | `WeatherForecast` | `connectors/weather.py` |
-| `drought` | A | ⬜ | SMSR IUNG (gmina, uprawa, gleba) + EDO WMS (CDI/SMA, TIME) + lata suszy z KBW | `DroughtHistory` | `stubs.py` |
-| `soil` | A | ⬜ | Mapa glebowo-rolnicza WMS + podatność gleb na suszę WMS (IUNG) → SoilGrids | `SoilInfo` | `stubs.py` |
-| `terrain` | A | ⬜ | NMT GUGiK 1 m WCS → spadek, TPI (górka/dołek), zagłębienia, linie spływu, TWI | `TerrainInfo` | `stubs.py` |
-| `hydrology` | A | ⬜ | MPHP/BDOT10k cieki, ISOK strefy powodziowe, PIG CBDH otwory, MHP, GZWP | `HydrologyInfo` | `stubs.py` |
-| `vegetation` | A | ⬜ | Sentinel-2 L2A, Earth Search STAC (bez konta), NDVI/NDMI, 10 lat | `VegetationInfo` | `stubs.py` |
-| `land_cover` | A | ⬜ | ESA WorldCover 10 m COG → BDOT10k/EGiB | `LandCoverInfo` | `stubs.py` |
-| `yields` | A | ⬜ | GUS BDL (powiat/województwo) + proxy NDVI per działka | `YieldInfo` | `stubs.py` |
-| `protected_areas` | A | ⬜ | GDOŚ WMS/WFS (Natura 2000, rezerwaty, parki, OChK) | `ProtectedAreasInfo` | `stubs.py` |
+| `drought` | A | ✅ | SMSR IUNG tabele gmin `/wykazy/{rok},{TERYT}/` (2020+) + KBW działki wg progów rozp. MRiRW (10 lat) + EDO CDI/SMA (kolor piksela GetMap, TIME) | `DroughtHistory` | `connectors/drought.py`, `science/smsr.py` |
+| `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
+| `terrain` | A | ✅ | NMT GUGiK (usługa GetHByPointList, siatka 8–20 m, bbox+300 m; WCS wisi) → spadek, TPI, Priority-Flood, D8, TWI | `TerrainInfo` | `connectors/terrain.py`, `science/terrain.py` |
+| `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
+| `vegetation` | A | ✅ | Sentinel-2 L2A – Microsoft Planetary Computer: STAC + Data API `item/statistics` (NDVI/NDMI liczone na serwerze dla granic działki, maska SCL, korekta BOA); ≤1 scena/mies. IV–X × 10 lat, cache na stałe | `VegetationInfo` | `connectors/vegetation.py` |
+| `land_cover` | A | ✅ | ESA WorldCover 2021 (Planetary Computer, histogram kategorialny dla działki) + BDOT10k (PIG, gdy pokrywa ≥80% działki – kopia niekompletna) | `LandCoverInfo` | `connectors/land_cover.py` |
+| `yields` | A | ✅ | GUS BDL plony z 1 ha (**tylko województwo + Polska** – powiatów w BDL brak) + indeks szczytowego NDVI działki (z `vegetation`) | `YieldInfo` | `connectors/yields.py` |
+| `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ⬜ | `crops.yaml` + data analizy (okres wegetacji, fazy Kc, ostrzeżenia siewu) | `CropCalendarInfo` | `blocks.py` |
 | `legal_context` | B | ⬜ | `legal_pl`, `procedures`, `measures`, `funding` + fakty z hydrology, protected_areas, terrain | `LegalContextInfo` | `blocks.py` |
 
@@ -132,15 +132,20 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - ULDK `https://uldk.gugik.gov.pl/`. Pierwsza linia odpowiedzi: GetParcelByXY → `0` = OK; GetParcelByIdOrNr → liczba wyników; `-1 …` = błąd.
 - **Open-Meteo archive: HTTP 429 „Daily API request limit exceeded”.** Na hackathonie wszyscy dzielą jedno IP, dlatego zawsze potrzebny jest fallback.
 - NASA POWER `https://power.larc.nasa.gov/api/temporal/daily/point` (community=AG; Rs w MJ/m²/d) ✅
-- Earth Search `https://earth-search.aws.element84.com/v1` ✅ · IMGW `https://danepubliczne.imgw.pl/api/data/synop` ✅ (API nie podaje współrzędnych stacji)
+- IMGW archiwum dobowe synop `https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/synop/{rok}/{rok}_{kod3}_s.zip` ✅ (rok bieżący: `{rok}_{mm}_s.zip`; max 3 równoległe pobrania, inaczej serwer dławi); współrzędne stacji z `api/data/meteo` → `data/imgw/synop_stations.json` (`scripts/build_imgw_stations.py`)
+- Earth Search `https://earth-search.aws.element84.com/v1` ✅ STAC, ale COG z S3 us-west-2 ~21 KB/s na łączu hackathonu (kafel 1,5 MB = 70 s) → **Planetary Computer** `https://planetarycomputer.microsoft.com/api/{stac/v1/search,data/v1/item/statistics}` ✅ ~0,5 s/scenę · rasterio 1.5.2 (GDAL 3.12) nie dekoduje kafli COG S2 (TIFFReadEncodedTile) – 1.4.3 tak · IMGW `https://danepubliczne.imgw.pl/api/data/synop` ✅ (API nie podaje współrzędnych stacji)
 - GUS BDL `https://bdl.stat.gov.pl/api/v1` ✅ · SoilGrids `https://rest.isric.org/soilgrids/v2.0/properties/query` ✅
-- NMT WCS `https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF` ✅
+- NMT WCS `https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF` ⚠️ GetCapabilities OK, GetCoverage wisi (>60 s) → używamy `https://services.gugik.gov.pl/nmt/?request=GetHByPointList` (POST, ≤1000 pkt/żądanie) ✅
 - Mapa glebowa WMS `https://mapy.geoportal.gov.pl/wss/service/pub/guest/MapaGlebowoRolnicza/MapServer/WMSServer` ✅
 - EDO WMS `https://drought.emergency.copernicus.eu/api/wms` ✅ · ISOK `https://wody.isok.gov.pl/wss/INSPIRE/INSPIRE_NZ_HY_MZPMRP_WMS` ✅
 - PIG CBDH WFS `https://cbdgmapa.pgi.gov.pl/arcgis/services/hydrogeologia/cbdh_otwory/MapServer/WFSServer` ✅ · GDOŚ `https://sdi.gdos.gov.pl/wms` ✅
 - ESA WorldCover COG na S3 ✅ · działki parquet `https://opendata.geoportal.gov.pl/InneDane/latest_exports/eziudp_wfs/PARQUET/0_dzialki.parquet` ✅
-- MPHP `wody.isok.gov.pl/gpservices/KZGW/MPHP10_Cieki/...` ❌ 401: szukać innego URL albo użyć BDOT10k.
-- `susza.iung.pulawy.pl` ✅ (HTML; oficjalnego API brak, endpointy XHR trzeba zbadać).
+- MPHP `wody.isok.gov.pl/gpservices/KZGW/MPHP10_Cieki/...` ❌ 401 (całe `gpservices` i `wss/INSPIRE/INSPIRE_AM*/HY*` = 401) → BDOT10k z `https://cbdgmapa.pgi.gov.pl/arcgis/rest/services/mapa_topo/bdot_10k/MapServer` (warstwy 30–34) ✅
+- PIG ArcGIS REST `https://cbdgmapa.pgi.gov.pl/arcgis/rest/services/hydrogeologia/{cbdh_otwory,gzwp,jcwpd,podtopienia}` ✅; MHP (`/mhp`) ❌ „Token Required”
+- ISOK MZP: styl domyślny = same obrysy → GetMap z `SLD_BODY` (wypełnienie wg `loo_ql_returnperiod`) ✅ 0,4 s; GetFeatureInfo 3–10 s
+- GDOŚ WFS `https://sdi.gdos.gov.pl/wfs` ✅ (CQL_FILTER: współrzędne 2180 w kolejności N E!)
+- IUNG GeoServer `https://sgeo.iung.pl/geoserver/wms` warstwa `Susza:katgl_landuse2024` (kategorie gleb SMSR, GetFeatureInfo JSON) ✅
+- `susza.iung.pulawy.pl` ✅ (HTML, brak API): tabele gmin `https://susza.iung.pulawy.pl/wykazy/{rok},{TERYT7}/` (rok ≥ 2020; TERYT gminy, np. 3025043) – parsujemy; EDO WMS nie ma GetFeatureInfo → klasa z palety GetMap
 
 ## 5. Zasady wspólne (obowiązkowe)
 
@@ -213,7 +218,7 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 - Mapa glebowa ma luki (np. podkarpackie). Wtedy fallback na SoilGrids z oznaczeniem `SZACUNEK`.
 - Usługi WMS/WFS w EPSG:2180 mają oś X/Y zależną od wersji (WMS 1.3.0). Testować na znanym punkcie.
 - NASA POWER ma siatkę ~50 km: to zawsze trzeba pokazać w `uncertainty`.
-- Plonów per pole nie ma w danych publicznych. Pokazujemy GUS (powiat) + proxy NDVI i mówimy to wprost.
+- Plonów per pole nie ma w danych publicznych, a GUS BDL ma plony tylko dla województw i kraju (nie powiatów). Pokazujemy GUS (województwo + Polska) + proxy NDVI i mówimy to wprost.
 
 ## 11. Zależności i licencje (aktualizuj przy każdej nowej)
 
@@ -225,6 +230,8 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | shapely | BSD-3 | backend |
 | pyproj | MIT | backend |
 | numpy | BSD-3 | backend |
+| scipy | BSD-3 | backend (terrain) |
+| rasterio (+ GDAL w kole binarnym: MIT/X) | BSD-3 | backend (terrain, vegetation, land_cover) |
 | diskcache | Apache-2.0 | backend |
 | PyYAML | MIT | backend |
 | pypdf (skrypt) | BSD-3 | scripts |
@@ -238,8 +245,13 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | Open-Meteo | CC BY 4.0; darmowe API do użytku niekomercyjnego |
 | NASA POWER | domena publiczna |
 | Copernicus Sentinel / EDO | darmowe, wymagane przypisanie |
+| Microsoft Planetary Computer (STAC, Data API) | usługa bezpłatna bez klucza; dane Sentinel-2 na licencji Copernicus |
+| IUNG-PIB (SMSR, kategorie gleb) | informacja publiczna, z podaniem źródła |
+| PIG-PIB (CBDH, GZWP, JCWPd, BDOT10k kopia) | dane publiczne, z podaniem źródła |
+| GDOŚ (CRFOP), PGW Wody Polskie (ISOK MZP) | dane publiczne, z podaniem źródła |
 | SoilGrids, ESA WorldCover | CC BY 4.0 |
 | GUS BDL | otwarte dane |
+| IMGW-PIB (dane dobowe synop) | dane publiczne, wymagane podanie źródła IMGW-PIB |
 | OSM | ODbL (podkład mapy) |
 
 ## 12. README dla jury: 9 obowiązkowych punktów (pkt 4.2 zadania)
@@ -258,17 +270,36 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `WeatherHistory` +`station_check` (opcjonalne); `types.ts` `WeatherHistory.station_check?`.
+- 2026-11-21 · A · `types.ts` +`YieldRecord`, `YieldInfo` (bez zmian w models.py).
+- 2026-11-21 · A · `LandCoverInfo` +`cropland_share_pct`, `bdot_classes`; `types.ts` +`LandCoverInfo`.
+- 2026-11-21 · A · `types.ts` +`VegetationObs`, `VegetationInfo` (bez zmian w models.py).
+- 2026-11-21 · A · `DroughtHistory` +`drought_years_smsr`, `drought_years_computed`, `crop_group`, `soil_category`, `commune_teryt`, `commune_name`, `periods`; `types.ts` +`DroughtIndex`, `DroughtHistory`.
+- 2026-11-21 · A · `HydrologyInfo` +`in_flood_hazard_area`, `in_groundwater_flood_area`, `jcwpd_code`; `ProtectedAreaHit` +`distance_m`; `ProtectedAreasInfo` +`nearby`; `types.ts` +`TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedAreas*`.
+- 2026-11-21 · A · `SoilInfo` +`drought_category`, `drought_category_shares_pct`, `agri_complex_code`, `agri_complex_shares_pct`, `texture_profile`, `samples` (opcjonalne); `types.ts` +`SoilInfo`.
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
 
 ## 14. Prośby między zespołami
 
 *(format: `- [A→B] data · opis · status`)*
 
-- [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
-- [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · otwarte
+- [A→B] 2026-11-21 · Progi KBW SMSR przeniesione do **osobnego pliku** `data/knowledge/crops/smsr_thresholds.yaml` (generowany `scripts/build_smsr_thresholds.py` z `raw/smsr_progi_www.txt`; 14 grup × kat. I–IV × 14 okresów). Nie ruszałem `crops.yaml` – pole `smsr_cwb_thresholds_mm` można usunąć albo wskazać ten plik; `smsr_group` w crops.yaml jest używane przez `drought` (grupa „łąki i pastwiska (S2MUR)” nie ma progów w SMSR) · do wiadomości B
+- [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte – A dopisał własne 8 działek z 7 województw w `docs/test_parcels_data.md` (możesz przenieść do `test_parcels.md`)
+- [A→B] 2026-11-21 · Mocki: `fixtures.ts` ma `realSamples` (prawdziwe, skrócone bloki A dla Środy Wlkp. 2024-07-15) i `mockBlock()` je zwraca; bloki A oznaczone `implemented: true`. Nowe pola opcjonalne opisane w §13 · do wiadomości B
+- [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · **dostarczone (A, 2026-11-21)** – uwaga: `groundwater_depth_m` zawsze `null` (MHP wymaga tokena PIG); zamiast tego są `in_groundwater_flood_area`, `nearest_boreholes[].depth_m`, `gzwp`. Dodatkowo `in_flood_hazard_area` (bool), `protected_areas.nearby` (≤1 km), `hits[].distance_m`.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · fix `drought`: parser SMSR mylił „Kategoria gleby IV” z „I” (cache SMSR v2); ruff --fix.
+- 2026-11-21 · A · pełny profil 9,4–11,6 s z pustym cache, ~1 ms z cache (3 działki); `docs/data_sources.md` uzupełnione; mocki = prawdziwe próbki.
+- 2026-11-21 · A · `weather_history`: walidacja opadu stacją IMGW (katalog 59 stacji synop w `data/imgw/`); NASA POWER zawyża opad IV–IX o ~8–21% vs stacje.
+- 2026-11-21 · A · `yields` ✅ (GUS BDL województwo/Polska + indeks NDVI); `stubs.py` usunięty – wszystkie bloki A zaimplementowane.
+- 2026-11-21 · A · `land_cover` ✅: WorldCover przez PC (0,4–1 s), BDOT10k jako uzupełnienie.
+- 2026-11-21 · A · `vegetation` ✅: Planetary Computer (statystyki serwerowe), 10 lat w ~5 s z pustym cache; Earth Search COG za wolne na łączu hackathonu.
+- 2026-11-21 · A · `drought` ✅: SMSR gmina (2020+) + KBW działki wg progów SMSR + EDO CDI/SMA; progi w `smsr_thresholds.yaml`; ~9 s z pustym cache (w tym weather_history).
+- 2026-11-21 · A · `hydrology` ✅ (0,3–1,6 s) i `protected_areas` ✅ (0,2–0,5 s); pola dla `legal_context` z §14 dostarczone.
+- 2026-11-21 · A · `terrain` ✅: NMT przez GetHByPointList (paczki po 1000 pkt równolegle), Priority-Flood/D8/TPI/TWI w numpy; zagłębienia i linie spływu jako GeoJSON; 2,3–4 s/działkę.
+- 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.
 - 2026-11-21 · baza wiedzy: dokumenty pobrane ręcznie (SMSR, Prawo wodne t.j. 2026, M.P. ze stawkami, wzory, CDR, POLSA 2020, NWRM); opłaty w procedures.yaml zweryfikowane (2026/2027); fetch_knowledge: strony HTML + czyszczenie usuniętych wpisów.
 - 2026-11-21 · baza wiedzy: +12 publikacji IUNG-PIB SiR (monitoring suszy, KBW, retencja glebowa, erozja, satelity) → `data/knowledge/raw/iung_sir*.txt`, `zylowska_kozyra_2025.txt`.
 - 2026-11-21 · fetch_knowledge: obsługa DOCX i plików wrzucanych ręcznie (`manual: true`); 12 dokumentów do pobrania ręcznie dopisanych do sources.yaml.

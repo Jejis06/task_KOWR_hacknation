@@ -63,3 +63,27 @@ async def get_with_retry(url: str, *, params: dict | None = None, attempts: int 
                 await asyncio.sleep(backoff_s * (2**i))
     assert last_exc is not None
     raise last_exc
+
+
+async def post_with_retry(url: str, *, data: dict | None = None, attempts: int = 2, backoff_s: float = 0.6,
+                          timeout_s: float | None = None) -> httpx.Response:
+    """POST (formularz) z ponowieniem na 5xx/błędy transportu. 429 → RateLimited."""
+    client = get_client()
+    last_exc: Exception | None = None
+    for i in range(attempts):
+        try:
+            r = await client.post(url, data=data, timeout=timeout_s or client.timeout)
+            if r.status_code == 429:
+                raise RateLimited(f"429 from {url}")
+            r.raise_for_status()
+            return r
+        except RateLimited:
+            raise
+        except (httpx.TransportError, httpx.HTTPStatusError) as e:
+            last_exc = e
+            if isinstance(e, httpx.HTTPStatusError) and e.response.status_code < 500:
+                raise
+            if i < attempts - 1:
+                await asyncio.sleep(backoff_s * (2**i))
+    assert last_exc is not None
+    raise last_exc

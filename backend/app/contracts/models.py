@@ -114,6 +114,10 @@ class WeatherHistory(BaseModel):
     last_30d_precip_normal_mm: float | None = None
     cwb_60d_mm: float | None = None    # KBW z 60 dni do as_of
     cwb_60d_normal_mm: float | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    # walidacja opadu najbliższą stacją synoptyczną IMGW: {station, distance_km, season_bias_pct,
+    # station_last_30d_precip_mm, mean_abs_season_diff_mm, seasons_apr_sep: [{year, reanalysis_mm, station_mm}]}
+    station_check: dict | None = None
 
 
 class WeatherForecast(BaseModel):
@@ -137,6 +141,14 @@ class DroughtHistory(BaseModel):
     current: list[DroughtIndex]
     history: list[DroughtIndex]        # historyczne epizody (10 lat)
     drought_years: list[int] = Field(default_factory=list)  # lata z suszą w sezonie
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    drought_years_smsr: list[int] = Field(default_factory=list)      # wg oficjalnych tabel SMSR dla gminy (2020+)
+    drought_years_computed: list[int] = Field(default_factory=list)  # wg KBW policzonego dla działki (10 lat)
+    crop_group: str | None = None          # grupa upraw SMSR, np. "zboża ozime"
+    soil_category: int | None = None       # kategoria gleby SMSR 1–4 użyta do progów
+    commune_teryt: str | None = None       # TERYT gminy (7 cyfr) użyty w SMSR
+    commune_name: str | None = None
+    periods: list[dict] = Field(default_factory=list)  # [{year, period 1–14, start, end, drought, source, kbw_mm?, threshold_mm?, commune_area_share_pct?}]
 
 
 class SoilInfo(BaseModel):
@@ -151,6 +163,13 @@ class SoilInfo(BaseModel):
     soc_g_kg: float | None = None      # węgiel organiczny
     awc_mm: float | None = None        # zapas wody dostępnej (TAW) dla 1 m profilu – szacunek
     source_used: str | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    drought_category: int | None = None                 # kategoria podatności na suszę SMSR 1–4 (dominująca)
+    drought_category_shares_pct: dict[str, float] = Field(default_factory=dict)  # "1".."4","organiczne",…
+    agri_complex_code: str | None = None                # kod kompleksu, np. "4", "2z"
+    agri_complex_shares_pct: dict[str, float] = Field(default_factory=dict)
+    texture_profile: list[str] = Field(default_factory=list)  # gatunki gleby od wierzchu w głąb (np. pgm/gl)
+    samples: list[dict] = Field(default_factory=list)    # wyniki z punktów próbkowania (lon, lat, kategoria…)
 
 
 class TerrainInfo(BaseModel):
@@ -186,6 +205,10 @@ class HydrologyInfo(BaseModel):
     gzwp: str | None = None                     # Główny Zbiornik Wód Podziemnych
     nearest_boreholes: list[dict] = Field(default_factory=list)  # CBDH: głębokość, zwierciadło, wydajność
     water_management_board: str | None = None   # właściwy Zarząd Zlewni / Nadzór Wodny Wód Polskich
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    in_flood_hazard_area: bool | None = None    # jakakolwiek część działki w obszarze MZP (nawet gdy scenariusz nieznany)
+    in_groundwater_flood_area: bool | None = None  # obszar zagrożony podtopieniami (PIG-PIB)
+    jcwpd_code: str | None = None               # Jednolita Część Wód Podziemnych (kod UE)
 
 
 class VegetationObs(BaseModel):
@@ -223,17 +246,22 @@ class LandCoverInfo(BaseModel):
     classes: dict[str, float] = Field(default_factory=dict)  # klasa -> udział % działki
     agricultural_share_pct: float | None = None
     source_used: str | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    cropland_share_pct: float | None = None   # tylko grunty orne (WorldCover klasa 40)
+    bdot_classes: dict[str, float] = Field(default_factory=dict)  # BDOT10k: klasa -> udział % działki
 
 
 class ProtectedAreaHit(BaseModel):
     kind: str                          # "Natura 2000 OSO", "Natura 2000 SOO", "rezerwat", "park narodowy", "OChK"...
     name: str | None = None
     code: str | None = None
+    distance_m: float | None = None    # dodane 2026-11-21 (A): 0 = działka w obszarze; None = „w promieniu 1 km”
 
 
 class ProtectedAreasInfo(BaseModel):
     hits: list[ProtectedAreaHit] = Field(default_factory=list)
     checked_layers: list[str] = Field(default_factory=list)
+    nearby: list[ProtectedAreaHit] = Field(default_factory=list)  # dodane 2026-11-21 (A): w promieniu 1 km
 
 
 class CropStage(BaseModel):
