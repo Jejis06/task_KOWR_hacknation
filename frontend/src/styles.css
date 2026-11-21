@@ -1700,3 +1700,13 @@
 @media print {
   .flip:not(.is-flipped) .flip-back, .flip.is-flipped .flip-front { position: static; }
 }
+
+/* źródła przy wskaźnikach w panelu analizy */
+.source-strip { display: grid; gap: 4px; margin: 10px 0 4px; padding: 8px 10px; border-radius: 6px; background: var(--muted);
+  font-size: 12px; color: var(--muted-foreground); }
+.source-item { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 2px 6px; }
+.source-item .fallback-badge { grid-column: 2; justify-self: start; }
+.source-item svg { margin-top: 3px; }
+.source-item a { color: var(--foreground); text-decoration: underline; text-underline-offset: 2px; }
+.fallback-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: var(--warning);
+  border: 1px solid var(--warning); border-radius: 999px; padding: 1px 7px; background: var(--warning-soft); }
