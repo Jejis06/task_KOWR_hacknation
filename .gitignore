@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+# Node
+node_modules/
+frontend/dist/
+# dane runtime
+data/cache/*
+!data/cache/.gitkeep
+# duże PDF-y odtwarzane przez scripts/fetch_knowledge.py (w repo zostają .txt + manifest.json)
+data/knowledge/raw/*.pdf
+# lokalne
+.env
+.DS_Store

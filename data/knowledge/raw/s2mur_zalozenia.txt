@@ -1,0 +1,2530 @@
+OPIS ZAŁOŻEŃ PROJEKTU INFORMATYCZNEGO
+Tytuł projektu System Satelitarnego Monitorowania Upraw Rolnych (S2MUR) – 
+Etap 1
+Wnioskodawca Minister Rolnictwa i Rozwoju Wsi
+Beneficjent Krajowy Ośrodek Wsparcia Rolnictwa
+Partnerzy
+Źródło finansowania Budżet państwa - część 33 – Rolnictwo i rozwój wsi
+Całkowity koszt projektu 38 730 748,28 zł
+Planowany okres 
+realizacji projektu
+12-2020 do 12-2026
+Osoba kontaktowa Łukasz Kaliński lukasz.kalinski@kowr.gov.pl 223767130
+1. POWODY PODJĘCIA PROJEKTU
+1.1. Identyfikacja problemu i potrzeb
+Celem projektu jest zwiększenie dostępności strategicznych informacji przestrzennych oraz 
+poprawa efektywności ich wykorzystania w rolnictwie, szczególnie w zakresie poprawy 
+dokładności szacowania strat suszowych przy jednoczesnym rozszerzeniu zakresu upraw 
+objętych monitoringiem o dodatkowe 11 gatunki/formy. Kluczowe produkty projektu zostały 
+wymienione w pkt. 2.4. Głównym produktem projektu będzie system informatyczny S2MUR, 
+którego komponenty zostały opisane w pkt. 7.2. System S2MUR zostanie w ramach projektu 
+zintegrowany z Portalem Rolnika (ARiMR) oraz zarządzanym przez IUNG-PIB, Systemem 
+Monitorowania Suszy Rolniczej (SMSR). SMSR zostanie w ramach projektu zmodyfikowany. 
+S2MUR zostanie zintegrowany z zewnętrznymi źródłami danych. Na potrzeby rolników, doradców 
+rolniczych, reprezentantów prawnych rolników oraz Komisji ds. szacowania strat rolniczych 
+zostanie udostępniony Geoserwis suszowy. Projekt odpowiada na obecne problemy i potrzeby 
+interesariuszy poprzez: (a) zwiększenie dokładności szacowania strat związanych z suszą w 
+skali działek rolnych co istotnie ułatwi MRiRW szacowanie realnych kosztów wsparcia 
+bezpośredniego rolników z budżetu państwa, (b) zwiększenie liczby gatunków roślin objętych 
+monitoringiem suszy rolniczej, w tym biomasy łąk i pastwisk - ponieważ obecnie SMSR generuje 
+wyniki głównie dla grup roślinnych a w Aplikacji suszowej rolnicy deklarują gatunki (jare / ozime), 
+(c) wdrożenie efektywnych technologii teledetekcyjnych do SMSR, (d) zmniejszenie 
+potencjalnych kosztów bezpośrednich związanych z pracami komisji do spraw szacowania 
+szkód spowodowanych suszą; (e) udostępnienie informacji rolnikom – w postaci czytelnych e-
+narzędzi profilowanych dla tej grupy użytkowników, co poza aspektem edukacyjnym podniesie 
+również zrozumienie sposobu szacowania strat suszowych.
+Interesariusz Zidentyfikowany problem Szacowana 
+wielkość grupy
+Ministerstwo 
+Rolnictwa i Rozwoju 
+Wsi (MRiRW)
+1. Zbyt mała dokładność szacowania strat 
+potencjalnych i rzeczywistych w plonach na 
+skutek oddziaływania suszy. 2. Zbyt mała 
+liczba monitorowanych gatunków roślin 
+(zarówno w formie ozimej jak i jarej) pod 
+kątem skutków oddziaływania suszy.
+1
+Interesariusz Zidentyfikowany problem Szacowana 
+wielkość grupy
+Agencja 
+Restrukturyzacji i 
+Modernizacji 
+Rolnictwa (ARiMR)
+1. Brak dostępności danych związanych z 
+monitoringiem suszy dla użytkowników 
+systemów ARiMR.
+1
+Rolnicy 1. Brak dostępności profilowanej dla rolników 
+informacji dot. metod monitorowania suszy. 2. 
+Brak szczegółowych informacji 
+przestrzennych opisujących skutki niedoboru 
+wody na wzrost i rozwój upraw.
+1200000
+Komisje ds. 
+szacowania strat 
+rolniczych
+1. Brak dedykowanych narzędzi wsparcia 
+prowadzonej oceny strat plonów 
+powodowanych suszą.
+1500
+Reprezentanci prawni 
+rolników (Izby rolne, 
+związki producentów)
+1. Brak publicznych narzędzi ogólnej /
+regionalnej/ oceny strat związanych z suszą. 
+2. Brak publicznych szczegółowych informacji 
+umożliwiających dyskusje między 
+wskazanymi interesariuszami (MRiRW – 
+rolnicy- reprezentanci prawni rolników).
+1500
+Doradcy rolniczy 1. Brak dostępności profilowanej dla 
+doradców informacji dot. metod 
+monitorowania suszy. 2. Brak szczegółowych 
+informacji przestrzennych opisujących skutki 
+niedoboru wody na wzrost i rozwój upraw.
+3500
+Instytut Uprawy 
+Nawożenia i 
+Gleboznawstwa – 
+Państwowy Instytut 
+Badawczy (IUNG-PIB)
+1. Potrzeba aktualizacji Systemu Monitoringu 
+Suszy rolniczej, związana z: (i) postępującymi 
+zmianami klimatu powodującymi częstsze i 
+dłużej trwające susze, oraz powodujące inne 
+gwałtowne zjawiska pogodowe, mające 
+bezpośrednio negatywny wpływ na produkcję 
+rolną; (ii) postępem technologicznym i 
+koniecznością aktualizacji obecnie 
+funkcjonującego systemu monitorowania 
+suszy rolniczej (SMSR); (iii) zbyt małą 
+dokładnością szacowania strat suszowych dla 
+łąk i pastwisk, (iv) koniecznością rozszerzenia 
+liczby gatunków roślin objętych przez SMSR, 
+(v) brakiem aktualnych i kompleksowych 
+badań w zakresie: a) potrzeb wodnych nowych 
+odmian roślin uprawnych, b) synergii 
+kluczowych procesów wpływających na 
+kondycję upraw; (vi) brakiem zrozumienia 
+przez producentów rolnych procesu oceny 
+strat spowodowanych suszą. Brak optymalnej 
+integracji prowadzonych w Instytucie 
+systemów – m.in. Systemu Monitoringu Zalań 
+i Podtopień TUZ. 2. Potrzeba aktualizacji 
+mapy podatności gleb na suszę poprzez 
+wykorzystanie informacji satelitarnej, 
+spowodowana koniecznością dokładniejszego 
+1
+Interesariusz Zidentyfikowany problem Szacowana 
+wielkość grupy
+szacowania strat w granicach działek rolnych.
+Krajowy Ośrodek 
+Wsparcia Rolnictwa 
+(KOWR)
+1. Zbyt mała dokładność szacowania strat 
+potencjalnych i rzeczywistych w plonach na 
+skutek oddziaływania suszy – dotyczy 
+gruntów wchodzących w skład Zasobu 
+Własności Rolnej Skarbu Państwa (ZWRSP). 
+2. Zbyt mała liczba monitorowanych 
+gatunków roślin (zarówno w formie ozimej jak 
+i jarej) pod kątem skutków oddziaływania 
+suszy - dotyczy gruntów wchodzących w skład 
+ZWRSP.
+1
+1.2. Opis stanu obecnego
+Susza w polskim rolnictwie nie jest zjawiskiem nowym. O ile jeszcze niedawno susze o dużym 
+nasileniu występowały co kilka lat, to w ostatnim czasie obserwuje się je już niemal co roku. 
+Efektem są straty plonów a tym samym konieczna stała się pomoc państwa dla 
+poszkodowanych rolników. W 2015 r. wyniosła ona około 500 mln zł, w 2018 r. przekroczyła 1,5 
+mld zł i utrzymuje się na wysokim poziomie prawie każdego roku. W Polsce monitoring suszy 
+prowadzony jest na zlecenie MRiRW, w IUNG-PIB. Opiera się on na ustawie o ubezpieczeniach 
+upraw rolnych i zwierząt gospodarskich (Dz.U. 2025 poz. 251). Od 2007 roku IUNG-PIB rozwija 
+System Monitorowania Suszy, który ma za zadanie wskazać obszary, na których wystąpiły straty 
+spowodowane suszą w uprawach uwzględnionych w w/w ustawie. W 2020 r. rozporządzeniem 
+RM (poz. 1009), wprowadzono tzw. Aplikację Suszową, w której producent rolny ma możliwość 
+złożenia wniosku o pomoc publiczną. SMSR został włączony w Aplikację suszową poprzez 
+udostępniony interfejs API, który umożliwia pozyskiwanie danych o stracie plonów 
+spowodowanych suszą dla każdej wskazanej przez ARiMR działki. Aplikacja suszowa od 2020 
+roku wyeliminowała potrzebę powoływania przez wojewodów tzw. komisji suszowych 
+szacujących straty bezpośrednio w polu. Jednak ze względu na liczne protesty rolników, MRiRW 
+od 2024 roku dopuszcza powoływanie komisji w regionach o szczególnym zagrożeniu suszą. 
+Tego typu działania stanowią jednak powrót do metod tradycyjnych, które również są 
+kontrowersyjne co do rzetelności szacowania strat. W związku z powyższym MRiRW zgłosiło 
+szereg propozycji zmian w działaniu systemu SMSR, mających na celu podniesienie jego 
+efektywności. W tym celu KOWR zawarł umowę z IUNG-PIB powierzając Instytutowi budowę 
+systemu S2MUR. W 2024 ARiMR rozpoczął realizację projektu Portal Rolnika. Uzgodniono, że 
+S2MUR będzie jednym ze źródeł zasilających Portal Rolnika danymi poprzez opracowany 
+interfejs API.
+2. EFEKTY PROJEKTU
+2.1. Cele i korzysci wynikające z projektu
+Cel - 1 Zwiększenie dokładności i zakresu monitorowania strat związanych z suszą – 
+na potrzeby realizacji wsparcia bezpośredniego poszkodowanych 
+producentów rolnych, koordynowanego przez MRiRW a realizowanego przez 
+ARiMR.
+Cel Cel projektu wpisuje się w Strategię na rzecz Odpowiedzialnego Rozwoju do 
+strategiczny roku 2020 z perspektywą do 2030 r. (SOR): obszar: e-Państwo; kierunek 
+interwencji: Budowa i rozwój e-administracji – orientacja administracji 
+państwa na usługi cyfrowe. Cel projektu wpisuje się również w: Strategię 
+Zrównoważonego Rozwoju Wsi, Rolnictwa i Rybactwa 2030: Cel główny: 
+„Wielofunkcyjny rozwój gospodarczy wsi zapewniający bezpieczeństwo 
+żywnościowe kraju i zwiększenie wartości dodanej z rolnictwa oraz trwały 
+wzrost dochodów jej mieszkańców przy minimalizacji rozwarstwienia 
+ekonomicznego, społecznego i terytorialnego oraz poprawie stanu środowiska 
+naturalnego”; Cel szczegółowy I: „Wzmocnienie bezpieczeństwa 
+żywnościowego i odporności na kryzysy”; Kierunek interwencji I.2: „Budowa 
+odporności produkcji rolnej i rybackiej, w tym odporności na zmiany klimatu”, 
+Plan Strategiczny dla Wspólnej Polityki Rolnej (PS dla WPR) na lata 
+2023-2027. Strategie interwencji: SO4 Przyczynianie się do łagodzenia zmiany 
+klimatu i przystosowywania się do niej, w tym poprzez redukcję emisji gazów 
+cieplarnianych i zwiększenie sekwestracji węgla, a także promowanie 
+zrównoważonej energii; SO5 Wspieranie zrównoważonego rozwoju i 
+efektywnego zarządzania zasobami naturalnymi, takimi jak woda, gleba i 
+powietrze, w tym poprzez ograniczenie uzależnienia od produktów 
+chemicznych.
+Korzyść: 1. Wzrost świadomości producentów rolnych poprzez dostęp do informacji 
+sprofilowanej dla tej grupy użytkowników, a dotyczącej funkcjonalności 
+Aplikacji Suszowej. 2. Obniżenie kosztów w procesie szacowania strat 
+wynikających z suszy rolniczej. 3. Zwiększenie dokładności przestrzennej 
+szacowania strat związanych z suszą –będzie miało wpływ na bardziej 
+obiektywną dystrybucję pomocy poszkodowanym przez suszę rolnikom. 4. 
+Zwiększenie zakresu czasowego szacowania strat związanych z suszą – 
+będzie miało wpływ na: a) precyzyjne odróżnienie strat związanych z suszą od 
+strat spowodowanych przez inne czynniki atmosferyczne; b) uwzględnienie 
+wpływu suszy występującej w terminach obecnie nie objętych monitoringiem. 
+5. Zwiększenie liczby monitorowanych gatunków na gruntach rolnych – 
+będzie miało wpływ na bardziej precyzyjne szacowanie straty w 
+monitorowanej uprawie w skali działki rolnej. Założono, że z obecnie 
+monitorowanych 14 pozycji: 8 gatunków (kukurydza ziarno, kukurydza 
+kiszonka, rzepak i rzepik, ziemniak, burak cukrowy, chmiel, tytoń, truskawki) i 6 
+grup (zboża ozime, zboża jare,
+warzywa gruntowe, krzewy owocowe, drzewa owocowe, rośliny strączkowe) – 
+monitoring zostanie rozszerzony na następujące gatunki i formy (ozime/jare): 
+jęczmień jary, jęczmień ozimy, pszenica jara, pszenica ozima, pszenżyto jare, 
+pszenżyto ozime, żyto ozime, groch, lucerna, słonecznik, soja. Finalnie, po 
+zrealizowaniu projektu S2MUR – system SMSR będzie mógł rozszerzyć 
+monitoring na 19 gatunków/form oraz dotychczasowe 6 grup – łącznie 
+raportowane będzie 25 pozycji, dla których określone zostaną zależności 
+między klimatycznym bilansem wodnym a potencjalną stratą plonów (obecnie 
+jest to 14 przypadków. 6. Zwiększenie liczby monitorowanych form 
+użytkowania gruntów – zgodnie z obowiązującą legislacją, możliwość 
+otrzymania wsparcia otrzymują gospodarstwa w których ogólna strata w 
+przychodach przekroczyła 30% w stosunku do przychodów z wcześniejszych 
+lat – w związku z tym SMSR musi obejmować wszystkie użytki rolne, w tym 
+łąki i pastwiska. 7. Zwiększenie wiarygodności procesu szacowania strat 
+wynikających z suszy rolniczej.
+KPI: KPI 1. Zmniejszenie minimalnej wyróżnialnej powierzchni (m2) poligonów na 
+mapie kategorii podatności gleb na suszę.
+KPI 2. Wydłużenie okresu prowadzenia monitoringu upraw (dni).
+KPI 3. Zwiększenie liczby monitorowanych gatunków / form w zakresie strat 
+suszowych.
+KPI 4. Zwiększenie liczby monitorowanych form rolniczego użytkowania 
+gruntów.
+KPI 5. Zwiększenie liczby udostępnionych e-usług za pośrednictwem 
+interfejsu API, w skali działki rolnej, w zakresie:
+a. udostępniania danych meteorologicznych, glebowych i agrotechnicznych
+b. udostępnienia informacji o suszy
+KPI 6. Zwiększenie liczby uruchomionych systemów teleinformatycznych.
+KPI 7. Zwiększenie liczby zmodyfikowanych systemów teleinformatycznych.
+Wartość 
+aktualna i 
+docelowa 
+KPI:
+KPI 1: 5 000
+KPI 2: 132
+KPI 3: 8
+KPI 4: 1
+KPI 5: 0
+KPI 6: 0
+KPI 7: 0
+KPI 1: 100
+KPI 2: 365
+KPI 3: 19
+KPI 4: 3
+KPI 5: 2
+KPI 6: 1
+KPI 7: 1
+Metoda 
+pomiaru KPI
+KPI 1: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 2: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR
+częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 3: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 4: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 5: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 6: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+KPI 7: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR częstotliwość pomiaru: jednorazowo, 31 października 2026 r.
+Cel - 2 Zwiększenie dostępności strategicznych informacji przestrzennych 
+związanych z produkcją roślinną w skali działki rolnej (w Portalu Rolnika oraz 
+Geoserwisie suszowym).
+Cel 
+strategiczny
+Cel projektu wpisuje się w Strategię na rzecz Odpowiedzialnego Rozwoju do 
+roku 2020 z perspektywą do 2030 r. (SOR): obszar: e-Państwo; kierunek 
+interwencji: Budowa i rozwój e administracji – orientacja administracji 
+państwa na usługi cyfrowe. Cel projektu wpisuje się również w: a) Strategię 
+Zrównoważonego Rozwoju Wsi, Rolnictwa i Rybactwa 2030: Cel główny: 
+„Wielofunkcyjny rozwój gospodarczy wsi zapewniający bezpieczeństwo 
+żywnościowe kraju i zwiększenie wartości dodanej z rolnictwa oraz trwały 
+wzrost dochodów jej mieszkańców przy minimalizacji rozwarstwienia 
+ekonomicznego, społecznego i terytorialnego oraz poprawie stanu środowiska 
+naturalnego”; Cel szczegółowy I: „Wzmocnienie bezpieczeństwa 
+żywnościowego i odporności na kryzysy”; Kierunek interwencji I.2: „Budowa 
+odporności produkcji rolnej i rybackiej, w tym odporności na zmiany klimatu”; 
+b) Plan Strategiczny dla Wspólnej Polityki Rolnej (PS dla WPR) na lata 
+2023-2027. Strategie interwencji: SO4 Przyczynianie się do łagodzenia zmiany 
+klimatu i przystosowywania się do niej, w tym poprzez redukcję emisji gazów 
+cieplarnianych i zwiększenie sekwestracji węgla, a także promowanie 
+zrównoważonej energii; SO5 Wspieranie zrównoważonego rozwoju i 
+efektywnego zarządzania zasobami naturalnymi, takimi jak woda, gleba i 
+powietrze, w tym poprzez ograniczenie uzależnienia od produktów 
+chemicznych.
+Korzyść: 1. Wzrost świadomości rolników z zakresu wpływu warunków 
+agrometeorologicznych na uprawy w ich gospodarstwie. 2. Wzrost 
+efektywności zarządzania gospodarstwem - poprzez nieodpłatne 
+udostępnienie rolnikom nowych narzędzi geomatycznych do wdrażania 
+praktyk ograniczających skutki suszy rolniczej. 3. Wzrost świadomości 
+sytuacyjnej (polowej) producentów rolnych poprzez możliwość całorocznego 
+monitoringu upraw i zróżnicowania ich kondycji w granicach działek rolnych. 
+4. Nieodpłatne udostępnienie rolnikom nowego zasobu danych, tj. 
+zaktualizowanej mapy kategorii podatności gleb na suszę – co umożliwi 
+prawidłowe wdrażanie kodeksu dobrych praktyk rolniczych w zakresie 
+gospodarowania wodą oraz zapobiegania stratom suszowym.
+KPI: KPI 1: Zwiększenie liczby monitorowanych działek rolnych.
+KPI 2: Zwiększenie liczby zapytań do S2MUR poprzez interfejs API.
+KPI 3: Zwiększenie liczby źródeł danych dla systemu S2MUR.
+KPI 4: Zwiększenie liczby monitorowanych stref o zbliżonym potencjale 
+produkcji w obrębie działek rolnych. 
+KPI 5: Zwiększenie liczby udostępnionych e-usług za pośrednictwem 
+interfejsu API, w zakresie informacji sytuacji agrometeorologicznej na 
+wskazanym obszarze.
+Wartość 
+aktualna i 
+docelowa 
+KPI:
+KPI 1: 0
+KPI 2: 0
+KPI 3: 0
+KPI 4: 0
+KPI 5: 1
+KPI 1: 5 000 000
+KPI 2: 1 200 000
+KPI 3: 7
+KPI 4: 60 000 000
+KPI 5: 1
+Metoda 
+pomiaru KPI
+KPI 1: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR.; częstotliwość pomiaru: jednorazowo, 31 października 2026 
+r.
+KPI 2: metoda pomiaru: Raport; źródła danych: logi pochodzące z systemu 
+S2MUR z okresu 12 m-cy od dnia 1 listopada 2026 r.; częstotliwość pomiaru: 
+jednorazowo, 31 października 2027 r.
+KPI 3: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR; częstotliwość pomiaru: jednorazowo, 31 października 2026 
+r.
+KPI 4:cmetoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR; częstotliwość pomiaru: jednorazowo, 31 października 2026 
+r.
+KPI 5: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+systemu S2MUR; częstotliwość pomiaru: jednorazowo, 31 października 2026 
+r.
+Cel - 3 Zwiększenie świadomości sytuacyjnej o zasięgu suszy i powodowanych przez 
+nią skutkach w skali regionalnej.
+Cel 
+strategiczny
+Cel projektu wpisuje się w Strategię na rzecz Odpowiedzialnego Rozwoju do 
+roku 2020 z perspektywą do 2030 r. (SOR): obszar: e-Państwo; kierunek 
+interwencji: Budowa i rozwój e-administracji – orientacja administracji 
+państwa na usługi cyfrowe. Cel projektu wpisuje się również w: a) Strategię 
+Zrównoważonego Rozwoju Wsi, Rolnictwa i Rybactwa 2030: Cel główny: 
+„Wielofunkcyjny rozwój gospodarczy wsi zapewniający bezpieczeństwo 
+żywnościowe kraju i zwiększenie wartości dodanej z rolnictwa oraz trwały 
+wzrost dochodów jej mieszkańców przy minimalizacji rozwarstwienia 
+ekonomicznego, społecznego i terytorialnego oraz poprawie stanu środowiska 
+naturalnego”; Cel szczegółowy I: „Wzmocnienie bezpieczeństwa 
+żywnościowego i odporności na kryzysy”; Kierunek interwencji I.2: „Budowa 
+odporności produkcji rolnej i rybackiej, w tym odporności na zmiany klimatu”; 
+b) Plan Strategiczny dla Wspólnej Polityki Rolnej (PS dla WPR) na lata 
+2023-2027. Strategie interwencji: SO4 Przyczynianie się do łagodzenia zmiany 
+klimatu i przystosowywania się do niej, w tym poprzez redukcję emisji gazów 
+cieplarnianych i zwiększenie sekwestracji węgla, a także promowanie 
+zrównoważonej energii; SO5 Wspieranie zrównoważonego rozwoju i 
+efektywnego zarządzania zasobami naturalnymi, takimi jak woda, gleba i 
+powietrze, w tym poprzez ograniczenie uzależnienia od produktów 
+chemicznych.
+Korzyść: 1. Zwiększenie dostępu on line dla rolników i producentów rolnych - do 
+informacji z zakresu: a)
+wpływu warunków agrometeorologicznych na uprawy w ich gospodarstwie; b) 
+porównania
+rzeczywistego stanu upraw gospodarstwa z potencjalnym stanem 
+wynikającym z warunków
+meteorologicznych i glebowych; c) oceny zróżnicowania kondycji upraw w 
+regionie. 2. Zwiększenie dostępu on line do informacji agrometeorologicznej i 
+glebowej – gminnym komisjom szacującym straty związane z suszą oraz 
+doradcom rolnym. 3. Wzrost potencjału i kompetencji Instytutów rolniczych w 
+prowadzeniu badań i wdrożeń – poprzez korzystanie z automatyzacji w 
+udostępnianiu danych (interfejsy API).
+KPI: KPI 1: Zwiększenie liczby odsłon map tematycznych w Geoserwisie 
+suszowym.
+KPI 2: Zwiększenie liczby warstw tematycznych udostępnionych w 
+Geoserwisie suszowym.
+Wartość 
+aktualna i 
+docelowa 
+KPI:
+KPI 1: 0
+KPI 2: 0
+KPI 1: 500 000
+KPI 2: 7
+Metoda 
+pomiaru KPI
+KPI 1: metoda pomiaru: Raport; źródła danych: logi pochodzące z systemu 
+S2MUR z okresu 12 m cy od dnia 1 listopada 2026 r.; częstotliwość pomiaru: 
+jednorazowo, 31 października 2027 r.
+KPI 2: metoda pomiaru: Raport; źródła danych: Dokumentacja techniczna 
+Geoserwisu suszowego; częstotliwość pomiaru: jednorazowo, 31 października 
+2026 r.
+2.2. Udostępnione e-usługi
+Lp. Nazwa e-usługi Typ Zakres oddziaływania Poziom 
+dojrzałosci e-
+usługi
+1 Udostępnianie danych 
+meteorologicznych, glebowych i 
+agrotechnicznych w skali wskazanej 
+działki rolnej
+A2A Agencja 
+Restrukturyzacji i 
+Modernizacji Rolnictwa 
+(ARiMR)
+Ministerstwo Rolnictwa 
+i Rozwoju Wsi (MRiRW)
+(rocznie ok 1000000 
+transakcji)
+Jednostronna 
+interakcja
+2 Udostępnienie informacji o suszy, w 
+skali działki rolnej, na potrzeby Portalu 
+Rolnika
+A2A Agencja 
+Restrukturyzacji i 
+Modernizacji Rolnictwa 
+(ARiMR)
+(rocznie ok 1200000 
+transakcji)
+Jednostronna 
+interakcja
+3 Udostępnienie informacji o sytuacji 
+agrometeorologicznej na wskazanym 
+obszarze
+A2A
+A2C
+Rolnicy
+Komisje ds. szacowania 
+strat rolniczych
+(rocznie ok 500000 
+transakcji)
+Informacja
+2.3. Udostępnione informacje sektora publicznego i 
+zdigitalizowane zasoby
+Nie dotyczy
+2.4. Produkty końcowe projektu
+Nazwa produktu Planowana 
+data 
+wdrożenia
+Koncepcja budowy i wdrożenia systemu S2MUR 04-2025
+Raport z inicjalnego testu prywatności 03-2026
+Dokumentacja analityczna i techniczna 08-2026
+Raport z weryfikacyjnych testów prywatności 09-2026
+Modyfikacja systemu SMSR w zakresie:
+- aktualizacja mapy podatności gleby na suszę
+- modułu generowania dziennych map ETP
+- zwiększenia liczby monitorowanych gatunków
+- rozszerzenia monitoringu skutków suszy na TUZ
+09-2026
+Pozytywny raport z badań UX 10-2026
+Pozytywny raport z testów bezpieczeństwa 10-2026
+Nazwa produktu Planowana 
+data 
+wdrożenia
+Pozytywny raport z testów wydajności 10-2026
+System teleinformatyczny S2MUR 10-2026
+Pozytywny raport z testów dostępności cyfrowej 10-2026
+Dokumentacja powykonawcza 10-2026
+Materiały promocyjno-informacyjne 10-2026
+Raport końcowy projektu 12-2026
+3. KAMIENIE MILOWE
+Kamienie milowe Planowany 
+termin 
+osiągnięcia
+KM 1. Podpisana przez KOWR umowa na świadczenie usług doradztwa 
+technicznego w zakresie realizacji projektu
+2021-11-25
+KM 2. Przeprowadzony raport z inicjalnego testu prywatności 2022-02-25
+KM 3. Ogłoszone przez KOWR postępowanie na zakup scen satelitarnych 2022-07-20
+KM 4. Podpisane przez KOWR umowy na zakup scen satelitarnych 2023-01-23
+KM 5. Podpisana przez KOWR umowa na Zaprojektowanie i wykonanie 
+systemu S2MUR
+2023-12-08
+KM 6. Opracowana koncepcja budowy i wdrożenia systemu S2MUR 2025-04-30
+KM 7. Zaktualizowana dokumentacja projektowa S2MUR w zakresie 
+monitorowania suszy rolniczej
+2025-12-31
+KM 8. Odebrana zaktualizowana mapa kategorii podatności gleb na suszę 
+(raster 10m)
+2026-09-30
+KM 9. Zakończone obserwacje in-situ IUNG-PIB dla sezonu 2026. 
+Aktualizacja systemu w oparciu o bazę danych in-situ 2026
+2026-09-30
+KM 10. Uzyskany pozytywny wynik testów bezpieczeństwa 2026-09-30
+KM 11. Uzyskany pozytywny wynik testów wydajności 2026-09-30
+KM 12. Uzyskany pozytywny wynik badań UX 2026-09-30
+KM 13. Uzyskany pozytywny wynik weryfikacyjnego testu prywatności 2026-09-30
+KM 14. Uruchomione środowisko produkcyjne w chmurze 2026-09-30
+KM 15. Uruchomienie usługi API 2026-09-30
+KM 16. Odebrany Geoserwis suszowy 2026-09-30
+KM 17. Ukończona modyfikacja systemu SMSR 2026-09-30
+KM 18. Ukończone wdrożenie systemu S2MUR 2026-10-31
+KM 19. Podpisany protokół odbioru 2026-10-31
+KM 20. Podpisany raport końcowy projektu 2026-12-31
+4. KOSZTY
+4.1. Koszty ogólne projektu wraz ze sposobem finansowania
+Całkowity koszt 
+projektu (netto oraz 
+brutto), w tym
+Netto 31 488 413,24 zł
+Brutto 38 730 748,28 zł
+Procent 
+dofinansowania ze 
+środków UE (brutto)
+Procent środków z 
+budżetu państwa 
+(brutto)
+100%
+Podział całkowitego 
+kosztu projektu na 
+poszczególna lata 
+(netto oraz brutto)
+2021 Netto 165 000,00 zł
+Brutto 202 950,00 zł
+2022 Netto 1 765 714,28 zł
+Brutto 2 171 828,56 zł
+2023 Netto 2 089 396,36 zł
+Brutto 2 569 957,52 zł
+2024 Netto 2 134 127,47 zł
+Brutto 2 624 976,79 zł
+2025 Netto 4 131 648,96 zł
+Brutto 5 081 928,22 zł
+2026 Netto 21 202 526,17 zł
+Brutto 26 079 107,19 zł
+4.2. Wykaz poszczególnych pozycji kosztowych
+Nazwa pozycji kosztowej Przewidywany 
+koszt  brutto
+Uzasadnienie pozycji 
+kosztowej (przeznaczenie)
+Oprogramowanie a) Koncepcja 
+budowy i 
+wdrożenia systemu 
+S2MUR; b) 
+Dokumentacja 
+analityczna i 
+techniczna; c) 
+Modyfikacja 
+systemu SMSR w 
+zakresie: (i) 
+aktualizacja mapy 
+podatności gleby 
+na suszę, (ii) 
+modułu 
+generowania 
+dziennych map 
+ETP, (iii) 
+6 623 761,19 zł IUNG-PIB: 6 623 761,19 zł - 
+realizacja prac badawczo-
+rozwojowych (B+R), w tym: a) 
+opracowanie koncepcji realizacji 
+systemu S2MUR; b) opracowanie 
+dokumentacji analitycznej; c) 
+prace programistyczne związane 
+z wytworzeniem systemu 
+informatycznego S2MUR; d) 
+koszty zatrudnienia ekspertów 
+programistycznych; e) 
+wytworzenie prototypów.
+Nazwa pozycji kosztowej Przewidywany 
+koszt  brutto
+Uzasadnienie pozycji 
+kosztowej (przeznaczenie)
+zwiększenia liczby 
+monitorowanych 
+gatunków, (iv) 
+rozszerzenia 
+monitoringu 
+skutków suszy na 
+TUZ; d) System 
+S2MUR; e) 
+Dokumentacja 
+powykonawcza
+Infrastruktura System S2MUR – 
+usługa dostępu do 
+środowisk 
+chmurowych 
+wymaganych do 
+wytworzenia oraz 
+uruchomienia 
+systemu.
+2 572 119,50 zł IUNG-PIB: 2 572 119,50 zł a) 
+zakup, uruchomienie i utrzymanie 
+usługi dostępu do środowiska 
+chmurowego dla Systemu 
+S2MUR w trakcie trwania 
+projektu; b) opracowanie 
+niezbędnej dokumentacji.
+Koszty UX i grafiki Pozytywny raport z 
+badań UX
+300 000,00 zł IUNG-PIB: 300 000 zł a) analiza 
+potrzeb użytkowników; b) 
+projektowanie makiet i 
+prototypów interfejsu; c) testy 
+użyteczności; d) dostosowanie 
+wyglądu aplikacji do standardów 
+UX.
+Bezpieczeństwo Pozytywny raport z 
+testów 
+bezpieczeństwa. 2. 
+Raport z 
+inicjalnego testu 
+prywatności. 3. 
+Raport z 
+weryfikacyjnych 
+testów prywatności
+550 000,00 zł IUNG-PIB: 550 000 zł testy 
+przełamania zabezpieczeń 
+Systemu S2MUR: specjalistyczne 
+testy penetracyjne i inne działania 
+mające na celu wykrycie 
+potencjalnych słabych punktów 
+Systemu.
+Wydajność 
+rozwiązań
+Pozytywny raport z 
+testów wydajności
+250 000,00 zł IUNG-PIB: 250 000 zł testy 
+systemu S2MUR (wewnętrzne, 
+funkcjonalne),
+Szkolenia
+Działania 
+informacyjno-
+promocyjne
+Materiały 
+informacyjno-
+promocyjne
+240 000,00 zł IUNG-PIB: 140 000 zł a) 
+opracowanie i publikacja 
+materiałów edukacyjnych i 
+promocyjnych; b) organizacja 
+spotkań z interesariuszami 
+projektu; c) publikacje w 
+czasopismach branżowych i 
+naukowych.
+KOWR: 100 000 zł a) wydatki 
+niezbędne do przeprowadzenia 
+działań informacyjnych.
+Nazwa pozycji kosztowej Przewidywany 
+koszt  brutto
+Uzasadnienie pozycji 
+kosztowej (przeznaczenie)
+Koszty zarządzania 
+i wsparcia (w tym 
+wynagrodzenia 
+personelu 
+wspomagającego)
+a) bezpośrednie 
+koszty zarządzania 
+IUNG oraz koszty 
+pośrednie IUNG 
+(25% od kosztów 
+osobowych), b) 
+koszty Doradcy 
+Technicznego, w 
+tym: dokumentacja 
+techniczna na 
+potrzeby zamówień 
+publicznych, 
+analizy, 
+rekomendacje, 
+raporty dotyczące 
+realizowanych prac, 
+analizy potrzeb i 
+wymagań, analizy i 
+konsultacje 
+rynkowe; c) koszty 
+Doradcy Prawnego; 
+d) koszty 
+pozyskiwania 
+danych in-situ w 
+tym prace z 
+zakresu 
+pozyskiwania 
+danych na potrzeby 
+walidacji modeli; e) 
+koszty pozyskania 
+scen satelitarnych.
+28 194 867,59 zł IUNG-PIB: 13 677 691,41 zł
+Wydatki niezbędne do 
+prawidłowej realizacji i 
+rozliczenia projektu, w tym: a) 
+bezpośrednie i pośrednie koszty 
+zarządzania projektem, 
+wynagrodzenia personelu 
+wspierającego; d) koszty 
+pozyskiwania danych in-situ
+KOWR: 14 517 176,18 zł
+Wydatki niezbędne do 
+prawidłowej realizacji i 
+rozliczenia projektu, w tym: b) 
+koszty Doradcy Technicznego; c) 
+koszty Doradcy Prawnego; e) 
+koszty pozyskania scen 
+satelitarnych.
+szczegółowe koszty dla pozycji 
+kosztowej:
+a) 7 073 202,45 zł
+b) 9 189 446,58 zł
+c) 541 200,00 zł
+d) 6 604 488,96 zł
+e) 4 786 529,60 zł
+4.3. Koszty ogólne utrzymania wraz ze sposobem finansowania 
+(okres 5 lat)
+Całkowity koszt 
+utrzymania 
+trwałości projektu 
+(brutto)
+18 115 328,00 zł Źródło finansowania
+Podział całkowitego 
+kosztu utrzymania 
+trwałości projektu 
+na poszczególna 
+lata (netto oraz 
+brutto)
+2027 3 412 105,00 zł (brutto)
+(2 774 069,11 zł netto)
+krajowe środki 
+publiczne - budżet 
+państwa
+2028 3 514 468,00 zł (brutto)
+(2 857 291,06 zł netto)
+krajowe środki 
+publiczne - budżet 
+państwa
+2029 3 619 902,00 zł (brutto)
+(2 943 009,76 zł netto)
+krajowe środki 
+publiczne - budżet 
+państwa
+2030 3 728 499,00 zł (brutto)
+(3 031 300,00 zł netto)
+krajowe środki 
+publiczne - budżet 
+państwa
+2031 3 840 354,00 zł (brutto)
+(3 122 239,02 zł netto)
+krajowe środki 
+publiczne - budżet 
+państwa
+4.4. Planowane koszty ogólne realizacji (w przypadku projektu 
+współfinansowanego – wkład krajowy z budżetu państwa) oraz 
+koszty utrzymania projektu:
+- zostaną pokryte w ramach budżetów odpowiednich dysponentów części budżetowych bez 
+konieczności występowania o dodatkowe środki z budżetu państwa
+- będą powodować konieczność przyznania dodatkowych kwot
+5. GŁÓWNE RYZYKA
+5.1. Ryzyka wpływające na realizację projektu
+Nazwa ryzyka Siła 
+oddziaływania
+Prawdopo- 
+dobieństwo 
+wystąpienia 
+ryzyka
+Sposób zarzadzania ryzykiem
+Opóźnienie w 
+realizacji
+projektu
+Duża Wysokie Uregulowanie kwestii formalnych 
+poprzez aneksowanie Umowy KOWR-
+IUNG. Rozszerzenie składu zespołu 
+Wykonawcy (skierowanie do projektu 
+dodatkowych zasobów kadrowych). 
+Monitoring/cykliczne raportowanie prac.
+Przekroczenie 
+harmonogramu 
+realizacji projektu
+Duża Wysokie Wdrożenie metodyki Agile (iteracyjne 
+podejście, krótkie sprinty). Bufory 
+czasowe w harmonogramie na 
+kluczowych etapach. System wczesnego 
+ostrzegania (monitoring KPI, alerty przy 
+odchyleniach).
+Brak zwiększenia 
+efektów/
+dokładności w 
+stosunku do 
+obecnego 
+narzędzia (SMSR).
+Duża Średnie Zapewnienie dostępności niezbędnych 
+danych źródłowych. Zastosowanie 
+podejścia iteracyjnego do budowania 
+modeli. Zatrudnienie specjalistów z 
+zakresu przetwarzania i analizy danych 
+w środowiskach chmurowych. 
+Przeprowadzenie walidacji 
+porównawczej z SMSR, celem 
+oszacowania dokładności 
+opracowywanych modeli.
+Zbyt niski poziom Duża Średnie Promocja projektu wśród interesariuszy. 
+Nazwa ryzyka Siła 
+oddziaływania
+Prawdopo- 
+dobieństwo 
+wystąpienia 
+ryzyka
+Sposób zarzadzania ryzykiem
+aktywności 
+interesariuszy w 
+zakresie 
+wykorzystywania 
+opracowanego 
+systemu S2MUR.
+Opracowanie wysokiej jakości usług.
+Brak 
+wystarczających 
+zasobów 
+kadrowych do 
+realizacji projektu
+Duża Średnie Priorytetyzacja zadań i przesunięcie 
+mniej krytycznych etapów. Delegowanie 
+zadań do partnerów zewnętrznych 
+(outsourcing). Automatyzacja procesów 
+(np. przetwarzanie danych, 
+raportowanie). Rozszerzenie kanałów 
+rekrutacji (portale branżowe, współpraca 
+z uczelniami, LinkedIn). Program szkoleń 
+wewnętrznych dla obecnych 
+pracowników w zakresie brakujących 
+kompetencji.
+Nieosiągnięcie 
+wskaźników 
+produktu oraz celu 
+projektu
+Duża Średnie Regularne przeglądy postępu i korekta 
+działań. Testy pilotażowe przed 
+wdrożeniem pełnej funkcjonalności. 
+Zaangażowanie interesariuszy w proces 
+walidacji (feedback, konsultacje).
+Problemy 
+techniczne 
+kluczowych 
+pionów 
+satelitarnych.
+Duża Niskie Poszukiwanie alternatywnych źródeł 
+danych w celu zastąpienia kluczowych 
+pionów satelitarnych, np. Sentinel-1, 
+Landsat 8/9.
+Problemy 
+techniczne 
+naziemnych 
+komponentów 
+teledetekcyjnych i 
+telemetrycznych.
+Duża Niskie Zaprojektowanie mechanizmów 
+odporności systemu jako całości, np. 
+poprzez redundancję źródeł danych, 
+uzupełnianie braków i monitorowanie 
+poprawności transmisji.
+5.2. Ryzyka wpływające na utrzymanie efektów
+Nazwa ryzyka Siła 
+oddziaływania
+Prawdopo- 
+dobieństwo 
+wystąpienia 
+ryzyka
+Sposób zarzadzania ryzykiem
+Brak osiągnięcia 
+wskaźników KPI
+Mała Niskie 1. Aktywność w promocji wyników 
+S2MUR, 2. Dalszy rozwój systemu. 3. 
+Podjęcie współpracy z rolnikami w 
+ramach SMSR
+Nazwa ryzyka Siła 
+oddziaływania
+Prawdopo- 
+dobieństwo 
+wystąpienia 
+ryzyka
+Sposób zarzadzania ryzykiem
+Brak 
+wystarczających 
+zasobów 
+kadrowych do 
+utrzymania 
+efektów projektu
+Średnia Wysokie Zawarcie umów serwisowych z 
+zewnętrznymi dostawcami (outsourcing 
+utrzymania) Automatyzacja procesów 
+utrzymaniowych Program ciągłego 
+podnoszenia kwalifikacji i retencji 
+kluczowych pracowników.
+Brak finansowania 
+dla utrzymania 
+projektu po 
+wdrożeniu 
+operacyjnym.
+Duża Wysokie Wypracowanie wspólnie z MRiRW oraz 
+KOWR możliwych scenariuszy 
+utrzymania S2MUR w komercyjnym 
+środowisku chmurowym innych 
+instytucji.
+6. OTOCZENIE PRAWNE
+Lp. Tytuł aktu prawnego Czy 
+wymaga 
+zmian
+Opis zmian (jeśli dotyczy) Etap prac 
+legislacyjnych 
+(jeśli dotyczy)
+1 Rozporządzenie Rady 
+Ministrów z dnia 27 
+stycznia 2015 r. w sprawie 
+szczegółowego zakresu i 
+sposobów realizacji 
+niektórych zadań Agencji 
+Restrukturyzacji i 
+Modernizacji Rolnictwa 
+(Dz. U. 2015 poz. 187 z 
+późn. zm.)
+TAK/NIE Zgodnie z aktualnie 
+obowiązującymi regulacjami (§ 5 
+rozporządzenia Rady Ministrów z 
+dnia 27 stycznia 2015 r. w 
+sprawie szczegółowego zakresu 
+i sposobów realizacji niektórych 
+zadań Agencji Restrukturyzacji i 
+Modernizacji Rolnictwa (Dz. U. 
+poz. 187, z późn. zm.) oraz 
+wytycznymi MRiRW dla komisji), 
+brak jest norm w oparciu, o które 
+dane z projektu S2MUR mogłyby 
+zostać wykorzystane w procesie 
+tworzenia protokołów z 
+oszacowania strat. 
+Wypracowanie regulacji 
+prawnych w tym zakresie 
+powinno powodować większą 
+transparentność, zwłaszcza w 
+pracach komisji i 
+przygotowanych przez nie 
+raportów – które również 
+powinny uwzględniać zarówno 
+okresowe wyniki SMSR jak też 
+lokalne zróżnicowanie warunków 
+pogodowych i glebowych. Z 
+powyższego względu zmiany 
+Uzgodnienia 
+wewnętrzne
+Lp. Tytuł aktu prawnego Czy 
+wymaga 
+zmian
+Opis zmian (jeśli dotyczy) Etap prac 
+legislacyjnych 
+(jeśli dotyczy)
+legislacyjne są rekomendowane 
+przez zespół S2MUR jednak 
+dalszy brak szczegółowych 
+rozwiązań prawnych nie wpłynie 
+na możliwość korzystania z 
+danych publicznych S2MUR / 
+SMSR, które będą stanowić 
+zasób informacji 
+umożliwiających komisjom 
+bardziej efektywną pracę – 
+zwłaszcza prowadzenia oceny 
+in-situ.
+2 Ustawa z dnia 7 lipca 
+2005 r. o ubezpieczeniach 
+upraw rolnych i zwierząt 
+gospodarskich (Dz.U. 
+2025 poz. 251)
+TAK/NIE Ustawa i powiązane z nią 
+rozporządzenie Ministra 
+Rolnictwa powinno zostać 
+znowelizowana po wdrożeniu 
+produktów S2MUR do SMSR, w 
+sposób odpowiadający nowym 
+zasadom jego działania: 
+możliwości ubezpieczeń dla 
+upraw na łąkach i pastwiskach, 
+definicji progów straty 20 % oraz 
+funkcji strata-KBW dla 50 
+wprowadzonych do monitoringu 
+gatunków.
+Uzgodnienia 
+wewnętrzne
+3 Ustawa z dnia 5 lipca 
+2018 r. o krajowym 
+systemie 
+cyberbezpieczeństwa 
+(Dz.U. z 2024 r. poz. 1077, 
+z późn. zm.)
+TAK/NIE
+4 Ustawa z dnia 27 lipca 
+2001 r. o ochronie baz 
+danych (Dz. U. 2024 poz. 
+1769).
+TAK/NIE
+5 Ustawa z dnia 18 lipca 
+2002 r. o świadczeniu 
+usług drogą elektroniczną 
+(Dz. U. z 2024 r. poz. 
+1513).
+TAK/NIE
+6 Ustawa z dnia 17 lutego 
+2005 r. o informatyzacji 
+działalności podmiotów 
+realizujących zadania 
+publiczne (Dz. U. 2025 
+poz. 1703, z późn. zm.), 
+dalej jako „Ustawa o 
+informatyzacji”
+TAK/NIE
+Lp. Tytuł aktu prawnego Czy 
+wymaga 
+zmian
+Opis zmian (jeśli dotyczy) Etap prac 
+legislacyjnych 
+(jeśli dotyczy)
+7 Rozporządzenie Rady 
+Ministrów z dnia 21 maja 
+2024 r. w sprawie 
+Krajowych Ram 
+Interoperacyjności, 
+minimalnych wymagań 
+dla rejestrów publicznych 
+i wymiany informacji w 
+postaci elektronicznej 
+oraz minimalnych 
+wymagań dla systemów 
+teleinformatycznych (Dz. 
+U. 2024 poz. 773)
+TAK/NIE
+8 Ustawa z dnia 11 sierpnia 
+2021 r. TAK/NIE o 
+otwartych danych i 
+ponownym 
+wykorzystywaniu 
+informacji sektora 
+publicznego (Dz. U. 2023 
+poz. 1524).
+TAK/NIE
+9 Ustawa z dnia 4 kwietnia 
+2019 r. o dostępności 
+cyfrowej stron 
+internetowych i aplikacji 
+mobilnych podmiotów 
+publicznych (Dz. U. 2023 r. 
+poz. 1440).
+TAK/NIE
+10 Rozporządzenie Prezesa 
+Rady Ministrów z dnia 20 
+lipca 2011 r. w sprawie 
+podstawowych wymagań 
+bezpieczeństwa 
+teleinformatycznego (Dz. 
+U. 2011 poz. 948).
+TAK/NIE
+11 Rozporządzenie 
+Parlamentu Europejskiego 
+i Rady (UE) 2016/679 z 
+dnia 27 kwietnia 2016 r. w 
+sprawie ochrony osób 
+fizycznych w związku z 
+przetwarzaniem danych 
+osobowych i w sprawie 
+swobodnego przepływu 
+takich danych oraz 
+uchylenia dyrektywy 
+95/46/WE (ogólne 
+rozporządzenie o 
+TAK/NIE
+Lp. Tytuł aktu prawnego Czy 
+wymaga 
+zmian
+Opis zmian (jeśli dotyczy) Etap prac 
+legislacyjnych 
+(jeśli dotyczy)
+ochronie danych) - Dz. 
+Urz. UE L 119 z 
+04.05.2016.
+7. ARCHITEKTURA
+7.1. Widok kooperacji aplikacji
+
+Lista systemów wykorzystywanych w projekcie
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+1 S2MUR Instytut 
+Uprawy, 
+Nawożenia 
+i 
+Gleboznaw
+stwa   
+Państwowy
+ Instytut 
+Badawczy 
+(IUNG-PIB)
+System satelitarnego 
+monitorowania upraw 
+rolnych to system 
+wspierający 
+monitorowanie stanu 
+upraw rolnych na terenie 
+całego kraju poprzez 
+wykorzystanie synergii 
+danych satelitarnych, 
+meteorologicznych, 
+glebowych i 
+statystycznych. System 
+dostarcza kompleksową 
+wiedzę o stanie upraw, 
+umożliwia predykcję 
+plonów, wspomaga 
+podejmowanie decyzji 
+agrotechnicznych oraz 
+prognozuje wystąpienie 
+niekorzystnych zjawisk 
+atmosferycznych 
+mogących powodować 
+straty w plonie. Umożliwia 
+także operacyjne 
+generowanie raportów 
+szacowania strat. Celem 
+systemu jest zwiększenie 
+efektywności zarządzania 
+produkcją rolną i 
+minimalizacja ryzyka strat 
+poprzez analizę danych i 
+prognozy. System nie 
+prowadzi rejestrów 
+publicznych. Główne 
+grupy funkcjonalności:
+– Monitorowanie stanu 
+upraw rolnych w czasie 
+rzeczywistym
+– Analiza danych 
+satelitarnych, 
+meteorologicznych i 
+glebowych
+– Predykcja plonów i 
+wspomaganie decyzji 
+agrotechnicznych
+– Prognozowanie 
+niekorzystnych zjawisk 
+Planowany
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+atmosferycznych
+– Generowanie raportów 
+szacowania strat.
+Integracje:
+- System jest 
+zintegrowany z krajowymi 
+systemami 
+teleinformatycznymi.
+2 SMSR Instytut 
+Uprawy, 
+Nawożenia 
+i 
+Gleboznaw
+stwa   
+Państwowy
+ Instytut 
+Badawczy 
+(IUNG-PIB)
+System Monitorowania 
+Suszy Rolniczej (SMSR) to 
+system wspierający ocenę 
+występowania suszy 
+rolniczej na obszarze 
+kraju. Cel utworzenia 
+systemu:
+- Identyfikacja i analiza 
+zjawisk suszy w celu 
+wsparcia procesów 
+administracyjnych, w tym 
+ustalania zasad pomocy 
+dla producentów rolnych.
+Główne grupy 
+funkcjonalności:
+- Moduł akwizycji danych 
+meteorologicznych – 
+pobieranie informacji o 
+opadach, temperaturze i 
+wilgotności gleby.
+- Moduł analityczny – 
+obliczanie wskaźników 
+suszy rolniczej na 
+podstawie danych 
+pogodowych i glebowych.
+- Moduł raportowy – 
+generowanie raportów o 
+występowaniu suszy dla 
+administracji rolniczej.
+- Moduł wizualizacji – 
+prezentacja wyników w 
+formie map tematycznych 
+i zestawień.
+Integracje:
+- System jest 
+zintegrowany z krajowymi 
+i zagranicznymi 
+systemami 
+teleinformatycznymi.
+Modyfikowany Część 
+docelowych 
+produktów 
+S2MUR ma 
+zostać 
+zintegrowana 
+z SMSR, co 
+umożliwi 
+aktualizacje 
+tego systemu 
+oraz uzyskanie 
+nowych 
+funkcjonalności
+, tj. 
+rozszerzenia 
+liczby 
+monitorowanyc
+h upraw na GO 
+i TUZ, 
+uszczegółowie
+nia mapy 
+kategorii 
+podatności 
+gleb na suszę, 
+uwzględnienia 
+regionalizacji 
+w procesie 
+rozwoju 
+wegetacji.
+3 IMGW (API 
+IMGW, SH API)
+Instytut 
+Meteorologi
+Systemy IMGW (API 
+IMGW, SH API) to systemy 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+i i 
+Gospodarki
+ Wodnej 
+Państwowy
+ Instytut 
+Badawczy
+wspierające 
+udostępnianie danych 
+meteorologicznych i 
+hydrologicznych, w tym 
+prognoz, ostrzeżeń oraz 
+komunikatów 
+dotyczących zjawisk 
+niebezpiecznych. Systemy 
+te zastępują 
+dotychczasowy system 
+ISOK i zapewniają dostęp 
+do informacji niezbędnych 
+do monitorowania 
+sytuacji pogodowej i 
+hydrologicznej na terenie 
+kraju. Celem systemów 
+jest dostarczanie 
+aktualnych prognoz 
+meteorologicznych, 
+ostrzeżeń 
+meteorologicznych i 
+hydrologicznych, 
+komunikatów 
+operacyjnych, odwołań 
+ostrzeżeń, prognoz 
+zjawisk niebezpiecznych 
+oraz danych 
+wodowskazowych. 
+Systemy nie prowadzą 
+rejestrów publicznych.
+Główne grupy 
+funkcjonalności:
+– Udostępnianie prognoz 
+meteorologicznych
+– Udostępnianie 
+ostrzeżeń 
+meteorologicznych i 
+hydrologicznych
+– Publikacja 
+komunikatów i odwołań 
+ostrzeżeń
+– Prezentacja prognoz 
+zjawisk niebezpiecznych
+– Udostępnianie danych 
+wodowskazowych
+– Zapewnienie dostępu 
+do danych poprzez 
+interfejsy API
+Systemy są zintegrowane 
+z krajowymi systemami 
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+teleinformatycznymi
+4 Aplikacja 
+SUSZA
+Ministerst
+wo 
+Cyfryzacji
+Aplikacja Susza to system 
+utworzony w celu 
+umożliwienia 
+producentowi rolnemu 
+wypełnienie wniosku o 
+oszacowanie szkód w 
+produkcji rolniczej w 
+wyniku suszy dla każdego 
+z posiadanych 
+gospodarstw. Aplikacja 
+Susza automatycznie 
+wylicza wysokość szkód 
+na podstawie:
+* danych podanych przez 
+producenta rolnego we 
+wniosku;
+* danych z ewidencji 
+upraw (eWniosek) i 
+zwierząt (IRZ) 
+utrzymywanych przez 
+Agencję Restrukturyzacji i 
+Modernizacji Rolnictwa 
+(ARiMR);
+* poziomu suszy dla 
+podanych działek 
+pobieranego na dzień 
+rozliczenia z Systemu 
+Monitoringu Suszy 
+Rolniczej utrzymywanego 
+przez Instytut Uprawy, 
+Nawożenia i 
+Gleboznawstwa (IUNG);
+* wartości słownikowych 
+w rodzaju średniej ceny 
+dla danej uprawy 
+otrzymywanych per 
+kampania od Instytutu 
+Ekonomiki Rolnictwa i 
+Gospodarki Żywnościowej 
+(IERiGŻ). 
+W systemie nie są 
+prowadzone rejestry 
+publiczne oraz 
+niepubliczne. 
+System składa się z 
+następujących modułów: 
+Panel rolnika – 
+komponent umożliwia 
+Modyfikowany
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+producentowi rolnemu 
+wypełnienie wniosku o 
+oszacowanie szkód w 
+produkcji rolniczej w 
+wyniku suszy dla każdego 
+z posiadanych 
+gospodarstw. Komponent 
+automatycznie wylicza 
+poziom szkód na 
+podstawie 
+wprowadzonych, danych. 
+Panel urzędu – 
+komponent umożliwia 
+urzędom wojewódzkim 
+dostęp do wniosków 
+wprowadzonych przez 
+producentów rolnych. 
+Panel administratora – 
+komponent umożliwia 
+zarządzanie 
+użytkownikami oraz 
+dostęp do raportów 
+predefiniowanych. System 
+jest zintegrowany z 
+krajowymi systemami 
+teleinformatycznymi
+5 Portal Rolnika Agencja 
+Restruktury
+zacji i 
+Modernizac
+ji 
+Rolnictwa
+Portal Rolnika jest 
+platformą WWW 
+frontoffice dla e-usług, 
+wspierającą 
+kompleksowo rolnika oraz 
+instytucje podległe i 
+nadzorowane przez 
+MRiRW w zakresie e-usług 
+w obszarze rolnictwa. 
+Celami powstania 
+systemu są: - 
+uruchomienie wspólnej 
+platformy usług i 
+informacji kierowanych do 
+rolników przez jednostki 
+podległe i nadzorowane 
+przez MRiRW, - 
+konsolidacja 
+architektoniczna 
+systemów IT w zakresie 
+front-office. W systemie 
+nie są prowadzone żadne 
+rejestry publiczne. Główne 
+Modyfikowany
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+funkcjonalności systemu 
+to: - zarządzanie 
+tożsamością i dostępem 
+użytkowników, 
+przechodzenie z aktywną 
+sesją do obecnie 
+funkcjonujących 
+serwisów wewnętrznych 
+ARiMR tj. PUE ARiMR, 
+eWniosekPlus, IRZplus, 
+eDWIN, - prezentacja 
+informacji dla rolników z 
+wykorzystaniem danych 
+geoprzestrzennych 
+(mapowych), - obsługa 
+wniosków/ spraw - 
+obsługa procesu 
+wnioskowania wraz z 
+pełną komunikacją do 
+użytkownika i 
+odpowiednim jego 
+powiadamianiem, - 
+zarządzanie treścią - 
+aplikacja front-end w 
+podejściu 
+mikrofrontendowym 
+Module Federation z CMS, 
+- Wirtualny Asystent - 
+asystent AI oparty o 
+polskie LLM (Bielik i 
+PLLuM), - możliwość 
+uregulowania należności 
+za pośrednictwem usługi 
+KIR PayByNet dla 
+Administracji Publicznej, - 
+zarządzanie słownikami - 
+buforowanie słowników 
+zewnętrznych, 
+wersjonowanie 
+słowników, - komunikacja 
+- powiadomienia e-mail, 
+SMS, Push, - platforma 
+BPMS do obsługi 
+wniosków w backoffice. 
+System jest zintegrowany 
+z krajowymi systememi 
+teleinformatycznymi.
+6 TERYT Główny 
+Urząd 
+System TERYT to system 
+teleinformatyczny 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+Statystycz
+ny
+wspierający obsługę 
+Krajowego Rejestru 
+Urzędowego Podziału 
+Terytorialnego Kraju. 
+System umożliwia dostęp 
+do danych o jednostkach 
+podziału terytorialnego, 
+miejscowościach i ulicach 
+oraz realizuje funkcje 
+związane z ich 
+weryfikacją i aktualizacją. 
+Celem systemu jest 
+zapewnienie jednolitego i 
+aktualnego źródła 
+informacji o strukturze 
+terytorialnej kraju, 
+wykorzystywanego m.in. 
+w statystyce publicznej, 
+administracji oraz 
+systemach 
+informatycznych instytucji 
+publicznych.
+W systemie prowadzony 
+jest rejestr publiczny 
+obejmujący:
+* jednostki podziału 
+terytorialnego 
+(województwa, powiaty, 
+gminy),
+* miejscowości,
+* ulice.
+Główne grupy 
+funkcjonalności systemu 
+obejmują:
+* Pobieranie danych 
+pełnych – dostęp do 
+kompletnych plików 
+zawierających jednostki 
+podziału terytorialnego, 
+miejscowości i ulice,
+* Pobieranie danych 
+aktualizacyjnych – dostęp 
+do informacji o zmianach 
+w rejestrze w zadanym 
+okresie,
+* Wyszukiwanie obiektów 
+– możliwość 
+wyszukiwania jednostek, 
+miejscowości i ulic na 
+podstawie nazw lub 
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+identyfikatorów,
+* Weryfikacja danych 
+adresowych – 
+sprawdzanie poprawności 
+danych adresowych do 
+poziomu ulicy, wyłącznie 
+w oparciu o aktualny stan 
+bazy TERYT. System 
+TERYT integruje się z 
+krajowymi systemami 
+administracji publicznej, 
+umożliwiając 
+automatyczne pobieranie i 
+synchronizację danych 
+terytorialnych.
+7 SZPRG Główny 
+Urząd 
+Geodezji i 
+Kartografii
+SZPRG jest systemem 
+przeznaczonym do 
+prowadzenia 
+państwowego rejestru 
+granic i powierzchni 
+jednostek podziałów 
+terytorialnych kraju. 
+Odpowiedzialnym za 
+prowadzenie rejestru jest 
+Główny Geodeta Kraju. 
+Zgodnie z ustawą Prawo 
+geodezyjne i 
+kartograficzne baza 
+danych rejestru 
+prowadzona w systemie 
+teleinformatycznym. 
+SZPRG umożliwia 
+zarządzanie danymi 
+zgromadzonymi w bazie 
+danych rejestru – w 
+szczególności danymi 
+przestrzennymi 
+dotyczącymi przebiegu 
+granic: RP, zasadniczego 
+trójstopniowego podziału 
+terytorialnego państwa, 
+jednostek i obrębów 
+ewidencyjnych, 
+właściwości miejscowej 
+organów i jednostek 
+organizacyjnych 
+administracji specjalnej a 
+także danymi adresowymi 
+przekazywanymi przez 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+gminy z ewidencji 
+miejscowości, ulic i 
+adresów. Zgodnie z art. 
+7a. ust. 1 pkt 6 ustawy 
+Prawo Geodezyjne i 
+Kartograficzne Główny 
+Geodeta Kraju zakłada i 
+prowadzi, we
+współpracy z właściwymi 
+organami administracji 
+publicznej, bazę danych, o 
+której mowa w art. 4 ust. 
+1a pkt 4, oraz prowadzi na 
+podstawie tej bazy, 
+państwowy rejestr granic i 
+powierzchni jednostek 
+podziałów terytorialnych 
+kraju, zintegrowany z 
+ewidencją gruntów i 
+budynków oraz ewidencją 
+miejscowości, ulic i 
+adresów, umożliwiający 
+gromadzenie, 
+aktualizowanie i 
+udostępnianie danych 
+dotyczących:
+- przebieg granicy 
+państwa,
+- przebieg podziału 
+administracyjnego,
+- przebieg granic podziału 
+kraju ze względu na 
+właściwość miejscową 
+sądów, prokuratur czy 
+Policji, Straży Pożarnej,
+- ewidencje punktów 
+adresowych w kraju.
+Dane adresowe 
+gromadzone na poziomie 
+centralnym w bazie 
+danych państwowego 
+rejestr granic i 
+powierzchni jednostek 
+podziałów terytorialnych 
+kraju są przekazywane do 
+bazy danych 
+Uniwersalnego Modułu 
+Mapowego, z którego 
+korzystają służby 
+ratunkowe i inne organy 
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+administracji publicznej. 
+Ponadto dane adresowe z 
+bazy danych 
+państwowego rejestr 
+granic i powierzchni 
+jednostek podziałów 
+terytorialnych kraju są 
+udostępniane przy 
+pomocy słowników do 
+ogólnego wykorzystania 
+przez obywateli czy firmy 
+prywatne. Słowniki te 
+udostępniane
+8 Geoportal Główny 
+Urząd 
+Geodezji i 
+Kartografii
+Geoportal to system 
+wspierający 
+udostępnianie danych 
+przestrzennych i 
+kartograficznych. Celem 
+systemu jest zapewnienie 
+dostępu do danych 
+geodezyjnych i 
+kartograficznych 
+wykorzystywanych przez 
+administrację publiczną 
+oraz obywateli. W 
+systemie prowadzone są 
+publiczne rejestry danych 
+przestrzennych. Główne 
+funkcjonalności systemu 
+obejmują:
+- prezentację danych 
+mapowych,
+- udostępnianie usług 
+przeglądania i pobierania 
+danych,
+- integrację danych 
+przestrzennych z innymi 
+systemami.
+System integruje się z 
+krajowymi systemami 
+teleinformatycznymi
+Istniejący
+9 LPIS Agencja 
+Restruktury
+zacji i 
+Modernizac
+j i 
+Rolnictwa
+System Identyfikacji 
+Działek Rolnych (LPIS – 
+Land Parcel Identification 
+System) to system 
+wspierający jednoznaczną 
+identyfikację w 
+przestrzeni geograficznej 
+działek referencyjnych i 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+rolnych deklarowanych do 
+płatności w ramach 
+dopłat bezpośrednich. 
+System umożliwia 
+określenie czy działka 
+znajduje się na terenie 
+uprawnionym do dopłat 
+oraz czy powierzchnia 
+działek rolnych na danej 
+działce referencyjnej nie 
+przekracza 
+maksymalnego obszaru 
+kwalifikowalnego (MKO). 
+Celem systemu jest 
+zapewnienie prawidłowej 
+identyfikacji działek 
+rolnych w skali kraju, ich 
+lokalizacji oraz kontroli w 
+procesie przyznawania 
+dopłat z funduszy Unii 
+Europejskiej. Główne 
+grupy funkcjonalności: 
+– Identyfikacja działek 
+referencyjnych i rolnych w 
+przestrzeni geograficznej
+– Weryfikacja położenia 
+działek względem 
+obszarów uprawnionych 
+do dopłat
+– Sprawdzanie 
+powierzchni działek w 
+kontekście 
+maksymalnego obszaru 
+kwalifikowalnego (MKO)
+– Wsparcie procesów w 
+ramach Zintegrowanego 
+Systemu Zarządzania i 
+Kontroli (IACS) 
+System jest zintegrowany 
+z krajowymi systemami 
+teleinformatycznymi
+10 GSA Agencja 
+Restruktury
+zacji i 
+Modernizac
+ji 
+Rolnictwa
+GSA to system 
+wspierający identyfikację 
+działek rolnych w ramach 
+zarządzania płatnościami 
+bezpośrednimi i kontrolą 
+powierzchni upraw. Cel 
+utworzenia systemu: 
+Zapewnienie 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+jednoznacznej 
+identyfikacji działek 
+rolnych w procesach 
+obsługi dopłat i kontroli. 
+Rejestry publiczne: Rejestr 
+działek rolnych 
+powiązanych z wnioskami 
+o płatności. Główne grupy 
+funkcjonalności:
+Moduł referencyjny – 
+utrzymanie warstwy 
+referencyjnej działek 
+rolnych.
+Moduł kontroli 
+powierzchni – weryfikacja 
+danych wniosków z 
+obrazami satelitarnymi.
+Moduł raportowy – 
+generowanie raportów dla 
+ARiMR i instytucji 
+kontrolnych.
+Integracje:
+System jest zintegrowany 
+z krajowymi i 
+zagranicznymi systemami 
+teleinformatycznymi.
+11 MZP Instytut 
+Uprawy, 
+Nawożenia 
+i 
+Gleboznaw
+stwa  
+Państwowy
+ Instytut 
+Badawczy 
+(IUNG-PIB)
+MZP to system 
+wspierający 
+monitorowanie zalań i 
+podtopień trwałych 
+użytków zielonych na 
+obszarze kraju. Cel 
+utworzenia systemu: 
+identyfikacja i analiza 
+zjawisk zalewowych w 
+celu wsparcia decyzji 
+administracyjnych i 
+rolniczych. Rejestry 
+publiczne: Brak 
+klasycznych rejestrów, 
+system wykorzystuje 
+dane obserwacyjne i 
+analityczne. Główne grupy 
+funkcjonalności: Moduł 
+analizy satelitarnej – 
+wykrywanie obszarów 
+zalanych na podstawie 
+danych Sentinel. Moduł 
+raportowy – 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+przygotowanie zestawień 
+dla administracji rolniczej. 
+Moduł wizualizacji – 
+prezentacja wyników na 
+mapach tematycznych. 
+Integracje: System jest 
+zintegrowany z krajowymi 
+i zagranicznymi 
+systemami 
+teleinformatycznymi
+12 MSG Europejska 
+Organizacj
+a 
+Eksploatacj
+i Satelitów 
+Meteorolog
+icznych 
+(EUMETSA
+T)
+Meteosat Second 
+Generation (MSG) to 
+system wspierający 
+dostęp do zobrazowań z 
+satelitów 
+meteorologicznych 
+Meteosat, opracowany 
+przez Europejską 
+Organizację Eksploatacji 
+Satelitów 
+Meteorologicznych 
+(EUMETSAT).). System 
+zapewnia osłonę 
+meteorologiczną dla 
+półkuli północnej oraz 
+dostęp do 
+krótkoterminowych 
+prognoz pogody. Celem 
+systemu jest dostarczanie 
+danych satelitarnych 
+wspierających 
+monitorowanie warunków 
+atmosferycznych, analizę 
+zjawisk pogodowych oraz 
+generowanie prognoz w 
+celu poprawy 
+bezpieczeństwa i 
+planowania działań w 
+różnych sektorach. 
+System nie prowadzi 
+rejestrów publicznych. 
+Główne grupy 
+funkcjonalności:
+– Udostępnianie 
+zobrazowań satelitarnych 
+w czasie rzeczywistym
+– Analiza danych 
+meteorologicznych z 
+satelitów Meteosat
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+– Generowanie 
+krótkoterminowych 
+prognoz pogody
+– Wsparcie dla osłony 
+meteorologicznej na 
+poziomie regionalnym i 
+globalnym
+System jest zintegrowany 
+z międzynarodowymi 
+systemami 
+teleinformatycznymi.
+13 Serwisy 
+pogodowe
+Właściciele
+ serwisów 
+pogodowy
+ch
+System wielokrotny. 
+Serwisy pogodowe to 
+systemy wspierające 
+pozyskiwanie i 
+udostępnianie danych 
+meteorologicznych w 
+czasie rzeczywistym oraz 
+prognoz pogodowych. 
+Systemy te dostarczają 
+informacje o 
+temperaturze, opadach, 
+wilgotności, sile i kierunku 
+wiatru, ciśnieniu 
+atmosferycznym oraz 
+innych parametrach 
+pogodowych, które są 
+wykorzystywane w 
+procesach analitycznych, 
+planistycznych i 
+decyzyjnych. Celem 
+serwisów jest 
+zapewnienie 
+wiarygodnych danych 
+meteorologicznych dla 
+administracji publicznej, 
+przedsiębiorstw oraz 
+obywateli, w tym wsparcie 
+działań związanych z 
+zarządzaniem 
+kryzysowym, rolnictwem, 
+transportem i ochroną 
+środowiska. Systemy nie 
+prowadzą rejestrów 
+publicznych.
+Główne grupy 
+funkcjonalności:
+– Udostępnianie 
+bieżących danych 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+meteorologicznych
+– Generowanie prognoz 
+krótkoterminowych i 
+długoterminowych
+– Analiza danych 
+pogodowych w 
+kontekście ryzyka 
+wystąpienia zjawisk 
+ekstremalnych
+– Integracja z systemami 
+wspierającymi 
+zarządzanie kryzysowe i 
+planowanie
+14 eDWIN Wielkopolsk
+i Ośrodek 
+Doradztwa 
+Rolniczego 
+w 
+Poznaniu
+Internetowa Platforma 
+Doradztwa i 
+Wspomagania Decyzji w 
+Integrowanej Ochronie 
+Roślin (eDWIN) to system 
+wspierający doradztwo 
+rolnicze i zarządzanie 
+uprawami w zakresie 
+integrowanej ochrony 
+roślin. Platforma 
+umożliwia rolnikom oraz 
+doradcom dostęp do 
+narzędzi 
+wspomagających 
+podejmowanie decyzji 
+agrotechnicznych, 
+monitorowanie zagrożeń 
+oraz zamawianie usług 
+doradczych. Celem 
+systemu jest zapewnienie 
+kompleksowego wsparcia 
+w zakresie ochrony roślin 
+poprzez integrację danych 
+meteorologicznych, 
+obserwacji polowych oraz 
+informacji o agrofagach. 
+System nie prowadzi 
+rejestrów publicznych.
+Główne grupy 
+funkcjonalności:
+– Zarządzanie kartami pól 
+i ewidencją zabiegów 
+agrotechnicznych
+– Monitorowanie pól 
+uprawnych pod kątem 
+wystąpienia chorób i 
+Modyfikowany Modyfikowany 
+w innym 
+projekcie
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+szkodników
+– Zarządzanie 
+obserwacjami i 
+zgłaszanie 
+zapotrzebowania na 
+rozpoznanie agrofaga
+– Udostępnianie 
+informacji 
+meteorologicznych z 
+ogólnokrajowej sieci 
+stacji
+– Tworzenie prywatnej 
+listy stacji 
+meteorologicznych
+– Dostęp do bazy 
+kontaktowej doradców 
+ODR
+– Otrzymywanie 
+powiadomień o 
+zagrożeniach lokalnych i 
+ogólnokrajowych
+– Zamawianie usług 
+specjalistycznych 
+świadczonych przez 
+Ośrodki Doradztwa 
+Rolniczego
+– Kierowanie zapytań 
+bezpośrednio do 
+doradców ODR
+System jest zintegrowany 
+z krajowymi systemami 
+teleinformatycznymi.
+15 Lokalne sieci 
+meteorologicz
+ne
+Właściciele
+ sieci 
+meteorolog
+icznych
+System wielokrotny. 
+Lokalne sieci 
+meteorologiczne to 
+systemy wspierające 
+gromadzenie i 
+udostępnianie danych 
+meteorologicznych z 
+lokalnych stacji 
+pomiarowych. Sieci te 
+dostarczają informacje o 
+temperaturze, opadach, 
+wilgotności, ciśnieniu 
+atmosferycznym, sile i 
+kierunku wiatru oraz 
+innych parametrach 
+pogodowych, które są 
+wykorzystywane w 
+Istniejący
+Lp. Nazwa 
+systemu
+Gestor 
+systemu
+Opis systemu Status Krótki opis 
+ewentualnej 
+zmiany
+analizach i prognozach 
+dla rolnictwa, transportu, 
+zarządzania kryzysowego 
+i ochrony środowiska. 
+Celem systemów jest 
+zapewnienie precyzyjnych 
+danych pogodowych w 
+skali lokalnej, 
+wspierających 
+podejmowanie decyzji w 
+obszarach wymagających 
+bieżącej informacji 
+meteorologicznej. 
+Systemy nie prowadzą 
+rejestrów publicznych.
+Główne grupy 
+funkcjonalności:
+– Gromadzenie danych 
+meteorologicznych z 
+lokalnych stacji 
+pomiarowych
+– Udostępnianie 
+bieżących informacji 
+pogodowych
+– Generowanie prognoz 
+krótkoterminowych i 
+długoterminowych
+– Wsparcie analiz ryzyka 
+wystąpienia zjawisk 
+ekstremalnych
+Systemy są zintegrowane 
+z krajowymi systemami 
+teleinformatycznymi
+Lista przepływów
+Lp. System 
+źródłowy
+System 
+docelowy
+Zakres  
+wymienianych
+ danych
+Sposób 
+wymiany 
+danych
+Typ 
+modyfikacji
+Typ 
+interfejsu
+1 SMSR Aplikacja 
+SUSZA
+Dane o 
+obszarach, na 
+których 
+wystąpiły 
+straty 
+spowodowane 
+suszą w 
+uprawach 
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+Lp. System 
+źródłowy
+System 
+docelowy
+Zakres  
+wymienianych
+ danych
+Sposób 
+wymiany 
+danych
+Typ 
+modyfikacji
+Typ 
+interfejsu
+uwzględnionyc
+h w "Ustawie o 
+dopłatach do 
+ubezpieczeń 
+upraw rolnych 
+i zwierząt 
+gospodarskich 
+w Polsce".
+2 Aplikacja 
+SUSZA
+SMSR Granica 
+działek 
+rolnych, 
+gatunek 
+uprawy
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+3 eDWIN SMSR Dane 
+meteorologicz
+ne.
+Tryb odwołań 
+bezpośrednich
+Inna metoda API
+4 Geoportal S2MUR Podział 
+terytorialny
+Kopiowanie 
+danych
+Krytyczny Plik
+5 GSA S2MUR Granica działki 
+rolnej z 
+atrybutem 
+nazwy uprawy
+Kopiowanie 
+danych
+Krytyczny Plik
+6 IMGW (API 
+IMGW, SH 
+API)
+SMSR Dane 
+meteorologicz
+ne.
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+7 Lokalne 
+sieci 
+meteorolog
+iczne
+SMSR Dane 
+meteorologicz
+ne
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+8 LPIS S2MUR Wektorowe 
+granice 
+działek 
+referencyjnych 
+(granice 
+działek 
+ewidencyjnych 
+przetworzone 
+na potrzeby 
+ARiMR) oraz 
+informacje o 
+polach 
+zagospodarow
+ania.
+Kopiowanie 
+danych
+Krytyczny Plik
+9 MSG S2MUR Dane 
+meteorologicz
+ne z 
+interwałem 15 
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+Lp. System 
+źródłowy
+System 
+docelowy
+Zakres  
+wymienianych
+ danych
+Sposób 
+wymiany 
+danych
+Typ 
+modyfikacji
+Typ 
+interfejsu
+min.
+10 MZP S2MUR Sentinel-1 lub 
+Sentinel-2 o 
+rozdzielczości 
+(10-20 m).
+* Numeryczny 
+Model Terenu 
+NMT - Dane o 
+rzeźbie terenu 
+w 
+rozdzielczości 
+co najmniej 10 
+metrów 
+pochodzące z 
+GUGIK.
+* Mapa zalań i 
+podtopień na 
+TUZ objętych 
+ekoschematem
+.
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+11 Portal 
+Rolnika
+S2MUR Granice działki 
+rolnej i atrybut 
+uprawy - za 
+pośrednictwem
+ LPIS i GSA.
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+12 S2MUR Portal 
+Rolnika
+Dane 
+agrometeo 
+oraz o kondycji 
+uprawy w 
+obrębie 
+poligonu na 
+potrzeby 
+wyświetlania 
+map 
+tematycznych.
+Tryb odwołań 
+bezpośrednich
+Inna metoda API
+13 S2MUR SMSR Dane dot. 
+klimatycznego 
+Bilansu 
+Wodnego KBW 
+dla piksela
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+14 SMSR S2MUR Archiwalne 
+dobowe / 
+godzinne dane 
+meteorologicz
+ne i 
+agrometeorolo
+giczne Dane 
+modelowane 
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+Lp. System 
+źródłowy
+System 
+docelowy
+Zakres  
+wymienianych
+ danych
+Sposób 
+wymiany 
+danych
+Typ 
+modyfikacji
+Typ 
+interfejsu
+w SMSR (KBW, 
+straty plonów)
+15 TERYT S2MUR Identyfikatory i 
+nazwy 
+jednostek 
+podziału 
+terytorialnego, 
+słownik 
+adresów, 
+miejscowości, 
+rejonów 
+statystycznych 
+i obwodów 
+spisowych
+Tryb odwołań 
+bezpośrednich
+Krytyczny API
+16 SZPRG S2MUR Podział 
+terytorialny, 
+słownik 
+adresów.
+Tryb odwołań 
+bezpośrednich
+Krytyczny WFS (OGC)
+17 Serwisy 
+pogodowe
+SMSR Dane 
+meteorologicz
+ne.
+Tryb odwołań 
+bezpośrednich
+Inna metoda API / 
+Interfejs 
+webowy
+7.2. Kluczowe komponenty architektury rozwiązania
+7.3. Przyjęte założenia technologiczne
+Lp. Obszar Założenie technologiczne
+1. Infrastruktura System S2MUR w etapie I jest w całości uruchamiany i 
+utrzymywany w środowisku chmurowym dostawcy spełniającego 
+wymagania rezydencji danych na terenie UE. Rozważani będą 
+zarówno dostawcy komercyjni jak i podmioty naukowo-
+badawcze świadczące tego typu usługi. Przewiduje się 
+wydzielone środowiska B+R, DEV, TEST, PROD, zautomatyzowane 
+mechanizmy CI/CD.
+2. Sieć i bezpieczeństwo Połączenia szyfrowane i wykorzystanie mechanizmów 
+bezpieczeństwa środowiska chmurowego dostawcy (firewalle, 
+kontrola dostępu, monitoring).
+3. Standardy wymiany 
+danych
+Wymiana danych realizowana będzie z wykorzystaniem 
+interfejsów REST API opartych o protokół HTTP/HTTPS, 
+formatów danych takich jak XML oraz inne uzgodnione formaty 
+strukturalne, usług danych przestrzennych zgodnych ze 
+standardami OGC (w szczególności WMS, WMTS, WFS) oraz 
+plików wymiany danych w uzgodnionych formatach (np. CSV, 
+JSON, GML).
+4. Systemy operacyjne 
+serwerowe
+Open source (Linux) posiadający komercyjne wsparcie.
+5. Bazy danych Open source/ komercyjne – określone na etapie realizacji 
+projektu.
+Lp. Obszar Założenie technologiczne
+6. Serwery aplikacji GIS open source/ komercyjne – określone na etapie realizacji 
+projektu
+7. Portale CMS open source – określone na etapie realizacji projektu.
+8. Inne Zarządzanie systemem: Rozwiązania open source (Zabbix, 
+Grafana, Prometheus) w zakresie monitoringu poszczególnych 
+elementów systemu
+7.4. Opis zasobów danych przetwarzanych w planowanym 
+rozwiązaniu
+Czy nowy system będzie tworzył zasoby danych o charakterze rejestru publicznego?
+TAK/NIE
+Czy nowy system będzie przetwarzał (używał, zmieniał) zawartość innych rejestrów publicznych?
+TAK/NIE
+Lp. Rejestr publiczny Opis Zakres przetwarzania
+1 Dane z deklaracji 
+obszarowych (GSA)
+Rejestr prowadzony przez 
+ARiMR. Użycie konieczne do: 
+Generowania danych dla 
+Geoserwisu suszowego; 
+Reanaliz danych archiwalnych 
+na potrzeby aktualizacji 
+algorytmów.
+Użycie
+2 System Identyfikacji 
+Działek Rolnych – LPIS: 
+Land Parcel Identification 
+System
+Rejestr prowadzony przez 
+ARiMR. Użycie konieczne do: 
+Generowania danych dla 
+Geoserwisu suszowego; 
+Reanaliz danych archiwalnych 
+na potrzeby aktualizacji 
+algorytmów
+Użycie
+3 Krajowy Rejestr Urzędowy 
+Podziału Terytorialnego 
+Kraju (TERYT)
+Rejestr prowadzony przez 
+GUS. Użycie słownika 
+referencyjnego kodów TERYT 
+jest konieczne do: 
+umożliwienia wizualnej 
+identyfikacji lokalizacji 
+obiektów w granicach 
+wskazanej jednostki 
+administracyjnej (Geoserwis 
+Suszowy) opracowywania 
+raportów z zakresu statystyki 
+wielkości i struktury produkcji 
+rolnej, regionalizacji strat, itp.
+Użycie
+4 Państwowy Rejestr 
+Granic (PRG)
+Rejestr prowadzony przez 
+GUGiK. Użycie konieczne do 
+identyfikacji lokalizacji 
+obiektów dla jednostek 
+administracyjnych w procesie 
+Użycie
+Lp. Rejestr publiczny Opis Zakres przetwarzania
+generowania danych dla 
+Portalu Rolnika i Geoserwisu 
+suszowego
+7.5. Bezpieczeństwo
+Planowany poziom zapewnienia bezpieczeństwa (w rozumieniu przepisów §20 rozporządzenia 
+Rady Ministrów z dnia 12 kwietnia 2012 r. w sprawie Krajowych Ram Interoperacyjności […] (Dz. 
+U. 2012, poz. 526 z późn. zm.) w zakresie dot. systemu zarządzania bezpieczeństwem 
+informacji:
+- system nie podlega rygorom KRI – należy wyjaśnić czy istnieją inne normy bezpieczeństwa, 
+które będą spełnione przez system zgodnie z wymogami KRI
+- dodatkowe zabezpieczenia powyżej wymogów KRI: należy wskazać uzasadnienie
+System S2MUR podlega rygorom Krajowych Ram Interoperacyjności (KRI), zgodnie z § 19 
+rozporządzenia Rady Ministrów, ponieważ realizuje zadania publiczne na rzecz MRiRW i instytucji 
+publicznych, przetwarza dane w imieniu podmiotów publicznych oraz stanowi element procesów 
+administracyjnych związanych z oceną strat suszowych i obsługą pomocy publicznej. System 
+zostanie objęty funkcjonującym w IUNG-PIB Systemem Zarządzania Bezpieczeństwem 
+Informacji (SZBI), który spełnia wymagania KRI. W zakresie przetwarzania danych w środowisku 
+chmurowym system będzie spełniał również wymagania norm
+PN-ISO/IEC 27017 oraz PN-ISO/IEC 27018. dodatkowe zabezpieczenia powyżej wymogów KRI: 
+należy wskazać uzasadnienie: W związku z charakterem systemu S2MUR oraz zakresem 
+przetwarzanych danych planuje się wdrożenie dodatkowych zabezpieczeń ponad wymagania 
+KRI. System wspiera procesy administracyjne MRiRW, w tym ocenę strat suszowych
+i obsługę pomocy publicznej, dlatego jego ciągłość działania, integralność oraz dostępność mają 
+kluczowe znaczenie dla bezpieczeństwa informacyjnego państwa. Z tego powodu zastosowane 
+zostaną rozszerzone mechanizmy zarządzania ryzykiem, wzmocniona kontrola uprawnień 
+użytkowników, stosowanie kryptografii chroniącej dane, monitorowanie dostępu i rejestrowanie 
+incydentów, cykliczne audyty bezpieczeństwa zgodne z normami ISO oraz mechanizmy wysokiej 
+dostępności i ciągłości działania. Dodatkowo wdrożone będzie uwierzytelnianie 
+wieloskładnikowe dla użytkowników administracyjnych.

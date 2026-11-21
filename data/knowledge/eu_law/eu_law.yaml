@@ -1,0 +1,109 @@
+meta:
+  title: Prawo UE istotne dla gospodarki wodnej w gospodarstwie rolnym
+  snapshot_date: 2026-11-21
+  how_it_applies: "Dyrektywy UE działają przez prawo krajowe (głównie Prawo wodne, ustawę o ochronie przyrody, ustawę OOŚ, ustawę o PS WPR). Rolnik stosuje przepisy krajowe – lista UE wyjaśnia ich pochodzenie i kierunek zmian."
+  eurlex_pattern: "https://eur-lex.europa.eu/legal-content/PL/TXT/?uri=CELEX:{celex}"
+  status_note: "Numery CELEX z pamięci modelu – zweryfikować przy pobieraniu (scripts/fetch_knowledge.py)."
+
+items:
+  - id: rdw
+    short: Ramowa Dyrektywa Wodna
+    act: Dyrektywa 2000/60/WE
+    celex: 32000L0060
+    relevance: "Cele środowiskowe JCWP, zasada zwrotu kosztów usług wodnych → w PL: ocena wodnoprawna, opłaty za usługi wodne, pozwolenia na pobór."
+    pl_implementation: Prawo wodne (2017)
+    farmer_impact: "Pobór >5 m³/d i nawadnianie wymagają zgody; inwestycje wpływające na JCWP – ocena wodnoprawna."
+    status: OK
+
+  - id: wody_podziemne
+    short: Dyrektywa w sprawie wód podziemnych
+    act: Dyrektywa 2006/118/WE
+    celex: 32006L0118
+    relevance: "Ochrona wód podziemnych przed zanieczyszczeniem i pogorszeniem – kontekst dla studni głębinowych i GZWP."
+    pl_implementation: Prawo wodne
+    status: OK
+
+  - id: azotanowa
+    short: Dyrektywa azotanowa
+    act: Dyrektywa 91/676/EWG
+    celex: 31991L0676
+    relevance: "Program działań (nawozy, terminy, odległości od wód) – wpływa na lokalizację zbiorników, pasów buforowych i nawożenie przy ciekach."
+    pl_implementation: "Prawo wodne + rozporządzenie w sprawie Programu działań"
+    status: OK
+
+  - id: powodziowa
+    short: Dyrektywa powodziowa
+    act: Dyrektywa 2007/60/WE
+    celex: 32007L0060
+    relevance: "Mapy zagrożenia i ryzyka powodziowego (ISOK) – zbiorniki i urządzenia w strefach zagrożenia mają ograniczenia."
+    pl_implementation: Prawo wodne (obszary szczególnego zagrożenia powodzią)
+    status: OK
+
+  - id: reuse
+    short: Rozporządzenie o ponownym wykorzystaniu wody
+    act: Rozporządzenie (UE) 2020/741
+    celex: 32020R0741
+    relevance: "Minimalne wymagania jakości dla oczyszczonych ścieków komunalnych używanych do nawadniania rolniczego (stosowane od 26.06.2023)."
+    farmer_impact: "Alternatywne źródło wody do nawadniania – w PL rzadko stosowane."
+    status: OK
+
+  - id: wpr_plany
+    short: Rozporządzenie w sprawie planów strategicznych WPR
+    act: Rozporządzenie (UE) 2021/2115
+    celex: 32021R2115
+    relevance: "Normy DKR (GAEC): DKR 2 ochrona mokradeł i torfowisk, DKR 4 strefy buforowe wzdłuż cieków, DKR 5 ograniczanie erozji, DKR 6 minimalne pokrycie gleby, DKR 7 zmianowanie; podstawa ekoschematów (np. retencjonowanie wody na TUZ) i interwencji inwestycyjnych (I.10.x)."
+    pl_implementation: "Ustawa o Planie Strategicznym WPR 2023–2027"
+    farmer_impact: "Warunkowość dopłat; międzyplony, pokrycie gleby i pasy buforowe = jednocześnie retencja glebowa."
+    status: OK
+
+  - id: wpr_horyzontalne
+    short: Rozporządzenie horyzontalne WPR
+    act: Rozporządzenie (UE) 2021/2116
+    celex: 32021R2116
+    relevance: "Finansowanie, zarządzanie i monitorowanie WPR, system kontroli i warunkowości."
+    status: OK
+
+  - id: siedliskowa
+    short: Dyrektywa siedliskowa
+    act: Dyrektywa 92/43/EWG
+    celex: 31992L0043
+    relevance: "Obszary Natura 2000 (SOO) – inwestycje wodne mogą wymagać oceny oddziaływania i uzgodnień z RDOŚ."
+    pl_implementation: Ustawa o ochronie przyrody
+    status: OK
+
+  - id: ptasia
+    short: Dyrektywa ptasia
+    act: Dyrektywa 2009/147/WE
+    celex: 32009L0147
+    relevance: "Obszary Natura 2000 (OSO) – jak wyżej."
+    pl_implementation: Ustawa o ochronie przyrody
+    status: OK
+
+  - id: oos
+    short: Dyrektywa OOŚ
+    act: "Dyrektywa 2011/92/UE (zm. 2014/52/UE)"
+    celex: 32011L0092
+    relevance: "Ocena oddziaływania na środowisko – decyzja środowiskowa dla większych przedsięwzięć wodnych i melioracyjnych."
+    pl_implementation: "Ustawa o udostępnianiu informacji o środowisku… (ustawa OOŚ) + rozporządzenie o przedsięwzięciach"
+    status: OK
+
+  - id: pestycydy
+    short: Dyrektywa w sprawie zrównoważonego stosowania pestycydów
+    act: Dyrektywa 2009/128/WE
+    celex: 32009L0128
+    relevance: "Ochrona wód przy stosowaniu ŚOR – strefy buforowe przy ciekach i zbiornikach."
+    status: OK
+
+  - id: odbudowa_przyrody
+    short: Rozporządzenie o odbudowie zasobów przyrodniczych
+    act: Rozporządzenie (UE) 2024/1991
+    celex: 32024R1991
+    relevance: "Cele odbudowy ekosystemów rolniczych i torfowisk (ponowne nawadnianie osuszonych torfowisk) – kierunek przyszłych programów retencyjnych."
+    status: OK
+
+  - id: water_resilience
+    short: Europejska strategia odporności wodnej
+    act: "Komunikat KE (2025)"
+    celex: null
+    relevance: "Kierunek polityki UE: efektywność wodna, retencja, cyfrowe narzędzia zarządzania wodą."
+    status: DO_WERYFIKACJI

@@ -1,0 +1,148 @@
+meta:
+  title: Prawo wodne i budowlane – reguły dla gospodarstwa rolnego
+  snapshot_date: 2026-11-21
+  basis: "Ustawa z 20.07.2017 Prawo wodne (t.j. z późn. zm., w tym nowelizacja z 19.06.2026), Prawo budowlane, Prawo geologiczne i górnicze"
+  status_legend: {OK: potwierdzone w źródle, DO_WERYFIKACJI: niepewne, SZACUNEK: wartość orientacyjna}
+  disclaimer: "Informacja orientacyjna, nie porada prawna. Ostateczna kwalifikacja: właściwy Nadzór Wodny / Zarząd Zlewni Wód Polskich oraz starostwo."
+  source_doc: data/knowledge/baza_wiedzy_woda.md §5
+
+items:
+  - id: zwykle_korzystanie
+    topic: pobor_wody
+    title: Zwykłe korzystanie z wód (bez zgód)
+    rule: "Właściciel gruntu może bez zgody pobierać wodę na potrzeby własne i gospodarstwa domowego lub rolnego, jeżeli pobór średniorocznie nie przekracza 5 m³/dobę."
+    thresholds: {max_avg_m3_per_day: 5, averaging: rok}
+    notes: "To średnia roczna – w sezonie wegetacyjnym chwilowy pobór może być większy (5 m³ × 365 = 1825 m³/rok)."
+    requirement: brak
+    status: OK
+    sources:
+      - https://www.gov.pl/web/wody-polskie-szczecin/pobor-wod-w-ramach-zwyklego-korzystania-a-wymog-posiadania-pozwolenia-wodnoprawnego
+      - https://www.gov.pl/attachment/50a3e196-dc1f-4469-81c3-f5545a462606
+
+  - id: nawadnianie_pozwolenie
+    topic: nawadnianie
+    title: Nawadnianie upraw
+    rule: "Pobór wód to usługa wodna, a nawadnianie gruntów/upraw to szczególne korzystanie z wód – wymaga pozwolenia wodnoprawnego. Nawadnianie wodą podziemną deszczownią zawsze wykracza poza zwykłe korzystanie."
+    requirement: pozwolenie_wodnoprawne
+    procedure_id: pozwolenie_wodnoprawne
+    status: OK
+    sources: [https://www.gov.pl/attachment/3135adea-c2ea-4ed0-81b7-86fcfee30c49]
+
+  - id: pobor_z_cieku
+    topic: nawadnianie
+    title: Pobór z rzeki/cieku pompą do nawadniania
+    rule: "Pobór z cieku publicznego za pomocą pompy do nawadniania wymaga pozwolenia wodnoprawnego."
+    requirement: pozwolenie_wodnoprawne
+    procedure_id: pozwolenie_wodnoprawne
+    status: OK
+    open_question: "Granice „powszechnego korzystania z wód” (bez urządzeń technicznych)."
+    open_question_status: DO_WERYFIKACJI
+    sources: [https://www.gov.pl/attachment/3135adea-c2ea-4ed0-81b7-86fcfee30c49]
+
+  - id: studnia_do_30m
+    topic: studnia
+    title: Studnia do 30 m głębokości
+    rule: "Studnia do 30 m na potrzeby zwykłego korzystania (≤5 m³/d średniorocznie, potrzeby własne) – bez pozwolenia i bez zgłoszenia wodnoprawnego."
+    thresholds: {max_depth_m: 30, max_avg_m3_per_day: 5}
+    requirement: brak
+    status: OK
+    sources: [https://www.gov.pl/web/wody-polskie-szczecin/pobor-wod-w-ramach-zwyklego-korzystania-a-wymog-posiadania-pozwolenia-wodnoprawnego]
+
+  - id: studnia_glebinowa
+    topic: studnia
+    title: Studnia głębsza niż 30 m lub pobór > 5 m³/d / do działalności gospodarczej
+    rule: "Wymaga pozwolenia wodnoprawnego oraz spełnienia wymogów Prawa geologicznego i górniczego (zatwierdzenie projektu robót geologicznych przez starostę, dokumentacja hydrogeologiczna, jeśli wymagana)."
+    requirement: pozwolenie_wodnoprawne
+    procedure_id: studnia_glebinowa
+    status: OK
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
+
+  - id: abolicja_studnie
+    topic: studnia
+    title: Abolicja dla nielegalnych studni (nowelizacja 2026)
+    rule: "Złożenie kompletnego wniosku o legalizację ujęcia wymagającego zgody do 31.12.2027 zwalnia z opłaty legalizacyjnej (ok. 6,6 tys. zł) i kar administracyjnych (5 tys. – 1 mln zł)."
+    deadline: 2027-12-31
+    in_force_from: 2026-08-18
+    notes: "Część źródeł podaje wejście w życie 17.08.2026. Szacunkowo dotyczy ok. 40 tys. gospodarstw."
+    requirement: legalizacja
+    procedure_id: legalizacja_urzadzenia
+    status: OK
+    sources:
+      - https://www.blog.ongeo.pl/abolicja-nielegalna-studnia-legalizacja-prawo-wodne-2026
+      - https://samorzad.gov.pl/web/gmina-mucharz/darmowa-legalizacja-studni-glebinowych--sprawdz-jak-z-niej-skorzystac
+
+  - id: oplaty_za_wode
+    topic: oplaty
+    title: Opłaty za usługi wodne
+    rule: "Pobór wód podziemnych: 0,068 zł/m³ (rozp. RM z 26.10.2023). Pobór do nawadniania w rolnictwie i leśnictwie zwolniony z opłaty stałej. Kwoty do 20 zł nie są pobierane. Opłatę ustala Zarząd Zlewni."
+    values: {groundwater_pln_per_m3: 0.068, min_payable_pln: 20}
+    status: OK
+    sources: [https://www.gov.pl/web/wody-polskie-warszawa/ozuw]
+
+  - id: staw_zgloszenie
+    topic: staw
+    title: Staw/zbiornik na zgłoszenie
+    rule: "Staw o powierzchni ≤5000 m² i głębokości ≤3 m, napełniany wyłącznie wodami opadowymi, roztopowymi lub gruntowymi (nie w ramach usług wodnych), o zasięgu oddziaływania w granicach własnego gruntu – wymaga zgłoszenia wodnoprawnego. Na gruntach rolnych nie wymaga pozwolenia na budowę."
+    thresholds: {max_area_m2: 5000, max_depth_m: 3}
+    conditions: [zasilanie_opady_roztopy_gruntowe, oddzialywanie_w_granicach_gruntu, grunt_wlasny]
+    notes: "Kilka stawów na jednym gruncie się sumuje. Starsze publikacje podają nieaktualne progi (500 m²/2 m, 1000 m²)."
+    requirement: zgloszenie_wodnoprawne
+    procedure_id: zgloszenie_wodnoprawne
+    status: OK
+    sources: [https://blog.ongeo.pl/staw-lub-zbiornik-wodny-bez-pozwolenia-na-budowe]
+
+  - id: staw_pozwolenie
+    topic: staw
+    title: Staw większy lub zasilany z cieku
+    rule: "Staw >5000 m² lub >3 m głębokości, albo zasilany z cieku – pozwolenie wodnoprawne."
+    requirement: pozwolenie_wodnoprawne
+    procedure_id: pozwolenie_wodnoprawne
+    status: OK
+    sources: [https://www.gov.pl/wody-polskie/pozwolenie-wodnoprawne]
+
+  - id: oczko_male
+    topic: staw
+    title: Małe szczelne oczko do 50 m²
+    rule: "Szczelne oczko do 50 m², niewpływające na stosunki wodne – bez formalności budowlanych. Zbiornik bez szczelnej izolacji, zasilany wodami gruntowymi/opadowymi lub połączony z ciekiem, jest urządzeniem wodnym niezależnie od wielkości."
+    notes: "Grobla, mnich czy przepust – sprawdzić w starostwie (mogą wymagać zgłoszenia budowlanego)."
+    requirement: brak
+    status: OK
+    sources: [https://muratordom.pl/prawo/porady-prawne/niby-oba-to-woda-a-jednak-sa-inne-oczko-wodne-czy-staw-czym-roznia-sie-wedlug-przepisow-aa-b1Je-Nah1-wmMq.html]
+
+  - id: row_zatrzymanie
+    topic: row
+    title: Zatrzymywanie wody w istniejącym rowie
+    rule: "Zatrzymywanie wody w istniejącym rowie – bez zgłoszenia i bez pozwolenia. Przy rowie przez kilka działek potrzebna zgoda sąsiadów (porozumienie lub spółka wodna)."
+    requirement: brak
+    status: OK
+    sources: [https://wodnesprawy.pl/wp-content/uploads/2024/11/wodne-sprawy-kompendium_21_202448.pdf]
+
+  - id: row_przebudowa
+    topic: row
+    title: Przebudowa rowu / wykonanie urządzeń melioracyjnych
+    rule: "Przebudowa rowu w celu odprowadzania wody – pozwolenie wodnoprawne. Wykonanie urządzeń melioracji wodnych – pozwolenie albo zgłoszenie wodnoprawne (zależnie od rodzaju)."
+    requirement: pozwolenie_lub_zgloszenie
+    procedure_id: pozwolenie_wodnoprawne
+    status: OK
+    sources: [https://www.gov.pl/attachment/4d6ba9e8-a3c1-4cb6-86c5-1f51179f8ac5]
+
+  - id: melioracje_utrzymanie
+    topic: row
+    title: Kto utrzymuje urządzenia melioracji
+    rule: "Utrzymanie urządzeń melioracji wodnych należy do zainteresowanych właścicieli gruntów, a jeśli są objęte działalnością spółki wodnej – do spółki. W kosztach uczestniczy ten, kto odnosi korzyść (art. 205). Spółka wodna: dobrowolna, min. 3 osoby; administruje, nie jest właścicielem rowów. Ewidencję prowadzą Wody Polskie."
+    status: OK
+    sources: [https://www.gov.pl/web/wody-polskie/utrzymanie-urzadzen-melioracji-wodnych]
+
+  - id: kolejnosc_zgod
+    topic: procedura
+    title: Kolejność uzyskiwania zgód
+    rule: "Decyzja o środowiskowych uwarunkowaniach (jeśli wymagana) → pozwolenie lub zgłoszenie wodnoprawne → pozwolenie lub zgłoszenie budowlane. Ocena wodnoprawna odbywa się w ramach decyzji środowiskowej, jeśli ta jest wymagana."
+    status: OK
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
+
+  - id: ograniczenia_lokalizacji
+    topic: lokalizacja
+    title: Ograniczenia lokalizacji zbiornika
+    rule: "Wykluczenia/poważne ograniczenia: strefa szczególnego zagrożenia powodzią, kolizje z budynkami/drogami/sieciami, lasy i użytki ekologiczne, cudzy grunt (brak zgłoszenia i dotacji), strefy ochronne ujęć wody, rezerwaty i parki narodowe. Natura 2000 i OChK – nie wykluczają, ale komplikują procedurę (możliwe uzgodnienia z RDOŚ)."
+    status: OK
+    source_doc: data/knowledge/baza_wiedzy_woda.md §4

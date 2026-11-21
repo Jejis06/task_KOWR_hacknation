@@ -1,0 +1,392 @@
+2004-20062002-2004 2007-2013 2014-2020 2021-2027
+Interwencja I.13.5 – Współpraca Grup Operacyjnych EPI Zakres: Wsparcie przygotowawcze
+Plan Strategiczny WPR 2023–2027
+Warszawa, 14 stycznia 2026 r.
+Interwencja I.13.5 wspiera współpracę podmiotów sektora rolno-
+spożywczego w celu:
+• opracowania innowacyjnych rozwiązań,
+• odpowiadających na konkretne problemy praktyczne rolnictwa,
+• realizowanych w ramach Grup Operacyjnych Europejskiego Partnerstwa 
+Innowacyjnego (EPI).
+Interwencja ma charakter innowacyjny i partnerski
+Wsparcie przygotowawcze służy:
+• zbudowaniu partnerstwa GO EPI,
+• zidentyfikowaniu problemu lub potrzeby rolnika,
+• opracowaniu koncepcji innowacyjnej operacji,
+• przygotowaniu dokumentacji do utworzenia GO EPI i realizacji projektu.
+Nie jest to etap wdrażania.
+Kto może być beneficjentem wsparcia przygotowawczego?
+Beneficjentem może być:
+• osoba fizyczna,
+• osoba prawna (np. spółka),
+• jednostka organizacyjna nieposiadająca osobowości prawnej,
+o ile:
+• posiada numer identyfikacyjny EP,
+• spełnia warunki określone w wytycznych podstawowych i 
+szczegółowych.
+Czym jest Grupa Operacyjna EPI?
+Grupa Operacyjna EPI to:
+• partnerstwo co najmniej dwóch różnych kategorii podmiotów,
+• utworzone w celu realizacji innowacyjnej operacji,
+• obejmujące obowiązkowo rolnika.
+Obowiązkowy skład GO EPI
+W skład GO EPI wchodzi:
+• co najmniej jeden rolnik,
+• co najmniej jeden inny partner:
+◦ właściciel lasu
+◦ przedsiębiorca,
+◦ podmiot tworzący system szkolnictwa wyższego i nauki,
+◦ podmiot świadczący usługi doradcze.
+Kluczowa jest komplementarność ról, a nie liczba partnerów.
+Kim jest „rolnik” w interwencji I.13.5?
+Rolnikiem jest podmiot:
+• prowadzący działalność rolniczą w rozumieniu prawa UE,
+• którego gospodarstwo rolne znajduje się na terytorium RP,
+• posiadający numer EP.
+Rolnikiem może być:
+• osoba fizyczna lub osoba prawna,
+• spółka prowadząca działalność rolniczą.
+Rolnik – potencjalne role w GO EPI zgodne definicją rolnika
+Rolnik w GO EPI:
+• identyfikuje problem praktyczny w gospodarstwie,
+• uczestniczy w testowaniu rozwiązania,
+• jest użytkownikiem i odbiorcą innowacji,
+• ocenia jej przydatność w praktyce.
+Należy pamiętać, że nie jest to katalog zamknięty.
+Rolnik nie musi być liderem projektu.
+Przedsiębiorca w GO EPI
+Przedsiębiorca to podmiot:
+• prowadzący działalność gospodarczą,
+• którego działalność jest związana z zakresem operacji,
+• posiadający odpowiednie PKD i doświadczenie.
+Przedsiębiorca wnosi:
+• kompetencje organizacyjne,
+• potencjał technologiczny,
+• zdolność wdrożeniową i rynkową.
+Jeden podmiot – dwie możliwe role?
+Jeżeli podmiot (np. spółka):
+• prowadzi działalność rolniczą,
+• i jednocześnie działalność gospodarczą,
+może zostać zakwalifikowany:
+• jako rolnik albo
+• jako przedsiębiorca.
+Decyduje oświadczenie podmiotu i faktyczna rola w operacji.
+Co finansuje wsparcie przygotowawcze?
+Wsparcie obejmuje m.in.:
+• spotkania partnerów,
+• analizy i ekspertyzy,
+• przygotowanie koncepcji innowacji,
+• opracowanie planu operacji,
+• przygotowanie dokumentacji GO EPI.
+Nie obejmuje inwestycji ani wdrożeń.
+Podsumowanie – „checklista” beneficjenta
+Potencjalny beneficjent wsparcia przygotowawczego I.13.5:
+✔ posiada numer EP,
+✔ działa w ramach PS WPR,
+✔ planuje współpracę co najmniej dwóch kategorii podmiotów,
+✔ uwzględnia rolnika i jego problem,
+✔ przygotowuje innowacyjną koncepcję GO EPI,
+✔ wykazuje realność dalszego etapu – utworzenia GO.
+Planowana innowacja 
+• nowe lub istotnie ulepszone rozwiązanie
+• możliwość dalszego wdrożenia,
+Realność utworzenia GO EPI
+• gotowość partnerów,
+• spójny plan działania,
+Adekwatność składu GO EPI
+• skład dopasowany do problemu,
+• logiczny podział zadań.
+Informacje podstawowe
+W tej sekcji znajdują się następujące pola:  
+• Nazwa programu
+• Nazwa funduszu
+• Nazwa interwencji
+• Cel interwencji
+Pola są zablokowane do edycji i są wypełnione automatycznie.
+
+Dane identyfikacyjne wnioskodawcy
+W tej sekcji prezentowane są nieedytowalne Dane wnioskodawcy pozyskane z 
+bazy EP na podstawie numeru EP wnioskodawcy wskazanego przy logowaniu 
+do PUE. W zależności od formy organizacyjno-prawnej są to:
+• Dla osoby prawnej: Numer EP, Nazwa, NIP, REGON; 
+• Dla osoby fizycznej: Numer EP, Nazwisko, Imię, PESEL.
+Adres wnioskodawcy / Siedziba wnioskodawcy
+Pole zablokowane do edycji, wypełniane automatycznie danymi na podstawie 
+danych z EP.
+UWAGA
+Należy zweryfikować zgodność wyświetlonych danych ze stanem faktycznym
+Informacje szczegółowe
+Należy wpisać tytuł planowanej operacji zgodnie z celami wsparcia 
+przygotowawczego tj. utworzenie EPI i opracowanie planu realizacji operacji 
+EPI.
+
+Suma wnioskowanej kwoty pomocy dla wszystkich etapów – pole 
+obowiązkowe, należy wpisać wnioskowaną kwotę pomocy dla całej operacji, 
+nie więcej niż 50 000 zł. 
+Pola: 
+• Wnioskowana kwota pomocy dla etapu I
+• Wnioskowana kwota pomocy dla etapu II
+zostaną wypełnione automatycznie, odpowiednio kwota pomocy dla etapu I 
+stanowi 80 % wnioskowanej kwoty pomocy dla całej operacji, a kwota 
+pomocy dla etapu II  pozostałe 20 %.
+
+Planowany termin zakończenia operacji - należy wpisać planowany termin 
+zakończenia operacji, tj. termin złożenia wniosku o wypłatę drugiej transzy 
+pomocy. 
+Pomoc zostanie wypłacona w dwóch transzach, gdzie Wniosek o płatność 
+drugiej transzy pomocy należy złożyć nie później niż w terminie 4 miesięcy od 
+zawarcia umowy, lecz nie później niż do 31 sierpnia 2026 r.
+
+Budżet operacji
+Pola w tej zakładce zostaną wypełnione automatycznie.
+• Utworzenie EPI – kwota pierwszej transzy pomocy;
+• Opracowanie planu realizacji operacji – kwota drugiej transzy pomocy;
+• Razem – kwota pomocy dla całej operacji.
+
+Lista lokalizacji operacji
+Należy wypełnić pola adresowe dla miejsca realizacji 
+operacji. Przez miejsce realizacji operacji rozumiana jest 
+lokalizacja wykorzystywana do prac związanych z 
+organizowaniem grupy EPI. Może to być planowane do 
+wynajęcia biuro lub siedziba/adres wnioskodawcy w 
+ramach interwencji I.13.5.1. 
+Co do zasady, w związku ze specyfiką wsparcia 
+przygotowawczego powinna być podana jedna lokalizacja.
+Lista lokalizacji operacji
+Należy wypełnić pola adresowe dla miejsca realizacji operacji. Przez miejsce 
+realizacji operacji rozumiana jest lokalizacja wykorzystywana do prac 
+związanych z organizowaniem grupy EPI. Może to być planowane do 
+wynajęcia biuro lub siedziba/adres wnioskodawcy w ramach interwencji 
+I.13.5.1. 
+Co do zasady, w związku ze specyfiką wsparcia przygotowawczego powinna 
+być podana jedna lokalizacja.
+Opis partnerstwa
+Tytuł partnerstwa: pełna, oficjalna nazwa, pod jaką zostanie zarejestrowana 
+(wpisana do Krajowego Rejestru Sądowego) grupa, a w przypadku grupy 
+nieposiadającej osobowości prawnej nazwa wpisana do umowy konsorcjum.
+
+Opis partnerstwa
+Tytuł partnerstwa: pełna, oficjalna nazwa, pod jaką zostanie zarejestrowana 
+(wpisana do Krajowego Rejestru Sądowego) grupa, a w przypadku grupy 
+nieposiadającej osobowości prawnej nazwa wpisana do umowy konsorcjum.
+
+Celem jest opracowanie i wdrożenie innowacyjnej operacji, która rozwiązuje 
+problemy lub potrzeby rolnika, będącego członkiem EPI lub gospodarstwa 
+rolnego.
+Imię i nazwisko lub pełną nazwę podmiotu, który zainicjował powstanie EPI, 
+ze wskazaniem kategorii podmiotu.
+
+Opis planowanej operacji
+Należy wpisać tytuł planowanej operacji zgodnie z celami wsparcia 
+przygotowawczego tj . utworzenie EPI i opracowanie planu realizacji operacji 
+EPI.
+
+Opis planowanej operacji
+Należy podać cel w jakim grupa EPI będzie realizowała planowaną operację. 
+Powtórzenie tytułu z sekcji Opis partnerstwa, tj. nazwa GO EPI o ile ściśle 
+koresponduje ona z problemem rolnika
+Należy mieć na uwadze, że cel/problem rolnika będzie przeniesiony do umowy 
+o przyznaniu pomocy. 
+
+Opis planowanej operacji
+W tym polu należy opisać problem/y, ważne powody, potrzebę, które 
+uzasadniają  – realizację tej konkretnej operacji. Należy uzasadnić potrzebę 
+realizacji projektu, poprzez wskazanie konkretnego/konkretnych problemu/ów, 
+powodu/powodów powstania projektu. 
+Uzasadnienie powinno wykazać także, jak planowana operacja wychodzi 
+naprzeciw oczekiwaniom rolnika/gospodarstwa rolnego co do  rozwiązania 
+opisanych problemów i zaspokojenia potrzeb rolnika/gospodarstwa.
+
+Opis planowanej operacji
+Należy podać spodziewane rezultaty operacji. W sposób szczególny powinny 
+zostać w tym polu opisane główne korzyści, jakie będą wynikać z 
+zastosowania poszczególnych lub wszystkich przewidywanych rezultatów 
+operacji dla ich adresata, wskazać spodziewane efekty działań 
+podejmowanych w ramach operacji (np. wdrożenia, produkty, opracowania, 
+publikacje). Informacja nie powinna przekroczyć 1000 znaków.
+
+Informacje szczegółowe
+W tym polu Wnioskodawca, dla wykazania doświadczenia:
+1. W tworzeniu partnerstw - powinien wymienić partnerstwa utworzone z jego udziałem i z 
+udziałem rolnika realizujące projekty współfinansowane ze środków pochodzących z 
+budżetu Unii Europejskiej (z wyłączeniem udziału w GO EPI w ramach PROW 2014-2020). 
+Jeżeli Wnioskodawca jest rolnikiem i brał udział w partnerstwie realizującym projekty 
+współfinansowane ze środków pochodzących z budżetu Unii Europejskiej jako rolnik, 
+także powinien wymienić utworzenie takiego partnerstwa.
+2. W realizacji projektów wspierających rolników lub naukowców – powinien wymienić 
+projekty, w których brał udział wspierające rolników lub naukowców (z wyłączeniem 
+udziału w GO EPI w ramach PROW 2014-2020). 
+
+Informacje szczegółowe
+W sytuacji gdy wnioskodawca otrzymał pomoc w ramach działania 16 „Współpraca” objętego 
+Programem Rozwoju Obszarów Wiejskich na lata 2014-20, w polu tym wskazuje: numer 
+umowy, nazwę grupy EPI oraz tytuł operacji. 
+Natomiast, gdy wnioskodawca ubiegał się o finansowanie projektu lub realizował projekt w 
+ramach Horyzont 2020 lub Horyzont Europa wskazuje dane identyfikacyjne tj. nazwa 
+projektu, rodzaj roli (koordynator, lider pakietu, lider zadania, inna rola) jaką pełnił w 
+projekcie.
+
+Informacje szczegółowe
+Na etapie Wsparcia przygotowawczego w powyższym polu należy wpisać: Nie dotyczy.
+
+Informacje szczegółowe
+Pole to jest polem obowiązkowym, należy dodać przynajmniej jeden produkt rolny. 
+W kolumnie tej należy wpisać wszystkie produkty rolne wraz z kodem, które będą przedmiotem 
+opracowania i wdrożenia innowacji w zakresie nowych produktów lub znacznie udoskonalonych 
+produktów - objętych Załącznikiem 1 do Traktatu o funkcjonowaniu Unii Europejskiej, z wyjątkiem 
+produktów rybołówstwa, lub produkt rolny, o którym mowa w rozporządzeniu 2024/1143, z wyjątkiem 
+produktów rybołówstwa i akwakultury, lub produkt wymieniony w załączniku I do rozporządzenia 
+2018/848.
+Informacje szczegółowe
+Zgodność operacji z celami szczegółowymi i przekrojowymi WPR
+Cele ogólne WPR osiąga się, realizując cele szczegółowe. Cele szczegółowe są 
+uzupełnieniem i powiązane z przekrojowym celem polegającym na 
+modernizacji rolnictwa i obszarów wiejskich poprzez sprzyjanie rozwojowi 
+wiedzy, innowacji i cyfryzacji oraz ich wykorzystania, poprzez ułatwienie 
+dostępu do badań, innowacji, wymiany wiedzy i szkoleń. 
+W tej sekcji należy wskazać cele (przynajmniej jedno pole wyboru), które 
+zostaną osiągnięte i potwierdzą zasadność planowanej operacji z celami 
+szczegółowymi określonymi dla WPR.
+Informacje szczegółowe
+Po zaznaczeniu odpowiedniego celu należy każdorazowo wskazać zakres, w jakim operacja 
+przyczyni się do realizacji celu. Opis zakresu powinien być sformułowany w sposób konkretny i 
+uzasadniać motywy wyboru celu oraz wskazywać na zasadność operacji. Podmiot zamieszcza 
+wszystkie ważne informacje związane z planowaną do realizacji operacją, zapewniając 
+jednocześnie spójność z informacjami umożliwiającymi ocenę spełnienia kryteriów wyboru 
+operacji.
+
+Informacje szczegółowe
+Pole to jest obowiązkowe, należy zaznaczyć min. 1 wskaźnik.
+Kryteria wyboru operacji
+Doświadczenie w tworzeniu partnerstw realizujących projekty
+Pole wielokrotnego wyboru.
+Katalog dokumentów potwierdzających doświadczenie w realizacji projektów jest 
+katalogiem otwartym. ARiMR zaakceptuje każdy dokument jednoznacznie 
+potwierdzający doświadczenie w danym zakresie. 
+Samo oświadczenie Wnioskodawcy w postaci wykazu zrealizowanych projektów 
+będzie akceptowane tylko i wyłącznie w przypadku operacji wdrażanych przez ARiMR.
+
+Kryteria wyboru operacji
+W pozostałych przypadkach dokumentami potwierdzającymi doświadczenie 
+Wnioskodawcy mogą być np. zaświadczenia instytucji finansującej operację, 
+informacja o zatwierdzenie wniosku o płatność końcową operacji, raport ze 
+zrealizowanej operacji wraz z potwierdzeniem zaakceptowania raportu przez 
+instytucję finansującą operację, itp. 
+Dokumenty te powinny również zawierać, oprócz informacji o zrealizowaniu 
+operacji, informację o przedmiocie operacji, funduszu z którego operacja była 
+finansowana, w celu jednoznacznego potwierdzenia czy zrealizowana operacja 
+dotyczyła zakresów wskazanych w podrozdziale IV.4.1 wytycznej 
+szczegółowej.
+Kryteria wyboru operacji
+Jednocześnie w przypadku kryterium, gdzie oprócz potwierdzenia 
+zrealizowania operacji, należy również wskazać pełnioną w niej rolę, może 
+okazać się konieczne przedłożenie innych dokumentów – na przykład kopii 
+umowy o przyznaniu pomocy.
+W przypadku gdyby przedłożone dokumenty nie potwierdzały jednoznacznie 
+doświadczenie w realizacji operacji i na tej podstawie ARiMR nie będzie w 
+stanie przyznać punktów, Wnioskodawca zostanie wezwany do złożenia 
+uzupełnień lub złożenia wyjaśnień w tym zakresie.
+Kryteria wyboru operacji
+Udział w GO EPI w ramach PROW 2014-2020 lub udział członków EPI w ramach 
+PROW 2014 – 2020 lub udział w realizacji projektów horyzontalnych
+Pole wielokrotnego wyboru.
+
+Kryteria wyboru operacji
+Wnioskodawca może wykazać doświadczenie innego podmiotu w ramach 
+danego kryterium na podstawie listu intencyjnego sporządzonego przez ten 
+podmiot, w którym deklaruje on chęć wstąpienia do tworzonej przez 
+Wnioskodawcę grupy EPI. 
+W taki  przypadku niezbędne jest dostarczenie wraz z WOPP dokumentów 
+potwierdzających doświadczenie w ramach danego kryterium, posiadane przez 
+podmiot wystawiający list intencyjny. 
+Kryteria wyboru operacji
+Deklarowany udział rolników w składzie EPI
+Pole obowiązkowe, jednokrotnego wyboru
+Udział rolnika, który zainicjował utworzenie grupy operacyjnej
+
+Kryteria wyboru operacji
+Doświadczenie i zrealizowane projekty
+Pole wielokrotnego wyboru.
+
+Kryteria wyboru operacji
+Operacja będzie dotyczyć projektu pilotażowego lub prototypu lub projektu 
+eksperymentalnego
+Pole wielokrotnego wyboru.
+
+Kryteria wyboru operacji
+Pomoc może być przyznana na operacje, które uzyskały co najmniej 
+49 punktów.
+W przypadku operacji o takiej samej liczbie punktów o kolejności 
+przysługiwania pomocy decyduje kwota wnioskowanej pomocy, przy czym 
+pierwszeństwo w uzyskaniu pomocy ma operacja z niższą wnioskowaną kwotą 
+pomocy. 
+Jeżeli ustalenie kolejności przysługiwania pomocy nadal jest niemożliwe, 
+wówczas o tej kolejności decyduje data i godzina złożenia WOPP, począwszy 
+od najwcześniejszej. 
+Oświadczenia i zobowiązania
+Zapoznanie się z treścią oświadczeń i potwierdzenie ich prawdziwości jest 
+obowiązkowe. 
+Brak potwierdzenia poszczególnych oświadczeń uniemożliwia przejście do 
+następnej części formularza wniosku, a niepotwierdzone obowiązkowe pola 
+podświetlą się na czerwono.
+
+Załączniki
+W tej części wniosku za pomocą przycisku „Dodaj załącznik” albo przy użyciu 
+metody „przeciągnij i upuść” istnieje możliwość załączenia plików 
+spełniających następujące wymogi:
+• maksymalny dopuszczalny rozmiar pliku załącznika to 50 MB,
+• nazwa pliku załącznika nie może być dłuższa niż 48 znaków wraz z 
+rozszerzeniem pliku,
+• w sekcji „Załączniki” nie można załączyć plików o tej samej nazwie.
+
+Załączniki
+Załączniki obowiązkowe 
+Dołączane w sekcji Inne załączniki
+Projekt budżetu operacji
+
+Informacja o korespondencji elektronicznej
+Należy obowiązkowo zapoznać się z treścią wszystkich pouczeń w tej części 
+wniosku o przyznanie pomocy. 
+Po zapoznaniu się z informacjami zawartymi w tej części wniosku należy 
+wprowadzić numer telefonu lub adres poczty elektronicznej. 
+Powiadomienia o wszelkich dokumentach, które pojawią się w tej sprawie na 
+PUE, będą przychodziły na wskazany kanał komunikacji.
+
+Podgląd wniosku
+System wyświetli wniosek o przyznanie pomocy zawierający wprowadzone dane. 
+Należy sprawdzić wszystkie dane i 
+jeśli są poprawne - zatwierdzić i 
+wysłać wniosek w PUE do dalszego 
+procedowania w jednostce 
+organizacyjnej ARiMR właściwej do 
+obsługi wniosków. Jeżeli dane 
+wymagają poprawy – należy 
+dokonać zmiany przed 
+zatwierdzeniem i wysłaniem 
+wniosku. 
+Podgląd wniosku
+Ważne: 
+W czasie trwania naboru, nie ma możliwości złożenia zmiany wniosku. W tym 
+celu należy wycofać wniosek i złożyć go ponownie, co wiąże się z 
+uzupełnieniem wniosku od początku oraz ponownym załączeniem wszystkich 
+wymaganych dokumentów. 
+Zmiana wniosku o przyznanie pomocy jest możliwa od  dnia zakończenia 
+naboru i jest aktywna przez 14 dni, w tym czasie wniosek o przyznanie 
+pomocy może być zmieniany przez wnioskodawcę tylko w zakresie 
+dotyczącym załączanych dokumentów, np. poprzez dodanie nowego 
+załącznika.
+Podgląd wniosku
+Po naciśnięciu przycisku „Wyślij wniosek” wyświetli nam się poniższe okno 
+autoryzacji: 
+W tym oknie musi zostać podany login osoby 
+fizycznej lub osoby fizycznej upoważnionej do 
+reprezentowania Wnioskodawcy ubiegającego 
+się o przyznanie pomocy (np. podmiotu 
+publicznego świadczącego usługi doradcze). 
+Podgląd wniosku
+Po wpisaniu prawidłowego hasła i loginu wniosek zostanie wysłany, co 
+zostanie potwierdzone wyświetlonym komunikatem. 
+Potwierdzenie złożenia wniosku o przyznanie pomocy zostanie również 
+przesłane na wskazany kanał komunikacji.
+
+Dziękujemy za uwagę

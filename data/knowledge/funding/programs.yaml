@@ -1,0 +1,110 @@
+meta:
+  title: Finansowanie inwestycji wodnych w gospodarstwie
+  snapshot_date: 2026-11-21
+  key_facts:
+    - "Większość dotacji ARiMR/PS WPR to refundacja: nabór → wniosek online (punkty, ranking) → umowa → realizacja z własnych środków → wniosek o płatność → zwrot → okres związania celem."
+    - "Inwestycje trwale związane z nieruchomością – tylko na gruntach własnych wnioskodawcy (lub w użytkowaniu wieczystym)."
+    - "Brak dedykowanego programu na zbiorniki retencyjne dla pojedynczego rolnika (stan 11.2026)."
+
+items:
+  - id: fgr_plus
+    name: Kredyt z gwarancją FGR Plus (I.10.1.2, BGK)
+    applicant: rolnik, przez bank
+    scope: "Gwarancja do 80% kredytu; dopłata 60% raty odsetkowej do 24 mies.; oprocentowanie ≤6%"
+    call: nabór ciągły
+    for_farmer: true
+    status: OK
+    sources: [https://www.gov.pl/web/rolnictwo/fundusz-gwarancji-rolnych-plus]
+
+  - id: arimr_i1011
+    name: ARiMR I.10.1.1 – inwestycje zwiększające konkurencyjność
+    applicant: rolnik
+    scope: "65% kosztów kwalifikowanych (rolnik ≤40 lat lub gospodarstwo ekologiczne), 45% pozostali"
+    call: nabory okresowe
+    for_farmer: true
+    status: DO_WERYFIKACJI
+    open_question: "Czy zbiornik retencyjny jest kosztem kwalifikowanym."
+    sources: [https://www.gov.pl/web/arimr/i1011-inwestycje-w-gospodarstwach-rolnych-zwiekszajace-konkurencyjnosc-dotacje]
+
+  - id: arimr_i104
+    name: I.10.4 – inwestycje przyczyniające się do ochrony środowiska i klimatu
+    applicant: rolnik lub grupa rolników (min. 3)
+    scope: "M.in. systemy retencji wody (np. zbiorniki na wodę opadową); rolnik do 65%, grupa do 80%"
+    call: DO_WERYFIKACJI (terminy naborów)
+    for_farmer: true
+    measures: [zbiornik_opadowy, oczko_wodne]
+    status: DO_WERYFIKACJI
+    sources: [https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf]
+
+  - id: ekoschemat_tuz
+    name: Ekoschemat „Retencjonowanie wody na trwałych użytkach zielonych”
+    applicant: rolnik, we wniosku obszarowym
+    scope: "Ok. 260,69 zł/ha/rok; warunek: zalanie lub podtopienie TUZ (≥80% wysycenia profilu) między 1 maja a 30 września"
+    call: co roku
+    for_farmer: true
+    applies_to_land: TUZ
+    rate_status: SZACUNEK
+    status: OK
+    sources: [https://www.gov.pl/attachment/5b8e988c-33e8-4d41-bda7-82157d073500]
+
+  - id: interwencja_8_torfowiska
+    name: Interwencja rolno-środowiskowo-klimatyczna 8 – ochrona torfowisk i obszarów podmokłych
+    applicant: rolnik
+    scope: "Wariant 8.1 TUZ: 581 zł/ha/rok"
+    call: co roku
+    for_farmer: true
+    applies_to_land: TUZ na glebach organicznych
+    status: OK
+    sources: [https://www.gov.pl/attachment/bc53298a-c0a2-41b8-80e1-8a1a5616c7fe]
+
+  - id: epi_grupy_operacyjne
+    name: Grupy Operacyjne EPI (I.13.5)
+    applicant: "konsorcjum: min. 1 rolnik + min. 1 inny partner"
+    scope: "Etap 1: wsparcie przygotowawcze do 50 000 zł; etap 2: realizacja operacji (pilotaż)"
+    call: "W obecnej WPR nabory się kończą (przygotowawcze 15.01–16.02.2026; realizacja: jeden nabór w 2026); prawdopodobnie wróci w WPR od 2028"
+    for_farmer: true
+    status: OK
+    sources: [https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791]
+
+  - id: nfosigw_adaptacja
+    name: NFOŚiGW „Adaptacja do zmian klimatu”
+    applicant: "DO_WERYFIKACJI – prawdopodobnie samorządy i instytucje"
+    scope: "Ok. 900 mln zł dotacji i pożyczek na odporność na susze i powodzie"
+    call: "1.10.2026 – 30.09.2034"
+    for_farmer: false
+    status: DO_WERYFIKACJI
+    sources: ["https://www.gramwzielone.pl/?p=20381695"]
+
+  - id: feniks_retencja
+    name: FEnIKS / FEPW – mała i średnia retencja (NFOŚiGW)
+    applicant: samorządy, instytucje
+    scope: "Ok. 8 mld zł łącznie; rolnik pośrednio – przez projekt gminy"
+    for_farmer: false
+    status: OK
+    sources: [https://www.gov.pl/web/nfosigw/kazda-kropla-ma-znaczenie-nfosigw-finansuje-rozwiazania-retencyjne]
+
+  - id: life
+    name: LIFE (KE) + współfinansowanie NFOŚiGW
+    applicant: gminy, NGO, konsorcja
+    scope: duże projekty środowiskowo-klimatyczne
+    call: "Współfinansowanie: 12.05.2026 – 30.12.2027"
+    for_farmer: false
+    status: OK
+    sources: [https://www.gov.pl/web/nfosigw/po-pierwsze-srodowisko--start-naboru-wnioskow-na-wspolfinansowanie-projektow-life]
+
+  - id: mikroretencja
+    name: „Mikroretencja” (WFOŚiGW)
+    applicant: osoby fizyczne z domem jednorodzinnym
+    scope: "Do 90%, max 8 tys. zł – NIE dla działalności rolniczej"
+    for_farmer: false
+    status: OK
+    sources: [https://www.gov.pl/web/nfosigw/mikroretencja]
+
+  - id: kpo_b331
+    name: KPO B3.3.1 obszar B (zbiorniki, melioracje w gminach)
+    applicant: gminy
+    scope: "USUNIĘTE z KPO; projekty miały się zakończyć do 12.12.2025. Doniesienia o „206 mln euro z KPO na wodę w gospodarstwach” – niewiarygodne."
+    for_farmer: false
+    active: false
+    status: OK
+    sources: [https://api.sejm.gov.pl/sejm/term10/interpellations/13854/body]

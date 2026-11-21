@@ -1,0 +1,140 @@
+"""Meteo: 10 lat danych dobowych do daty analizy + prognoza.
+
+Łańcuch dostawców (fallback), bo na hackathonie wszyscy dzielą jedno IP i Open-Meteo
+szybko zwraca 429 „Daily API request limit exceeded” (zaobserwowane 21.11.2026):
+  1) Open-Meteo Archive (ERA5/ERA5-Land, ~9–11 km, gotowe ET0 FAO) – CC BY 4.0, darmowe niekomercyjnie
+  2) NASA POWER (MERRA-2, 0.5°×0.625°) – ET0 liczone u nas FAO-56 PM – domena publiczna
+Dane NIE sięgają za as_of (brak „podglądania przyszłości” przy analizie historycznej).
+"""
+from __future__ import annotations
+
+from datetime import date, timedelta
+from typing import Any
+
+from app.config import settings
+from app.connectors.base import Connector
+from app.contracts.models import (AnalysisContext, BlockStatus, DailySeries, DataBlock, WeatherForecast,
+                                  WeatherHistory)
+from app.core.http import RateLimited, get_with_retry
+from app.science.et0 import et0_penman_monteith
+from app.science.water_balance import monthly_climatology, season_summaries, window_vs_normal
+
+OPEN_METEO_ARCHIVE = "https://archive-api.open-meteo.com/v1/archive"
+OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
+NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
+
+
+def history_range(as_of: date, years: int) -> tuple[date, date]:
+    end = min(as_of, date.today() - timedelta(days=1))
+    start = date(end.year - years, end.month, 1)
+    return start, end
+
+
+async def _open_meteo(lat: float, lon: float, start: date, end: date) -> tuple[DailySeries, dict]:
+    r = await get_with_retry(OPEN_METEO_ARCHIVE, params={
+        "latitude": lat, "longitude": lon, "start_date": start.isoformat(), "end_date": end.isoformat(),
+        "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration",
+        "timezone": "Europe/Warsaw"}, timeout_s=10)
+    j = r.json()
+    d = j["daily"]
+    s = DailySeries(dates=[date.fromisoformat(x) for x in d["time"]], precip_mm=d["precipitation_sum"],
+                    tmax_c=d["temperature_2m_max"], tmin_c=d["temperature_2m_min"],
+                    et0_mm=d["et0_fao_evapotranspiration"])
+    return s, {"provider": "open-meteo-era5", "elevation": j.get("elevation")}
+
+
+async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[DailySeries, dict]:
+    r = await get_with_retry(NASA_POWER, params={
+        "parameters": "PRECTOTCORR,T2M_MAX,T2M_MIN,RH2M,WS2M,ALLSKY_SFC_SW_DWN", "community": "AG",
+        "longitude": lon, "latitude": lat, "start": start.strftime("%Y%m%d"), "end": end.strftime("%Y%m%d"),
+        "format": "JSON"}, timeout_s=15)
+    j = r.json()
+    prm = j["properties"]["parameter"]
+    elev = (j.get("geometry", {}).get("coordinates") or [None, None, 100])[2] or 100
+    fill = j.get("header", {}).get("fill_value", -999)
+    clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)  # noqa: E731
+    dates, P, TX, TN, E = [], [], [], [], []
+    for k in sorted(prm["PRECTOTCORR"].keys()):
+        dd = date(int(k[:4]), int(k[4:6]), int(k[6:]))
+        p, tx, tn = clean(prm["PRECTOTCORR"][k]), clean(prm["T2M_MAX"][k]), clean(prm["T2M_MIN"][k])
+        rh, u2, rs = clean(prm["RH2M"][k]), clean(prm["WS2M"][k]), clean(prm["ALLSKY_SFC_SW_DWN"][k])
+        e = (round(et0_penman_monteith(dd, lat, elev, tx, tn, rh, u2, rs), 2)
+             if None not in (tx, tn, rh, u2, rs) else None)
+        dates.append(dd); P.append(p); TX.append(tx); TN.append(tn); E.append(e)
+    return DailySeries(dates=dates, precip_mm=P, tmax_c=TX, tmin_c=TN, et0_mm=E), \
+        {"provider": "nasa-power", "elevation": elev}
+
+
+class WeatherHistoryConnector(Connector):
+    key = "weather_history"
+    title = "Opady i parowanie – 10 lat"
+    category = "meteo"
+    live_ttl_s = 6 * 3600
+    timeout_s = 20
+
+    async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
+        lon, lat = ctx.parcel.centroid
+        start, end = history_range(ctx.as_of, settings.history_years)
+        messages: list[str] = []
+        series = meta = None
+        provs = []
+        for name, fn, url, lic in (
+            ("Open-Meteo Historical Weather API (ERA5/ERA5-Land, ECMWF Copernicus)", _open_meteo,
+             OPEN_METEO_ARCHIVE, "CC BY 4.0 (dane), API darmowe do użytku niekomercyjnego"),
+            ("NASA POWER (MERRA-2)", _nasa_power, NASA_POWER, "Domena publiczna (NASA)"),
+        ):
+            try:
+                series, meta = await fn(lat, lon, start, end)
+                provs.append(self.prov(name, source_url=url, licence=lic, data_as_of=series.dates[-1]))
+                break
+            except RateLimited:
+                messages.append(f"{name}: limit zapytań (429) – przełączono na źródło zapasowe.")
+            except Exception as e:  # noqa: BLE001
+                messages.append(f"{name}: {type(e).__name__} – przełączono na źródło zapasowe.")
+        if series is None:
+            return self.block(BlockStatus.error, messages=messages,
+                              uncertainty=["Brak danych meteorologicznych – ocena bilansu wodnego niemożliwa."])
+
+        last30, last30n = window_vs_normal(series, end, 30, "precip_mm")
+        p60, p60n = window_vs_normal(series, end, 60, "precip_mm")
+        e60, e60n = window_vs_normal(series, end, 60, "et0_mm")
+        grid = ("siatka ERA5-Land ok. 9–11 km" if meta["provider"] == "open-meteo-era5"
+                else "siatka MERRA-2 ok. 50 km (zgrubna!)")
+        data = WeatherHistory(
+            provider=meta["provider"], grid_resolution_note=grid, start=start, end=series.dates[-1],
+            daily=series, monthly_climatology=monthly_climatology(series), seasons=season_summaries(series),
+            last_30d_precip_mm=last30, last_30d_precip_normal_mm=last30n,
+            cwb_60d_mm=round(p60 - e60, 1) if p60 is not None and e60 is not None else None,
+            cwb_60d_normal_mm=round(p60n - e60n, 1) if p60n is not None and e60n is not None else None,
+        )
+        unc = [f"Dane z reanalizy ({grid}), nie z pomiaru na działce – lokalne burze mogą być pominięte.",
+               "Norma = średnia z dostępnych lat w oknie 10-letnim, nie klimatologia 30-letnia."]
+        status = BlockStatus.ok
+        if (ctx.as_of - series.dates[-1]).days > 3:
+            status = BlockStatus.partial
+            unc.append(f"Najnowsze dane: {series.dates[-1].isoformat()} (opóźnienie reanalizy względem daty analizy).")
+        return self.block(status, data, provenance=provs, uncertainty=unc, messages=messages)
+
+
+class WeatherForecastConnector(Connector):
+    key = "weather_forecast"
+    title = "Prognoza pogody (16 dni)"
+    category = "meteo"
+    live_ttl_s = 3 * 3600
+
+    async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
+        if ctx.as_of < date.today() - timedelta(days=1):
+            return self.block(BlockStatus.not_applicable,
+                              messages=["Analiza historyczna – prognoza nie dotyczy wybranej daty."])
+        lon, lat = ctx.parcel.centroid
+        r = await get_with_retry(OPEN_METEO_FORECAST, params={
+            "latitude": lat, "longitude": lon, "forecast_days": 16, "timezone": "Europe/Warsaw",
+            "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration"})
+        d = r.json()["daily"]
+        data = WeatherForecast(provider="open-meteo", dates=[date.fromisoformat(x) for x in d["time"]],
+                               precip_mm=d["precipitation_sum"], et0_mm=d["et0_fao_evapotranspiration"],
+                               tmax_c=d["temperature_2m_max"], tmin_c=d["temperature_2m_min"])
+        return self.block(BlockStatus.ok, data,
+                          provenance=[self.prov("Open-Meteo Forecast API", source_url=OPEN_METEO_FORECAST,
+                                                licence="CC BY 4.0")],
+                          uncertainty=["Prognoza powyżej 5–7 dni ma niską sprawdzalność opadów."])

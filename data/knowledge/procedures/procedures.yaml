@@ -1,0 +1,89 @@
+meta:
+  title: Procedury wodnoprawne krok po kroku
+  snapshot_date: 2026-11-21
+  organs: "KZGW → RZGW → Zarząd Zlewni (ZZ) → Nadzór Wodny (NW)"
+  disclaimer: "Informacja orientacyjna. Aktualne wzory i opłaty – karty usług gov.pl i katalog opłat Wód Polskich."
+
+items:
+  - id: zgloszenie_wodnoprawne
+    title: Zgłoszenie wodnoprawne
+    organ: Kierownik Nadzoru Wodnego właściwego dla miejsca inwestycji (PGW Wody Polskie)
+    when: "Przed rozpoczęciem robót."
+    how_to_submit: "Osobiście lub listownie (karta usługi gov.pl nie przewiduje drogi elektronicznej)."
+    steps:
+      - Ustal właściwy Nadzór Wodny (wg lokalizacji działki).
+      - Przygotuj opis zamierzenia, mapę z lokalizacją, szkice/rysunki urządzenia.
+      - Wnieś opłatę i złóż zgłoszenie przed rozpoczęciem robót.
+      - "Organ publikuje zgłoszenie w BIP Wód Polskich w ciągu 7 dni."
+      - "Czekaj 30 dni – brak sprzeciwu (decyzji) = możesz zaczynać. Przy brakach termin biegnie od uzupełnienia."
+      - "Zgłoszenie wygasa po 3 latach od zgłoszonego terminu rozpoczęcia robót."
+      - Po wykonaniu urządzenia – zgłoszenie do SIGW (zmiany danych w ciągu 30 dni).
+    deadlines: {organ_objection_days: 30, bip_publication_days: 7, validity_years: 3}
+    fee_pln: 87
+    fee_status: DO_WERYFIKACJI
+    typical_duration: "1–2 miesiące"
+    typical_duration_status: SZACUNEK
+    status: OK
+    sources:
+      - https://www.gov.pl/wody-polskie/zgloszenie-wodnoprawne
+      - https://lexlege.pl/tt/art-423/
+
+  - id: pozwolenie_wodnoprawne
+    title: Pozwolenie wodnoprawne
+    organ: "Dyrektor Zarządu Zlewni albo Dyrektor RZGW (zależnie od rodzaju przedsięwzięcia)"
+    when: "Przed rozpoczęciem korzystania/robót – w praktyce przed sezonem, nie w trakcie suszy."
+    attachments:
+      - operat wodnoprawny (z datą wykonania)
+      - opis działalności bez specjalistycznych określeń
+      - decyzja o środowiskowych uwarunkowaniach (jeśli wymagana)
+      - wypis i wyrys z planu miejscowego (jeśli dotyczy) lub decyzja o warunkach zabudowy
+      - dokumentacja hydrogeologiczna (jeśli wymagana)
+      - dowód opłaty; przy pełnomocniku – pełnomocnictwo z opłatą skarbową
+    notes: "Jeden wniosek może obejmować kilka pozwoleń – opłata się mnoży."
+    fee_pln: 330.07
+    fee_status: DO_WERYFIKACJI
+    typical_duration: "od kilku miesięcy do ponad roku"
+    typical_duration_status: SZACUNEK
+    status: OK
+    sources:
+      - https://www.gov.pl/wody-polskie/pozwolenie-wodnoprawne
+      - https://www.gov.pl/attachment/e303ca62-4871-4948-9c9a-b47606e01f41
+
+  - id: studnia_glebinowa
+    title: Studnia głębinowa (>30 m lub pobór > 5 m³/d)
+    organ: "Starosta (Prawo geologiczne i górnicze) + Wody Polskie (pozwolenie wodnoprawne)"
+    steps:
+      - Projekt robót geologicznych → zatwierdzenie decyzją starosty.
+      - Wykonanie otworu przez uprawnioną firmę.
+      - Dokumentacja hydrogeologiczna (ustalenie zasobów eksploatacyjnych) → zatwierdzenie.
+      - Operat wodnoprawny → pozwolenie wodnoprawne na pobór (usługa wodna).
+      - Opłaty za pobór wód podziemnych (0,068 zł/m³; nawadnianie – bez opłaty stałej).
+    status: OK
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
+
+  - id: legalizacja_urzadzenia
+    title: Legalizacja urządzenia wodnego (w tym studni – abolicja do 31.12.2027)
+    organ: PGW Wody Polskie
+    attachments:
+      - mapa sytuacyjno-wysokościowa
+      - szkice urządzenia
+      - "dla studni: dane o głębokości i poborze"
+    notes: "Kompletny wniosek złożony do 31.12.2027 – bez opłaty legalizacyjnej (ok. 6,6 tys. zł) i kar."
+    status: OK
+    sources: [https://www.gov.pl/web/wody-polskie/legalizacja-urzadzenia-wodnego]
+
+  - id: ocena_wodnoprawna
+    title: Ocena wodnoprawna
+    organ: Zarząd Zlewni lub RZGW
+    when: "Dla przedsięwzięć mogących wpłynąć na cele środowiskowe JCWP; w ramach decyzji środowiskowej, jeśli ta jest wymagana."
+    fee_pln: 868
+    fee_status: DO_WERYFIKACJI
+    status: OK
+    sources: [https://www.gov.pl/web/wody-polskie-wroclaw/zalatw-sprawe]
+
+  - id: decyzja_srodowiskowa
+    title: Decyzja o środowiskowych uwarunkowaniach
+    organ: Wójt/burmistrz (uzgodnienia RDOŚ, Wody Polskie, sanepid)
+    when: "Gdy przedsięwzięcie jest na liście mogących znacząco oddziaływać na środowisko (np. duże zbiorniki, melioracje na dużej powierzchni, inwestycje na Natura 2000)."
+    status: DO_WERYFIKACJI
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]

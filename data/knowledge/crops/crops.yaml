@@ -1,0 +1,267 @@
+meta:
+  title: Uprawy – okres wegetacji, terminy, potrzeby wodne
+  snapshot_date: 2026-11-21
+  sources:
+    - "FAO-56 (Allen i in.), Tab. 11 (długości faz), Tab. 12 (Kc), Tab. 22 (głębokość korzeni Zr, frakcja p)"
+    - "SMSR IUNG-PIB – grupy upraw monitorowane (Doroszewski i in. 2012); S2MUR rozszerza do 25 pozycji"
+    - "Terminy siewu/zbioru: typowe dla Polski (COBORU, IUNG, CDR) – [SZACUNEK], różnice regionalne ±2 tyg."
+  fields:
+    sowing: "okno siewu MM-DD..MM-DD"
+    harvest: "okno zbioru"
+    stages: "fazy FAO-56 [ini, dev, mid, late] w dniach liczone od `stages_start` (dla ozimych: ruszenie wegetacji wiosną)"
+    kc: "Kc ini / mid / end (FAO-56, klimat umiarkowany)"
+    root_depth_m: "Zr max [m]"
+    p: "dopuszczalne wyczerpanie wody dostępnej (bez stresu)"
+    critical: "okresy krytyczne niedoboru wody"
+    smsr_cwb_thresholds_mm: "progi KBW suszy SMSR per kategoria gleby 1–4 – DO UZUPEŁNIENIA z Doroszewski i in. 2012"
+  growing_season_pl: "Okres wegetacji w Polsce: średnio od końca marca/kwietnia (t > 5 °C) do października/listopada; 200–230 dni (zach.), 180–200 dni (płn.-wsch.) [SZACUNEK]"
+  status_default: SZACUNEK
+
+items:
+  - id: pszenica_ozima
+    name_pl: Pszenica ozima
+    smsr_group: zboża ozime
+    type: ozima
+    sowing: "09-15..10-20"
+    harvest: "07-20..08-20"
+    stages_start: "03-25"
+    stages: [30, 40, 50, 30]
+    kc: [0.4, 1.15, 0.3]
+    root_depth_m: 1.5
+    p: 0.55
+    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)", "kwitnienie i nalewanie ziarna (VI)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby średnie i ciężkie, kompleksy pszenne (1–2, 4); słabo na piaskach"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: pszenica_jara
+    name_pl: Pszenica jara
+    smsr_group: zboża jare
+    type: jara
+    sowing: "03-15..04-15"
+    harvest: "08-01..08-25"
+    stages_start: "04-01"
+    stages: [20, 30, 40, 30]
+    kc: [0.3, 1.15, 0.3]
+    root_depth_m: 1.2
+    p: 0.55
+    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby średnie, zasobne"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: jeczmien_jary
+    name_pl: Jęczmień jary
+    smsr_group: zboża jare
+    type: jara
+    sowing: "03-15..04-20"
+    harvest: "07-15..08-10"
+    stages_start: "04-01"
+    stages: [15, 25, 50, 30]
+    kc: [0.3, 1.15, 0.25]
+    root_depth_m: 1.0
+    p: 0.55
+    critical: ["krzewienie – kłoszenie (V–VI)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby średnie, odczyn obojętny"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: zyto_ozime
+    name_pl: Żyto ozime
+    smsr_group: zboża ozime
+    type: ozima
+    sowing: "09-10..10-10"
+    harvest: "07-15..08-10"
+    stages_start: "03-20"
+    stages: [30, 40, 45, 25]
+    kc: [0.4, 1.15, 0.25]
+    root_depth_m: 1.5
+    p: 0.6
+    critical: ["strzelanie w źdźbło – kwitnienie (V)"]
+    drought_sensitivity: niska
+    soil_preference: "gleby lekkie i piaszczyste (kompleksy żytnie 5–7) – najlepiej znosi suszę wśród zbóż"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: kukurydza_ziarno
+    name_pl: Kukurydza na ziarno
+    smsr_group: kukurydza na ziarno
+    type: jara
+    sowing: "04-20..05-15"
+    min_soil_temp_sowing_c: 8
+    harvest: "09-25..11-15"
+    vegetation_days: [130, 160]
+    stages_start: "05-01"
+    stages: [30, 40, 50, 30]
+    kc: [0.3, 1.2, 0.35]
+    root_depth_m: 1.2
+    p: 0.55
+    critical: ["wiechowanie i kwitnienie (VII) – najbardziej krytyczne", "nalewanie ziarna (VIII)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby średnie, ciepłe; wrażliwa na przymrozki (siew dopiero po ustąpieniu)"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: kukurydza_kiszonka
+    name_pl: Kukurydza na kiszonkę
+    smsr_group: kukurydza na kiszonkę
+    type: jara
+    sowing: "04-20..05-15"
+    min_soil_temp_sowing_c: 8
+    harvest: "09-01..10-10"
+    vegetation_days: [120, 140]
+    stages_start: "05-01"
+    stages: [30, 40, 40, 20]
+    kc: [0.3, 1.15, 0.5]
+    root_depth_m: 1.2
+    p: 0.55
+    critical: ["wiechowanie i kwitnienie (VII)"]
+    drought_sensitivity: wysoka
+    soil_preference: "jak kukurydza na ziarno"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: rzepak_ozimy
+    name_pl: Rzepak ozimy
+    smsr_group: rzepak i rzepik
+    type: ozima
+    sowing: "08-10..09-05"
+    harvest: "07-10..08-05"
+    stages_start: "03-15"
+    stages: [25, 35, 45, 25]
+    kc: [0.35, 1.1, 0.35]
+    root_depth_m: 1.2
+    p: 0.6
+    critical: ["wschody jesienią (VIII–IX)", "pąkowanie – kwitnienie (IV–V)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby średnie i ciężkie, zasobne w wodę"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: ziemniak
+    name_pl: Ziemniak
+    smsr_group: ziemniak
+    type: jara
+    sowing: "04-05..05-10"
+    harvest: "08-15..10-10"
+    stages_start: "04-20"
+    stages: [25, 30, 45, 30]
+    kc: [0.5, 1.15, 0.75]
+    root_depth_m: 0.5
+    p: 0.35
+    critical: ["zawiązywanie i przyrost bulw (VI–VII)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby lekkie i średnie, przewiewne; płytki system korzeniowy – częsty kandydat do nawadniania"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: burak_cukrowy
+    name_pl: Burak cukrowy
+    smsr_group: burak cukrowy
+    type: jara
+    sowing: "03-25..04-25"
+    harvest: "09-15..11-15"
+    stages_start: "04-10"
+    stages: [30, 45, 90, 45]
+    kc: [0.35, 1.2, 0.7]
+    root_depth_m: 1.0
+    p: 0.55
+    critical: ["wschody (IV–V)", "intensywny przyrost korzeni (VII–VIII)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby żyzne, średnie i ciężkie, kompleksy pszenne"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: soja
+    name_pl: Soja
+    smsr_group: rośliny strączkowe
+    type: jara
+    sowing: "04-25..05-15"
+    min_soil_temp_sowing_c: 10
+    harvest: "09-10..10-10"
+    stages_start: "05-05"
+    stages: [20, 30, 60, 25]
+    kc: [0.4, 1.15, 0.5]
+    root_depth_m: 1.0
+    p: 0.5
+    critical: ["kwitnienie i zawiązywanie strąków (VII)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby średnie, ciepłe stanowiska"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: groch
+    name_pl: Groch siewny
+    smsr_group: rośliny strączkowe
+    type: jara
+    sowing: "03-15..04-15"
+    harvest: "07-10..08-05"
+    stages_start: "04-01"
+    stages: [20, 25, 35, 15]
+    kc: [0.5, 1.15, 0.3]
+    root_depth_m: 0.8
+    p: 0.4
+    critical: ["kwitnienie (V–VI)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby średnie"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: tuz
+    name_pl: Łąki i pastwiska (TUZ)
+    smsr_group: łąki i pastwiska (S2MUR)
+    type: wieloletnia
+    sowing: null
+    harvest: "pokosy V–IX"
+    stages_start: "04-01"
+    stages: [10, 20, 150, 30]
+    kc: [0.9, 1.0, 0.85]
+    root_depth_m: 0.6
+    p: 0.6
+    critical: ["odrost po I pokosie (VI–VII)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby wilgotne, doliny; kandydat do ekoschematu retencjonowania wody na TUZ"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: truskawka
+    name_pl: Truskawka
+    smsr_group: truskawki
+    type: wieloletnia
+    sowing: "sadzenie VIII–IX lub IV"
+    harvest: "06-01..07-10"
+    stages_start: "04-01"
+    stages: [20, 30, 40, 30]
+    kc: [0.4, 0.85, 0.75]
+    root_depth_m: 0.25
+    p: 0.2
+    critical: ["kwitnienie i owocowanie (V–VI)"]
+    drought_sensitivity: bardzo wysoka
+    soil_preference: "gleby próchniczne; bardzo płytkie korzenie – zwykle wymaga nawadniania kroplowego"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: jablon
+    name_pl: Jabłoń (sad)
+    smsr_group: drzewa owocowe
+    type: wieloletnia
+    sowing: null
+    harvest: "08-15..10-31"
+    stages_start: "04-10"
+    stages: [20, 70, 90, 30]
+    kc: [0.5, 1.0, 0.75]
+    root_depth_m: 1.5
+    p: 0.5
+    critical: ["opadanie czerwcowe zawiązków (VI)", "wzrost owoców (VII–VIII)"]
+    drought_sensitivity: średnia
+    soil_preference: "gleby średnie, głębokie"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+winter_rules:
+  - "Siew jesienny (IX–X): tylko uprawy ozime (pszenica, żyto, pszenżyto, jęczmień ozimy, rzepak do początku IX)."
+  - "XI–II: brak siewów polowych; czas na planowanie retencji (zastawki, oczka, zgłoszenia wodnoprawne przed sezonem)."
+  - "Uprawy ciepłolubne (kukurydza, soja) – siew dopiero przy glebie ≥8–10 °C, zwykle od 20 IV; okres wegetacji 120–160 dni wyklucza siew późnym latem."

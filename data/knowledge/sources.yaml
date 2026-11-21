@@ -1,0 +1,28 @@
+# Dokumenty źródłowe pobierane lokalnie przez scripts/fetch_knowledge.py → data/knowledge/raw/
+# (PDF + wyciągnięty tekst .txt do szybkiego przeszukiwania przez agentów: `grep -ri "5 m3" data/knowledge/raw/*.txt`)
+documents:
+  - {id: poradnik_pobor_rolnictwo, title: "Wody Polskie – Pobór wód na potrzeby działalności rolniczej", url: "https://www.gov.pl/attachment/3135adea-c2ea-4ed0-81b7-86fcfee30c49"}
+  - {id: poradnik_melioracje, title: "Wody Polskie – Melioracje wodne w ustawie Prawo wodne", url: "https://www.gov.pl/attachment/4d6ba9e8-a3c1-4cb6-86c5-1f51179f8ac5"}
+  - {id: qa_zgoda_wodnoprawna, title: "Wody Polskie – Zgoda wodnoprawna krok po kroku (Q&A 12.2024)", url: "https://www.gov.pl/attachment/e303ca62-4871-4948-9c9a-b47606e01f41"}
+  - {id: limit_5m3, title: "Limit 5 m3/dobę jako średnia roczna", url: "https://www.gov.pl/attachment/50a3e196-dc1f-4469-81c3-f5545a462606"}
+  - {id: struktura_organow, title: "Struktura organów i zgody wodnoprawne", url: "https://www.gov.pl/attachment/4634b669-058c-4026-bc9f-b2e9c5435d71"}
+  - {id: nawadnianie_kolejnosc_zgod, title: "Inwestycje w nawadnianie – kolejność zgód", url: "https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d"}
+  - {id: petycja_rejestr, title: "Odpowiedź na petycję o rejestr pozwoleń", url: "https://www.gov.pl/attachment/85eb2734-2d76-44a0-bae2-e5c55dc77e24"}
+  - {id: wodne_sprawy_rowy, title: "Wodne Sprawy – kompendium (zatrzymywanie wody w rowach)", url: "https://wodnesprawy.pl/wp-content/uploads/2024/11/wodne-sprawy-kompendium_21_202448.pdf"}
+  - {id: arimr_harmonogram_2026, title: "ARiMR – harmonogram naborów 2026", url: "https://www.gov.pl/attachment/07f00468-c1e5-43a4-918e-56de73f4e698"}
+  - {id: fgr_plus, title: "FGR Plus – informacja", url: "https://www.gov.pl/attachment/0303d0d6-3dda-48fa-bd77-bd5c1c38dfd7"}
+  - {id: podr_i104, title: "PODR – ulotka I.10.4 gospodarowanie wodą", url: "https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf"}
+  - {id: ekoschemat_tuz, title: "Ekoschemat retencjonowanie wody na TUZ", url: "https://www.gov.pl/attachment/5b8e988c-33e8-4d41-bda7-82157d073500"}
+  - {id: interwencja_torfowiska, title: "Interwencja 8 – torfowiska i obszary podmokłe", url: "https://www.gov.pl/attachment/bc53298a-c0a2-41b8-80e1-8a1a5616c7fe"}
+  - {id: epi, title: "Grupy operacyjne EPI", url: "https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791"}
+  - {id: iung_oferta, title: "IUNG-PIB – oferta danych", url: "https://www.gov.pl/attachment/ff15f079-bab8-4a90-8c4a-266d69e567ab"}
+  - {id: s2mur_zalozenia, title: "S2MUR – opis założeń projektu", url: "https://www.iung.pl/wp-content/uploads/2026/08/1.-Opis-zalozen-projektu-informatycznego-S2MUR.pdf"}
+  - {id: iung_sir71, title: "IUNG SiR 71(25) Gospodarka wodna w rolnictwie", url: "https://www.iung.pl/sir/SiR%2071(25)%20ISBN%20elektroniczny%20z%20ok%C5%82adk%C4%85.pdf"}
+  - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 2022)", url: "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf"}
+  # Prawo UE (EUR-Lex, wersje PL) – CELEX z eu_law.yaml
+  - {id: eu_rdw_32000L0060, title: "Ramowa Dyrektywa Wodna 2000/60/WE", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32000L0060"}
+  - {id: eu_azotanowa_31991L0676, title: "Dyrektywa azotanowa 91/676/EWG", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:31991L0676"}
+  - {id: eu_powodziowa_32007L0060, title: "Dyrektywa powodziowa 2007/60/WE", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32007L0060"}
+  - {id: eu_reuse_32020R0741, title: "Rozporządzenie 2020/741 ponowne wykorzystanie wody", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32020R0741"}
+  - {id: eu_wpr_32021R2115, title: "Rozporządzenie 2021/2115 plany strategiczne WPR", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32021R2115"}
+  - {id: eu_odbudowa_32024R1991, title: "Rozporządzenie 2024/1991 odbudowa zasobów przyrodniczych", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32024R1991"}

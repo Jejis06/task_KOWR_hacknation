@@ -1,0 +1,238 @@
+{
+  "poradnik_pobor_rolnictwo": {
+    "title": "Wody Polskie – Pobór wód na potrzeby działalności rolniczej",
+    "url": "https://www.gov.pl/attachment/3135adea-c2ea-4ed0-81b7-86fcfee30c49",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:42.384489+00:00",
+    "ok": true,
+    "bytes": 2019463,
+    "sha256": "22226237d66aed9da891c861f29bda5cea26154a6fc76069d135859ea6d0ee34",
+    "text_chars": 17471
+  },
+  "poradnik_melioracje": {
+    "title": "Wody Polskie – Melioracje wodne w ustawie Prawo wodne",
+    "url": "https://www.gov.pl/attachment/4d6ba9e8-a3c1-4cb6-86c5-1f51179f8ac5",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:43.746312+00:00",
+    "ok": true,
+    "bytes": 1090327,
+    "sha256": "e34611e704231d04f79b2d49034544c9abeb99e6a377ef6f718ec31acfc89695",
+    "text_chars": 11345
+  },
+  "qa_zgoda_wodnoprawna": {
+    "title": "Wody Polskie – Zgoda wodnoprawna krok po kroku (Q&A 12.2024)",
+    "url": "https://www.gov.pl/attachment/e303ca62-4871-4948-9c9a-b47606e01f41",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:44.514686+00:00",
+    "ok": true,
+    "bytes": 795423,
+    "sha256": "e7fe47563f204df99f0db7141369dc299c748069a3418388ea23fdd1d5081635",
+    "text_chars": 25664
+  },
+  "limit_5m3": {
+    "title": "Limit 5 m3/dobę jako średnia roczna",
+    "url": "https://www.gov.pl/attachment/50a3e196-dc1f-4469-81c3-f5545a462606",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:44.861991+00:00",
+    "ok": true,
+    "bytes": 148044,
+    "sha256": "ddb1a4d6af6a165afa9640d3d8de578b5d0680a4e7dc40f615b8eb405dd8b2b0",
+    "text_chars": 8577
+  },
+  "struktura_organow": {
+    "title": "Struktura organów i zgody wodnoprawne",
+    "url": "https://www.gov.pl/attachment/4634b669-058c-4026-bc9f-b2e9c5435d71",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:56.942003+00:00",
+    "ok": true,
+    "bytes": 11543444,
+    "sha256": "d6141dfcde800c5ed217a51dadd8fa6e47925a2b8ac9a6e0170b3e52e4d04dbe",
+    "text_chars": 38200
+  },
+  "nawadnianie_kolejnosc_zgod": {
+    "title": "Inwestycje w nawadnianie – kolejność zgód",
+    "url": "https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:38:59.747055+00:00",
+    "ok": true,
+    "bytes": 1130128,
+    "sha256": "aacbe842144a6e9e05421424074faa033760d7925c22823cab6a28a9bcb24a90",
+    "text_chars": 173888
+  },
+  "petycja_rejestr": {
+    "title": "Odpowiedź na petycję o rejestr pozwoleń",
+    "url": "https://www.gov.pl/attachment/85eb2734-2d76-44a0-bae2-e5c55dc77e24",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:00.292118+00:00",
+    "ok": true,
+    "bytes": 96267,
+    "sha256": "e40997223ba5a3586f76ddfd1d1ce7491c179b32cf7af79041592faffe01a544",
+    "text_chars": 6592
+  },
+  "wodne_sprawy_rowy": {
+    "title": "Wodne Sprawy – kompendium (zatrzymywanie wody w rowach)",
+    "url": "https://wodnesprawy.pl/wp-content/uploads/2024/11/wodne-sprawy-kompendium_21_202448.pdf",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:00.507069+00:00",
+    "ok": true,
+    "bytes": 307459,
+    "sha256": "06579efc1a252e30db38723609a1896366cf6b446183e94f5a5d1fa90fc82b44",
+    "text_chars": 4812
+  },
+  "arimr_harmonogram_2026": {
+    "title": "ARiMR – harmonogram naborów 2026",
+    "url": "https://www.gov.pl/attachment/07f00468-c1e5-43a4-918e-56de73f4e698",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:01.075726+00:00",
+    "ok": true,
+    "bytes": 534419,
+    "sha256": "a0e77788989dc2c0136d4ed0cbb9e20e8c117c9441a0c14378f098ed470a3cf6",
+    "text_chars": 9273
+  },
+  "fgr_plus": {
+    "title": "FGR Plus – informacja",
+    "url": "https://www.gov.pl/attachment/0303d0d6-3dda-48fa-bd77-bd5c1c38dfd7",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:02.970229+00:00",
+    "ok": true,
+    "bytes": 1722241,
+    "sha256": "1058818795663be964f3f7ae5f8edd76d03e8ba59d82ebd463fa790d606f81e8",
+    "text_chars": 11436
+  },
+  "podr_i104": {
+    "title": "PODR – ulotka I.10.4 gospodarowanie wodą",
+    "url": "https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:05.391769+00:00",
+    "ok": true,
+    "bytes": 3348825,
+    "sha256": "268fb590b4f8610d57faead2734287bd5577dbb79409be1d279575928fff4210",
+    "text_chars": 2046
+  },
+  "ekoschemat_tuz": {
+    "title": "Ekoschemat retencjonowanie wody na TUZ",
+    "url": "https://www.gov.pl/attachment/5b8e988c-33e8-4d41-bda7-82157d073500",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:05.513153+00:00",
+    "ok": false,
+    "note": "nie PDF (content-type application/vnd.openxmlformats-officedocument.wordprocessingml.document)"
+  },
+  "interwencja_torfowiska": {
+    "title": "Interwencja 8 – torfowiska i obszary podmokłe",
+    "url": "https://www.gov.pl/attachment/bc53298a-c0a2-41b8-80e1-8a1a5616c7fe",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:08.961775+00:00",
+    "ok": true,
+    "bytes": 2993043,
+    "sha256": "80e2e16ffdde22b7f9fb15eac2ded1b88b95850bad3865a8abebd9ef15ef186d",
+    "text_chars": 18033
+  },
+  "epi": {
+    "title": "Grupy operacyjne EPI",
+    "url": "https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:11.517806+00:00",
+    "ok": true,
+    "bytes": 2378563,
+    "sha256": "ce37cf35cd1fffc1a4081e41d911ab23de0ef449779df39eb5703b8299ef2b89",
+    "text_chars": 17648
+  },
+  "iung_oferta": {
+    "title": "IUNG-PIB – oferta danych",
+    "url": "https://www.gov.pl/attachment/ff15f079-bab8-4a90-8c4a-266d69e567ab",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:13.527827+00:00",
+    "ok": true,
+    "bytes": 1746192,
+    "sha256": "c95d6b5503cd7a5e77398696dccde04563a80bd507d60dc59642670a602f86bc",
+    "text_chars": 10849
+  },
+  "s2mur_zalozenia": {
+    "title": "S2MUR – opis założeń projektu",
+    "url": "https://www.iung.pl/wp-content/uploads/2026/08/1.-Opis-zalozen-projektu-informatycznego-S2MUR.pdf",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:39:14.824608+00:00",
+    "ok": true,
+    "bytes": 388700,
+    "sha256": "406408848ec07c761616784c60248dfe8967903b19dfa4c872516b594948d457",
+    "text_chars": 64292
+  },
+  "iung_sir71": {
+    "title": "IUNG SiR 71(25) Gospodarka wodna w rolnictwie",
+    "url": "https://www.iung.pl/sir/SiR%2071(25)%20ISBN%20elektroniczny%20z%20ok%C5%82adk%C4%85.pdf",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:44.112681+00:00",
+    "ok": true,
+    "bytes": 42456351,
+    "sha256": "3a27bb7bf7fa1a9b45eb62e268af5b3134473ea25bd728928dddc57f7aeb3d8f",
+    "text_chars": 453967
+  },
+  "melioracje_a5_2022": {
+    "title": "Wody Polskie – Melioracje wodne (A5, 2022)",
+    "url": "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:45.746857+00:00",
+    "ok": false,
+    "note": "nie PDF (content-type text/html;charset=UTF-8)"
+  },
+  "eu_rdw_32000L0060": {
+    "title": "Ramowa Dyrektywa Wodna 2000/60/WE",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32000L0060",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:46.185944+00:00",
+    "ok": true,
+    "bytes": 1111712,
+    "sha256": "82fa5f2c37aeb4cfb500cf4ed49192cba9574f032f7d612101c4eb43439ee87f",
+    "text_chars": 198096
+  },
+  "eu_azotanowa_31991L0676": {
+    "title": "Dyrektywa azotanowa 91/676/EWG",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:31991L0676",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:47.246590+00:00",
+    "ok": true,
+    "bytes": 489193,
+    "sha256": "f213469a0f7ab493a491cfa2671064c7b458488534739983aae415b12eafa861",
+    "text_chars": 25608
+  },
+  "eu_powodziowa_32007L0060": {
+    "title": "Dyrektywa powodziowa 2007/60/WE",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32007L0060",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:47.724950+00:00",
+    "ok": true,
+    "bytes": 104513,
+    "sha256": "549f51cc427a23bdb38bda91ea00b9e02f1a8c6df0340c8c302f7304d7d9c5ad",
+    "text_chars": 36825
+  },
+  "eu_reuse_32020R0741": {
+    "title": "Rozporządzenie 2020/741 ponowne wykorzystanie wody",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32020R0741",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:48.144818+00:00",
+    "ok": true,
+    "bytes": 691957,
+    "sha256": "f960d13121a4f395d40a0343861204bde0b33b18e0cb3c52feff90d52cea9406",
+    "text_chars": 89382
+  },
+  "eu_wpr_32021R2115": {
+    "title": "Rozporządzenie 2021/2115 plany strategiczne WPR",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32021R2115",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:48.839461+00:00",
+    "ok": true,
+    "bytes": 2121830,
+    "sha256": "00dd099f630e72804608b0db20ba7e89938f0f19f299336780d23f0db5d99c1d",
+    "text_chars": 536370
+  },
+  "eu_odbudowa_32024R1991": {
+    "title": "Rozporządzenie 2024/1991 odbudowa zasobów przyrodniczych",
+    "url": "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32024R1991",
+    "http": 200,
+    "retrieved_at": "2026-11-21T11:40:50.546961+00:00",
+    "ok": true,
+    "bytes": 2044463,
+    "sha256": "12c2e49906269c73696072840940c6ca2dd70729b3c6bef974ca74346c080a65",
+    "text_chars": 262638
+  }
+}
