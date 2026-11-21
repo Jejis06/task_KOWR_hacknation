@@ -116,7 +116,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | *(resolver)* | A | ✅ | GUGiK ULDK (GetParcelByIdOrNr / GetParcelByXY) | `ParcelRef` | `connectors/uldk.py` |
 | `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) | `WeatherHistory` | `connectors/weather.py` |
 | `weather_forecast` | A | ✅ | Open-Meteo Forecast (tylko gdy data ≈ dziś) | `WeatherForecast` | `connectors/weather.py` |
-| `drought` | A | ⬜ | SMSR IUNG (gmina, uprawa, gleba) + EDO WMS (CDI/SMA, TIME) + lata suszy z KBW | `DroughtHistory` | `stubs.py` |
+| `drought` | A | ✅ | SMSR IUNG tabele gmin `/wykazy/{rok},{TERYT}/` (2020+) + KBW działki wg progów rozp. MRiRW (10 lat) + EDO CDI/SMA (kolor piksela GetMap, TIME) | `DroughtHistory` | `connectors/drought.py`, `science/smsr.py` |
 | `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
 | `terrain` | A | ✅ | NMT GUGiK (usługa GetHByPointList, siatka 8–20 m, bbox+300 m; WCS wisi) → spadek, TPI, Priority-Flood, D8, TWI | `TerrainInfo` | `connectors/terrain.py`, `science/terrain.py` |
 | `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
@@ -144,7 +144,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - ISOK MZP: styl domyślny = same obrysy → GetMap z `SLD_BODY` (wypełnienie wg `loo_ql_returnperiod`) ✅ 0,4 s; GetFeatureInfo 3–10 s
 - GDOŚ WFS `https://sdi.gdos.gov.pl/wfs` ✅ (CQL_FILTER: współrzędne 2180 w kolejności N E!)
 - IUNG GeoServer `https://sgeo.iung.pl/geoserver/wms` warstwa `Susza:katgl_landuse2024` (kategorie gleb SMSR, GetFeatureInfo JSON) ✅
-- `susza.iung.pulawy.pl` ✅ (HTML; oficjalnego API brak, endpointy XHR trzeba zbadać).
+- `susza.iung.pulawy.pl` ✅ (HTML, brak API): tabele gmin `https://susza.iung.pulawy.pl/wykazy/{rok},{TERYT7}/` (rok ≥ 2020; TERYT gminy, np. 3025043) – parsujemy; EDO WMS nie ma GetFeatureInfo → klasa z palety GetMap
 
 ## 5. Zasady wspólne (obowiązkowe)
 
@@ -264,6 +264,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `DroughtHistory` +`drought_years_smsr`, `drought_years_computed`, `crop_group`, `soil_category`, `commune_teryt`, `commune_name`, `periods`; `types.ts` +`DroughtIndex`, `DroughtHistory`.
 - 2026-11-21 · A · `HydrologyInfo` +`in_flood_hazard_area`, `in_groundwater_flood_area`, `jcwpd_code`; `ProtectedAreaHit` +`distance_m`; `ProtectedAreasInfo` +`nearby`; `types.ts` +`TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedAreas*`.
 - 2026-11-21 · A · `SoilInfo` +`drought_category`, `drought_category_shares_pct`, `agri_complex_code`, `agri_complex_shares_pct`, `texture_profile`, `samples` (opcjonalne); `types.ts` +`SoilInfo`.
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
@@ -272,11 +273,13 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 *(format: `- [A→B] data · opis · status`)*
 
+- [A→B] 2026-11-21 · Progi KBW SMSR przeniesione do **osobnego pliku** `data/knowledge/crops/smsr_thresholds.yaml` (generowany `scripts/build_smsr_thresholds.py` z `raw/smsr_progi_www.txt`; 14 grup × kat. I–IV × 14 okresów). Nie ruszałem `crops.yaml` – pole `smsr_cwb_thresholds_mm` można usunąć albo wskazać ten plik; `smsr_group` w crops.yaml jest używane przez `drought` (grupa „łąki i pastwiska (S2MUR)” nie ma progów w SMSR) · do wiadomości B
 - [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
 - [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · **dostarczone (A, 2026-11-21)** – uwaga: `groundwater_depth_m` zawsze `null` (MHP wymaga tokena PIG); zamiast tego są `in_groundwater_flood_area`, `nearest_boreholes[].depth_m`, `gzwp`. Dodatkowo `in_flood_hazard_area` (bool), `protected_areas.nearby` (≤1 km), `hits[].distance_m`.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `drought` ✅: SMSR gmina (2020+) + KBW działki wg progów SMSR + EDO CDI/SMA; progi w `smsr_thresholds.yaml`; ~9 s z pustym cache (w tym weather_history).
 - 2026-11-21 · A · `hydrology` ✅ (0,3–1,6 s) i `protected_areas` ✅ (0,2–0,5 s); pola dla `legal_context` z §14 dostarczone.
 - 2026-11-21 · A · `terrain` ✅: NMT przez GetHByPointList (paczki po 1000 pkt równolegle), Priority-Flood/D8/TPI/TWI w numpy; zagłębienia i linie spływu jako GeoJSON; 2,3–4 s/działkę.
 - 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.

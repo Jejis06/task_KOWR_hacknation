@@ -25,18 +25,6 @@ class VegetationConnector(StubConnector):
     uses_crop = False
 
 
-class DroughtConnector(StubConnector):
-    """Susza historyczna i bieżąca → DroughtHistory.
-    - SMSR IUNG-PIB https://susza.iung.pulawy.pl/ – zagrożenie suszą per gmina/uprawa/kategoria gleby,
-      okresy 6-dekadowe IV–IX, archiwum od 2008. Brak oficjalnego API – zbadaj endpointy mapy (XHR) i licencję;
-      jeśli niedostępne → local_snapshot dla zebranych gmin + jawny komunikat.
-    - EDO Copernicus WMS (CDI, SMA, fAPAR anomaly) z parametrem TIME:
-      https://drought.emergency.copernicus.eu/api/wms  (GetFeatureInfo w punkcie, daty z 10 lat).
-    - drought_years: lata, w których min_cwb_60d (weather_history) < próg dla uprawy/gleby – wylicz w services.
-    """
-    key = "drought"; title = "Susza – teraz i w historii"; category = "meteo"; live_ttl_s = 24 * 3600
-    uses_crop = True
-
 
 class YieldsConnector(StubConnector):
     """Plony historyczne → YieldInfo.

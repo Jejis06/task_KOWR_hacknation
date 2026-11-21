@@ -111,3 +111,14 @@ export interface HydrologyInfo {
 }
 export interface ProtectedAreaHit { kind: string; name: string | null; code: string | null; distance_m?: number | null }
 export interface ProtectedAreasInfo { hits: ProtectedAreaHit[]; checked_layers: string[]; nearby?: ProtectedAreaHit[] }
+export interface DroughtIndex {
+  source: string; date: string | null; value: number | string | null; class_label?: string | null;
+  level?: "commune" | "pixel" | "parcel" | null;
+}
+export interface DroughtHistory {
+  current: DroughtIndex[]; history: DroughtIndex[]; drought_years: number[];
+  drought_years_smsr?: number[]; drought_years_computed?: number[]; crop_group?: string | null;
+  soil_category?: number | null; commune_teryt?: string | null; commune_name?: string | null;
+  periods?: { year: number; period: number; start: string; end: string; drought: boolean; source: "smsr" | "computed";
+              kbw_mm?: number; threshold_mm?: number; commune_area_share_pct?: number | null }[];
+}

@@ -6,7 +6,8 @@ i zgodny z tabelą w AGENTS.md §4 oraz z `frontend/src/api/types.ts` (BlockKey)
 from __future__ import annotations
 
 from app.connectors.base import Connector
-from app.connectors.stubs import DroughtConnector, LandCoverConnector, VegetationConnector, YieldsConnector
+from app.connectors.stubs import LandCoverConnector, VegetationConnector, YieldsConnector
+from app.connectors.drought import DroughtConnector
 from app.connectors.hydrology import HydrologyConnector
 from app.connectors.protected_areas import ProtectedAreasConnector
 from app.connectors.soil import SoilConnector

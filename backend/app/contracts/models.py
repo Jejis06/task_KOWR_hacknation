@@ -137,6 +137,14 @@ class DroughtHistory(BaseModel):
     current: list[DroughtIndex]
     history: list[DroughtIndex]        # historyczne epizody (10 lat)
     drought_years: list[int] = Field(default_factory=list)  # lata z suszą w sezonie
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    drought_years_smsr: list[int] = Field(default_factory=list)      # wg oficjalnych tabel SMSR dla gminy (2020+)
+    drought_years_computed: list[int] = Field(default_factory=list)  # wg KBW policzonego dla działki (10 lat)
+    crop_group: str | None = None          # grupa upraw SMSR, np. "zboża ozime"
+    soil_category: int | None = None       # kategoria gleby SMSR 1–4 użyta do progów
+    commune_teryt: str | None = None       # TERYT gminy (7 cyfr) użyty w SMSR
+    commune_name: str | None = None
+    periods: list[dict] = Field(default_factory=list)  # [{year, period 1–14, start, end, drought, source, kbw_mm?, threshold_mm?, commune_area_share_pct?}]
 
 
 class SoilInfo(BaseModel):
