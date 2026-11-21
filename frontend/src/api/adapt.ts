@@ -22,7 +22,7 @@ const SMSR_CAT: Record<number, string> = {
 };
 const CONF: Record<string, string> = { low: "Niska", medium: "Średnia", high: "Wysoka" };
 
-function weatherHistory(d: any, asOf: string): DataPayload {
+function weatherHistory(d: any): DataPayload {
   const daily = d.daily ?? { dates: [], precip_mm: [], et0_mm: [] };
   const clim = new Map<number, any>((d.monthly_climatology ?? []).map((m: any) => [m.month, m]));
   // 12 ostatnich miesięcy do daty analizy: opad i parowanie w miesiącu vs norma z 10 lat
@@ -311,7 +311,7 @@ export function adapt(b: Omit<DataBlock, "data"> & { data: any }, asOf: string):
   let data: DataPayload = {};
   if (d != null) {
     switch (b.key) {
-      case "weather_history": data = weatherHistory(d, asOf); break;
+      case "weather_history": data = weatherHistory(d); break;
       case "weather_forecast": data = forecast(d); break;
       case "drought": data = drought(d, asOf); break;
       case "soil": data = soil(d); break;

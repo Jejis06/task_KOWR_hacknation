@@ -1668,3 +1668,11 @@
 .page:has(.workspace.landing) .intro { justify-content: center; text-align: center; padding-top: 56px; }
 .picked-popup { display: grid; gap: 3px; min-width: 190px; }
 .picked-popup small { color: var(--muted-foreground); font-size: 10px; }
+
+/* pełny ekran mapy: lewa kolumna jest `sticky`, a sticky tworzy własny kontekst warstw – z-index mapy działałby
+   tylko wewnątrz kolumny i raport przebijałby się przez mapę. Na czas pełnego ekranu kolumna przestaje być sticky. */
+.field-column:has(.map-fullscreen) { position: static; }
+.map-fullscreen { z-index: 5000; isolation: isolate; }
+/* bez białych szwów między kafelkami przy ułamkowym przeskalowaniu (1 px zakładki) */
+.tiles-512 img.leaflet-tile { width: 513px !important; height: 513px !important; }
+.leaflet-container img.leaflet-tile { mix-blend-mode: normal; }

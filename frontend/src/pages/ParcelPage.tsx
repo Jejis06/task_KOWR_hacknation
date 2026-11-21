@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/dialog";
 import {
   api,
-  blockDefinitions,
   dateBounds,
   DEMO_ID,
   USE_MOCKS,
@@ -34,7 +33,7 @@ import {
 } from "@/api/client";
 import Report from "@/components/water/Report";
 import Analyst from "@/components/water/Analyst";
-import { formatDate, SourceLine, Term } from "@/components/water/shared";
+import { formatDate, Term } from "@/components/water/shared";
 const ParcelMap = lazy(() => import("@/components/water/ParcelMap"));
 const today = new Date().toISOString().slice(0, 10);
 const sampleDate = USE_MOCKS ? "2026-07-15" : today;

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import { Expand, Layers, LocateFixed, X } from "lucide-react";
+import { Expand, Layers, LocateFixed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { USE_MOCKS, type DataBlock, type ParcelRef } from "@/api/client";
 import { dist, WATER_KIND } from "@/api/adapt";
@@ -121,6 +121,7 @@ export default function ParcelMap({
               maxZoom: 20,
               updateWhenIdle: true,
               keepBuffer: 2,
+              className: "tiles-512",
               attribution: "Ortofotomapa © GUGiK / Geoportal",
             })
           : L.tileLayer.wms(
@@ -320,9 +321,10 @@ export default function ParcelMap({
     }
     setTimeout(() => (f as L.Layer & { openPopup?: () => void }).openPopup?.(), 650);
   }, [highlight, parcel, visible, blocks]);
+  // po zmianie rozmiaru kontenera Leaflet musi przeliczyć widok, inaczej część kafelków się nie doładuje
   useEffect(() => {
-    const t = setTimeout(() => map.current?.invalidateSize(), 100);
-    return () => clearTimeout(t);
+    const ts = [60, 250, 600].map((ms) => setTimeout(() => map.current?.invalidateSize(), ms));
+    return () => ts.forEach(clearTimeout);
   }, [fullscreen]);
   return (
     <div className="map-shell">
@@ -362,15 +364,11 @@ export default function ParcelMap({
           >
             <Layers />
           </Button>
-          <Button
-            variant="ghost"
-            className="map-tool"
-            aria-label={fullscreen ? "Zamknij dużą mapę" : "Powiększ mapę"}
-            title={fullscreen ? "Zamknij mapę" : "Powiększ mapę"}
-            onClick={onFullscreen}
-          >
-            {fullscreen ? <X /> : <Expand />}
-          </Button>
+          {!fullscreen && (
+            <Button variant="ghost" className="map-tool" aria-label="Powiększ mapę" title="Powiększ mapę" onClick={onFullscreen}>
+              <Expand />
+            </Button>
+          )}
         </div>
       </div>
       {menu && (
