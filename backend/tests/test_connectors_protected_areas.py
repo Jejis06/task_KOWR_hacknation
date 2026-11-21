@@ -40,6 +40,7 @@ async def test_protected_down_is_error():
 @pytest.mark.live
 async def test_live_protected_narew():
     from datetime import date
+
     from app.connectors.uldk import resolve_by_id
     from app.contracts.models import AnalysisContext
     ctx = AnalysisContext(parcel=await resolve_by_id("200201_5.0011.599"), as_of=date(2024, 7, 1))

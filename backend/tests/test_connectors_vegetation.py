@@ -4,8 +4,16 @@ import httpx
 import pytest
 import respx
 
-from app.connectors.vegetation import (PC_STAC, PC_STATS, VegetationConnector, baseline_same_doy, boa_offset,
-                                       expressions, parse_stats, pick_monthly)
+from app.connectors.vegetation import (
+    PC_STAC,
+    PC_STATS,
+    VegetationConnector,
+    baseline_same_doy,
+    boa_offset,
+    expressions,
+    parse_stats,
+    pick_monthly,
+)
 from app.contracts.models import VegetationObs
 from tests.conftest import make_ctx
 

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from app.config import settings
@@ -31,7 +31,7 @@ async def build_profile(ctx: AnalysisContext, keys: list[str] | None = None,
         remaining = settings.total_budget_s - (time.perf_counter() - t0)
         try:
             return await asyncio.wait_for(run_block(k, ctx, use_cache), timeout=max(remaining, 1))
-        except asyncio.TimeoutError:
+        except TimeoutError:
             c = BLOCKS[k]
             return DataBlock(key=k, title=c.title, status=BlockStatus.error,
                              messages=["Przekroczono całkowity budżet czasu analizy."])
@@ -40,5 +40,5 @@ async def build_profile(ctx: AnalysisContext, keys: list[str] | None = None,
     if second:
         results.update(zip(second, await asyncio.gather(*(guarded(k) for k in second))))
     return ParcelProfile(context=ctx, blocks={k: results[k] for k in keys},
-                         generated_at=datetime.now(timezone.utc),
+                         generated_at=datetime.now(UTC),
                          total_elapsed_ms=int((time.perf_counter() - t0) * 1000))

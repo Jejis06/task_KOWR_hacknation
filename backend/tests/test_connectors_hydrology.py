@@ -70,6 +70,7 @@ async def test_hydrology_isok_down_partial():
 @pytest.mark.live
 async def test_live_hydrology_vistula_flood():
     from datetime import date
+
     from app.connectors.uldk import resolve_by_id
     from app.contracts.models import AnalysisContext
     ctx = AnalysisContext(parcel=await resolve_by_id("040402_2.0012.316/4"), as_of=date(2024, 7, 1))

@@ -15,8 +15,14 @@ from typing import Any
 from app.config import settings
 from app.connectors import imgw
 from app.connectors.base import Connector
-from app.contracts.models import (AnalysisContext, BlockStatus, DailySeries, DataBlock, WeatherForecast,
-                                  WeatherHistory)
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    DailySeries,
+    DataBlock,
+    WeatherForecast,
+    WeatherHistory,
+)
 from app.core.http import RateLimited, get_with_retry
 from app.science.et0 import et0_penman_monteith
 from app.science.water_balance import monthly_climatology, season_summaries, window_vs_normal
@@ -54,7 +60,7 @@ async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[D
     prm = j["properties"]["parameter"]
     elev = (j.get("geometry", {}).get("coordinates") or [None, None, 100])[2] or 100
     fill = j.get("header", {}).get("fill_value", -999)
-    clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)  # noqa: E731
+    clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)
     dates, P, TX, TN, E = [], [], [], [], []
     for k in sorted(prm["PRECTOTCORR"].keys()):
         dd = date(int(k[:4]), int(k[4:6]), int(k[6:]))

@@ -14,7 +14,14 @@ from collections import defaultdict
 from typing import Any, ClassVar
 
 from app.connectors.base import Connector
-from app.contracts.models import AnalysisContext, BlockStatus, DataBlock, VegetationInfo, YieldInfo, YieldRecord
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    DataBlock,
+    VegetationInfo,
+    YieldInfo,
+    YieldRecord,
+)
 from app.core.http import RateLimited, get_with_retry
 
 BDL = "https://bdl.stat.gov.pl/api/v1/data/by-variable/{var}"

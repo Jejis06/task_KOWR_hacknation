@@ -1,7 +1,7 @@
+import httpx
 import numpy as np
 import pytest
 import respx
-import httpx
 
 from app.connectors.terrain import NMT_POINTS, TerrainConnector, grid_spec, parse_heights
 from app.science import terrain as T
@@ -74,6 +74,7 @@ async def test_terrain_connector_hill():
 @pytest.mark.live
 async def test_live_terrain_lubelskie_slope():
     from datetime import date
+
     from app.connectors.uldk import resolve_by_id
     from app.contracts.models import AnalysisContext
     ctx = AnalysisContext(parcel=await resolve_by_id("060406_2.0136.AR_3.783/2"), as_of=date(2024, 7, 1))

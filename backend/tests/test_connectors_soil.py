@@ -68,9 +68,10 @@ async def test_soil_all_down_is_error():
 
 @pytest.mark.live
 async def test_live_soil_wielkopolska():
+    from datetime import date
+
     from app.connectors.uldk import resolve_by_id
     from app.contracts.models import AnalysisContext
-    from datetime import date
     ctx = AnalysisContext(parcel=await resolve_by_id("302504_5.0019.52/16"), as_of=date(2024, 7, 1))
     b = await SoilConnector().fetch(ctx)
     assert b.status.value == "ok" and b.data.drought_category == 2

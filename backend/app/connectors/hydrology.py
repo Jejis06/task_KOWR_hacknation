@@ -14,13 +14,19 @@
 from __future__ import annotations
 
 import asyncio
-import re
 from typing import Any
 
 from shapely.geometry import LineString, Point, Polygon, mapping, shape
 
 from app.connectors.base import Connector
-from app.contracts.models import AnalysisContext, BlockStatus, DataBlock, GeoJSONGeometry, HydrologyInfo, WaterFeature
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    DataBlock,
+    GeoJSONGeometry,
+    HydrologyInfo,
+    WaterFeature,
+)
 from app.core.geo import to_2180, to_4326
 from app.core.http import get_with_retry
 

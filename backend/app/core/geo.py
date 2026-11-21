@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+import numpy as np
+import shapely
 from pyproj import Transformer
 from shapely import wkt
 from shapely.geometry import Point, mapping, shape
 from shapely.geometry.base import BaseGeometry
-import numpy as np
-import shapely
 
 
 @lru_cache

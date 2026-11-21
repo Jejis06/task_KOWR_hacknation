@@ -290,6 +290,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · fix `drought`: parser SMSR mylił „Kategoria gleby IV” z „I” (cache SMSR v2); ruff --fix.
 - 2026-11-21 · A · pełny profil 9,4–11,6 s z pustym cache, ~1 ms z cache (3 działki); `docs/data_sources.md` uzupełnione; mocki = prawdziwe próbki.
 - 2026-11-21 · A · `weather_history`: walidacja opadu stacją IMGW (katalog 59 stacji synop w `data/imgw/`); NASA POWER zawyża opad IV–IX o ~8–21% vs stacje.
 - 2026-11-21 · A · `yields` ✅ (GUS BDL województwo/Polska + indeks NDVI); `stubs.py` usunięty – wszystkie bloki A zaimplementowane.

@@ -13,6 +13,9 @@ HTML = """<h5 class="card-title">Gmina: Środa Wielkopolska; TERYT: 3025043</h5>
 <h6 class="card-title">Kategoria gleby II</h6><table><thead><tr><th>Gatunek</th>
 <th title="2024-03-21 - 2024-05-20">01</th><th title="2024-04-01 - 2024-05-31">02</th></tr></thead><tbody>
 <tr><td class="s-name left bold">Zboża ozime</td><td class="s-brak">-</td><td>x</td></tr></tbody></table>
+<h6 class="card-title">Kategoria gleby IV</h6><table><thead><tr><th>Gatunek</th>
+<th title="2024-03-21 - 2024-05-20">01</th><th title="2024-04-01 - 2024-05-31">02</th></tr></thead><tbody>
+<tr><td class="s-name left bold">Zboża ozime</td><td class="s-brak">-</td><td class="s-brak">-</td></tr></tbody></table>
 <h6 class="card-title">Udział powierzchni zagrożonej suszą [%]</h6><table><thead><tr><th>G</th>
 <th title="2024-03-21 - 2024-05-20">01</th><th title="2024-04-01 - 2024-05-31">02</th></tr></thead><tbody>
 <tr><td class="s-name left bold">Zboża ozime</td><td>6.49</td><td>1.68</td></tr></tbody></table>"""
@@ -23,6 +26,7 @@ def test_parse_smsr_table():
     assert p["commune"] == "Środa Wielkopolska"
     assert p["cats"]["I"]["zboża ozime"][0] == ("+", "2024-03-21", "2024-05-20")
     assert p["cats"]["II"]["zboża ozime"][1][0] == "x"
+    assert p["cats"]["IV"]["zboża ozime"][0][0] == "-"      # „IV” nie może nadpisać kategorii „I”
     assert p["share"]["zboża ozime"][0][0] == "6.49"
 
 

@@ -32,6 +32,7 @@ async def test_land_cover_all_down():
 @pytest.mark.live
 async def test_live_land_cover_srodka():
     from datetime import date
+
     from app.connectors.uldk import resolve_by_id
     from app.contracts.models import AnalysisContext
     ctx = AnalysisContext(parcel=await resolve_by_id("302504_5.0019.52/16"), as_of=date(2024, 7, 1))

@@ -18,8 +18,14 @@ from datetime import date, timedelta
 from typing import Any, ClassVar
 
 from app.connectors.base import Connector
-from app.contracts.models import (AnalysisContext, BlockStatus, DataBlock, DroughtHistory, DroughtIndex,
-                                  WeatherHistory)
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    DataBlock,
+    DroughtHistory,
+    DroughtIndex,
+    WeatherHistory,
+)
 from app.core.cache import cache_get, cache_set, make_key
 from app.core.http import get_with_retry
 from app.science import smsr
@@ -66,11 +72,11 @@ def parse_smsr_table(html: str) -> dict[str, Any]:
         name = title.group(1).strip()
         periods = re.findall(r'<th title="(\d{4}-\d\d-\d\d) - (\d{4}-\d\d-\d\d)">', sec)
         rows: dict[str, list] = {}
-        for rm in re.finditer(r'<tr><td class="s-name[^"]*">([^<]+)</td>(.*?)</tr>', sec, flags=re.S):
+        for rm in re.finditer(r'<tr><td class="s-name[^"]*">([^<]+)</td>(.*?)</tr>', sec, flags=re.DOTALL):
             cells = re.findall(r"<td[^>]*>([^<]*)</td>", rm.group(2))
             rows[rm.group(1).strip().lower()] = [(c.strip(), *periods[i]) if i < len(periods) else (c.strip(), None, None)
                                                  for i, c in enumerate(cells)]
-        cm = re.match(r"Kategoria gleby (I{1,3}|IV)", name)
+        cm = re.match(r"Kategoria gleby (IV|III|II|I)\b", name)
         if cm:
             out["cats"][cm.group(1)] = rows
         elif "Udział" in name:
@@ -79,7 +85,7 @@ def parse_smsr_table(html: str) -> dict[str, Any]:
 
 
 async def fetch_smsr_year(year: int, teryt: str) -> dict[str, Any] | None:
-    key = make_key("smsr_gmina", year=year, teryt=teryt)
+    key = make_key("smsr_gmina", year=year, teryt=teryt, v=2)
     if (hit := cache_get(key)) is not None:
         return hit
     r = await get_with_retry(SMSR_URL.format(year=year, teryt=teryt), timeout_s=8)
@@ -170,7 +176,7 @@ class DroughtConnector(Connector):
     live_ttl_s = 12 * 3600
     timeout_s = 20
     uses_crop = True
-    cache_version = 2
+    cache_version = 3
     depends_on: ClassVar[tuple[str, ...]] = ("weather_history", "soil")
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
