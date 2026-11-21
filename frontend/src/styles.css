@@ -1676,3 +1676,8 @@
 /* bez białych szwów między kafelkami przy ułamkowym przeskalowaniu (1 px zakładki) */
 .tiles-512 img.leaflet-tile { width: 513px !important; height: 513px !important; }
 .leaflet-container img.leaflet-tile { mix-blend-mode: normal; }
+
+/* podpowiedź gestu na mapie */
+.map-gesture-hint { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center;
+  background: rgb(0 0 0 / 0.45); color: #fff; font-size: 15px; font-weight: 600; text-align: center; padding: 24px;
+  pointer-events: none; }

@@ -53,6 +53,8 @@ type Props = {
   picked?: ParcelRef | null;
   onAnalyze?: (id: string) => void;
 };
+/** urządzenie dotykowe (telefon, tablet) – inne gesty mapy */
+const touch = typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
 /** Kafelki przez backend (cache na dysku + w przeglądarce); w trybie demo bez backendu – prosto ze źródeł. */
 const TILE = USE_MOCKS
   ? {
@@ -82,9 +84,11 @@ export default function ParcelMap({
   const [menu, setMenu] = useState(false);
   const [visible, setVisible] = useState({ water: true, recommendations: true, boundaries: true });
   const [tileWarning, setTileWarning] = useState(false);
+  /** podpowiedź gestu, gdy mapa nie przechwyciła przewijania (kółko bez aktywacji / jeden palec na telefonie) */
+  const [gestureHint, setGestureHint] = useState<string | null>(null);
   useEffect(() => {
     if (!host.current) return;
-    const m = L.map(host.current, { zoomControl: true, scrollWheelZoom: true, dragging: true, doubleClickZoom: true }).setView([52.1, 19.4], 6);
+    const m = L.map(host.current, { zoomControl: true, scrollWheelZoom: false, dragging: !touch, doubleClickZoom: true, touchZoom: true }).setView([52.1, 19.4], 6);
     map.current = m;
     L.control.scale({ imperial: false, position: "bottomright" }).addTo(m);
     const click = (e: L.LeafletMouseEvent) =>
@@ -321,6 +325,60 @@ export default function ParcelMap({
     }
     setTimeout(() => (f as L.Layer & { openPopup?: () => void }).openPopup?.(), 650);
   }, [highlight, parcel, visible, blocks]);
+  // Gesty: mapa nie „łapie” przewijania strony. Kółko działa po kliknięciu/naciśnięciu mapy (do wyjechania kursorem) albo z Ctrl;
+  // na telefonie jeden palec przewija stronę, a mapę przesuwa się i przybliża dwoma palcami. Pełny ekran = pełna kontrola.
+  useEffect(() => {
+    const m = map.current, el = host.current;
+    if (!m || !el) return;
+    let hintTimer: ReturnType<typeof setTimeout> | undefined;
+    const hint = (text: string) => {
+      setGestureHint(text);
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(() => setGestureHint(null), 1600);
+    };
+    if (fullscreen) {
+      m.scrollWheelZoom.enable();
+      m.dragging.enable();
+      setGestureHint(null);
+      return () => clearTimeout(hintTimer);
+    }
+    m.scrollWheelZoom.disable();
+    if (touch) m.dragging.disable();
+    const activate = () => m.scrollWheelZoom.enable();
+    const deactivate = () => m.scrollWheelZoom.disable();
+    const wheel = (e: WheelEvent) => {
+      if (m.scrollWheelZoom.enabled()) return;
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        m.setZoom(m.getZoom() + (e.deltaY < 0 ? 1 : -1));
+      } else hint("Kliknij mapę, aby przybliżać kółkiem (albo przytrzymaj Ctrl)");
+    };
+    const touchMove = (e: TouchEvent) => {
+      if (touch && e.touches.length === 1) hint("Przesuwaj i przybliżaj mapę dwoma palcami");
+    };
+    const touchStart = (e: TouchEvent) => {
+      if (!touch) return;
+      if (e.touches.length >= 2) m.dragging.enable();
+    };
+    const touchEnd = (e: TouchEvent) => {
+      if (touch && e.touches.length === 0) m.dragging.disable();
+    };
+    m.on("mousedown", activate);
+    m.on("mouseout", deactivate);
+    el.addEventListener("wheel", wheel, { passive: false });
+    el.addEventListener("touchstart", touchStart, { passive: true });
+    el.addEventListener("touchmove", touchMove, { passive: true });
+    el.addEventListener("touchend", touchEnd, { passive: true });
+    return () => {
+      clearTimeout(hintTimer);
+      m.off("mousedown", activate);
+      m.off("mouseout", deactivate);
+      el.removeEventListener("wheel", wheel);
+      el.removeEventListener("touchstart", touchStart);
+      el.removeEventListener("touchmove", touchMove);
+      el.removeEventListener("touchend", touchEnd);
+    };
+  }, [fullscreen]);
   // po zmianie rozmiaru kontenera Leaflet musi przeliczyć widok, inaczej część kafelków się nie doładuje
   useEffect(() => {
     const ts = [60, 250, 600].map((ms) => setTimeout(() => map.current?.invalidateSize(), ms));
@@ -334,6 +392,7 @@ export default function ParcelMap({
         role="region"
         aria-label="Mapa działki, obniżeń terenu i wody w okolicy"
       />
+      {gestureHint && <div className="map-gesture-hint" role="status">{gestureHint}</div>}
       <div className="map-top">
         <div className="map-base-switch" aria-label="Podkład mapy">
           <Button
