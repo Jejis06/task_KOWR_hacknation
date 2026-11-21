@@ -281,6 +281,73 @@ class LegalContextInfo(BaseModel):
     facts_checked: dict[str, str] = Field(default_factory=dict)  # blok → status (ok / brak danych / niezaimplementowany)
 
 
+
+# ─────────────── wyniki analizy (F2) – blok `analysis` ───────────────
+# Dodane 2026-11-21 (B, addytywnie) jako PROPOZYCJA dla A: kształt, który renderuje widok raportu.
+# Kolejność KOWR: ocena sytuacji wodnej → przyczyny → retencja → agrotechnika → (opcjonalnie) nawadnianie.
+# Każde stwierdzenie ma `evidence` = konkretne liczby z bloków danych (z jednostką i datą) – bez tego UI go nie pokaże.
+RiskLevel = Literal["none", "low", "moderate", "high", "very_high"]
+
+
+class Evidence(BaseModel):
+    text: str                          # „KBW 60 dni: −112 mm (norma −25 mm) do 20.11.2026”
+    block: str | None = None           # klucz bloku źródłowego, np. "weather_history"
+
+
+class WaterAssessment(BaseModel):
+    current_level: RiskLevel | None = None      # bieżący niedobór wody na dzień analizy
+    current_label_pl: str | None = None         # „wysoki niedobór wody”
+    current_summary: str | None = None          # 1–2 zdania dla rolnika
+    historical_level: RiskLevel | None = None   # wieloletnia podatność działki na niedobory (10 lat)
+    historical_label_pl: str | None = None
+    historical_summary: str | None = None
+    drought_years: list[int] = Field(default_factory=list)
+    critical_months: list[int] = Field(default_factory=list)   # 1..12 – kiedy ryzyko największe
+    confidence: Literal["low", "medium", "high"] | None = None
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class Cause(BaseModel):
+    key: str                           # cause_keys z retention_measures.yaml: opady_deficyt | gleba_niska_retencja | odplyw_powierzchniowy | uprawa_wrazliwa
+    label_pl: str
+    share: float | None = None         # udział 0..1 (szacunek)
+    explanation: str | None = None
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class Recommendation(BaseModel):
+    measure_id: str                    # → data/knowledge/procedures/retention_measures.yaml
+    group: Literal["retencja_krajobrazowa", "agrotechnika", "nawadnianie"]
+    title: str
+    why: str                           # uzasadnienie z danych tej działki
+    priority: int = 1                  # 1 = najpierw
+    addresses: list[str] = Field(default_factory=list)   # klucze przyczyn
+    when: str | None = None            # termin wykonania, np. „VII–VIII po zbiorze”
+    where_geojson: dict | None = None  # gdzie na działce (np. zagłębienie) – EPSG:4326
+    legal_ids: list[str] = Field(default_factory=list)   # → legal_pl; UI dobiera kartę z legal_context
+    funding_ids: list[str] = Field(default_factory=list)
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class IrrigationAdvice(BaseModel):
+    recommended: Literal["no", "monitor", "yes"] | None = None
+    summary: str | None = None
+    deficit_mm: float | None = None    # ETc − opad efektywny w horyzoncie prognozy
+    dose_mm: float | None = None
+    horizon_days: int | None = None
+    timing: str | None = None          # „w ciągu 3 dni, rano lub wieczorem”
+    evidence: list[Evidence] = Field(default_factory=list)
+
+
+class AnalysisResult(BaseModel):
+    assessment: WaterAssessment | None = None
+    causes: list[Cause] = Field(default_factory=list)
+    recommendations: list[Recommendation] = Field(default_factory=list)
+    irrigation: IrrigationAdvice | None = None
+    limitations: list[str] = Field(default_factory=list)   # czynniki nieuwzględnione, dokładność danych
+    method: list[str] = Field(default_factory=list)        # krótki opis metody (FAO-56, progi SMSR…)
+    missing_blocks: list[str] = Field(default_factory=list)  # bloki bez danych, pominięte w analizie
+
 # ───────────────────────────── odpowiedzi API ─────────────────────────────
 class ParcelProfile(BaseModel):
     context: AnalysisContext

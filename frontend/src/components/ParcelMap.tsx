@@ -3,7 +3,10 @@ import { useEffect, useRef } from "react";
 import L from "leaflet";
 import type { HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
 
-export interface MapOverlays { terrain?: TerrainInfo | null; hydrology?: HydrologyInfo | null }
+export interface MapOverlays {
+  terrain?: TerrainInfo | null; hydrology?: HydrologyInfo | null;
+  places?: { title: string; geojson: GeoJSON.GeoJsonObject }[];   // miejsca z rekomendacji (raport)
+}
 
 export function ParcelMap(props: { parcel: ParcelRef | null; overlays?: MapOverlays; onPick: (lon: number, lat: number) => void }) {
   const el = useRef<HTMLDivElement>(null);
@@ -62,7 +65,11 @@ export function ParcelMap(props: { parcel: ParcelRef | null; overlays?: MapOverl
       L.geoJSON(w.geometry as never, { style: { color: w.kind === "ditch" ? "#0891b2" : "#1e40af", weight: 3 } })
         .bindTooltip(`${w.name ?? w.kind} – ${Math.round(w.distance_m)} m`).addTo(g);
     }
-  }, [props.overlays?.terrain, props.overlays?.hydrology]);
+    for (const p of props.overlays?.places ?? []) {
+      L.geoJSON(p.geojson as never, { style: { color: "#c2410c", weight: 3, fillColor: "#fb923c", fillOpacity: 0.45 } })
+        .bindTooltip(`Rekomendacja: ${p.title}`).addTo(g);
+    }
+  }, [props.overlays?.terrain, props.overlays?.hydrology, props.overlays?.places]);
 
   return (
     <div className="map-wrap">

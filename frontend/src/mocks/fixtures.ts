@@ -2,7 +2,7 @@
 // WSZYSTKIE wartości są syntetyczne i oznaczone „MOCK” w provenance. Gdy blok A przejdzie na ✅,
 // A podmienia tu mock prawdziwą (skróconą) próbką.
 import type {
-  BlockInfo, CropCalendarInfo, CropItem, DataBlock, DroughtHistory, HydrologyInfo, LandCoverInfo,
+  AnalysisResult, BlockInfo, CropCalendarInfo, CropItem, DataBlock, DroughtHistory, HydrologyInfo, LandCoverInfo,
   LegalContextInfo, MonthlyClimate, ParcelRef, ProtectedAreasInfo, SeasonSummary, SoilInfo, TerrainInfo,
   VegetationInfo, WeatherForecast, WeatherHistory, YieldInfo,
 } from "../api/types";
@@ -39,6 +39,7 @@ export const mockBlocks: BlockInfo[] = [
   { key: "protected_areas", title: "Obszary chronione", category: "spatial", implemented: false },
   { key: "crop_calendar", title: "Kalendarz uprawy i okres wegetacji", category: "knowledge", implemented: true },
   { key: "legal_context", title: "Pozwolenia, procedury i dofinansowania", category: "knowledge", implemented: true },
+  { key: "analysis", title: "Ocena sytuacji wodnej i rekomendacje", category: "derived", implemented: true },
 ];
 
 export const mockCrops: CropItem[] = [
@@ -161,16 +162,67 @@ const PAYLOADS: Record<string, (asOf: string) => unknown> = {
     facts_checked: { "wody i strefy powodziowe": "sprawdzono", "obszary chronione": "sprawdzono", "ukształtowanie terenu": "sprawdzono" },
     hints: [
       { topic: "staw", title: "Staw lub zbiornik retencyjny (do 5000 m², do 3 m)", requirement: "zgłoszenie wodnoprawne", group: "notification",
-        why: "MOCK: staw do 5000 m² i 3 m, zasilany opadami – zgłoszenie wodnoprawne (30 dni na sprzeciw).", procedure_id: "zgloszenie_wodnoprawne",
+        why: "MOCK: staw do 5000 m² i 3 m, zasilany opadami – zgłoszenie wodnoprawne (30 dni na sprzeciw).", procedure_id: "zgloszenie_wodnoprawne", legal_ids: ["staw_zgloszenie", "staw_pozwolenie", "ograniczenia_lokalizacji"],
         status: "OK", sources: ["https://www.gov.pl/wody-polskie/zgloszenie-wodnoprawne"], fee_pln: Number(asOf.slice(0, 4)) >= 2027 ? 137.09 : 132.33,
         fee_year: Number(asOf.slice(0, 4)) >= 2027 ? 2027 : 2026, facts_used: ["poza mapowanymi strefami zagrożenia powodziowego (ISOK)"], unchecked: [] },
       { topic: "rów", title: "Zastawka – zatrzymanie wody w istniejącym rowie", requirement: "brak (zatrzymanie wody)", group: "none",
-        why: "MOCK: zatrzymanie wody w istniejącym rowie – bez zgłoszenia.", status: "OK", sources: [], facts_used: ["najbliższy rów: R-7, ok. 140 m od działki"] },
+        why: "MOCK: zatrzymanie wody w istniejącym rowie – bez zgłoszenia.", legal_ids: ["row_zatrzymanie", "row_przebudowa"], status: "OK", sources: [], facts_used: ["najbliższy rów: R-7, ok. 140 m od działki"] },
       { topic: "nawadnianie", title: "Nawadnianie upraw wodą ze studni", requirement: "pozwolenie wodnoprawne", group: "permit",
-        why: "MOCK: nawadnianie to szczególne korzystanie z wód.", procedure_id: "pozwolenie_wodnoprawne", status: "OK", sources: [], fee_pln: 330.07, fee_year: 2026 },
+        why: "MOCK: nawadnianie to szczególne korzystanie z wód.", procedure_id: "pozwolenie_wodnoprawne", legal_ids: ["nawadnianie_pozwolenie"], status: "OK", sources: [], fee_pln: 330.07, fee_year: 2026 },
       { topic: "istniejący zbiornik", title: "Pobór wody z istniejącego stawu, zbiornika lub rowu", requirement: "zależy od ilości wody i celu",
         group: "depends", why: "MOCK: do 5 m³/d – zwykłe korzystanie; nawadnianie – pozwolenie.", status: "DO_WERYFIKACJI", sources: [] },
     ] }),
+  analysis: (asOf: string): AnalysisResult => ({
+    assessment: {
+      current_level: "moderate", current_label_pl: "umiarkowany niedobór wody",
+      current_summary: `MOCK: na ${asOf} w glebie jest mniej wody niż zwykle o tej porze – ostatnie 60 dni były suchsze od normy, ale trwa spoczynek zimowy, więc rośliny nie cierpią teraz z powodu suszy.`,
+      historical_level: "high", historical_label_pl: "wysoka podatność na suszę",
+      historical_summary: "MOCK: w ostatnich 10 latach susza rolnicza wystąpiła tu w 5 sezonach; największe ryzyko niedoboru wody jest od maja do lipca.",
+      drought_years: [2018, 2019, 2022, 2023, 2026], critical_months: [5, 6, 7], confidence: "medium",
+      evidence: [
+        { text: "KBW 60 dni: −44 mm (norma −25 mm)", block: "weather_history" },
+        { text: "susza w 5 z 11 sezonów (SMSR gmina + KBW działki)", block: "drought" },
+        { text: "najsuchszy sezon IV–IX: 2022, KBW −521 mm", block: "weather_history" },
+        { text: "gleba kat. III (średnio podatna), zapas wody ok. 165 mm", block: "soil" },
+      ],
+    },
+    causes: [
+      { key: "opady_deficyt", label_pl: "Za mało opadów przy dużym parowaniu", share: 0.55,
+        explanation: "W sezonie wegetacyjnym parowanie wyraźnie przewyższa opady (Wielkopolska – jeden z najsuchszych regionów).",
+        evidence: [{ text: "średni KBW IV–IX z 10 lat: −380 mm", block: "weather_history" }, { text: "najdłuższy okres bez deszczu w 2022: 17 dni", block: "weather_history" }] },
+      { key: "gleba_niska_retencja", label_pl: "Gleba trzyma średnio dużo wody", share: 0.25,
+        explanation: "Glina lekka z niską zawartością próchnicy – zapas wody wystarcza na ok. 2–3 tygodnie bez deszczu w lipcu.",
+        evidence: [{ text: "węgiel organiczny 11 g/kg", block: "soil" }, { text: "zapas wody dostępnej ok. 165 mm/1 m", block: "soil" }] },
+      { key: "odplyw_powierzchniowy", label_pl: "Woda szybko odpływa rowem", share: 0.2,
+        explanation: "Linia spływu przecina działkę i kończy się w rowie melioracyjnym – woda z roztopów i ulew odpływa poza gospodarstwo.",
+        evidence: [{ text: "linia spływu przez działkę, rów R-7 w odległości 140 m", block: "hydrology" }, { text: "1 zagłębienie bezodpływowe ok. 2400 m²", block: "terrain" }] },
+    ],
+    recommendations: [
+      { measure_id: "zastawka_row", group: "retencja_krajobrazowa", priority: 1, title: "Zastawka na rowie R-7",
+        why: "Rów melioracyjny 140 m od działki odprowadza wodę z roztopów. Piętrzenie wiosną zatrzyma wodę w okolicy i podniesie poziom wód gruntowych.",
+        addresses: ["odplyw_powierzchniowy", "opady_deficyt"], when: "przed roztopami (II–III)", legal_ids: ["row_zatrzymanie", "row_przebudowa"], funding_ids: [],
+        evidence: [{ text: "rów R-7: 140 m", block: "hydrology" }] },
+      { measure_id: "oczko_zbiornik", group: "retencja_krajobrazowa", priority: 2, title: "Oczko wodne w zagłębieniu terenu",
+        why: "W południowo-wschodniej części działki jest naturalne zagłębienie (ok. 2400 m², 0,6 m), w którym zbiera się woda – mało kopania, poza strefą powodziową.",
+        addresses: ["odplyw_powierzchniowy"], when: "poza sezonem (X–III), po zgłoszeniu wodnoprawnym", legal_ids: ["staw_zgloszenie", "ograniczenia_lokalizacji"], funding_ids: ["arimr_i104"],
+        where_geojson: { type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [[[17.2010, 52.2192], [17.2030, 52.2193], [17.2029, 52.2203], [17.2011, 52.2202], [17.2010, 52.2192]]] } },
+        evidence: [{ text: "zagłębienie 2400 m², głębokość 0,6 m", block: "terrain" }, { text: "poza strefą zagrożenia powodziowego", block: "hydrology" }] },
+      { measure_id: "miedzyplony", group: "agrotechnika", priority: 1, title: "Międzyplon po zbiorze",
+        why: "Okrywa gleby po żniwach ogranicza parowanie i zwiększa próchnicę – przy 11 g/kg węgla organicznego każdy wzrost poprawia zapas wody.",
+        addresses: ["gleba_niska_retencja"], when: "VII–VIII, zaraz po zbiorze", legal_ids: [], funding_ids: [], evidence: [{ text: "węgiel organiczny 11 g/kg", block: "soil" }] },
+      { measure_id: "resztki_mulcz", group: "agrotechnika", priority: 2, title: "Zostaw resztki pożniwne (mulcz)",
+        why: "Mulcz na powierzchni zmniejsza straty wody z wierzchniej warstwy gleby w okresie najczęstszych susz (V–VII).",
+        addresses: ["gleba_niska_retencja"], when: "po zbiorze", legal_ids: [], funding_ids: [], evidence: [{ text: "ryzyko największe V–VII", block: "drought" }] },
+    ],
+    irrigation: { recommended: "no", horizon_days: 16, deficit_mm: -8.8, dose_mm: null, timing: null,
+      summary: "MOCK: nawadnianie teraz nie ma sensu – uprawa w spoczynku zimowym, a prognoza daje więcej opadu niż parowania.",
+      evidence: [{ text: "prognoza 16 dni: opad 25 mm, parowanie 17 mm", block: "weather_forecast" }] },
+    limitations: ["MOCK: opady z reanalizy (siatka ok. 9 km) – lokalne burze mogą się różnić.", "Brak danych o drenowaniu działki (brak otwartej mapy drenaży w Polsce).",
+      "Ocena gleby z mapy glebowo-rolniczej z lat 70–80."],
+    method: ["Bilans wodny FAO-56 (ET₀ Penman-Monteith, Kc uprawy).", "Progi KBW SMSR (rozp. MRiRW z 11.04.2019) dla grupy upraw i kategorii gleby.",
+      "Katalog działań NWRM (KE 2014/2015) i zasada „zatrzymaj wodę tam, gdzie spadła”."],
+    missing_blocks: [],
+  }),
 };
 
 export function mockBlock(key: string, q?: { date?: string }): DataBlock {

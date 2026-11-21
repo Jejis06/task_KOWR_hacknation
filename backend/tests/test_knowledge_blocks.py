@@ -175,3 +175,26 @@ def test_yaml_references_are_consistent():
 def test_new_crops_present():
     ids = {c["id"] for c in loader.items("crops")}
     assert {"pszenzyto_ozime", "jeczmien_ozimy", "owies"} <= ids
+
+
+# ── kontrakt wyników analizy (blok `analysis`, propozycja B dla A) ──
+def test_analysis_contract_example_validates():
+    from app.contracts.models import AnalysisResult
+    example = {
+        "assessment": {"current_level": "moderate", "historical_level": "high", "critical_months": [5, 6, 7],
+                       "drought_years": [2019, 2022], "confidence": "medium",
+                       "evidence": [{"text": "KBW 60 dni: −44 mm (norma −25 mm)", "block": "weather_history"}]},
+        "causes": [{"key": "opady_deficyt", "label_pl": "Za mało opadów", "share": 0.55, "evidence": []}],
+        "recommendations": [{"measure_id": "zastawka_row", "group": "retencja_krajobrazowa", "title": "Zastawka",
+                             "why": "rów 140 m", "legal_ids": ["row_zatrzymanie"]}],
+        "irrigation": {"recommended": "no", "horizon_days": 16, "evidence": []},
+    }
+    r = AnalysisResult.model_validate(example)
+    assert r.assessment.current_level == "moderate" and r.recommendations[0].priority == 1
+    # measure_id i legal_ids muszą wskazywać istniejące wpisy bazy wiedzy
+    measures = {m["id"] for m in loader.items("measures")}
+    legal = {x["id"] for x in loader.items("legal_pl")}
+    causes = set(loader.meta("measures")["cause_keys"])
+    assert r.recommendations[0].measure_id in measures
+    assert set(r.recommendations[0].legal_ids) <= legal
+    assert r.causes[0].key in causes

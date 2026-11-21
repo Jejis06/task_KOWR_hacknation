@@ -203,7 +203,7 @@ Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_c
 
 - **F1 – Dane (teraz):** wszystkie bloki z §4 na ✅ albo 🟡 dla działek z 5+ województw, < 30 s. UI pokazuje każdy blok czytelnie.
 - **F2 – Analiza:** `science/assessment.py` (ocena sytuacji: bieżąca vs. historyczna podatność, progi KBW SMSR per uprawa i gleba) → `science/causes.py` (udział: opady/ET, gleba, odpływ, roślinność) → `science/recommendations.py` (reguły z `retention_measures.yaml` + fakty) → nawadnianie FAO-56 z prognozą.
-- **F3 – Raport:** widok raportu, druk i PDF (CSS print albo backend), daty, źródła, ograniczenia.
+- **F3 – Raport:** widok raportu, druk i PDF (CSS print albo backend), daty, źródła, ograniczenia. **B: UI gotowy na mockach (`ReportView`), czeka na blok `analysis` od A.**
 - **F4 – Zgłoszenie:** README 9 punktów, slajdy, film, przykładowe raporty, deploy (link dla jury).
 
 ## 10. Znane pułapki
@@ -262,6 +262,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 ## 13. Dziennik zmian kontraktu
 
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
+- 2026-11-21 · B · addytywnie, PROPOZYCJA dla A: blok `analysis` (F2) → `AnalysisResult` {`assessment: WaterAssessment`, `causes: Cause[]`, `recommendations: Recommendation[]`, `irrigation: IrrigationAdvice`, `limitations`, `method`, `missing_blocks`} + `Evidence` {text, block}, `RiskLevel`; `types.ts` lustro + `BlockKey` += `"analysis"`; mock w `fixtures.ts`. `SoilInfo.drought_category?` w `types.ts` (typ identyczny jak u A).
 - 2026-11-21 · B · addytywnie: `LegalHint` += `title`, `group` (none/notification/permit/depends), `legal_ids`, `fee_pln`, `fee_year`, `facts_used`, `unchecked`, `caution`; `LegalContextInfo` += `disclaimer`, `facts_checked`. `types.ts`: dopisane TS-lustra wszystkich payloadów bloków (WeatherForecast … LegalContextInfo).
 
 ## 14. Prośby między zespołami
@@ -270,11 +271,14 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 - [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
 - [B→A] 2026-11-21 · Odpowiedź na prośbę o działki: 17 działek rolnych z 14 województw w `docs/test_parcels.md` (zweryfikowane przez /api/parcel/resolve) · zrobione
+- [B→A] 2026-11-21 · **Silnik analizy F2 = blok `analysis`** (category `derived`, `depends_on` = bloki danych + `crop_calendar`): zwracaj `AnalysisResult` z `contracts/models.py`. Widok raportu (zakładka „Raport”) już go renderuje w kolejności KOWR; dopóki bloku nie ma w `/api/parcel/blocks`, raport pokazuje tylko „Kluczowe wskaźniki z danych” i NIE pokazuje przyczyn ani rekomendacji. Wymagania UI: każde stwierdzenie z `evidence[]` (liczba + jednostka + `block`), `Cause.key` ∈ `measures.meta.cause_keys`, `Recommendation.measure_id` ∈ `retention_measures.yaml`, `legal_ids` ∈ `prawo_wodne.yaml` (UI dobiera kartę formalności z `legal_context` po `legal_ids`), `where_geojson` (EPSG:4326) rysowane na mapie na pomarańczowo. Kształt to propozycja – zmień przed implementacją, jeśli trzeba, i daj znać · otwarte
+- [B→koordynator] 2026-11-21 · **Konflikt przy scalaniu `frontend/src/api/types.ts`:** A i B dopisali na końcu pliku interfejsy `SoilInfo`, `TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedArea*`, `Drought*`, `Vegetation*`, `LandCover`, `Yield*`. Zostaw JEDNĄ definicję każdego (wersja A + pola opcjonalne B), bo TS odrzuca różne typy tego samego pola w scalanych interfejsach (A: `agri_complex: string | null`, B: `agri_complex?: string | null`). Po scaleniu: `npm run build` · otwarte
 - [B→A] 2026-11-21 · Mocki wszystkich bloków A są w `frontend/src/mocks/fixtures.ts` (syntetyczne, oznaczone MOCK) – przy przejściu bloku na ✅ podmień je skróconą prawdziwą próbką. UI rysuje na mapie `terrain.depressions_geojson`, `terrain.flow_lines_geojson` i `hydrology.nearest_water[].geometry` (EPSG:4326) – wypełnij geometrię, jeśli możesz · otwarte
 - [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · otwarte
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · B · raport F3: zakładki „Raport / Wszystkie dane”, `components/report/ReportView.tsx` (ocena → przyczyny → retencja → agrotechnika → nawadnianie → kalendarz → ograniczenia → źródła), blokada rekomendacji bez oceny, dowody z blokiem i datą, miejsca rekomendacji na mapie, druk raportu, „Zapisz dane (JSON)”; kontrakt `AnalysisResult` (propozycja dla A).
 - 2026-11-21 · B · baza wiedzy: I.10.4 (zbiorniki kwalifikowane) i terminy naborów z harmonogramu ARiMR 2026, próg stawu 5000 m² potwierdzony w ustawie, decyzja środowiskowa → OK, +3 uprawy, wzory wniosków gov.pl; 2 błędne odwołania YAML poprawione.
 - 2026-11-21 · B · UI: widoki wszystkich 12 bloków (Chart.js), panel „Skąd te dane”, walidacja formularza („obręb numer”), mapa z ortofoto i warstwami terenu/wód, @media print + „Drukuj / zapisz PDF”, mobile 375 px, `docs/ux.md`, `.claude/launch.json`.
 - 2026-11-21 · B · bloki `crop_calendar` (✅) i `legal_context` (🟡, czeka na fakty z A) + 92 testy; kontrakt: addytywne pola `LegalHint`/`LegalContextInfo` (§13).

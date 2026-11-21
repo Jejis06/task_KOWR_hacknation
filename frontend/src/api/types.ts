@@ -5,7 +5,7 @@ export type BlockStatus = "ok" | "partial" | "no_data" | "not_applicable" | "err
 
 export type BlockKey =
   | "weather_history" | "weather_forecast" | "drought" | "soil" | "terrain" | "hydrology"
-  | "vegetation" | "land_cover" | "yields" | "protected_areas" | "crop_calendar" | "legal_context";
+  | "vegetation" | "land_cover" | "yields" | "protected_areas" | "crop_calendar" | "legal_context" | "analysis";
 
 export interface Provenance {
   source_name: string;
@@ -90,6 +90,7 @@ export interface SoilInfo {
   drought_susceptibility?: string | null; bonitation_classes: string[]; clay_pct?: number | null;
   sand_pct?: number | null; silt_pct?: number | null; soc_g_kg?: number | null; awc_mm?: number | null;
   source_used?: string | null;
+  drought_category?: number | null;                       // SMSR 1–4 (pole A, typ identyczny jak na agent-a-data)
 }
 export type TerrainPosition = "hilltop" | "upper_slope" | "mid_slope" | "flat" | "valley" | "depression";
 export interface TerrainInfo {
@@ -140,4 +141,27 @@ export interface LegalHint {
 export interface LegalContextInfo {
   hints: LegalHint[]; funding_ids: string[];
   disclaimer?: string | null; facts_checked?: Record<string, string>;
+}
+
+// ── wyniki analizy F2 – blok `analysis` (propozycja B, 2026-11-21; lustro models.py) ──
+export type RiskLevel = "none" | "low" | "moderate" | "high" | "very_high";
+export interface Evidence { text: string; block?: string | null }
+export interface WaterAssessment {
+  current_level?: RiskLevel | null; current_label_pl?: string | null; current_summary?: string | null;
+  historical_level?: RiskLevel | null; historical_label_pl?: string | null; historical_summary?: string | null;
+  drought_years: number[]; critical_months: number[]; confidence?: "low" | "medium" | "high" | null; evidence: Evidence[];
+}
+export interface Cause { key: string; label_pl: string; share?: number | null; explanation?: string | null; evidence: Evidence[] }
+export interface Recommendation {
+  measure_id: string; group: "retencja_krajobrazowa" | "agrotechnika" | "nawadnianie"; title: string; why: string;
+  priority: number; addresses: string[]; when?: string | null; where_geojson?: GeoJSON.FeatureCollection | GeoJSON.Feature | null;
+  legal_ids: string[]; funding_ids: string[]; evidence: Evidence[];
+}
+export interface IrrigationAdvice {
+  recommended?: "no" | "monitor" | "yes" | null; summary?: string | null; deficit_mm?: number | null; dose_mm?: number | null;
+  horizon_days?: number | null; timing?: string | null; evidence: Evidence[];
+}
+export interface AnalysisResult {
+  assessment?: WaterAssessment | null; causes: Cause[]; recommendations: Recommendation[]; irrigation?: IrrigationAdvice | null;
+  limitations: string[]; method: string[]; missing_blocks: string[];
 }

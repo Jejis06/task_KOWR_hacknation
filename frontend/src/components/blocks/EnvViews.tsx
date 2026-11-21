@@ -54,7 +54,7 @@ const SMSR_CAT: Record<string, string> = {
 const ROMAN = ["I", "II", "III", "IV"];
 
 export function SoilView({ d }: { d: SoilInfo }) {
-  const raw = (d.drought_susceptibility ?? "").trim();
+  const raw = (d.drought_category != null ? String(d.drought_category) : d.drought_susceptibility ?? "").trim();
   const cat = ROMAN.includes(raw) ? raw : ROMAN[Number(raw) - 1];
   return (
     <div className="view">

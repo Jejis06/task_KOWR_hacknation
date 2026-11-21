@@ -47,3 +47,15 @@ oznaczonych „MOCK” (baner na górze strony). Kształt danych 1:1 z kontrakte
 - Brak testów w Safari/Edge/Opera i Firefoksie z poziomu agenta (testowano Chromium: 375 px i desktop).
 - Wydruk mapy zależy od przeglądarki (kafelki mogą się nie zdążyć załadować).
 - Raport F3 (ocena, przyczyny, rekomendacje) jeszcze nie istnieje – widok druku to zalążek z danymi.
+
+## Raport (F3) – zakładka „Raport”
+
+- Po analizie domyślnie widać **Raport**; zakładka **Wszystkie dane** pokazuje karty bloków. Druk/PDF drukuje bieżącą zakładkę.
+- Kolejność sekcji = wymóg KOWR: 1. Ocena sytuacji wodnej (teraz vs 10 lat, miesiące ryzyka, lata z suszą, pewność) →
+  2. Przyczyny (udział, wyjaśnienie) → 3. Retencja → 4. Agrotechnika → 5. Nawadnianie (ostatni krok) → kalendarz →
+  ograniczenia (brakujące bloki, czego analiza nie uwzględnia, metoda) → „Skąd te dane” → disclaimer.
+- **Blokada:** bez oceny (blok `analysis` brak / błąd / ładuje się) sekcje 2–5 pokazują tylko „Pojawi się po ocenie sytuacji wodnej”,
+  a sekcja 1 – „Kluczowe wskaźniki z danych” (KBW, opad, susza, gleba, NDVI, strefa powodziowa) wyraźnie opisane jako „bez oceny”.
+- Każde stwierdzenie ma **dowody** (📊 liczba z jednostką · nazwa bloku · data danych). Rekomendacja pokazuje: kiedy, gdzie (miejsce
+  na mapie na pomarańczowo), formalności (karta z `legal_context` dobrana po `legal_ids`, z opłatą na rok analizy) i dofinansowanie.
+- „Zapisz dane (JSON)” – plik z działką, datą, uprawą i wszystkimi blokami (wymóg „raport można zapisać w formie pliku”).

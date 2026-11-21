@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api, USE_MOCKS, type Query } from "../api/client";
-import type { BlockInfo, CropItem, DataBlock, HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
+import type { AnalysisResult, BlockInfo, CropItem, DataBlock, HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
 import { emptyKnowledge, KnowledgeContext, type Knowledge } from "../api/knowledge";
 import { type FormState, SearchForm } from "../components/SearchForm";
 import { ParcelMap } from "../components/ParcelMap";
 import { ParcelHeader } from "../components/ParcelHeader";
 import { BlockCard } from "../components/BlockCard";
 import { SourcesPanel } from "../components/SourcesPanel";
+import { ReportView } from "../components/report/ReportView";
 import { dateStr, dateTimeStr, todayIso } from "../lib/format";
 
 type BlockState = Record<string, DataBlock | "loading">;
@@ -23,6 +24,7 @@ export function ParcelPage() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [elapsed, setElapsed] = useState<number | null>(null);
+  const [view, setView] = useState<"report" | "data">("report");
   const run = useRef(0);
 
   useEffect(() => {
@@ -75,7 +77,19 @@ export function ParcelPage() {
   const overlays = useMemo(() => ({
     terrain: (typeof blocks.terrain === "object" ? blocks.terrain.data : null) as TerrainInfo | null,
     hydrology: (typeof blocks.hydrology === "object" ? blocks.hydrology.data : null) as HydrologyInfo | null,
-  }), [blocks.terrain, blocks.hydrology]);
+    places: ((typeof blocks.analysis === "object" ? (blocks.analysis.data as AnalysisResult | null)?.recommendations : null) ?? [])
+      .filter((r) => r.where_geojson).map((r) => ({ title: r.title, geojson: r.where_geojson! })),
+  }), [blocks.terrain, blocks.hydrology, blocks.analysis]);
+  const dataInfos = blocksInfo.filter((b) => b.key !== "analysis");
+
+  function downloadJson() {
+    if (!parcel || !analysed) return;
+    const payload = { parcel, analysis_date: analysed.date, crop: analysed.crop || null, generated_at: analysed.at, blocks };
+    const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 1)], { type: "application/json" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = `raport_${parcel.id.replace(/[^\w.-]/g, "_")}_${analysed.date}.json`; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   const cropName = crops.find((c) => c.id === analysed?.crop)?.name_pl;
 
   return (
@@ -83,7 +97,7 @@ export function ParcelPage() {
       <div className="parcel-page">
         {USE_MOCKS && <div className="mock-banner no-print">Tryb demonstracyjny: dane przykładowe (MOCK), nie z prawdziwych źródeł.</div>}
 
-        {parcel && analysed && (
+        {parcel && analysed && view === "data" && (
           <header className="print-header print-only">
             <h1>Dane o działce {parcel.id}</h1>
             <p>{[parcel.region_name, parcel.commune, parcel.county, parcel.voivodeship].filter(Boolean).join(", ")} ·
@@ -106,8 +120,19 @@ export function ParcelPage() {
             <div className="progress no-print" aria-live="polite">
               <span>{ready < total ? `Pobieram dane: ${ready} z ${total}…` : `Gotowe: ${total} bloków${elapsed ? ` w ${elapsed.toFixed(1)} s` : ""}`}</span>
               <span className="progress-track"><span className="progress-fill" style={{ width: `${(ready / Math.max(1, total)) * 100}%` }} /></span>
-              <button type="button" className="btn-secondary" disabled={ready < total} onClick={() => window.print()}>🖨 Drukuj / zapisz PDF</button>
+              <button type="button" className="btn-secondary" disabled={ready < total} onClick={() => window.print()}>
+                🖨 {view === "report" ? "Drukuj raport / zapisz PDF" : "Drukuj dane / zapisz PDF"}</button>
+              <button type="button" className="btn-secondary" disabled={ready < total} onClick={downloadJson}>⬇ Zapisz dane (JSON)</button>
             </div>
+          )}
+          {parcel && analysed && (
+            <div className="tabs no-print" role="tablist" aria-label="Widok wyników">
+              <button role="tab" aria-selected={view === "report"} className={view === "report" ? "tab on" : "tab"} onClick={() => setView("report")}>📋 Raport</button>
+              <button role="tab" aria-selected={view === "data"} className={view === "data" ? "tab on" : "tab"} onClick={() => setView("data")}>📊 Wszystkie dane</button>
+            </div>
+          )}
+          {parcel && analysed && view === "report" && (
+            <ReportView parcel={parcel} asOf={analysed.date} cropName={cropName} generatedAt={analysed.at} infos={blocksInfo} blocks={blocks} />
           )}
           {!parcel && !busy && (
             <div className="welcome">
@@ -121,13 +146,17 @@ export function ParcelPage() {
               <p className="small">Przy każdej informacji podajemy źródło, datę i ograniczenia. Nie zbieramy żadnych danych osobowych.</p>
             </div>
           )}
-          <div className="cards">
-            {blocksInfo.map((b) => (
-              <BlockCard key={b.key} info={b} block={blocks[b.key]} asOf={asOf} wide={WIDE.has(b.key)} />
-            ))}
-          </div>
-          <SourcesPanel infos={blocksInfo} blocks={blocks} />
-          {parcel && (
+          {(view === "data" || !analysed) && (
+            <>
+              <div className="cards">
+                {dataInfos.map((b) => (
+                  <BlockCard key={b.key} info={b} block={blocks[b.key]} asOf={asOf} wide={WIDE.has(b.key)} />
+                ))}
+              </div>
+              <SourcesPanel infos={dataInfos} blocks={blocks} />
+            </>
+          )}
+          {parcel && view === "data" && (
             <p className="print-only small">Prototyp HackNation 2026 (KOWR). Informacja orientacyjna – nie zastępuje porady eksperta ani decyzji organów.
               Dane: GUGiK, IMGW-PIB, IUNG-PIB, Copernicus, Wody Polskie, PIG-PIB, GUS, Open-Meteo/ERA5, NASA POWER.</p>
           )}
