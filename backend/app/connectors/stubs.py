@@ -11,18 +11,6 @@ from app.connectors.base import StubConnector
 
 
 
-class HydrologyConnector(StubConnector):
-    """Hydrologia → HydrologyInfo.
-    - Cieki/rowy/zbiorniki w promieniu ~1 km: MPHP 1:10 000 (Wody Polskie, WMS/WFS – sprawdź aktualny URL,
-      wody.isok.gov.pl/gpservices/... zwracał 401) albo BDOT10k (SWRS/PTWP) z geoportalu.
-    - Strefy zagrożenia powodziowego ISOK (0,2% / 1% / 10%): WMS GetFeatureInfo
-      https://wody.isok.gov.pl/wss/INSPIRE/INSPIRE_NZ_HY_MZPMRP_WMS
-    - PIG-PIB: CBDH otwory (WFS) https://cbdgmapa.pgi.gov.pl/arcgis/services/hydrogeologia/cbdh_otwory/MapServer/WFSServer
-      → najbliższe otwory: głębokość, zwierciadło, wydajność; MHP 1:50 000 – głębokość do 1. poziomu wodonośnego; GZWP.
-    - Właściwy Zarząd Zlewni / Nadzór Wodny (do procedur) – z JCWP/zlewni.
-    """
-    key = "hydrology"; title = "Wody powierzchniowe i podziemne"; category = "hydro"; live_ttl_s = 30 * 24 * 3600
-
 
 class VegetationConnector(StubConnector):
     """Sentinel-2 → VegetationInfo (NDVI/NDMI, 10 lat, bez konta).
@@ -71,9 +59,3 @@ class LandCoverConnector(StubConnector):
     key = "land_cover"; title = "Użytkowanie terenu"; category = "spatial"; live_ttl_s = 30 * 24 * 3600
 
 
-class ProtectedAreasConnector(StubConnector):
-    """Formy ochrony przyrody → ProtectedAreasInfo (wpływa na procedury: RDOŚ, ocena oddziaływania).
-    GDOŚ WMS/WFS: https://sdi.gdos.gov.pl/wms (Natura 2000 OSO/SOO, rezerwaty, parki narodowe/krajobrazowe, OChK).
-    Sprawdź przecięcie geometrii działki (nie tylko centroid).
-    """
-    key = "protected_areas"; title = "Obszary chronione"; category = "spatial"; live_ttl_s = 30 * 24 * 3600

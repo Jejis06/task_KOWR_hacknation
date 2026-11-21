@@ -193,6 +193,10 @@ class HydrologyInfo(BaseModel):
     gzwp: str | None = None                     # Główny Zbiornik Wód Podziemnych
     nearest_boreholes: list[dict] = Field(default_factory=list)  # CBDH: głębokość, zwierciadło, wydajność
     water_management_board: str | None = None   # właściwy Zarząd Zlewni / Nadzór Wodny Wód Polskich
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    in_flood_hazard_area: bool | None = None    # jakakolwiek część działki w obszarze MZP (nawet gdy scenariusz nieznany)
+    in_groundwater_flood_area: bool | None = None  # obszar zagrożony podtopieniami (PIG-PIB)
+    jcwpd_code: str | None = None               # Jednolita Część Wód Podziemnych (kod UE)
 
 
 class VegetationObs(BaseModel):
@@ -236,11 +240,13 @@ class ProtectedAreaHit(BaseModel):
     kind: str                          # "Natura 2000 OSO", "Natura 2000 SOO", "rezerwat", "park narodowy", "OChK"...
     name: str | None = None
     code: str | None = None
+    distance_m: float | None = None    # dodane 2026-11-21 (A): 0 = działka w obszarze; None = „w promieniu 1 km”
 
 
 class ProtectedAreasInfo(BaseModel):
     hits: list[ProtectedAreaHit] = Field(default_factory=list)
     checked_layers: list[str] = Field(default_factory=list)
+    nearby: list[ProtectedAreaHit] = Field(default_factory=list)  # dodane 2026-11-21 (A): w promieniu 1 km
 
 
 class CropStage(BaseModel):

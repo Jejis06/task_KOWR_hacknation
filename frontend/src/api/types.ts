@@ -98,3 +98,16 @@ export interface TerrainInfo {
   depressions_geojson: Record<string, unknown> | null; flow_lines_geojson: Record<string, unknown> | null;
   dem_resolution_m: number | null;
 }
+export interface WaterFeature {
+  kind: "river" | "stream" | "ditch" | "lake" | "pond" | "reservoir" | "spring" | "other";
+  name: string | null; distance_m: number; geometry: GeoJSONGeometry | null;
+}
+export interface HydrologyInfo {
+  nearest_water: WaterFeature[];
+  in_flood_zone: "0.2%" | "1%" | "10%" | null; flood_zone_checked: boolean;
+  catchment_name: string | null; jcwp_code: string | null; groundwater_depth_m: string | null;
+  gzwp: string | null; nearest_boreholes: Record<string, unknown>[]; water_management_board: string | null;
+  in_flood_hazard_area?: boolean | null; in_groundwater_flood_area?: boolean | null; jcwpd_code?: string | null;
+}
+export interface ProtectedAreaHit { kind: string; name: string | null; code: string | null; distance_m?: number | null }
+export interface ProtectedAreasInfo { hits: ProtectedAreaHit[]; checked_layers: string[]; nearby?: ProtectedAreaHit[] }

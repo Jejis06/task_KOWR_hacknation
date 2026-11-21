@@ -119,11 +119,11 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `drought` | A | ⬜ | SMSR IUNG (gmina, uprawa, gleba) + EDO WMS (CDI/SMA, TIME) + lata suszy z KBW | `DroughtHistory` | `stubs.py` |
 | `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
 | `terrain` | A | ✅ | NMT GUGiK (usługa GetHByPointList, siatka 8–20 m, bbox+300 m; WCS wisi) → spadek, TPI, Priority-Flood, D8, TWI | `TerrainInfo` | `connectors/terrain.py`, `science/terrain.py` |
-| `hydrology` | A | ⬜ | MPHP/BDOT10k cieki, ISOK strefy powodziowe, PIG CBDH otwory, MHP, GZWP | `HydrologyInfo` | `stubs.py` |
+| `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
 | `vegetation` | A | ⬜ | Sentinel-2 L2A, Earth Search STAC (bez konta), NDVI/NDMI, 10 lat | `VegetationInfo` | `stubs.py` |
 | `land_cover` | A | ⬜ | ESA WorldCover 10 m COG → BDOT10k/EGiB | `LandCoverInfo` | `stubs.py` |
 | `yields` | A | ⬜ | GUS BDL (powiat/województwo) + proxy NDVI per działka | `YieldInfo` | `stubs.py` |
-| `protected_areas` | A | ⬜ | GDOŚ WMS/WFS (Natura 2000, rezerwaty, parki, OChK) | `ProtectedAreasInfo` | `stubs.py` |
+| `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ⬜ | `crops.yaml` + data analizy (okres wegetacji, fazy Kc, ostrzeżenia siewu) | `CropCalendarInfo` | `blocks.py` |
 | `legal_context` | B | ⬜ | `legal_pl`, `procedures`, `measures`, `funding` + fakty z hydrology, protected_areas, terrain | `LegalContextInfo` | `blocks.py` |
 
@@ -139,7 +139,10 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - EDO WMS `https://drought.emergency.copernicus.eu/api/wms` ✅ · ISOK `https://wody.isok.gov.pl/wss/INSPIRE/INSPIRE_NZ_HY_MZPMRP_WMS` ✅
 - PIG CBDH WFS `https://cbdgmapa.pgi.gov.pl/arcgis/services/hydrogeologia/cbdh_otwory/MapServer/WFSServer` ✅ · GDOŚ `https://sdi.gdos.gov.pl/wms` ✅
 - ESA WorldCover COG na S3 ✅ · działki parquet `https://opendata.geoportal.gov.pl/InneDane/latest_exports/eziudp_wfs/PARQUET/0_dzialki.parquet` ✅
-- MPHP `wody.isok.gov.pl/gpservices/KZGW/MPHP10_Cieki/...` ❌ 401: szukać innego URL albo użyć BDOT10k.
+- MPHP `wody.isok.gov.pl/gpservices/KZGW/MPHP10_Cieki/...` ❌ 401 (całe `gpservices` i `wss/INSPIRE/INSPIRE_AM*/HY*` = 401) → BDOT10k z `https://cbdgmapa.pgi.gov.pl/arcgis/rest/services/mapa_topo/bdot_10k/MapServer` (warstwy 30–34) ✅
+- PIG ArcGIS REST `https://cbdgmapa.pgi.gov.pl/arcgis/rest/services/hydrogeologia/{cbdh_otwory,gzwp,jcwpd,podtopienia}` ✅; MHP (`/mhp`) ❌ „Token Required”
+- ISOK MZP: styl domyślny = same obrysy → GetMap z `SLD_BODY` (wypełnienie wg `loo_ql_returnperiod`) ✅ 0,4 s; GetFeatureInfo 3–10 s
+- GDOŚ WFS `https://sdi.gdos.gov.pl/wfs` ✅ (CQL_FILTER: współrzędne 2180 w kolejności N E!)
 - IUNG GeoServer `https://sgeo.iung.pl/geoserver/wms` warstwa `Susza:katgl_landuse2024` (kategorie gleb SMSR, GetFeatureInfo JSON) ✅
 - `susza.iung.pulawy.pl` ✅ (HTML; oficjalnego API brak, endpointy XHR trzeba zbadać).
 
@@ -261,6 +264,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `HydrologyInfo` +`in_flood_hazard_area`, `in_groundwater_flood_area`, `jcwpd_code`; `ProtectedAreaHit` +`distance_m`; `ProtectedAreasInfo` +`nearby`; `types.ts` +`TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedAreas*`.
 - 2026-11-21 · A · `SoilInfo` +`drought_category`, `drought_category_shares_pct`, `agri_complex_code`, `agri_complex_shares_pct`, `texture_profile`, `samples` (opcjonalne); `types.ts` +`SoilInfo`.
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
 
@@ -269,10 +273,11 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 *(format: `- [A→B] data · opis · status`)*
 
 - [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
-- [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · otwarte
+- [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · **dostarczone (A, 2026-11-21)** – uwaga: `groundwater_depth_m` zawsze `null` (MHP wymaga tokena PIG); zamiast tego są `in_groundwater_flood_area`, `nearest_boreholes[].depth_m`, `gzwp`. Dodatkowo `in_flood_hazard_area` (bool), `protected_areas.nearby` (≤1 km), `hits[].distance_m`.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `hydrology` ✅ (0,3–1,6 s) i `protected_areas` ✅ (0,2–0,5 s); pola dla `legal_context` z §14 dostarczone.
 - 2026-11-21 · A · `terrain` ✅: NMT przez GetHByPointList (paczki po 1000 pkt równolegle), Priority-Flood/D8/TPI/TWI w numpy; zagłębienia i linie spływu jako GeoJSON; 2,3–4 s/działkę.
 - 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.
 - 2026-11-21 · baza wiedzy: dokumenty pobrane ręcznie (SMSR, Prawo wodne t.j. 2026, M.P. ze stawkami, wzory, CDR, POLSA 2020, NWRM); opłaty w procedures.yaml zweryfikowane (2026/2027); fetch_knowledge: strony HTML + czyszczenie usuniętych wpisów.
