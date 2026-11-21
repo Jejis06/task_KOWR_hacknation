@@ -242,6 +242,9 @@ class LandCoverInfo(BaseModel):
     classes: dict[str, float] = Field(default_factory=dict)  # klasa -> udział % działki
     agricultural_share_pct: float | None = None
     source_used: str | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    cropland_share_pct: float | None = None   # tylko grunty orne (WorldCover klasa 40)
+    bdot_classes: dict[str, float] = Field(default_factory=dict)  # BDOT10k: klasa -> udział % działki
 
 
 class ProtectedAreaHit(BaseModel):

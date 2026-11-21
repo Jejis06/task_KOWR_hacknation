@@ -121,7 +121,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `terrain` | A | ✅ | NMT GUGiK (usługa GetHByPointList, siatka 8–20 m, bbox+300 m; WCS wisi) → spadek, TPI, Priority-Flood, D8, TWI | `TerrainInfo` | `connectors/terrain.py`, `science/terrain.py` |
 | `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
 | `vegetation` | A | ✅ | Sentinel-2 L2A – Microsoft Planetary Computer: STAC + Data API `item/statistics` (NDVI/NDMI liczone na serwerze dla granic działki, maska SCL, korekta BOA); ≤1 scena/mies. IV–X × 10 lat, cache na stałe | `VegetationInfo` | `connectors/vegetation.py` |
-| `land_cover` | A | ⬜ | ESA WorldCover 10 m COG → BDOT10k/EGiB | `LandCoverInfo` | `stubs.py` |
+| `land_cover` | A | ✅ | ESA WorldCover 2021 (Planetary Computer, histogram kategorialny dla działki) + BDOT10k (PIG, gdy pokrywa ≥80% działki – kopia niekompletna) | `LandCoverInfo` | `connectors/land_cover.py` |
 | `yields` | A | ⬜ | GUS BDL (powiat/województwo) + proxy NDVI per działka | `YieldInfo` | `stubs.py` |
 | `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ⬜ | `crops.yaml` + data analizy (okres wegetacji, fazy Kc, ostrzeżenia siewu) | `CropCalendarInfo` | `blocks.py` |
@@ -268,6 +268,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `LandCoverInfo` +`cropland_share_pct`, `bdot_classes`; `types.ts` +`LandCoverInfo`.
 - 2026-11-21 · A · `types.ts` +`VegetationObs`, `VegetationInfo` (bez zmian w models.py).
 - 2026-11-21 · A · `DroughtHistory` +`drought_years_smsr`, `drought_years_computed`, `crop_group`, `soil_category`, `commune_teryt`, `commune_name`, `periods`; `types.ts` +`DroughtIndex`, `DroughtHistory`.
 - 2026-11-21 · A · `HydrologyInfo` +`in_flood_hazard_area`, `in_groundwater_flood_area`, `jcwpd_code`; `ProtectedAreaHit` +`distance_m`; `ProtectedAreasInfo` +`nearby`; `types.ts` +`TerrainInfo`, `HydrologyInfo`, `WaterFeature`, `ProtectedAreas*`.
@@ -284,6 +285,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `land_cover` ✅: WorldCover przez PC (0,4–1 s), BDOT10k jako uzupełnienie.
 - 2026-11-21 · A · `vegetation` ✅: Planetary Computer (statystyki serwerowe), 10 lat w ~5 s z pustym cache; Earth Search COG za wolne na łączu hackathonu.
 - 2026-11-21 · A · `drought` ✅: SMSR gmina (2020+) + KBW działki wg progów SMSR + EDO CDI/SMA; progi w `smsr_thresholds.yaml`; ~9 s z pustym cache (w tym weather_history).
 - 2026-11-21 · A · `hydrology` ✅ (0,3–1,6 s) i `protected_areas` ✅ (0,2–0,5 s); pola dla `legal_context` z §14 dostarczone.

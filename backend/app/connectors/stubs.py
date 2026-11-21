@@ -26,12 +26,5 @@ class YieldsConnector(StubConnector):
     uses_crop = True
 
 
-class LandCoverConnector(StubConnector):
-    """Pokrycie terenu w granicach działki → LandCoverInfo (działka ≠ pole!).
-    ESA WorldCover 10 m (COG, publiczny S3, CC BY 4.0):
-      https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N51E021_Map.tif
-    Alternatywnie BDOT10k / EGiB klasoużytki. Wynik maskuje analizy (NDVI tylko z gruntów rolnych).
-    """
-    key = "land_cover"; title = "Użytkowanie terenu"; category = "spatial"; live_ttl_s = 30 * 24 * 3600
 
 

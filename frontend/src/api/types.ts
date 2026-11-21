@@ -127,3 +127,7 @@ export interface VegetationInfo {
   latest: VegetationObs | null; latest_age_days: number | null; series: VegetationObs[];
   baseline_same_doy: number | null; anomaly: number | null; in_growing_season: boolean | null;
 }
+export interface LandCoverInfo {
+  classes: Record<string, number>; agricultural_share_pct: number | null; source_used: string | null;
+  cropland_share_pct?: number | null; bdot_classes?: Record<string, number>;
+}
