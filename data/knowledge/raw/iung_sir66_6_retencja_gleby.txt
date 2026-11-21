@@ -1,0 +1,435 @@
+117116
+Jan Jadczyszyn, Beata Bartosiewicz
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+PRAKTYKI ZWIĘKSZAJĄCE RETENCJĘ GLEBOWĄ I WYKORZYSTANIE 
+WODY W POLOWEJ PRODUKCJI ROŚLINNEJ*
+Słowa kluczowe: gospodarka wodna, retencja wodna, stres wodny, ewaporacja, ewapotran-
+spiracja, systemy uprawy, zabiegi uprawowe, struktura gleby, próchnica
+Wstęp
+Woda jest niezbędna zarówno do życia człowiekowi i całemu światu ożywione-
+mu, jak również dla rozwoju gospodarki. Zasoby wody słodkiej potrzebnej do życia 
+wszystkich organizmów są ograniczone i stanowią jedynie 2,5% objętości, tj. około 
+10 mln km3 wszystkich wód na kuli ziemskiej (24). Woda w przyrodzie znajduje się 
+w ciągłym obiegu, zwanym cyklem hydrologicznym. Dopływ energii słonecznej 
+powoduje jej parowanie z powierzchni mórz, oceanów, jezior, rzek, mokradeł, gleby 
+oraz roślin, a następnie skraplanie i opadanie w postaci opadów atmosferycznych 
+(deszczu, śniegu i gradu) (23). Zmiany klimatyczne, w szczególności obserwowany 
+w ostatnich latach wzrost usłonecznienia w połączeniu ze wzrostem temperatury 
+wpływa na intensyfikację procesu ewapotranspiracji, czyli parowania wody z po-
+wierzchni ziemi i roślin (8, 18, 19, 20), co w konsekwencji skraca cykl hydrologiczny 
+i prowadzi do okresowego ograniczenia wody niezbędnej w sezonie wegetacyjnym 
+dla wzrostu i rozwoju roślin.
+Przestrzenny charakter rolnictwa oraz fakt, że bazuje ono głównie na wodach 
+opadowych sprawia, że jest działem gospodarki najbardziej narażonym na nieko-
+rzystne zmiany klimatyczne (21, 28). Zarówno krótko, jak i długookresowe projekcje 
+klimatyczne przewidują dalszy wzrost, w stosunku do normy klimatycznej, średniej 
+temperatury powietrza, wydłużenie fali upałów, zwiększenie intensywności opadów 
+oraz częstotliwości występowania suszy rolniczej (22). Zachodzące zmiany klima-
+tyczne wymuszają zatem dostosowanie życia społeczno-gospodarczego do nowych 
+uwarunkowań przyrodniczych. Olbrzymie zadanie spoczywa na rolnictwie, które musi 
+S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 66(20): 117-127 2021
+*Opracowanie wykonano w ramach zadania 2.0 pt. „Ochrona gleb użytkowanych” z dotacji budżetowej   
+  przeznaczonej na realizację zadań MRiRW w 2021 r.
+doi: 10.26114/sir.iung.2021.66.06
+119118
+ Jan Jadczyszyn, Beata Bartosiewicz
+dostosować produkcję do nowych, zmieniających się warunków agroklimatycznych. 
+Jednym z najważniejszych celów tego zadania jest stosowanie racjonalnej gospodarki 
+wodnej i podjęcie wszelkich działań prowadzących do zwiększenia retencji wody  
+w glebie.  
+Potencjalne możliwości retencji wody w glebie zależą głównie od składu granu-
+lometrycznego gleby, a w szczególności od zawartości frakcji ilastej (<0,002 mm)  
+i pylastej (0,02–0,002 mm), łącznie określonych frakcją spławialną (<0,02 mm), oraz 
+od zawartości materii organicznej. Wraz ze wzrostem zawartości frakcji spławialnej  
+i zawartości próchnicy wzrasta możliwość zatrzymywania wody w profilu glebowym. 
+W Polsce zdecydowana większość gleb mineralnych (ponad 60%) wytworzona została 
+z utworów piaszczystych, w których zawartość frakcji spławialnej nie przekracza 
+20%, a średnia zawartość próchnicy jest mniejsza od 2%. Z tego względu naturalna 
+retencja wody w glebie jest ograniczona. Małe możliwości zatrzymywania wody  
+w profilu glebowym decydują również o zwiększonej podatności gleb wytworzonych 
+z utworów piaszczystych w kraju na suszę rolniczą. Ponad połowa (57,0%) gleb mi-
+neralnych użytków rolnych w Polsce została zakwalifikowana do kategorii bardzo 
+podatnej (I) i podatnej (II) na suszę rolniczą, zaś tylko niespełna 20% do kategorii 
+mało podatnej (IV) (rys. 1).
+Rys. 1. Mapa kategorii podatności gleb na suszę rolniczą 
+Źródło: Jadczyszyn i Bartosiewicz, 2020 (9)
+Gospodarstwa 
+monitoringu suszy
+Kategoria podatności
+gleb na suszę:
+I – bardzo podatna
+II – podatna
+III – średnio podatna
+IV – mało podatna
+lasy
+wody
+tereny komunikacyjne
+tereny zurbanizowane
+użytki rolne na glebach organicznych i pochodzenia organicznego
+119118 Praktyki zwiększające retencję glebową i wykorzystanie wody w polowej produkcji roślinnej
+Czynniki kształtujące retencję wodną gleb gruntów ornych
+Naturalne właściwości fizykochemiczne gleby, z wyjątkiem uziarnienia, mogą 
+ulegać okresowym zmianom i oddziaływać na retencję wodną gleb pod wpływem 
+zmieniających się czynników klimatycznych oraz działalności gospodarczej czło-
+wieka. Czynnikiem bardzo korzystnie wpływającym na możliwości zatrzymywania 
+wody w glebie jest próchnica, czyli bezpostaciowe, organiczne szczątki w różnym 
+stadium mikrobiologicznego i fizykochemicznego rozkładu, akumulowane w glebie 
+w postaci specyficznych glebowych związków organicznych (humusu). Zawartość  
+i jakość próchnicy określają potencjał produkcyjny gleby oraz pozytywnie wpływają 
+na gospodarkę wodną (1, 15, 17, 26). Korzystne oddziaływanie próchnicy na retencję 
+glebową uwidacznia się w dwojaki sposób (23):
+1) bezpośredni – wiąże wodę w ilości 5 razy większej w stosunku do swojej masy;
+2) pośredni – pobudza życie biologiczne i sprzyja powstawaniu trwałej struktury 
+gruzełkowatej, co ułatwia infiltrację wód opadowych, ogranicza spływ po-
+wierzchniowy, poprawia stosunki powietrzno-wodne i zwiększa możliwości 
+retencyjne gleby. 
+Retencję wodną ogranicza kwaśny odczyn gleby, który hamuje powstawanie trwa-
+łych związków mineralno-próchnicznych i tworzenie struktury agregatowej. Gleby  
+o odczynie kwaśnym pod wpływem intensywnych opadów łatwo ulegają zasklepia-
+niu, przez co ograniczona zostaje infiltracja wody w głąb profilu, zwiększa się spływ 
+powierzchniowy i nasila erozja wodna. Ponadto bardzo kwaśny odczyn ogranicza 
+pobieranie składników mineralnych przez rośliny, co hamuje ich wzrost i rozwój, 
+opóźnia przykrycie gleby przez rośliny, a w konsekwencji przyczynia się do wzrostu 
+parowania z powierzchni gleby (5, 25). Z badań chemizmu gleb Polski wynika, że 
+26,2% gleb użytków rolnych wykazuje bardzo kwaśny odczyn (pHKCl<4,5), a kolejne 
+30,3% – odczyn kwaśny (pHKCl 4,5–5,5) (29, 30). Dane te uwidaczniają realny wpływ 
+tego czynnika na rzeczywistą retencję wody glebowej w skali kraju (rys. 2).      
+Kolejne ograniczenie retencji wodnej wiąże się z okresowym zagęszczeniem 
+wierzchniej warstwy gleby na skutek uprawy mechanicznej oraz zbioru i transportu 
+ziemiopłodów w warunkach zwiększonego uwilgotnienia. W wyniku nacisku kół 
+zniszczeniu ulega struktura gleby. Zmniejszona zostaje także porowatość, co ogranicza 
+proces wsiąkania wody do głębszych warstw profilu, zaś nasileniu ulega zjawisko 
+spływu powierzchniowego i erozji. Zniszczona struktura wierzchniej warstwy gleby 
+tylko okresowo ogranicza retencję, natomiast zagęszczenie podglebia zalegającego 
+bezpośrednio pod warstwą uprawną, czyli tzw. podeszwa płużna, stale ogranicza 
+infiltrację. Degradacja struktury gleby na tym poziomie pociąga za sobą dalsze ne-
+gatywne konsekwencje dla roślin i środowiska. Ogranicza retencję wody w profilu 
+poniżej poziomu zagęszczenia, co z kolei prowadzi do okresowej stagnacji wody, 
+podtapiania i wymakania roślin, a także do zwiększenia spływu powierzchniowego 
+i erozji. W dłuższym okresie czasu silne zagęszczenie podglebia zwiększa również 
+121120
+ryzyko wystąpienia suszy, gdyż deformuje stosunki wodno-powietrzne w całym 
+profilu oraz zmniejsza dostęp systemu korzeniowego do składników mineralnych 
+zalegających poniżej tej warstwy, co w konsekwencji ogranicza rozwój roślin. Ba-
+dania symulacyjne nad oceną uziarnienia i właściwości fizycznych przeprowadzone  
+w IUNG-PIB w Puławach wykazały, że ponad jedna czwarta gleb w Polsce wykazuje 
+wysoką podatność na zagęszczenie (rys. 3), co stwarza duże ryzyko ograniczenia 
+retencji wody w profilu glebowym (2). 
+Rys. 2. Mapa odczynu gleb w Polsce 
+Źródło: Stuczyński in., 2007 (29)
+Jan Jadczyszyn, Beata Bartosiewicz
+Ocena odczynu
+bardzo kwaśny
+kwaśny
+lekko kwaśny
+obojętny 
+zasadowy
+obszary niesklasyfikowane
+121120
+Rys. 3. Podatność gleb na zagęszczenie przewidywana w modelu Alcor 
+Źródło: Czyż i in., 2013 (2)
+Czynniki kształtujące retencję w skali zlewni, regionu i wsi
+Z fizjograficznego punktu widzenia stosunki wodne w środowisku powinny być 
+kształtowane w pierwszej kolejności w skali zlewni, jako naturalnie wyodrębnionego 
+ekosystemu obiegu wody (14, 16, 27). Do podstawowych wskaźników charaktery-
+zujących obieg wody w zlewni należą: odpływ bezpośredni, podziemny i parowanie 
+(13). Z kolei do najważniejszych czynników fizjograficznych kształtujących stosunki 
+wodne w zlewni zalicza się: rzeźbę terenu (nachylenie stoków), budowę geologiczną, 
+przepuszczalność gleby, podatność na formułowanie spływu powierzchniowego oraz 
+wielkość i intensywność opadów atmosferycznych. Istotnym elementem są również 
+czynniki gospodarcze związane z użytkowaniem, czyli udział oraz rozmieszczenie  
+użytków gruntowych w rzeźbie terenu, w tym przede wszystkim użytków leśnych  
+i trwałych użytków zielonych, które zwiększają retencję, ograniczają odpływ i wy-
+Praktyki zwiększające retencję glebową i wykorzystanie wody w polowej produkcji roślinnej
+Podatność gleb
+na zagęszczenie
+przewidywana funkcją 
+zbudowaną w oparciu  
+o przewidywania modelu Alcor
+obszary niesklasyfikowane
+wysoka (PS < 90 kPa)
+średnia
+niska (PS > 150  kPa)
+123122
+dłużają obieg wody (4, 16). Skutecznym sposobem zwiększenia retencji w zlewni 
+jest budowa zbiorników retencyjnych, stopni spiętrzających i renaturyzacja mokra-
+deł, które podwyższają poziom wód gruntowych w dolinie cieku, a także zwiększają 
+stan uwilgotnienia gruntów przylegających i wilgotność powietrza w całej zlewni. 
+Do istotnych czynników gospodarczych oddziałujących na stosunki wodne terenów 
+o ukształtowanej rzeźbie należy również rozmieszczenie użytków rolnych oraz 
+sieci dróg rolniczych (11). Należy podkreślić, że prace planistyczne realizowane na 
+poziomie gminy oraz prace urządzenioworolne prowadzone w skali obrębu/wsi lub 
+kilku wsi w zakresie wprowadzania użytków ochronnych (użytków leśnych, zadrze-
+wień, zakrzewień, pasów przeciwwietrznych), kształtowania granicy rolno-leśnej 
+czy budowy zbiorników retencyjnych, mogą również przyczynić się do zwiększenia 
+retencji wodnej. Melioracje przeciwerozyjne, związane z projektowaniem sieci dróg 
+rolniczych i granic działek ewidencyjnych, przyczyniają się do zwiększenia retencji 
+wodnej w zlewni oraz tworzą osnowę do dalszych działań ochronnych – proreten-
+cyjnych, wdrażanych w skali gospodarstwa i pola. 
+Melioracje wodne są także ważnym elementem kształtowania stosunków wodnych. 
+Według danych GUS w roku 2011 (7) w Polsce melioracjami wodnymi objęto 41,5% 
+użytków rolnych, z czego zdecydowana większość jest zaniedbana, źle wykorzysta-
+na i funkcjonuje wyłącznie w trybie odwadniającym (31). Program kształtowania 
+zasobów wodnych opracowany przez Wody Polskie (WP) zakłada budowę małych 
+i dużych zbiorników retencyjnych oraz renaturyzację rzek i mokradeł. Przewiduje 
+również przywrócenie dwufunkcyjności istniejącego systemu melioracji wodnych  
+i wykorzystanie go do retencji korytowej (rzecznej). Według założeń WP przebudowa 
+systemu w ciągu najbliższych lat może się przyczynić do wzrostu retencji w Polsce, 
+z poziomu obecnych ok. 6,5% do nawet 7% (31).  
+Agrotechniczne możliwości zwiększenia retencji glebowej w skali 
+gospodarstwa
+Coraz częściej powtarzająca się na znacznym obszarze kraju susza rolnicza, która 
+w ostatniej dekadzie występowała w każdym sezonie wegetacyjnym, jest dużym 
+wyzwaniem i mocnym bodźcem skłaniającym rolników do poszukiwania rozwiązań 
+łagodzących niedobór wody (3). Racjonalne zagospodarowanie użytków rolnych 
+może mieć realny wpływ na ograniczenie skutków suszy i poprawę kondycji finan-
+sowej gospodarstw. Zadania rolnictwa w tym zakresie powinny koncentrować się na 
+dwóch celach, tj.: 
+1) zwiększeniu pojemności wodnej i zwiększeniu procesu wsiąkania wody opa-
+dowej w profilu glebowym; 
+2) ograniczeniu procesu parowania z powierzchni gleby.
+W pierwszym przypadku szczególne znaczenie ma materia organiczna, zwłaszcza 
+zawarta w niej próchnica, która obok uziarnienia i struktury należy do głównych 
+czynników korzystnie wpływających na zwiększenie retencji wodnej gleby. W wyniku 
+Jan Jadczyszyn, Beata Bartosiewicz
+123122
+równolegle zachodzących procesów humifikacji i mineralizacji zasoby materii orga-
+nicznej w glebie podlegają ciągłym dynamicznym zmianom ilościowo-jakościowym. 
+Utrzymanie zrównoważonego salda bilansu tych procesów wymaga dostarczania do 
+gleby określonej ilości materii organicznej w postaci nawozów organicznych i natural-
+nych, w tym resztek pożniwnych. Naturalnym sposobem dopływu materii organicznej 
+do gleby i utrzymanie zrównoważonego bilansu próchnicy jest produkcja zwierzęca, 
+która zapewnia systematyczne stosowanie nawozów naturalnych w postaci obornika 
+i gnojowicy. Z kolei zapewnienie zrównoważonej gospodarki glebową materią orga-
+niczną w gospodarstwach o roślinnym kierunku produkcji wymaga podejmowania 
+szerszego spektrum działań ochronnych, do których należą:
+– stosowanie zmianowań z dużym udziałem roślin pozostawiających znaczną 
+ilość resztek pożniwnych (m.in. roślin bobowatych i kukurydzy na ziarno)  
+i tym samym sprzyjających reprodukcji materii organicznej, 
+– aplikowanie nawozów organicznych (np. osadów pofermentacyjnych z bioga-
+zowni),
+– uprawa międzyplonów przeorywanych jako zielony nawóz lub rozdrabnianych 
+w postaci mulczu.
+Skutecznym sposobem na uzyskanie dodatniego bilansu materii organicznej  
+i zwiększenia retencji wodnej gleb przy równoczesnym ograniczeniu erozji oraz 
+wymycia składników pokarmowych jest stosowanie konserwujących, uproszczonych 
+systemów uprawy roli, w których orka zastąpiona jest narzędziami nieodwracającymi 
+rolę, a na powierzchni pozostawia się resztki pożniwne lub międzyplony w postaci mul-
+czu. Do najczęściej stosowanych systemów uprawy uproszczonej w praktyce należą:
+• uprawa uproszczona (ang. reduce tillage), w której płytkie zabiegi uprawowe 
+prowadzone są równomiernie na całej powierzchni pola z zastosowaniem biernych 
+narzędzi uprawowych, takich jak: agregat uprawowy, kultywator, brona talerzo-
+wa, brona łopatkowa, rozdrabniacz resztek pożniwnych. Głębokość uprawy jest 
+uzależniona od ilości rozdrobnionej słomy i resztek pożniwnych (mulczu) i nie 
+przekracza zwykle 10 cm;
+• uprawa pasowa (ang. strip tillage) polegająca na uprawie wąskich pasów  
+i siewie nasion bezpośrednio w ściernisko, mulcz lub w roślinę poplonową.  
+W praktyce stosuje się technikę jedno- lub dwuprzejazdową. W pierwszym przy-
+padku uprawiane są pasy gleby z jednoczesną wgłębną aplikacją nawozów mine-
+ralnych i siewem nasion rośliny uprawnej. W drugim przypadku pierwszy przejazd 
+polega na uprawie pasów gleby wraz z wgłębną aplikacją nawozów mineralnych, 
+natomiast podczas drugiego przejazdu wysiewane są nasiona rośliny uprawnej we 
+wcześniej uprawionych pasach;
+• uprawa zerowa (ang. no till) – szczególna odmiana uprawy konserwującej, która 
+polega na zaniechaniu wszelkich zabiegów uprawowych, ograniczając się jedy-
+nie do siewu specjalistycznym siewnikiem w nieuprawioną glebę bezpośrednio  
+w ściernisko lub w mulcz oraz na chemicznej ochronie roślin przed zachwasz-
+czeniem.
+Praktyki zwiększające retencję glebową i wykorzystanie wody w polowej produkcji roślinnej
+125124
+Korzystny wpływ konserwujących systemów uprawy na wzrost wilgotności gleby 
+oraz ograniczenie spływu powierzchniowego i masy wyerodowanej gleby potwierdzają 
+wyniki symulowanych badań polowych z wykorzystaniem przenośnej deszczowni 
+przeprowadzonych w gospodarstwie rolnym w miejscowości Kol. Rogów, gm. Gra-
+bowiec, zlokalizowanym w mezoregionie fizjograficznym „Działy Grabowieckie” 
+na Wyżynie Lubelskiej (10). W systemie konserwującym z zastosowaniem mulczu 
+odnotowano istotne ograniczenie objętości spływu powierzchniowego w stosunku do 
+uprawy tradycyjnej; ponad 3-krotne ograniczenie w systemie siewu bezpośredniego 
+i ponad 2,5-krotne w przypadku uprawy uproszczonej (tab. 1). Ograniczenie spływu 
+powierzchniowego w systemach konserwujących wpłynęło również na wzrost wil-
+gotności wierzchniej warstwy gleby. 
+Tabela 1 
+Wpływ konserwujących systemów uprawy na wilgotność gleby i erozję wodną 
+Wyszczególnienie Dane statystyczne
+System uprawy
+tradycyjny konserwujący uproszczona zerowa
+Mulcz – pokrycie gleby 
+(%)
+średnia 12,5 b 14,2 b 44,6 a
+błąd standardowy 2,9 1,9 6,5
+przedział ufności –95% 6,5 10,2 31,3
+przedział ufności +95% 18,5 18,2 58,0
+Wilgotność objętościowa 
+wierzchniej warstwy gleby 
+0–15 cm (%)
+średnia 17,9 a 18,5 a 21,3 a 
+błąd standardowy 2,5 1,5 2,2
+przedział ufności –95% 12,5 15,3 16,6
+przedział ufności +95% 23,3 21,8 26,0
+Objętość spływu 
+powierzchniowego 
+(ml·m–2)
+średnia 11796 b 4602 a 3989 a
+błąd standardowy 973 697 559
+przedział ufności –95% 9809 3183 2850
+przedział ufności +95% 13783 6021 5127
+Masa wymytego materiału 
+glebowego
+(g·m–2)
+średnia 340,9 b 90,6 a 57,4 a
+błąd standardowy 49,6 23,7 24,8
+przedział ufności –95% 239,7 42,3 6,9
+przedział ufności +95% 442,1 138,9 107,9
+Źródło: Jadczyszyn, 2010 (10)
+Kolejnym czynnikiem ograniczającym retencję glebową może być silnie za-
+gęszczona warstwa podglebia, tzw. podeszwa płużna. Zmniejszenie zagęszczenia  
+w naturalny sposób jest praktycznie niemożliwe z uwagi na brak niskich temperatur 
+w okresie zimowym, które mogłyby doprowadzić do przemarznięcia i rozluźnienia 
+gleby na tej głębokości. Mały jest również udział roślin bobowatych wieloletnich 
+o silnym systemie korzeniowym w strukturze zasiewów, które potencjalnie mogą 
+rozluźnić zagęszczoną warstwę (23). Niezbędne w takich warunkach jest wykonanie 
+Jan Jadczyszyn, Beata Bartosiewicz
+125124
+zabiegu głęboszowania, przeważnie na głębokość około 40–45 cm.  Zabieg ten należy 
+przeprowadzić w warunkach optymalnego dla danej gleby uwilgotnienia. 
+Silne zakwaszenie destrukcyjnie wpływa na strukturę gleby, prowadzi do zasklepie-
+nia wierzchniej warstwy, co zmniejsza proces wsiąkania wód opadowych, a zwiększa 
+spływ powierzchniowy i ogranicza pojemność wodną gleb. Skutecznym działaniem 
+w takich warunkach jest zabieg wapnowania przeprowadzony zgodnie z zaleceniami 
+agrochemicznymi i kodeksem dobrej praktyki rolniczej (6, 12).   
+Parowanie z powierzchni gleby (ewaporacja) jest naturalnym procesem zachodzą-
+cym w środowisku i zależy głównie od czynników klimatycznych, takich jak: tempe-
+ratura i wilgotność powietrza, usłonecznienie i prędkość wiatru. Woda wyparowana 
+z powierzchni gleby ogranicza zasoby wodne dostępne dla systemu korzeniowego, 
+zwiększa stres wodny i straty w plonach wywołane suszą. Bezproduktywna utrata 
+wody w procesie ewaporacji może zostać w znacznym stopniu ograniczona w wyniku 
+takich działań, jak:
+– skrócenie okresu utrzymywania nieprzykrytej gleby (czarnego ugoru) wyeks-
+ponowanej na działanie promieni słonecznych; 
+– ograniczenie lub zaniechanie zabiegów agrotechnicznych prowadzących do 
+przesuszenia wierzchniej warstwy gleby i wykonywania ich w niekorzystnych 
+warunkach pogodowych (przesuszenia gleby, występowania silnych wiatrów);
+– stworzenie optymalnych warunków powietrzno-wodnych i żywieniowych 
+(zaopatrzenie roślin w składniki pokarmowe) do właściwego rozwoju roślin. 
+Do skutecznych działań ograniczających parowanie wody z powierzchni gleby 
+należą:
+– stosowanie uproszczonego i zerowego systemu uprawy z zastosowaniem mulczu;
+– uprawa międzyplonów; 
+– pozostawienie słomy i resztek pożniwnych w postaci mulczu na powierzchni 
+pola.
+Należy jednak podkreślić, że w warunkach dużego niedoboru wody w sezonie 
+wegetacyjnym stosowanie międzyplonów przyczyni się do dodatkowego zużycia 
+zasobów wody glebowej.  
+Podsumowanie
+Niekorzystne zmiany klimatyczne, w szczególności brak odpowiedniej ilości opa-
+dów atmosferycznych w sezonie wegetacyjnym, są przyczyną deficytu wody dostępnej 
+dla roślin i zwiększenia częstotliwości występowania suszy rolniczej w ostatnich 
+latach. Okresowe braki wody w poglebiu są dodatkowo pogłębiane przez wysokie 
+temperatury powietrza i wydłużone fale upałów, które nasilają proces ewaporacji. 
+W skali kraju występują również czynniki niekorzystnie wpływające na naturalną 
+retencję wody w profilu glebowym związane z niewłaściwą gospodarką glebową 
+materią organiczną, występowaniem gleb silnie zakwaszonych i podatnych na za-
+gęszczanie. Z drugiej strony istnieją też duże możliwości poprawy gospodarki wodnej 
+Praktyki zwiększające retencję glebową i wykorzystanie wody w polowej produkcji roślinnej
+127126
+i odbudowy retencji. Największe wymierne efekty w tym zakresie mogą przynieść 
+działania zintegrowane na różnych poziomach zarządzania obszarami wiejskimi,  
+a podejmowane w skali zlewni, regionu i wsi oraz gospodarstwa wiejskiego. Wzrost 
+retencji wodnej w skali zlewni można uzyskać w wyniku budowy zbiorników re-
+tencyjnych, renaturyzacji mokradeł, cieków i oczek wodnych, przebudowy systemu 
+melioracji wodnych dla potrzeb nawodnień i retencji korytowej. Prace planistyczne 
+i urządzenioworolne połączone z procesem scalania gruntów umożliwiają wdrożenie 
+szeregu działań zwiększających zasoby wodne. Do najważniejszych należy zaliczyć 
+wprowadzenie użytków ochronnych (użytków leśnych i trwałych użytków zielonych, 
+zadrzewień, zakrzewień, pasów przeciwwietrznych) i kształtowanie granicy rolno-
+-leśnej, a także odpowiednie dostosowanie sieci dróg rolniczych i układu działek do 
+ukształtowania rzeźby trenu na obszarach zagrożonych nasileniem spływu powierzch-
+niowego i erozją wodną. 
+Możliwości zwiększenia pojemności wodnej gleb oraz ograniczenia ewapotran-
+spiracji występują również na poziomie gospodarstwa i wiążą się z prowadzeniem 
+zrównoważonej gospodarki glebową materią organiczną, optymalnym nawożeniem 
+i wapnowaniem, utrzymaniem właściwej struktury gleby i ochroną podglebia przed 
+nadmiernym zagęszczeniem, a także stosowaniem konserwujących bezorkowych 
+systemów uprawy. 
+Należy podkreślić, że równoczesne zastosowanie zalecanych działań na różnych 
+poziomach zarządzania rolniczą przestrzenią produkcyjną (zlewni, regionu, wsi i go-
+spodarstwa) pozwoli uzyskać dodatkową synergię wzrostu retencji wodnej i znacząco 
+ograniczyć zjawisko suszy rolniczej.   
+   
+Literatura
+1. B i e ń k o w s k i J., J a n k o w i a k  J.: Zawartość węgla organicznego w glebie i jego zmiany pod 
+wpływem różnych systemów produkcji. Fragmenta Agronomica, 2006, 2(90): 216-226.
+2. C z y ż E., Ł o p a t k a  A., D e x t e r  A.R., Ł y s i a k  M., S t a n e k -Ta r k o w s k a  J.: Podatność gleb 
+na zagęszczenie. Studia i Raporty IUNG-PIB, 2013, 35(9): 57-95.
+3. D o r o s z e w s k i A., J ó ź w i c k i  T., Wr ó b l e w s k a  W., K o z y r a  J.: Susza rolnicza w Polsce 
+w latach 1961–2010. Wydawnictwo IUNG-PIB, Puławy, 2014, ss. 144. 
+4. F a t y g a J., G ó r e c k i  A.:. Kształtowanie granicy rolno-leśnej i darniowo-polowej w Sudetach. 
+IMUZ Falenty, 2001, ss. 322.
+5. F i l i p e k T.: Przyrodnicze i antropogeniczne przyczyny oraz skutki zakwaszenia gleby. Nawozy 
+i Nawożenie – Fertilizers and Fertilizaton, 2005, 2(23): 67-83.
+6. G r z e b i s z W., S z c z e p a n i a k  W., D i a t t a  J.B.: ABC wapnowania gleb uprawnych. Uniwersytet 
+Przyrodniczy w Poznaniu. Wyd. PRODRUK, 2012, ss. 36.
+7. GUS. Ochrona środowiska 2012, ss. 599.
+8. G ó r s k i T.: Współczesne zmiany agroklimatu Polski. Pamiętnik Puławski, 2002, 130(1): 241-250.
+9. J a d c z y s z y n J., B a r t o s i e w i c z  B.: Procesy osuszania i degradacji gleb. Studia i Raporty 
+IUNG-PIB, 2020, 64(18): 49-60.
+10. J a d c z y s z y n J.: Wpływ systemów uprawy roli na nasilenie procesów erozyjnych w warunkach 
+zmian klimatu. Studia i Raporty IUNG-PIB, 2010, 19: 55-68.
+11. J a d c z y s z y n J.: Możliwości poprawy bilansu wodnego gleb z uwzględnieniem melioracji 
+przeciwerozyjnych. Biuletyn Informacyjny IUNG, 1998, 7: 29-31.
+12. J a d c z y s z y n T., K o w a l c z y k  J., L i p i ń s k i  W.: Zalecenia nawozowe dla roślin uprawy 
+polowej i trwałych użytków zielonych. Materiały Szkoleniowe IUNG-PIB, 2012, 95: 1-24.
+Jan Jadczyszyn, Beata Bartosiewicz
+127126
+13. J a w o r s k i J.: Parowanie terenowe. W: Procesy hydrologii dynamicznej, U. Soczyńska (red). 
+Wyd. Uniwersytetu Warszawskiego, 1989,  ss. 146-196.
+14. J o k i e l P.: Fizjograficzne uwarunkowania obiegu i retencji wody oraz migracji zanieczyszczeń  
+w małej zlewni strefy podmiejskiej Łodzi. Acta Universitatis Lodziensis. Folia Geographica Physica, 
+2014, 13: 17-49. 
+15. K a c z y ń s k i R.: Czynniki siedliskowe warunkujące procesy akumulacji i rozkładu glebowej 
+materii organicznej. Studia i Raporty IUNG-PIB, 2010, 21: 107-115.
+16. K l i m a K., M i e r z w a  W.: Optymalizacja rozmieszczenia użytków rolnych w małej zlewni 
+karpackiej. Fragmenta Agronomica, 2006, 2(90): 16-24.
+17. K o w a l i ń s k i S.: Substancja organiczna gleb i jej przeobrażenia. PWRiL Warszawa, 1995.
+18. K o z y r a J., D o r o s z e w s k i  A., N i e r ó b c a  A.: Zmiany klimatyczne i ich przewidywany wpływ 
+na rolnictwo w Polsce. Studia i Raporty IUNG-PIB, 2009, 14: 243-257.
+19. K o ż u c h o w s k i K.: Meteorologia i klimatologia. Wydawnictwo Naukowe PWN, Warszawa, 
+2005, ss. 322.
+20. K u c z y ń s k a A., Surma M., Adamski T., Krajewski P., Mikołajczak K., Ogrodowicz P., 
+K e m p a  M., Ć w i e k -K u p c z y ń s k a  H., Tr z e c i a k  R.: Wpływ stresu niedoboru wody na rozwój 
+i architekturę systemu korzeniowego u jęczmienia (Hordeum vulgare L.). Biuletyn Instytutu Hodowli 
+i Aklimatyzacji Rroślin. 2019, 286: 117-121.
+21. K u d l i c k i Ł.: Zagrożenie pustynnieniem w Polsce. Bezpieczeństwo Narodowe, 1/2006: 201-211.
+22. K u n d z e w i c z Z.W., K o z y r a  J.: Ograniczanie wpływu zagrożeń klimatycznych w odniesieniu 
+do rolnictwa i obszarów wiejskich. Polish Journal of Agronomy, 2011, 7: 68-81.
+23. K u ś J.: Gospodarowanie wodą w rolnictwie. Studia i Raporty IUNG-PIB, 2016, 47(1): 83-104.
+24. M a j e w s k i W.: Woda. Jakim celom służy i jak ją wykorzystać. PAN Warszawa, 2008, ss. 16. 
+25. O c h a l P.: Aktualny stan i zmiany żyzności gleb w Polsce. Studia i Raporty IUNG-PIB, 2015,  
+45(19): 9-25.
+26. P a ł o s z T.: Rolnicze i środowiskowe znaczenie próchnicy glebowej i metodyka jej bilansu. Rocz. 
+Ochrona Środowiska, 2009, 11: 329-338.
+27. S o c z y ń s k a U.: System hydrologiczny zlewni i modelowanie procesów obiegu wody. W:  
+Procesy hydrologiczne, U. Soczyńska (red.). PWN, Warszawa. 1989, ss. 9-19.
+28. S t a n i a k M., F a r i a s z e w s k a  A.: Produktywność traw pastewnych w warunkach suszy. Studia 
+i Raporty IUNG-PIB, 2014, 41(15): 195-208.
+29. S t u c z y ń s k i T., Kozyra J., Łopatka A., Siebielec G., Jadczyszyn J., Koza P., 
+D o r o s z e w s k i  A., Wa w e r  R., N o w o c i e ń  E.:. Przyrodnicze uwarunkowania produkcji rolniczej 
+w Polsce. Studia i Raporty IUNG-PIB, 2007, 7: 77-115.
+30. T e r e l a k H., Stuczyński T., Piotrowska M.: Heavy metals in agricultural soils in Poland.  
+Polish Journal of Soil Science, 1997, p. 35-42.
+31. Wody Polskie. 2021 https://www.wody.gov.pl/aktualnosci/1754-woda-dla-rolnictwa-dwie-funkcje-
+melioracji-i-wzrost-retencji-do-7 (28.10.2021)
+Adres do korespondencji: 
+dr Jan Jadczyszyn
+Zakład Gleboznawstwa Erozji i Ochrony Gruntów
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Puławy
+tel. 81 47 86 779
+e-mail: Jan.Jadczyszyn@iung.pulawy.pl
+AUTOR ORCID
+Jan Jadczyszyn 0000-0003-4921-7609
+Beata Bartosiewicz 0000-0003-0148-2999
+Praktyki zwiększające retencję glebową i wykorzystanie wody w polowej produkcji roślinnej

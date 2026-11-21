@@ -176,7 +176,7 @@
     "url": "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf",
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152587+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340371+00:00",
     "note": "brak pliku – wrzuć raw/melioracje_a5_2022.pdf lub .docx"
   },
   "eu_rdw_32000L0060": {
@@ -244,7 +244,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152808+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340472+00:00",
     "note": "brak pliku – wrzuć raw/smsr_podstawy_2012.pdf lub .docx"
   },
   "smsr_metodyka_www": {
@@ -252,23 +252,27 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152830+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340491+00:00",
     "note": "brak pliku – wrzuć raw/smsr_metodyka_www.pdf lub .docx"
   },
   "zylowska_kozyra_2025": {
-    "title": "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników, IUNG-PIB",
-    "url": null,
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152850+00:00",
-    "note": "brak pliku – wrzuć raw/zylowska_kozyra_2025.pdf lub .docx"
+    "title": "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników (SiR 74/10, bibliografia KOWR)",
+    "url": "https://www.iung.pl/sir/zeszyt74_10.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:08.081374+00:00",
+    "ok": true,
+    "file": "zylowska_kozyra_2025.pdf",
+    "bytes": 4905479,
+    "sha256": "88820320c24a8ff58bda7912f5bb82d1eeed50edc182b54676163397057b34b3",
+    "text_chars": 29645
   },
   "fao56": {
     "title": "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)",
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152869+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340510+00:00",
     "note": "brak pliku – wrzuć raw/fao56.pdf lub .docx"
   },
   "cdr_eporadnik_2025": {
@@ -276,7 +280,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152884+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340528+00:00",
     "note": "brak pliku – wrzuć raw/cdr_eporadnik_2025.pdf lub .docx"
   },
   "pak_dane_satelitarne_2024": {
@@ -284,7 +288,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152900+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340545+00:00",
     "note": "brak pliku – wrzuć raw/pak_dane_satelitarne_2024.pdf lub .docx"
   },
   "nwrm_guide_2015": {
@@ -292,7 +296,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152914+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340567+00:00",
     "note": "brak pliku – wrzuć raw/nwrm_guide_2015.pdf lub .docx"
   },
   "wzor_zgloszenie_wodnoprawne": {
@@ -300,7 +304,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152929+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340585+00:00",
     "note": "brak pliku – wrzuć raw/wzor_zgloszenie_wodnoprawne.pdf lub .docx"
   },
   "wzor_wniosek_pozwolenie": {
@@ -308,7 +312,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152943+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340603+00:00",
     "note": "brak pliku – wrzuć raw/wzor_wniosek_pozwolenie.pdf lub .docx"
   },
   "katalog_oplat_wody_polskie": {
@@ -316,7 +320,7 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152957+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340621+00:00",
     "note": "brak pliku – wrzuć raw/katalog_oplat_wody_polskie.pdf lub .docx"
   },
   "prawo_wodne_tj": {
@@ -324,7 +328,139 @@
     "url": null,
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T11:53:34.152972+00:00",
+    "retrieved_at": "2026-11-21T12:17:59.340638+00:00",
     "note": "brak pliku – wrzuć raw/prawo_wodne_tj.pdf lub .docx"
+  },
+  "iung_sir74_2_wawer_rolnictwo40": {
+    "title": "Wawer – Potencjał Rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie (SiR 74/2)",
+    "url": "https://www.iung.pl/sir/zeszyt74_2.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:09.203498+00:00",
+    "ok": true,
+    "file": "iung_sir74_2_wawer_rolnictwo40.pdf",
+    "bytes": 295902,
+    "sha256": "7ec6200de702bf43b77c5b9f806cc5a02420211b709a0b52c1b22a384d25f827",
+    "text_chars": 36147
+  },
+  "iung_sir74_3_satelity": {
+    "title": "Jędrejek – Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0 (SiR 74/3)",
+    "url": "https://www.iung.pl/sir/zeszyt74_3.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:12.048568+00:00",
+    "ok": true,
+    "file": "iung_sir74_3_satelity.pdf",
+    "bytes": 804675,
+    "sha256": "5b46833cebe1272155217f1838abd18557f565e011772d5a655479d6b68a7038",
+    "text_chars": 32723
+  },
+  "iung_sir74_5_mapy_satelity": {
+    "title": "Poręba – Mapy cyfrowe i zdjęcia satelitarne dla rolnictwa odpornego na zmiany klimatu (SiR 74/5)",
+    "url": "https://www.iung.pl/sir/zeszyt74_5.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:15.878330+00:00",
+    "ok": true,
+    "file": "iung_sir74_5_mapy_satelity.pdf",
+    "bytes": 787780,
+    "sha256": "e08f844de597124dd05bc57b402fdcc290766f37fb0a07cfbd5003530037778b",
+    "text_chars": 35476
+  },
+  "iung_sir67_1_agroklimat": {
+    "title": "Żyłowska, Kozyra – Zmiany warunków agroklimatycznych w Polsce (SiR 67/1)",
+    "url": "https://www.iung.pl/sir/zeszyt67_1.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:20.390224+00:00",
+    "ok": true,
+    "file": "iung_sir67_1_agroklimat.pdf",
+    "bytes": 830418,
+    "sha256": "4fed474785b55988c670ea3a023965b66be181dbea6792e96ef9d2afa4fe296e",
+    "text_chars": 32515
+  },
+  "iung_sir66_6_retencja_gleby": {
+    "title": "Jadczyszyn, Bartosiewicz – Praktyki zwiększające retencję i wykorzystanie wody w glebie (SiR 66/6)",
+    "url": "https://www.iung.pl/sir/zeszyt66_6.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:29.999076+00:00",
+    "ok": true,
+    "file": "iung_sir66_6_retencja_gleby.pdf",
+    "bytes": 3261325,
+    "sha256": "d9d53ae1bb1924da6f86c18b519f139351b50df3b47db3b39c642d7ab8757712",
+    "text_chars": 27341
+  },
+  "iung_sir64_3_osuszanie": {
+    "title": "Jadczyszyn, Bartosiewicz – Procesy osuszania i degradacji gleb (SiR 64/3)",
+    "url": "https://iung.pl/sir/zeszyt64_3.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:36.337099+00:00",
+    "ok": true,
+    "file": "iung_sir64_3_osuszanie.pdf",
+    "bytes": 2128980,
+    "sha256": "8485e7abd6df7dfca38ae773adc953fd086960b2588335930087c99770c70fea",
+    "text_chars": 27461
+  },
+  "iung_sir62_8_uprawa_klimat": {
+    "title": "Smagacz – Systemy uprawy roli w warunkach zmieniającego się klimatu (SiR 62/8)",
+    "url": "https://iung.pl/sir/zeszyt62_8.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:16:37.269683+00:00",
+    "ok": true,
+    "file": "iung_sir62_8_uprawa_klimat.pdf",
+    "bytes": 401922,
+    "sha256": "ef17b953f8845d6c1f4662efb6f0adcbcdaa70060da4ae20831fcb6e094b9ec7",
+    "text_chars": 47517
+  },
+  "iung_sir58_5_erozja": {
+    "title": "Wawer, Nowocień – Erozja wodna i wietrzna w Polsce (SiR 58/5)",
+    "url": "https://iung.pl/sir/zeszyt58_5.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:17:14.630263+00:00",
+    "ok": true,
+    "file": "iung_sir58_5_erozja.pdf",
+    "bytes": 13846537,
+    "sha256": "357c98817596534dfe3672a6e593fa219755bfed4bd5daa951d7c2e846a371a1",
+    "text_chars": 56553
+  },
+  "iung_sir50_krol_stosunki_wodne": {
+    "title": "Król – Modelowanie wpływu praktyk rolniczych na stosunki wodne gleb (SiR 50, cały zeszyt)",
+    "url": "https://iung.pl/wp-content/uploads/2009/10/zesz50.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:17:20.270295+00:00",
+    "ok": true,
+    "file": "iung_sir50_krol_stosunki_wodne.pdf",
+    "bytes": 2179293,
+    "sha256": "082fb8a06d5408900c8443f15119f8a9648c2fb201ab3cd7e3f5990ee154cad1",
+    "text_chars": 281189
+  },
+  "iung_sir47_kus_woda": {
+    "title": "Kuś – Gospodarowanie wodą w rolnictwie (SiR 47, cały zeszyt)",
+    "url": "https://iung.pl/wp-content/uploads/2009/10/zesz47.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:17:51.393012+00:00",
+    "ok": true,
+    "file": "iung_sir47_kus_woda.pdf",
+    "bytes": 4132184,
+    "sha256": "f911a41881a3f3130af81ad9b7fe068ff67d7326ddc916bc1d96691f6aa908ea",
+    "text_chars": 443912
+  },
+  "iung_sir05_5_lopatka_susza": {
+    "title": "Łopatka – Analiza warunków wodnych gleb i zagrożeń suszą (woj. podlaskie) (SiR 5/5)",
+    "url": "https://iung.pl/wp-content/uploads/2009/10/zeszyt05_5.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:17:58.902851+00:00",
+    "ok": true,
+    "file": "iung_sir05_5_lopatka_susza.pdf",
+    "bytes": 1444949,
+    "sha256": "0b8f6d129ba5830c0c17630fe14dca3f399e8475165473ed3c49440b9dfb10a1",
+    "text_chars": 53859
   }
 }

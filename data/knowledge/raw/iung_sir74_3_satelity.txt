@@ -1,0 +1,554 @@
+2928
+Anna Jędrejek
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+SATELITARNE SYSTEMY OBSERWACJI ZIEMI W SŁUŻBIE  
+ROLNICTWA 4.0*
+Słowa kluczowe: dane satelitarne, zdalny monitoring przestrzeni rolniczej, sensory, 
+e-rolnictwo, Sentinel
+Wstęp
+Źródłem obserwacji kosmicznych są satelity znajdujące się na okołoziemskiej 
+orbicie, które wyposażone są w sensory rożnego typu. Dostarczają one informacji, 
+które wykorzystywane są do monitoringu powierzchni i atmosfery Ziemi, z różną 
+rozdzielczością przestrzenną i czasową. Satelity umożliwiają również nawigację 
+poprzez określanie lokalizacji obiektów. 
+Pierwszym cywilnym sztucznym satelitą zaprojektowanym w celu dostarczania 
+informacji o pokryciu Ziemi był Landsat-1, który został wyniesiony na orbitę w lip-
+cu 1972 r. Wyposażony był w dwa sensory: RBV (ang. Return Beam Vidicon) oraz 
+MSS (ang. Multi-Spectral Scanner) i dostarczał zdjęć z rozdzielczością odpowied-
+nio: 80 m i 60 m. Za jego pomocą udało się zmapować ok. 75% powierzchni Ziemi 
+(USGS 2023). Zobrazowania te znalazły zastosowanie w wielu dziedzinach nauki, 
+m.in.: rolnictwie, leśnictwie, geologii, hydrologii, geografii, kartografii, oceanografii  
+i meteorologii. Satelita Landsat-1 zapoczątkowała amerykański program cywilnych 
+misji kosmicznych Landsat, który prowadzony jest przez Narodową Agencję Ae-
+ronautyki i Przestrzeni Kosmicznej (NASA) we współpracy z amerykańską agen-
+cją naukowo-badawczą United States Geological Survey (USGS). Na przestrzeni  
+ok. 50 lat funkcjonowania programu konstelacja Landsat składała się z 8 satelitów 
+(Landsat Satellites 2024). Dzięki ciągłemu postępowi technicznemu możliwe jest 
+budowanie urządzeń cechujących się zarówno większą precyzją (wyższą rozdziel-
+29S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 74(28): 29-40 2025
+*Opracowanie wykonano w ramach zadania 1.8. pt. „Wykorzystanie dronów w rolnictwie” z dotacji 
+budżetowej przeznaczonej na realizację zadań MRiRW w 2025 r.
+https://doi.org/10.26114/sir.iung.2025.74.03
+3130
+czością fotografowania), jak i większą szybkością przesyłania danych. Dlatego wraz 
+z każdym kolejnym satelitą parametry wykonywanych zobrazowań były coraz lepsze, 
+wzrastała rozdzielczość i liczba kanałów spektralnych. W 2008 r. twórcy projektu 
+podjęli decyzję o bezpłatnym udostępnieniu całego archiwum i nowo powstających 
+zobrazowań Landsat, co przyczyniło się do rozwijania nowych usług, narzędzi  
+i aplikacji w różnych dziedzinach nauki (Zhu i in. 2019). Aktualnie działającymi sen-
+sorami, które dostarczają danych są Landsat-8 i Landsat-9. Konfiguracja tych dwóch 
+satelitów pozwala na zobrazowanie całej powierzchni Ziemi co 8 dni.
+Do niedawna prowadzenie badań w rolnictwie z zastosowaniem teledetekcji sate-
+litarnej było bardzo kosztowne, ponieważ sceny satelitarne o większej rozdzielczości 
+przestrzennej i czasowej niż te oferowane w programie Landsat był dostępne jedynie 
+komercyjnie. Dopiero realizacja programu Copernicus, zainicjowanego przez Komisję 
+Europejską (KE) we współpracy z Europejską Agencją Kosmiczną (ang. European 
+Space Agency, ESA), Europejską Organizacją Eksploatacji Satelitów Meteorologicz-
+nych (ang. European Organisation for the Exploitation of Meteorological Satellites, 
+EUMETSAT), Europejskim Centrum Prognoz Średnioterminowych (ang. European 
+Centre for Medium-Range Weather Forecasts, ECMWF), agencjami UE oraz insty-
+tutem badawczym Mercator Océan – uruchomiła rodzinę misji kosmicznych Sentinel. 
+To diametralnie zmieniło możliwości zastosowania danych satelitarnych w systemach 
+monitoringu Ziemi. Zobrazowania wytworzone w ramach programu są udostępniane 
+nieodpłatnie wszystkim zainteresowanym (20 lat programu Copernicus 2024), a do 
+analizy i przetwarzania zdjęć stworzono darmowe (typu open-source) oprogramo-
+wanie SNAP (ang. ESA’s Sentinel Applications Platform), przez co wszyscy chętni 
+mają możliwość eksplorowania danych dostarczanych przez satelity teledetekcyjne. 
+Aby jeszcze bardziej ułatwić korzystanie z danych, Komisja Europejska sfinansowała 
+powstanie pięciu platform DIAS (ang. Copernicus Data and Information Access Servi-
+ces), których zadaniem jest dostarczanie użytkownikom stałego dostępu do danych  
+i produktów programu Copernicus oraz skalowalnej chmury obliczeniowej z usługami 
+i narzędziami do ich przetwarzania (DIAS comparison 2024). O ile dostęp do danych 
+jest bezpłatny, to korzystanie z bardziej zaawansowanych usług jest już płatne, przez 
+co używanie platform DIAS jest stosunkowo mało popularnym rozwiązaniem. Misje 
+Sentinel-1 i Sentinel-2 dostarczają zobrazowań z największą rozdzielczością. Satelity 
+radarowe misji Sentinel-1 są wyposażone w radar z syntetyzowaną aperaturą reje-
+strującą w paśmie C (SAR-C), pozwalają na obserwację naszego globu niezależnie 
+od pogody zarówno w dzień, jak i w nocy, w rozdzielczości od 5 do 25 m. Satelity 
+wielospektralne Sentinel-2 dostarczają wysoko rozdzielczych zobrazowań optycz-
+nych wykonanych przy użyciu 13-kanałowego czujnika MSI (ang. MultiSpectral 
+Instrument), umożliwiających obserwację powierzchni Ziemi z rozdzielczością za-
+czynającą się od 10 m. Pary tych satelitów pozwalają na obserwację Ziemi z rewizytą  
+ok. 5–6 dni (na terenie Europy).
+Anna Jędrejek
+3130
+Innym ważnym źródłem danych wykorzystywanych w badaniach środowiskowych 
+są satelity meteorologiczne używane głównie do monitorowania pogody. Historia 
+eksploatacji tego typu sensorów sięga lat 60. Na przestrzeni lat podlegały one cią-
+głej modyfikacji – zwiększano ich rozdzielczość przestrzenną, czasową, spektralną  
+i radiometryczną. Stanowią istotną część systemu obserwacyjno-pomiarowego, m.in. 
+w meteorologii i hydrologii, dostarczając informacji o atmosferze (np. zachmurzeniu, 
+opadach, temperaturze powietrza) i powierzchni ziemi (np. temperaturze powierzchni 
+ziemi, pokrywie śnieżnej, wilgotności gleby). Do rejestracji założonych parametrów 
+wykorzystuje się, w zależności od sensora, różne długości promieniowania elektro-
+magnetycznego, od nadfioletu poprzez podczerwień do mikrofalowego. Dane pocho-
+dzące z satelitów meteorologicznych odgrywają bardzo istotną rolę w nowoczesnym 
+rolnictwie. Z ich wykorzystaniem wykonywane są prognozy krótkoterminowe, a dane 
+historyczne służą do analizy trendów zmian klimatycznych i zagrożeń.
+Również prywatny sektor dostarczający komercyjnych zobrazowań satelitarnych 
+rozwija się bardzo dynamicznie. Postęp techniczny pozwolił na zminiaturyzowanie 
+sensorów, tym samym obniżył się koszt ich produkcji, dając początek nowej erze 
+obserwacji Ziemi za pomocą tzw. nanosatelitów. Dostarczają one zdjęcia wykonane 
+z bardzo dużą szczegółowością i krótkim czasem rewizyty obserwowanego miejsca.
+Zastosowanie danych satelitarnych w rolnictwie
+Teledetekcja i nawigacja satelitarna dały w latach 90. ubiegłego wieku moż-
+liwość szybkiego rozwoju rolnictwa 3.0. Technologie te były wykorzystywane  
+w nowoczesnych maszynach rolniczych do optymalizacji procesów produkcji roślin-
+nej i zwierzęcej. Połączenie danych pochodzących z czujników zamontowanych na 
+sprzętach rolniczych, systemu pozycjonowania oraz satelitów pozwoliły na stworze-
+nie nowej koncepcji rolnictwa precyzyjnego (Samborski i in. 2018), którego celem 
+było obniżenie kosztów produkcji, zwiększenie produkcji żywności przy równocze-
+snym zmniejszeniu wpływu na środowisko. Pole produkcyjne/uprawne przestało 
+być homogeniczną strukturą, a techniki rolnictwa precyzyjnego umożliwiły jego 
+podział na strefy o zróżnicowanej produktywności, które zależą od wielu czynników  
+(np. uziarnienia gleby, zawartości próchnicy, pH). 
+Kolejnym etapem rozwoju rolnictwa jest rolnictwo 4.0, zwane też inteligentnym 
+rolnictwem/e-rolnictwem, w którym rozwijane są cyfrowe narzędzia teleinformatycz-
+ne do gromadzenia, przechowywania, analizy, udostępniania danych wytwarzanych  
+w gospodarstwie oraz pochodzących z zewnętrznych źródeł (np. dane pogodowe) 
+(Kobus-Cisowska i Dziedziński 2023, Kordowska i in. 2023). Postępująca auto-
+matyzacja procesów pomiarowych z zamontowanych czujników w gospodarstwie  
+z wyznaczoną geolokalizacją powoduje powstawanie bardzo dużej liczby danych, 
+które przesyłane są do chmur obliczeniowych/serwerów z wykorzystaniem internetu 
+Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0
+3332
+rzeczy (IoT) lub sieci GSM. Następnie dane poddawane są obróbce przy użyciu dedy-
+kowanych programów komputerowych, w tym z zastosowaniem sztucznej inteligencji. 
+Połączenie uzyskanych wyników z danymi pochodzącymi ze źródeł zewnętrznych  
+(np. zobrazowania satelitarne, ostrzeżenia o agrofagach, dane pogodowe) daje rolniko-
+wi pełną informację o gospodarstwie, szanse optymalizacji procesów produkcyjnych 
+oraz umożliwia oszczędność zasobów.      
+Wykorzystanie zdjęć satelitarnych w rolnictwie pozwala na obserwację i moni-
+torowanie różnych zjawisk w czasie rzeczywistym, takich jak: susza, wymarzanie, 
+stan przezimowania, wykrywanie chorób roślin i szkodników, precyzyjne nawo-
+żenie, prognoza plonów oraz identyfikacja upraw. W zależności od rozdzielczości 
+obrazu satelitarnego można to robić od skali globalnej do skali pola. Skuteczność 
+monitoringu upraw rolniczych metodami teledetekcyjnymi opisano w bardzo wielu 
+pracach naukowych i zademonstrowano w licznych projektach wdrożeniowych. Do 
+tej pory powstało wiele naukowych opracowań i aplikacji wykorzystujących dane 
+dostarczane przez różne satelity, w tym Sentinel-1 i Sentinel-2, ponadto ciągle pro-
+wadzone są badania analizujące potencjalne możliwości ich zastosowania. Realizo-
+wane eksperymenty dotyczą m.in. monitoringu wzrostu i rozwoju roślin uprawnych 
+(Arslan i in. 2022, Zamani-Noor i Feistkorn 2022), klasyfikacji upraw (Asam i in. 
+2022, Snevajs i in. 2022), prognozy plonów (Hunt i in. 2019), możliwości oceny 
+wpływu suszy na rośliny (Shorachi i in. 2022), wykrywania faz rozwojowych roślin 
+(Lobert i in. 2023), możliwości określania właściwości i wilgotności gleby (Datta  
+i in. 2021, Mirzaeitalarposhti i in. 2022), szacowania i prognozowania plonów  
+(Řezník i in. 2020) oraz precyzyjnego nawożenia (Rokhafrouz i in. 2021, Michalski 
+i in. b.d.). Pod względem zasięgów przestrzennych zobrazowania i analizy obejmują 
+swymi granicami powierzchnie od całego kontynentu (Fendrich i in. 2023), przez 
+poszczególne państwa (Htitiou i in. 2021) i regiony (Mimić i in. 2022, Jędrejek  
+i Pudełko 2023), aż do pojedynczych działek rolnych (Jędrejek i in. 2023). W naukach 
+rolniczych informacje uzyskane z interpretacji zdjęć mogą również zapewnić wsparcie 
+w zarządzaniu tym sektorem organom administracji publicznej.
+e-rolnictwo
+Paradygmat rolnictwo 4.0 to nowoczesne podejście do rolnictwa, które łączy 
+tradycyjną wiedzę agronomiczną z zaawansowanymi technologiami cyfrowymi. Fun-
+damentem e-rolnictwa są dane satelitarne, systemy pozycjonowania GNSS, sztuczna 
+inteligencja, internet rzeczy oraz automatyzacja procesów. 
+Rolnictwo precyzyjne/inteligentne bez informacji satelitarnych nie mogłoby 
+istnieć (tab. 1). Technologie te wykorzystywane są do nawigacji, ustalania lokaliza-
+cji, kartowania zróżnicowania przestrzennego działek rolnych. Aplikacje rolnictwa 
+precyzyjnego w produkcji roślinnej różnicują pole uprawne na strefy w zależności 
+od właściwości fizykochemicznych gleby i uzyskiwanego plonu. Aby wyznaczyć 
+Anna Jędrejek
+3332
+jednolite obszary na działce rolnej, konieczne jest wykonanie wieloaspektowych analiz 
+z wykorzystaniem danych pochodzących z różnych źródeł, tj. badania in-situ (próby 
+glebowe, urządzenia do skanowania gleby z rejestracją współrzędnych geograficz-
+nych przy użyciu odbiornika GPS), badania zdalne (zobrazowania UAV, lotnicze, 
+satelitarne). Na podstawie uzyskanych wyników, przy użyciu specjalistycznego 
+oprogramowania GIS, przygotowywana jest mapa zmienności pola uprawnego, która 
+przesyłana jest do kontrolera z odbiornikiem GPS zamontowanego na ciągnikach 
+i maszynach rolniczych. Pozwala to rolnikowi w sposób precyzyjny wykonywać 
+zabiegi agrotechniczne i aplikować w odpowiedniej ilości materiał siewny, nawozy 
+i środki ochrony roślin. 
+W rolnictwie precyzyjnym oprócz danych z globalnych systemów nawigacji 
+(GNSS) używanych do ustalania dokładnych aktualnych współrzędnych geograficz-
+nych, prowadzenia równoległego, wykorzystywane są również dane teledetekcyjne 
+pochodzące z sensorów umieszczonych na satelitach, samolotach, dronach lub innych 
+obiektach. Poprzez analizę promieniowania elektromagnetycznego emitowanego 
+lub odbitego od łanu badanych roślin możemy prowadzić monitoring stanu kondycji  
+i warunków wzrostu upraw w czasie całego sezonu wegetacyjnego. Bardzo ważnymi 
+zakresami długości fal wykorzystywanymi do oceny witalności uprawianych roślin 
+jest czerwień i bliska podczerwień (NIR), ponieważ zdrowe rośliny silnie pochłaniają 
+światło czerwone w procesie fotosyntezy oraz jednocześnie intensywnie odbijają 
+promieniowanie w zakresie NIR. Stanowią one podstawę do obliczenia najlepiej 
+opisanego w literaturze i powszechnie wykorzystywanego wskaźnika wegetacji NDVI 
+(Tucker 1979), który pozwala monitorować kondycję upraw, gęstość i aktywność 
+fotosyntetyczną. Wskaźniki wegetacji to bezwymiarowe miary radiometryczne, 
+które przedstawiają matematyczne zależności między wartościami promieniowania 
+elektromagnetycznego odbijanego przez roślinność w różnych zakresach długości fal.  
+W bazach naukowych można znaleźć bardzo dużo opisanych i dostosowanych do 
+rożnych zastosowań wskaźników wegetacji oraz ciągle powstają nowe modyfikacje  
+(IDB  2023). W tabeli 1 przedstawiono zestawienie wybranych platform cyfrowych, 
+narzędzi i usług wykorzystujących dane satelitarne, wspomagających rolnictwo 
+precyzyjne.
+Dane pozyskiwane z satelitów pozwalają na monitorowanie wzrostu i rozwoju ro-
+ślin (rys. 1) oraz warunków pogodowych wpływających niekorzystnie na plonowanie 
+poprzez zbieranie i analizowanie szczegółowych statystyk z obrazów satelitarnych  
+w ciągu całego sezonu wegetacyjnego (Jędrejek i Pudełko 2023). Dzięki danym 
+teledetekcyjnym można określić, w jakiej fazie rozwoju znajduje się obserwowana 
+uprawa. Wiedza o kondycji badanych roślin oparta na wskaźnikach wegetacji i innych 
+danych pomocniczych pozwalają prognozować plony oraz wykrywać i szacować 
+straty/szkody spowodowane niekorzystnymi warunkami atmosferycznymi.
+Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0
+3534
+Tabela 1
+Zestawienie wybranych platform cyfrowych, narzędzi i usług wykorzystujących dane 
+satelitarne
+Nazwa 
+serwisu Krótki opis Twórca/Dostawca Słowa kluczowe
+eDwin
+bezpłatna internetowa platforma 
+doradztwa i wspomagania decyzji  
+w integrowanej ochronie roślin; w ramach 
+platformy uruchomiono 4 e-usługi: 
+wirtualne gospodarstwo, śledzenie 
+pochodzenia produktów, raportowanie 
+zagrożeń, udostępnianie danych 
+meteorologicznych
+Wielkopolski 
+Ośrodek Doradztwa 
+Rolniczego 
+w Poznaniu oraz 
+partnerzy z całej 
+Polski
+doradztwo 
+rolnicze; 
+rolnictwo 
+precyzyjne
+EO4I (Earth 
+Observation 
+for Agro-
+Insurance)
+projekt finansowany przez Europejską 
+Agencję Kosmiczną, którego celem była 
+identyfikacja aktualnych i przyszłych 
+potrzeb branży agroubezpieczeń oraz 
+zbudowanie narzędzi do detekcji anomalii 
+we wzroście roślin, szacowanie wielkości 
+biomasy, klasyfikacji upraw
+VITO Remote 
+Sensing, GeoVille 
+GmbH  
+ubezpieczenia 
+rolnicze
+System 
+Monitorowania 
+Obszaru
+wewnętrzny system ARiMR  
+do weryfikacji deklaracji rolników 
+o uprawach
+Agencja Modernizacji 
+i Restrukturyzacji 
+Rolnictwa
+kontrola 
+zasiewów
+SATMIROL
+zakończony projekt naukowy, którego 
+celem było zbudowanie algorytmu 
+do szacowania na podstawie zdjęć 
+satelitarnych głównych upraw  
+rolnych i ogrodniczych w Polsce  
+w latach 2019–2021
+Główny Urząd 
+Statystyczny, 
+Centrum Badań 
+Kosmicznych 
+Polskiej Akademii 
+Nauk, Instytut 
+Geodezji i Kartografii
+klasyfikacja 
+upraw
+FARMPORTAL
+komercyjna aplikacja oferuje: kalkulator 
+nawożenia, mapy nawożenia, stały 
+monitoring stanu uprawianych roślin, 
+integrację ze stacjami pogodowymi 
+i czujnikami, alarmy pogodowe, 
+prowadzenie i gromadzenie dokumentacji 
+działek rolnych, rejestr zabiegów  
+i kosztów produkcji, integracja  
+z monitoringiem GPS
+Agri Solutions  
+Sp. z o. o.
+kompleksowe 
+zarządzanie 
+gospodarstwem
+Anna Jędrejek
+3534
+Nazwa 
+serwisu Krótki opis Twórca/Dostawca Słowa kluczowe
+FARMTECH
+komercyjny system do zarządzania 
+działkami rolnymi w gospodarstwie; 
+oferuje dostosowanie ilości materiału 
+siewnego, nawozów i środków ochrony 
+roślin do warunków panujących na polu 
+uprawnym; firma ponadto wykonuje 
+rożnego rodzaju analizy gleby  
+oraz oferuje doradztwo rolnicze
+FarmTech  
+Spółka z o.o.
+rolnictwo 
+przecyzyjne
+FERTISAT
+komercyjny system do zarządzania 
+działkami rolnymi w gospodarstwie; 
+oferuje dostosowanie ilości materiału 
+siewnego, nawozów i środków ochrony 
+roślin do warunków panujących na polu 
+uprawnym; możliwość integracji  
+z maszynami rolniczymi wiodących 
+marek
+Wasat Sp. z o.o. rolnictwo przecyzyjne
+InterSUCHO
+bezpłatny system monitorujący suszę 
+i stan wilgotności gleby w czasie 
+rzeczywistym dla Europy Środkowej  
+z prognozami krótkoterminowymi
+Global Change 
+Research Institute 
+CAS,  Mendel 
+University w Brnie
+susza rolnicza
+IRRIGET
+komercyjny system umożliwia 
+odpowiedni dobór dawek i terminów 
+nawadniania niezbędnych do 
+optymalnego wzrostu uprawianych roślin
+Wasat Sp. z o.o. nawadnianie
+RolnikON
+komercyjny system do efektywnego 
+zarządzania uprawą, gospodarką 
+magazynową, hodowlą, finansami, 
+energią i czasem użytkowników
+Polski Instytut 
+Rolnictwa sp. z o.o.
+kompleksowe 
+zarządzanie 
+gospodarstwem
+SatAgro
+komercyjna platforma monitoringu 
+satelitarnego i narzędzi rolnictwa 
+precyzyjnego
+SatAgro Sp. z o.o.
+kompleksowe 
+zarządzanie 
+gospodarstwem
+SoilEO
+komercyjny system wykorzystuje 
+zdjęciach hiperspektralne i algorytmy 
+sztucznej inteligencji do określania pH, 
+zasobności gleby w magnez, potas  
+i fosfor 
+QZ Solutions 
+Sp. z o.o.
+zdalne badanie 
+gleby
+Źródło: opracowanie własne
+Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0
+cd. tab. 1
+3736
+Rys. 1. Przykład serii czasowej zmian wartości wskaźnika NDVI w pełnym okresie wegetacji  
+dla działek rolnych z kukurydzą w RZD Baborówko
+Źródło: opracowanie własne
+Uważa się, że na plonowanie roślin wpływa nawet kilkaset różnych, wzajemnie 
+oddziałujących na siebie czynników. Są wśród nich m.in. czynniki agrotechniczne, 
+siedliskowe oraz pogodowe (Kosaki i in. 1989, Hua i in. 2022). Czyli na obniżenie 
+plonów wpływają nie tylko niekorzystne warunki meteorologiczne. Rolnik nie ma 
+wpływu na warunki pogodowe, ale może w znacznym stopniu ograniczyć ich nega-
+tywny wpływ, stosując elementy rolnictwa 4.0, na przykład odpowiednie techniki 
+uprawowe prowadzące do zwiększania zdolności gleby do retencji wody, a co za 
+tym idzie polepszania plonowania. Natomiast w celu uniknięcia błędów podczas 
+przygotowania gleby, nawożenia, siewu, doboru odmiany oraz ochrony roślin rolnik 
+może skorzystać z wytycznych, szkoleń oraz doradztwa przygotowanego przez różne 
+instytucje państwowe (m.in. IUNG-PIB, COBORU, ODR, IHAR-PIB), które mają 
+za zadanie pomóc mu w codziennej pracy. Zdobyta w ten sposób wiedza wspiera 
+rolników w identyfikacji czynników wpływających na plonowanie roślin, podnosi 
+umiejętność szacowania szkód powstałych w wyniku różnych zjawisk atmosferycz-
+nych i korzystania z informacji dostarczanej przez zobrazowania satelitarne.
+Anna Jędrejek
+
+3736
+Narzędzia do wspomagania decyzji w rolnictwie
+Dane satelitarne w połączeniu z danymi meteorologicznymi i glebowymi oraz 
+modelami deterministycznymi i sztucznej inteligencji mogą posłużyć do zbudowania 
+zestawu narzędzi do wsparcia decyzji w rolnictwie dla administracji publicznej. Pro-
+gram ESA Copernicus, a szczególnie bezpłatne zobrazowania Sentinel-1 i Sentinel-2 
+umożliwiają prowadzenie zdalnej obserwacji Polski z dużą rozdzielczością prze-
+strzenną i czasową. Dokładając do tego wiedzę rolniczą zgromadzoną w instytutach 
+rolniczych i ośrodkach doradztwa rolniczego, unikalne bazy danych in-situ  – istnieje 
+możliwość zbudowania obiektywnych narzędzi, które będą wspomagać organy ad-
+ministracji w prowadzeniu i monitorowaniu wspólnej polityki rolnej, szacowaniu  
+i monitoringu wielkości produkcji roślinnej i zwierzęciej, ocenie szkód w uprawach 
+rolnych powstałych na skutek niekorzystnych zjawisk atmosferycznych (Jędrejek  
+i in. 2022). Dzięki połączeniu technik satelitarnych i obliczeniowych, zgromadzonych 
+baz danych i wiedzy agronomicznej można utworzyć centralny, nieodpłatny system 
+przestrzennej informacji i monitoringu działek rolnych dostępny dla producentów 
+rolnych oraz administracji publicznej. Metody teledetekcji mogą być wykorzystywane 
+jako system wspomagania decyzji administracyjnej w celu określenia bezpośredniego 
+wpływu niekorzystnych warunków pogodowych na pola producentów, a także jako 
+narzędzie do oceny efektów wprowadzanych zabiegów agrotechnicznych (Michalski 
+i in. b.d.).
+W Agencji Restrukturyzacji i Modernizacji Rolnictwa (ARiMR) były prowadzone 
+pilotażowe prace nad wykorzystaniem danych satelitarnych do prowadzenia tzw. 
+kontroli na miejscu, czyli sprawdzania deklaracji rolnika o uprawach na działkach 
+rolnych z faktycznym stanem. Rozporządzenia Parlamentu Europejskiego i Rady 
+(UE) 2021/2116 z dnia 2 grudnia 2021 r. w sprawie finansowania wspólnej polityki 
+rolnej, zarządzania nią i monitorowania jej oraz uchylenia rozporządzenia (UE)  
+nr 1306/2013 (Dz.Urz. UE L 435 z 06.12.2021, z późn. zm) zobowiązało od początku 
+2023 r. wszystkie rolnicze agencje płatnicze, w tym ARiMR, do wdrożenia Systemu 
+Monitorowania Obszaru (AMS, ang. Area Monitoring System ) (tab. 1). Ma to uspraw-
+nić kontrolę administracyjną płatności obszarowych oraz zapobiec wyłudzeniom 
+unijnych dopłat (AMS 2025).
+Podsumowanie
+Technologie cyfrowe umożliwiają rolnikom na całym świecie lepsze poznanie 
+współzależności czynników wpływających na plonowanie roślin, tym samym po-
+prawienie wydajności prowadzonych gospodarstw. Pełnią ważną rolę w racjonal-
+nym wykorzystaniu materiału siewnego, środków ochrony roślin, nawozów oraz 
+nawodnienia, wspierają tym samym bardziej zrównoważone zarządzanie zasobami. 
+Cyfrowe rolnictwo bazuje na integracji danych pozyskiwanych z obserwacji satelitar-
+Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0
+3938
+nych, danych pogodowych, danych glebowych i danych pochodzących z czujników 
+naziemnych (np. sondy wilgotności gleby), szybkim przetwarzaniu i udostępnianiu 
+rolnikowi powstałej informacji. Na jej podstawie producent rolny może zadecydować 
+o wykonaniu odpowiednich zabiegów agrotechnicznych. Teledetekcja satelitarna, 
+systemy GNSS, IoT i AI stanowią cztery wzajemnie powiązane filary rolnictwa 4.0. 
+Teledetekcja satelitarna dostarcza danych przestrzennych, czujniki IoT generują 
+szczegółowe dane punktowe, systemy GNSS zapewniają dokładną geolokalizację 
+prowadzonych obserwacji i zabiegów agrotechnicznych, a algorytmy AI wspoma-
+gają integrację oraz interpretację wszystkich źródeł danych oraz tworzenie różnego 
+rodzaju modeli. Synergia tych czterech elementów buduje spójny, cyfrowy ekosystem 
+umożliwiający precyzyjne, inteligentne i zrównoważone zarządzanie produkcją rolną.
+Wdrożenie rozwiązań technologii satelitarnych wykorzystywanych w rolnictwie 
+4.0 do zarządzania gospodarstwem staje się coraz bardziej powszechne, jednak duża 
+konkurencja wśród dostawców systemów/aplikacji nie sprawia, że te rozwiązania 
+stają się tańsze. W większości są to systemy komercyjne z podobną funkcjonalno-
+ścią różniące się często jedynie interfejsem użytkownika. Dają możliwość łączenia 
+danych satelitarnych, meteorologicznych oraz dodatkowych danych o gospodarstwie 
+na potrzeby e-rolnictwa. Pozwalają monitorować zabiegi agrotechniczne oraz rozwój 
+uprawianych roślin w całym sezonie wegetacyjnym, a także budować historię upra-
+wianych działek, w tym monitorować uzyskiwane zbiory. Korzystanie z cyfrowych 
+technologii rolnictwa 4.0 pozwala na racjonalne/zrównoważone wykorzystanie zaso-
+bów oraz zmniejszenie wpływu rolnictwa na środowisko i zmiany klimatu. 
+Cyfrowa transformacja rolnictwa została już rozpoczęta i jest nieunikniona, ale 
+ciągle jest brak regulacji zarówno krajowych, jak i unijnych, które jasno określałyby 
+statut łańcuchów wartości dużych zbiorów danych rejestrowanych w gospodarstwach 
+przez rożnego rodzaju zainstalowane czujniki i przetwarzanych w chmurach oblicze-
+niowych (Kosior 2020). Producenci maszyn rolniczych i środków produkcji sprzedają 
+swoje produkty w pakiecie z narzędziami informatycznymi, które mają na celu wspie-
+rać rolników w podejmowaniu decyzji dotyczących prowadzonego gospodarstwa. 
+Powstające informacje rolnicze w sposób niejasny są udostępniane, gromadzone, 
+przetwarzane przez dostawców technologii rolniczych i cyfrowych, tworząc wspólne 
+bazy danych wykorzystywane do rożnych celów, m.in. do budowania dedykowanych, 
+kompleksowych usług serwisowych i cyfrowych, które uzależniają rolnika od jednego 
+dostawcy. Rolnicy obawiają się, że dane, które powstają w ich gospodarstwach mogą 
+być użyte w niewłaściwy sposób, w tym wykorzystane przez konkurencję.
+Literatura
+1. AMS – System Monitorowania Obszaru – nowe narzędzie cyfrowe ARiMR – Agencja 
+Restrukturyzacji i Modernizacji Rolnictwa – Portal Gov.pl Available; https://www.gov.pl/web/
+arimr/ams---systemu-monitorowania-obszaru--nowe-narzedzie-internetowe-arimr (accessed on 12 
+June 2025).
+Anna Jędrejek
+3938
+2. A s a m S., Gessner U., Almengor González R., Wenzl M., Kriese J., Kuenzer C.: Mapping 
+crop types of Germany by combining temporal statistical metrics of Sentinel-1 and Sentinel-2 time 
+series with LPIS Data. Remote Sensing, 2022, 14, 2981; DOI:10.3390/rs14132981.
+3. A r s l a n İ., Topakcı M., Demir N.: Monitoring maize growth and calculating plant heights 
+with Synthetic Aperture Radar (SAR) and Optical Satellite Images. Agriculture, 2022, 12, 800; 
+DOI:10.3390/agriculture12060800.
+4. D a t t a S., Das P., Dutta D., Giri R.K.: Estimation of surface moisture content using Sentinel-1 
+C-Band SAR Data Through Machine Learning Models. Journal of the Indian Society of Remote 
+Sensing, 2021, 49: 887-896, DOI: 10.1007/s12524-020-01261-x.
+5. DIAS Comparison Available; https://earsc.org/dias-comparison/ (accessed on 13 June 2024).
+6. F e n d r i c h A.N., Matthews F., Van Eynde E., Carozzi M., Li Z.; d’Andrimont R., Lugato E., 
+Martin P., Ciais P., Panagos P.: From regional to parcel scale: A high-resolution map of 
+cover crops across Europe combining satellite data with statistical surveys. Science of The Total 
+Environment, 2023, 873, 162300; DOI:10.1016/j.scitotenv.2023.162300.
+7. H t i t i o u A., Boudhar A., Chehbouni A., Benabdelouahab T.: National-scale cropland 
+mapping based on phenological metrics, environmental covariates, and machine learning on Google 
+Earth Engine. Remote Sensing, 2021, 13, 4378; DOI:10.3390/rs13214378.
+8. H u a S., Dal-Bianco M., Chen Z.H.: Editorial: Crop yield and quality response to the interaction 
+between environment and genetic factors. Frontiers in Genetics, 2022, 13.
+9. H u n t M.L., Blackburn G.A., Carrasco L., Redhead J.W., Rowland C.S.: High resolution 
+wheat yield mapping using Sentinel-2. Remote Sensing of Environment, 2019, 233, 111410; DOI: 
+10.1016/j.rse.2019.111410.
+10. IDB – Index DataBase; https://www.indexdatabase.de/ (accessed on 22 December 2023).
+11. J ę d r e j e k A., Pudełko R.: Exploring the potential use of Sentinel-1 and 2 Satellite imagery for 
+monitoring winter wheat growth under agricultural drought conditions in North-Western Poland. 
+Agriculture 2023, 13, 1798; DOI: 10.3390/agriculture13091798.
+12. J ę d r e j e k A., Jadczyszyn J., Pudełko R.: Increasing accuracy of the soil-agricultural map 
+by Sentinel-2 images analysis – case study of maize cultivation under drought conditions. Remote 
+Sensing, 2023, 15, 1281; DOI: 10.3390/rs15051281.
+13. J ę d r e j e k A., Koza P., Doroszewski A., Pudełko R.: Agricultural drought monitoring 
+system in Poland–Farmers’ assessments vs. monitoring results (2021). Agriculture, 2022, 12, 536; 
+DOI: 10.3390/agriculture12040536.
+14. K o b u s-Cisowska J., Dziedziński M.: Możliwości i wyzwania zastosowania cyfryzacji  
+w rozwoju zrównoważonego, inteligentnego rolnictwa na przykładzie produkcji roślinnej. Zagad-
+nienia Doradztwa Rolniczego, 2023, 112: 28-41.
+15. K o r d o w s k a M., Baranowski M., Pisarek J., Ziemacki Z., Wawer R., Czech T.: 
+Rolnictwo 4.0. Identyfikacja trendów technologicznych. Narodowe Centrum Badań i Rozwoju, 
+Warszawa 2023, ss. 91.
+16. K o s a k i T., Wasano K., Juo A.S.R.: Multivariate statistical analysis of yield-determining factors. 
+Soil Science and Plant Nutrition, 1989, 35: 597-607; DOI: 10.1080/00380768.1989.10434795.
+17. K o s i o r K.: Łańcuch wartości dużych zbiorów danych (big data) w rolnictwie – problemy  
+i wyzwania regulacyjne. Studia BAS, 2020, s. 101-125.
+18. Landsat Satellites; https://landsat.gsfc.nasa.gov/satellites/ (accessed on 13 June 2024).
+19. L o b e r t F., Löw J., Schwieder M., Gocht A., Schlund M., Hostert P., Erasmi S.: A deep 
+learning approach for deriving winter wheat phenology from optical and SAR time series at field 
+level. Remote Sensing of Environment, 2023, 298, 113800; DOI: 10.1016/j.rse.2023.113800.
+20. M i c h a l s k i M., Turos P., Buszke B., Rybicki M., Stankiewicz M.: Wykorzystanie syntezy 
+danych satelitarnych Sentinel-1 i Sentinel-2 do opracowania map zmiennego nawożenia azotem 
+rzepaku ozimego. Roczniki Geomatyki, 2023, t. 21, 1(100): 31-47.
+Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0
+21. M i m i ć G., Živaljević B., Blagojević D., Pejak B., Brdar S.: Quantifying the effects of 
+drought using the crop moisture stress as an indicator of maize and sunflower yield reduction in 
+Serbia. Atmosphere, 2022, 13, 1880; DOI: 10.3390/atmos13111880.
+22. M i r z a e i t a l a r p o s h t i R., Shafizadeh-Moghadam H., Taghizadeh-Mehrjardi R., 
+Demyan M.S.: Digital soil texture mapping and spatial transferability of machine learning models 
+using Sentinel-1, Sentinel-2, and terrain-derived covariates. Remote Sensing, 2022, 14, 5909; DOI: 
+10.3390/rs14235909.
+23. R o k h a f r o u z M., Latifi H., Abkar A.A., Wojciechowski T., Czechlowski M., Naieni A.S., 
+Maghsoudi Y., Niedbała G.: Simplified and hybrid remote sensing-based delineation of 
+management zones for nitrogen variable rate application in wheat. Agriculture, 2021, 11, 1104; 
+DOI: 10.3390/agriculture11111104.
+24. Rozporządzenie Parlamentu Europejskiego i Rady (UE) 2021/2116 z dnia 2 grudnia 2021 r. 
+w sprawie finansowania wspólnej polityki rolnej, zarządzania nią i monitorowania jej oraz uchylenia 
+rozporządzenia (UE) nr 1306/2013 (Dz.Urz. UE L 435 z 06.12.2021, z późn. zm.).
+25. Ř e z n í k T., Pavelka T., Herman L., Lukas V., Širůček P., Leitgeb Š., Leitner F.: 
+Prediction of yield productivity zones from Landsat 8 and Sentinel-2A/B and their evaluation using 
+farm machinery measurements. Remote Sensing, 2020, 12, 1917; DOI:10.3390/rs12121917.
+26. S a m b o r s k i S., Dobers E., Gnatowski T., Gozdowski D., Jerzy K., Elliot S., Nieróbca A., 
+Rafał P., Stępień M., Szatylowicz J.: Rolnictwo Precyzyjne. Wyd. PWN, 2018, ss. 522.
+27. S h o r a c h i M., Kumar V., Steele-Dunne S.C.: Sentinel-1 SAR backscatter response to 
+agricultural drought in the Netherlands. Remote Sensing, 2022, 14, 2435,; DOI:10.3390/rs14102435.
+28. S n e v a j s H., Charvat K., Onckelet V., Kvapil J., Zadrazil F., Kubickova H., Seidlova J., 
+Batrlova I.: Crop detection using time series of Sentinel-2 and Sentinel-1 and existing land parcel 
+information systems. Remote Sensing, 2022, 14, 1095; DOI:10.3390/rs14051095.
+29. T u c k e r C.J.: Red and photographic infrared linear combinations for monitoring vegetation. 
+Remote Sensing of Environment, 1979, 8: 127-150; DOI:10.1016/0034-4257(79)90013-0.
+30. USGS Landsat 1; https://www.usgs.gov/landsat-missions/landsat-1 (accessed on 4 August 2023).
+31. Z a m a n i-Noor N., Feistkorn D.: Monitoring growth status of winter oilseed rape by NDVI 
+and NDYI derived from UAV-Based Red–Green–Blue Imagery. Agronomy, 2022, 12, 2212;  
+DOI: 10.3390/agronomy12092212.
+32. Z h u Z., Wulder M.A., Roy D.P., Woodcock C.E., Hansen M.C., Radeloff V.C., Healey S.P., 
+Schaaf C., Hostert P., Strobl P. et al.: Benefits of the free and open landsat Data Policy. Remote 
+Sensing of Environment, 2019, 224: 382-385; DOI: 10.1016/j.rse.2019.02.016.
+33. 20 Lat Programu Copernicus; https://www.esa.int/Space_in_Member_States/Poland/20_lat_
+programu_Copernicus (accessed on 12 June 2024).
+Adres do korespondencji: 
+dr inż. Anna Jędrejek
+Zakład Geomatyki
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Pulawy
+tel. 81 47 86 899
+e-mail: Anna.Jedrejek@iung.pulawy.pl
+AUTOR ORCID
+Anna Jędrejek 0000-0001-8541-4410
+Anna Jędrejek40

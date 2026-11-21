@@ -1,0 +1,512 @@
+ 
+Ludwika Poręba
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+WYKORZYSTANIE MAP CYFROWYCH ORAZ ZDJĘĆ SATELITARNYCH 
+DO BUDOWANIA ROLNICTWA ODPORNEGO NA ZMIANY KLIMATU*
+Słowa kluczowe: mapa, rolnictwo, susza, teledetekcja, zdjęcia satelitarne, zmiany klimatu
+Wstęp
+Historia rolnictwa sięga czasów antycznych. Do XIX w. rolnicy używali głównie 
+domowych ręcznych narzędzi i polegali na własnej sile roboczej oraz na zwierzętach. 
+Rewolucja przemysłowa pozwoliła wprowadzić maszyny rolnicze używane do upra-
+wy gleby, siewu, pielenia, nawodnienia i zbiorów, co spowodowało wzrost produkcji 
+żywności przy równoczesnym spadku pracy ręcznej. Rozwój przemysłu przyczynił 
+się również do rozszerzenia rynku zbytu oraz stworzenia wielkoskalowej intensywnej 
+produkcji rolniczej. Mechanizacja, nowe agronomiczne praktyki zarządzania oraz 
+nowe syntetyczne pestycydy i nawozy zwiększyły produktywność i wydajność rolnic-
+twa, jednak nadmierne zużycie paliw kopalnych, wody i chemikaliów spowodowało 
+zniszczenie środowiska (Dayioğlu i Türker 2021). 
+W celu zmniejszenia degradacji środowiska przez rolnictwo zaczęto stosować 
+różne technologie prowadzące do stosowania praktyk bardziej zrównoważonych 
+przyrodniczo. Postęp w dziedzinie informatyki i elektroniki pozwolił na pojawienie się 
+rolnictwa precyzyjnego, prowadzącego do oszczędności energii w maszynach, wody 
+w nawadnianiu i zmniejszeniu zużycia chemikaliów na polu. Rolnictwo precyzyjne 
+przyczyniło się do poprawy wydajności zasobów, produktywności, jakości, rentow-
+ności i zrównoważonego rozwoju produkcji rolnej poprzez gromadzenie, przetwa-
+rzanie i analizowanie danych czasowych i przestrzennych oraz łączenie ich z innymi 
+81S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 74(28): 81-93 2025
+*Opracowanie wykonano w ramach zadania 1.8. pt. „Wykorzystanie dronów w rolnictwie” z dotacji 
+budżetowej przeznaczonej na realizację zadań MRiRW w 2025 r.
+https://doi.org/10.26114/sir.iung.2025.74.05
+8382
+ 82
+informacjami, na podstawie których rolnik może podjąć najlepszą możliwą decyzję 
+dotyczącą konkretnego miejsca, rośliny lub zwierzęcia (Dayioğlu i Türker 2021).
+Obecnie w celu poprawy produkcji rolniczej zagrożonej zmianami klimatycznymi 
+wykorzystuje się różne technologie do budowania rolnictwa odpornego na zmiany 
+klimatu. Jest to podejście polegające na przekształceniu, reorientacji i rozwoju syste-
+mów rolniczych na podstawie technologii cyfrowych, przyczyniające się do wzrostu 
+globalnego bezpieczeństwa żywnościowego w ramach działań adaptacyjnych i łago-
+dzących skutki zmian klimatu (Adamides 2020, Debangshi 2021). Praktyki rolnictwa 
+odpornego na zmiany klimatu to między innymi: zróżnicowanie plonów, ochrona 
+wody, zarządzanie zdrowiem gleby, zintegrowana ochrona przed szkodnikami (Saka-
+paji i Puthenkalam 2023). Pojęcie to jest nowe, ale mechanizm adaptacji i łagodzenia 
+zmian środowiskowych jest obecny w naturze od zawsze. Dzisiaj zmiany klimatu 
+postępują w takim tempie, że natura sama nie nadąża w ich łagodzeniu. Wprowadzenie 
+zielonych technologii pozwoli naturze walczyć z antropogenicznymi zmianami kli-
+matu (Debangshi 2021). Wśród narzędzi wykorzystywanych do budowania rolnictwa 
+odpornego na zmiany klimatu można wymienić mapy cyfrowe i zdjęcia satelitarne.
+Wpływ zmian klimatu na rolnictwo
+Rolnictwo jest zarówno ofiarą, jak i czynnikiem odpowiedzialnym za zmiany 
+klimatyczne. Do ich pogłębiania przyczynia się głównie poprzez emisję gazów 
+cieplarnianych pochodzących z nawozów chemicznych oraz pestycydów o niskim 
+zużyciu składników odżywczych (Debangshi 2021).
+Zmiany klimatyczne w dużej mierze wpływają negatywnie na rolnictwo. Za-
+grożenia dla rolnictwa to między innymi wzrost temperatury, większa zawartość 
+CO2, zmiany w rozkładzie opadów deszczu oraz zwiększenie liczby chwastów, 
+epidemii szkodników oraz chorób. Najbardziej zagrożone są obszary tropikalne, 
+natomiast obszary w strefie umiarkowanej lepiej sobie radzą ze wzrostem temperatur  
+(Debangshi 2021).
+Dla rolnictwa europejskiego zmiany klimatu mogą mieć zróżnicowane skutki. 
+Na południu Europy dochodzi do redukcji plonów oraz zmniejszenia powierzchni 
+obszarów rolnych. Z kolei na północy kontynentu może dojść do wydłużenia okresu 
+wegetacyjnego oraz przesunięcia upraw typowych dla południowych regionów (na 
+przykład: kukurydza, słonecznik, soja) bardziej na północ (Fallon i Betts 2010). 
+Wydłużenie okresu wegetacyjnego może prowadzić do wzrostu plonów dla różnych 
+upraw i użytków zielonych. Ponadto w obszarze basenu Morza Śródziemnego może 
+dojść do całorocznego sezonu wegetacyjnego, pozwalając na dwie uprawy w ciągu 
+roku (Wiréhn 2018). Negatywnym skutkiem zmian klimatu dla rolnictwa w Europie 
+jest redukcja glebowej materii organicznej (szczególnie na północy kontynentu)  
+(Fallon i Betts 2010). Zmiany klimatyczne prowadzą również do zaburzeń w rozkładzie 
+Ludwika Poręba
+8382
+opadów. Zwiększa się częstotliwość występowania susz na wiosnę oraz wzmożonych 
+opadów latem i jesienią. Spadek opadów na południu Europy może doprowadzić do 
+redukcji plonów oraz zwiększenia zapotrzebowania na wodę do nawadniania różnych 
+upraw. Z kolei większa wilgotność prowadzi do zwiększenia pojawiania się chorób 
+i szkodników (Fallon i Betts 2010, Wiréhn 2018).
+Susza, monitorowanie oraz łagodzenie jej skutków, jest jednym z największych 
+wyzwań w rolnictwie w kontekście zmian klimatycznych. Jest poważnym zagroże-
+niem dla współczesnego rolnictwa, ponieważ prowadzi do redukcji plonów, co z kolei 
+przyczynia się do zaburzenia bezpieczeństwa żywnościowego. Susza oddziałuje na 
+morfologię, zieloność, fotosyntezę, akumulację biomasy oraz ewapotranspirację upraw 
+(Wu i in. 2023). Suszę można podzielić na cztery kategorie – meteorologiczne, rolni-
+cze, hydrologiczne i społeczno-ekonomiczne. Susza meteorologiczna charakteryzuje 
+się brakiem opadów lub niewystarczającą ich ilością w porównaniu z normalnymi 
+poziomami deszczu w podobnym okresie. Szacowana jest na podstawie ilości wody  
+w deszczomierzu. Susza rolnicza szacowana jest na podstawie braku zawartości wilgot-
+ności gleby w porównaniu z zapotrzebowaniem na wodę przez uprawy. Jej skutkiem 
+jest spadek plonów. Z kolei susza hydrologiczna skutkuje redukcją poziomów wody 
+w warstwach wodonośnych, rzekach oraz jeziorach. Susza społeczno-ekonomiczna 
+występuje, gdy zapotrzebowanie na wodę przekracza jej podaż z powodu niewystar-
+czających rezerw wody związanych z warunkami meteorologicznymi, co znacząco 
+obniża jakość życia mieszkańców (Elair i in. 2023). Susza ma wpływ na globalny  
+i regionalny obieg węgla oraz powoduje nieodwracalne zmiany w funkcjach ekosys-
+temowych w ocieplającym się klimacie. Susza i ekstrema temperaturowe prowadzą 
+do negatywnego wpływu na pochłanianie dwutlenku węgla, spowalniając wpływ 
+nawożenia azotem na roślinność ekosystemów lądowych (Jiao i in. 2021).
+Susze to zazwyczaj wolno rozwijające się zjawiska, jednak w badaniach pojawia 
+się pojęcie suszy błyskawicznej, która jest zjawiskiem krótkotrwałym, ale dotkliwym. 
+Mogą one powodować poważne skutki dla środowiska i rolnictwa. Z uwagi na to, że 
+mają nagły początek i szybką intensyfikację, mogą przynieść szczególne wyzwania 
+związane z ich monitorowaniem, prognozowaniem i łagodzeniem skutków. Identy-
+fikacja susz błyskawicznych ma duże znaczenie. W odróżnieniu od zwykłych susz 
+przed ich rozwojem jest stwierdzana wysoka ewaporacja (Jiao i in. 2021). 
+Mapy cyfrowe w rolnictwie odpornym na zmiany klimatu
+Technologie GIS zapewniają narzędzia wspierające podejmowanie decyzji doty-
+czących zarządzania środowiskiem i zasobami naturalnymi. W połączeniu z telede-
+tekcją, mapowanie, modelowanie i monitorowanie zmian środowiskowych pomaga 
+w adaptacji do zmian klimatu w sektorze rolnictwa (Haworth i in. 2018). 
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa....
+8584
+Duże znaczenie w budowaniu rolnictwa odpornego na zmiany klimatu ma gleba, 
+która jest podstawowym elementem różnicującym przestrzennie retencję wodną oraz 
+wpływ niedoboru wody na plony roślin. Zdrowa gleba jest odporna na zmiany klima-
+tyczne, dlatego istotne jest stosowanie praktyk rolniczych jak najmniej degradujących 
+środowisko glebowe. Dane glebowe od wielu lat są wykorzystywane w celu poprawy 
+produktywności rolnictwa.
+W Polsce powstała na przełomie lat 60. i 70. XX w., mapa glebowo-rolnicza 
+jest podstawowym źródłem informacji o zasobach glebowych naszego kraju oraz 
+przestrzennym zobrazowaniem produkcji rolniczej. Mapa ta została stworzona przez 
+Instytut Uprawy Nawożenia i Gleboznawstwa na polecenie ówczesnego ministra rol-
+nictwa. Głównym powodem jej powstania była chęć zintegrowania działań związanych 
+z produkcją roślinną z wiedzą na temat gleb – ich przydatnością dla rolnictwa oraz 
+rozmieszczeniem przestrzennym. Arkusze mapy sporządzono w skali ogólniejszej 
+dla powiatów oraz bardziej szczegółowe dla poszczególnych wsi, państwowych 
+gospodarstw rolnych i spółdzielni produkcyjnych. Mapa glebowo-rolnicza ma wiele 
+zastosowań, które mogą być wykorzystywane do zminimalizowania negatywnych 
+skutków środowiskowych w kontekście zmieniającego się klimatu. Informacje zawar-
+te na mapie glebowo-rolniczej to treści typowo użytkowe dla rolnictwa – kompleks 
+rolniczej przydatności gleby, typ i podtyp genetyczny, układ i skład granulometryczny 
+poszczególnych warstw profilu glebowego (rys. 1). Treści przedstawione na mapie 
+pozwalają na wykonanie wielu analiz przestrzennych i oceny siedliska glebowego 
+pod względem potencjału produkcyjnego, stosunków wodnych, różnorodności 
+biologicznej oraz odporności ekosystemu na procesy degradacji. Mapa zarówno  
+w formie papierowej, jak i obecnie w formie cyfrowej, była wielokrotnie wykorzy-
+stywana do oceny potencjału żyzności gleb, regionalizacji produkcji rolniczej oraz 
+doboru gatunków i odmian roślin uprawnych do lokalnych warunków klimatycznych, 
+opracowania planów urządzeniowo-rolnych i planów rozwoju wsi, oceny potrzeb 
+nawożenia i wapnowania gleb w skali gospodarstwa, oceny potrzeb i projektowania 
+melioracji rolnych, ochrony gleb, prac scaleniowych i planowania przestrzennego oraz 
+dostosowania narzędzi i maszyn rolniczych do ciężkości gleby. Informacje na temat 
+składu granulometrycznego pozwoliły na opracowanie dodatkowych map – mapę 
+podatności gleb na erozję wodną i wietrzną, mapę kategorii glebowych służących do 
+oceny potrzeb wapnowania i nawożenia (Witek 1973, Jadczyszyn i Stuczyński 2008, 
+Jadczyszyn i Smreczak 2017).
+Ludwika Poręba
+8584
+Rys. 1. Fragment mapy glebowo-rolniczej 
+Źródło: opracowanie własne
+Przy oznaczaniu suszy rolniczej ważną rolę pełni podatność gleb na niedobór 
+wody. Ta właściwość gleb jest ściśle uzależniona od składu granulometrycznego. Na 
+podstawie mapy glebowo-rolniczej opracowano mapę podatności gleb na występowa-
+nie suszy rolniczej. Wyznaczono cztery kategorie różnicujące przestrzennie retencję 
+wodną i potencjalną dostępność wody dla roślin uprawnych (kolejno od gleb bardzo 
+podatnych na suszę do mało podatnych: gleby bardzo lekkie, lekkie, średnie i ciężkie). 
+Mapa ta jest wykorzystywana w Systemie Monitoringu Suszy Rolniczej do określania 
+terenów zagrożonych suszą dla konkretnych upraw (Doroszewski i in. 2012).
+Oprócz map glebowych w rolnictwie coraz częściej wykorzystuje się mapowanie 
+usług ekosystemowych gleb. Przy coraz częstszym niedoborze wody i występowaniu 
+suszy na polach zdolność gleby do magazynowania i regulowania ilości wody oraz 
+mikroklimatu jest szczególnie istotna. Równie ważna jest zdolność do produkcji żyw-
+ności. Przestrzenne przedstawienie glebowych usług ekosystemowych pokazuje nie 
+tylko, gdzie są one wytwarzane, ale również gdzie są wykorzystywane, co pozwala 
+na efektywne dystrybuowanie zasobami (Calzolari i in. 2016, Karabulut i in. 2016).
+Łączenie danych klimatycznych i glebowych w planowaniu zadań rolniczych pro-
+wadzi do zmniejszenia niepewności spowodowanej zmianami klimatu, na przykład 
+poprzez opracowanie systemów wczesnego ostrzegania przed ekstremami pogodo-
+wymi, co pozwala rolnikom podejmować wczesne działania i efektywnie zarządzać 
+zasobami (Adamides 2020, Boz i in. 2020).
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa....
+8786
+Zdjęcia satelitarne w rolnictwie odpornym na zmiany klimatu
+Do budowania rolnictwa odpornego na zmiany klimatu wykorzystywana jest rów-
+nież teledetekcja, czyli pozyskiwanie informacji o obiekcie lub zjawisku na odległość 
+za pomocą przyrządów lub czujników zamontowanych na odległej platformie, na 
+przykład satelicie, bezzałogowym pojeździe powietrznym lub dronie, w wielu ska-
+lach przestrzennych i czasowych niezależnie od granic geopolitycznych (Atzberger 
+2013, Adamides 2020, Karthikeyan i in. 2020). Klimat, właściwości gleby, składniki 
+odżywcze w glebie i uprawach, objętość łanu i biomasy, zawartość wody, choroby, 
+chwasty, uszkodzenia spowodowane owadami oraz różnorodność upraw mają wpływ 
+na plony i produkcję rolną. Wszystkie te czynniki rzutują na charakterystykę spek-
+troskopową upraw, którą można oceniać za pomocą różnych czujników zdalnych 
+(Dayioğlu i Türker 2021, Galieni i in. 2021, Abdelraouf i in. 2022). W rolnictwie 
+teledetekcja wykorzystywana jest do szacowania plonów, mapowania pól upraw-
+nych, monitorowania stresu oraz rozwoju fenologicznego upraw (Adamides 2020). 
+Jest skuteczną metodą obserwacji, identyfikacji i oceny ilościowej tego, jak rośliny 
+reagują na różne stresy, na przykład wahania temperatury, suszę, powodzie, zasolenie 
+i infekcje (Galieni i in. 2021, Rai i in. 2023). Różne techniki teledetekcji odgrywają 
+kluczową rolę w identyfikacji odmian upraw odpornych na susze i powodzie, które 
+są niezbędne do zapewnienia zrównoważonych plonów w kontekście zmieniającego 
+się klimatu (Karmakar i in. 2024). Teledetekcja pozwala na opracowanie różnych 
+nieinwazyjnych systemów wykrywania, które dostarczają dokładnych informacji 
+na temat zmienności przestrzennej w obrębie pól (Alvino i Marino 2017, Galieni 
+i in. 2021). Najskuteczniejszą metodą teledetekcji są dane satelitarne (Abdelraouf  
+i in. 2022). Zdjęcia optyczne i radarowe służą do monitorowania upraw i pozwalają 
+określić wzrost roślin, poziom biomasy, zawartość chlorofilu, informacje strukturalne 
+o uprawie, dostępność wody na polach oraz wilgotność upraw (Karmakar i in. 2024).
+Teledetekcja zrewolucjonizowała ocenę suszy, zapewniając ciągłe dane przestrzen-
+ne i czasowe dla różnych wskaźników suszy, w tym opadów, temperatury, pokrywy 
+roślinnej, wilgotności gleby i ewapotranspiracji (rys. 2) (Jiao i in. 2021, Elair i in. 
+2023). Zdjęcia satelitarne pozwalają monitorować suszę w odległych i niedostępnych 
+obszarach, gdzie obserwacje naziemne są ograniczone lub niemożliwe, co pozwala 
+podejmować lepsze decyzje w zakresie zarządzania suszą, na przykład: planowania 
+upraw lub reagowania na klęski żywiołowe. Teledetekcja odgrywa również znaczącą 
+rolę w szacowaniu i zarządzaniu pożarami, ocenianiu ryzyka powodziowego, moni-
+torowaniu osuwisk i analizowaniu ryzyka związanego z burzami. Ponadto generuje 
+mapy zagrożeń, które precyzyjnie identyfikują obszary ryzyka na podstawie analizy 
+wcześniejszych katastrof, ułatwiając monitorowanie w czasie rzeczywistym i wczesne 
+ostrzeganie w celu złagodzenia skutków w różnych kontekstach środowiskowych 
+(Elair i in. 2023). Zdjęcia satelitarne są wykorzystywane w rolnictwie do oszacowania 
+plonu, przewidywania plonu oraz ubezpieczenia upraw (Roznik i in. 2022).
+Ludwika Poręba
+8786
+Rys. 2. Wskaźniki teledetekcyjne wykorzystywane do monitorowania suszy 
+Źródło: opracowanie własne
+Zdjęcia satelitarne pozwalają określić temperaturę powierzchni ziemi (LST, ang. 
+Land Surface Temperature), która jest kluczowym parametrem zintegrowanego 
+monitorowania suszy, ponieważ zapewnia pośrednią miarę bilansu energetycznego 
+powierzchni. Stres termiczny obliczany z LST i temperatury powietrza jest dobrym 
+wskaźnikiem warunków suszy, który potrafi wykazać suszę już na jej wczesnym 
+etapie (Jiao i in. 2021). 
+Ewaporacja jest to mechanizm łączący wodę i cykle energetyczne, dlatego stano-
+wi ważny miernik dla monitorowania i szacowania suszy. Parowanie to połączenie 
+szeregu procesów utraty wody od bezpośredniego parowania gleby do transpiracji 
+pochodzącej z roślin. Szacowanie ewaporacji z danych satelitarnych jest skompli-
+kowane, ponieważ nie jest ona bezpośrednio obserwowalna z żadnego czujnika, ale 
+raczej wnioskowana poprzez połączenie danych meteorologicznych, promieniowania 
+oraz roślinności. Istnieje wiele modeli i algorytmów do szacowania ewapotranspiracji 
+z danych teledetekcyjnych (Jiao i in. 2021).
+Zdjęcia satelitarne pozwalają stworzyć wysoko rozdzielcze dobowe mapy ewa-
+potranspiracji, które wspomagają zarządzanie nawodnieniem upraw. Badania na ten 
+temat prowadzone są od lat 80. XX w. i wykazały, że do szacowania wartości ewapo-
+transpiracji można użyć różnych metod – balansu wodnego, balansu energii, modeli 
+Wskaźniki monitorujące suszę
+wegetacja:
+LAI
+VCI
+NDVI
+NDWI
+VHI
+TCI
+SAVI
+EVI
+GEMI
+NDDI
+temperatura:
+LST
+ewapotranspiracja:
+SEBAL
+ESI
+RCI
+EDDI
+SESR
+temperatura
++
+–
+wegetacja:
+TVDI
+VTCI
+MTVDI
+TVPDI
+wilgotność:
+CWSI
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa....
+8988
+bazujących na temperaturze oraz modeli bazujących na poziomie i stanie wegetacji 
+(Alvino i Marino 2017). Jednym z modeli wykorzystujących ewaportanspirację jest  
+SEBAL (ang. Surface Energy Balance Model for Land). Jest to model szacujący 
+produktywność wodną wykorzystujący aktualną wartość ewapotranspiracji i wiel-
+kość biomasy uprawy. Do jej obliczenia potrzebne są dane satelitarne, numeryczny 
+model terenu, użytkowanie terenu oraz dane pogodowe. Model SEBAL jest używany 
+na całym świecie do wyznaczenia przestrzennej zmienności produktywności wody, 
+plonu i ewapotranspiracji dla różnych upraw w różnych strefach agroekologicznych. 
+Jego mapa dostarcza informacji, gdzie produktywność wody jest niska, dzięki czemu 
+można lepiej planować dystrybucję wody. Pomaga to przy efektywnym zarządzaniu 
+nawodnieniami polowymi i w procesie decyzyjnym odnośnie projektowania i kon-
+struowania infrastruktury nawadniającej (Jindo i in. 2021).
+Metody teledetekcyjne określające ewapotranspirację służą do identyfikacji zja-
+wiska susz błyskawicznych. Wskaźnik ESI (ang. Evaporative Stress Index) zapewnia 
+wczesne ostrzeganie przed wpływem suszy na systemy rolnicze. Na jego podstawie 
+stworzono inne wskaźniki – RCI (ang. Rapid Change Index), EDDI (ang. Evaporative 
+Demand Drought Index), SESR (ang. Standardized Evaporative Stress Ratio). Do 
+identyfikacji susz błyskawicznych używane są też inne charakterystyki suszy – nagły 
+spadek opadów, wilgotność gleby i nienormalnie wysokie temperatury (Jiao i in. 2021). 
+Wilgotność gleby jest kluczową zmienną przy planowaniu rolniczym oraz zarzą-
+dzaniu zasobami wodnymi. Odgrywa również ważną rolę w systemie klimatycznym, 
+ponieważ jej deficyt może wywoływać zmiany w opadach i magazynowaniu energii 
+w systemie gleba-roślinność-atmosfera zarówno w lokalnej, jak i regionalnej skali. 
+Wykrywanie suszy przy użyciu wilgotności gleby przynosi korzyści nie tylko dla 
+rolnictwa, ale również poprawia wiedzę na temat interakcji ziemia-atmosfera w pro-
+gnozowaniu pogody i klimatu. Ilościowe oszacowanie wilgotności gleby pozostaje 
+trudne, zwłaszcza pod pokrywą roślinną (Jiao i in. 2021).
+Ze zdjęć satelitarnych można obliczyć wskaźnik CWSI (ang. Crop Water Stress 
+Index). Wprowadzono go w latach 80. Wskaźnik ten określa stopień niedoboru wody 
+w uprawach na podstawie temperatury powierzchni łanu, temperatury otoczenia oraz 
+dynamiki wody w glebie (Cetin i in. 2023). Najczęściej do określenia wskaźnika 
+wybiera się temperatury mierzone w południe, kiedy rośliny najbardziej cierpią  
+z powodu stresu wody (Luan i in. 2021). Uważany jest za czułe narzędzie do monitoro-
+wania i oceny stresu wodnego roślin dla szerokiej gamy upraw – bawełny, kukurydzy, 
+pszenicy, oliwek, brzoskwini, migdałów, ziemniaka oraz fasoli. CWSI jest w stanie 
+wykazać stres nawet do 48 godzin przed wizualnym zaobserwowaniem go na polu 
+(Tanriverdi i in. 2017, Luan i in. 2021). Wskaźnik CWSI jest w stanie przewidzieć 
+wydajność niektórych upraw w warunkach stresu i opracować schematy zarządzania 
+nawadnianiem (Alvino i Marino 2017, Cetin i in. 2023). Obliczanie CWSI na pod-
+stawie metody zdalnej jest najlepszą i najszybszą metodą do monitorowania i oceny 
+warunków upraw zarówno w okresie stresu wodnego, jak i bez stresu wodnego oraz 
+Ludwika Poręba
+8988
+do planowania nawadniania. Nawadnianie jest największym konsumentem zasobów 
+słodkiej wody, które wykorzystuje ok. 70% wód gruntowych. Użycie wskaźnika 
+CWSI może być sposobem na oszczędzanie wody potrzebnej w nawodnieniach na 
+obszarach szczególnie podatnych na suszę, na przykład w regionie śródziemnomor-
+skim. Ponadto może służyć do łagodzenia szkód spowodowanych suszą zarówno 
+na obszarach nawadnianych, jak i zasilanych deszczem. Oprócz tego wskaźnik ten 
+może być stosowany do polityki zarządzania wodą i planowania nawodnień w skali 
+zlewni oraz szacowania produktywności upraw w dużych systemach nawadniania 
+(Cetin i in. 2023). Mapowanie obszarów nawadnianych jest niezbędne do osiągnię-
+cia precyzyjnych przydziałów wody dla rolnictwa, poprawy naszej wiedzy na temat 
+budżetu wodnego oraz ulepszania symulacji modeli uprawowych i hydrologicznych 
+(Karthikeyan i in. 2020).
+Roślinność odgrywa najbardziej aktywną rolę w modulowaniu obiegu wody  
+i węgla w większości ekosystemów. Rośliny są dobrym miernikiem suszy, ponieważ 
+szybko i dynamicznie odpowiadają na stres hydrologiczny i kontrolują wymianę 
+wody i energii między ziemią i atmosferą. Uruchomienie satelity Landsat w 1972 r. 
+rozpoczęło badania wpływu suszy na wzrost roślinności w skali lokalnej i regionalnej. 
+Dalszy rozwój teledetekcji oraz uruchomienie różnych typów czujników satelitarnych 
+bardzo przyspieszyły zdalne monitorowanie roślinności (Jiao i in. 2021). 
+Susza wpływa na strukturę roślin. Zmiany strukturalne wywołane stresem suszy 
+mogą obejmować zmniejszenie powierzchni liści, zrzucenie liści i zmianę rozkładu 
+kąta nachylenia liści w obrębie korony. Zmiany te można oszacować na podstawie 
+wskaźnika LAI (ang. Leaf Area Index) (Jiao i in. 2021).
+Ze zdjęć satelitarnych można obliczyć różne wskaźniki, które są ważnymi para-
+metrami wykorzystywanymi w różnych zastosowaniach rolniczych. Wskaźniki te są 
+istotne dla cech morfologicznych, fizjologicznych i biofizycznych upraw. Opracowane 
+są w celu opisania stanu wzrostu upraw i wpływu warunków agroklimatycznych, 
+chorób i szkodników, stresu wodnego oraz wpływu sposobu uprawy na wzrost ro-
+ślin. Wskaźniki wegetacji są uzyskiwane jako połączenie danych teledetekcyjnych  
+o różnych długościach fali (zazwyczaj w zakresie czerwonym i podczerwonym) (Jiao 
+i in. 2021, Wu i in. 2023, Karmakar i in. 2024). Wiele wskaźników wegetacyjnych 
+wykorzystywanych jest do szacowania suszy rolniczej – na przykład: VCI (ang. 
+Vegetation Condition Index), NDVI (ang. Normalized Difference Vegetation Index), 
+NDWI (ang. Normalized Difference Water Index), VHI (ang. Vegetation Health Index), 
+SAVI (ang. Soil-Adjusted Vegetation Index), TCI (ang. Temperature Conditio Index) 
+(West i in. 2019, Wu i in. 2023). Niektóre wskaźniki wegetacyjne są integrowane  
+z LST (na przykład: TVDI – ang. Temperature-Vegetation Dryness Index, VTCI – 
+ang. Vegetation Temperature Condition Index, MTVDI – ang. Microwave Tempera-
+ture Vegetation Drought Index, TVPDI – ang. Temperature Vegetation Precipitation 
+Dryness Index), pozwalając na łączenie badań na temat zawartości wody glebowej  
+z monitoringiem suszy. Wskaźniki pochodzące z obrazowań hiperspektralnych wy-
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa....
+9190
+kazują dobrą wydajność w monitorowaniu wczesnego stresu wodnego roślin poprzez 
+odzwierciedlanie fizjologicznych i biochemicznych procesów roślinnych wywołanych 
+suszą. Z kolei czujniki mikrofalowe mają wyższą zdolność penetracji i są mniej po-
+datne na wpływy atmosferyczne (Jiao i in. 2021).
+Jednym z najbardziej powszechnych wskaźników wegetacji do monitorowania 
+zdrowia i dynamik zachodzących w roślinności jest wskaźnik NDVI, który służy 
+jako miara odporności ekosystemu na suszę oraz jest wykorzystywany do określania 
+wzrostu upraw (Ferguson i in. 2022). Wskaźnik NDVI jest związany z biofizyczny-
+mi markerami plonu i wzrostu upraw, używany jest do szacowania plonu (Roznik 
+i in. 2022). Użyteczność wskaźnika NDVI w monitoringu suszy bierze się stąd, że 
+wilgotność gleby odgrywa istotną rolę w trwałym wzroście i zdrowiu roślinności. 
+Wskaźnika tego używa się zarówno w skali lokalnej, jak i globalnej przez naukowców 
+na wszystkich kontynentach. Jest użyteczny przy długo trwających suszach. Mimo 
+dużej popularności i wykorzystania NDVI ma swoje ograniczenia. Jest łatwo zakłócany 
+przez jasność gleby na obszarach o niskiej gęstości roślinności, a czułość wskaźnika 
+jest ograniczona w środowiskach o wysokiej gęstości biomasy. Ponadto jest wrażli-
+wy na czynniki tła, takie jak zacienienie, efekty atmosferyczne oraz nasycenie (West  
+i in. 2019, Jiao i in. 2021). Aby wyeliminować te ograniczenia oraz żeby się bardziej 
+skupiać na cechach fizjologicznych roślin, stworzono inne wskaźniki. Wskaźniki SAVI 
+(ang. Soil-Adjusted Vegetation Index) oraz GEMI (ang. Global Environment Moni-
+toring Index) pozwalają wyeliminować efekt tła glebowego na wskaźniki roślinne, 
+natomiast wskaźnik EVI (ang. Enhanced Vegetation Index) służy do równoczesnej 
+korekty efektu glebowego i atmosferycznego (Jiao i in. 2021).
+Wskaźnik VHI używany do szacowania suszy przez wielu badaczy uważany jest 
+za lepszy od NDVI, ponieważ dodatkowo podaje informacje o kondycji wegetacji  
+w dłuższym okresie czasu. Naukowcy z Azji, Europy, Ameryki Północnej oraz Afryki 
+wykazali użyteczność VHI w zarządzaniu suszą, rozwoju zdalnych możliwości mo-
+nitorowania suszy oraz w badaniach zdrowia roślinności (West i in. 2019).
+Kolejnym popularnym wskaźnikiem jest wskaźnik NDWI. Jest jednym z kom-
+pleksowych wskaźników suszy używanym do historycznego i przestrzennego wykry-
+wania tego zjawiska. Przedstawia ilość wody w stanie ciekłym wewnątrz roślinności. 
+Niższe wartości wskaźnika oznaczają występowanie stresu suszy. Indykator ten nie 
+jest jednak dostępny dla zróżnicowanego terenu i obszaru klimatycznego ze wzglę-
+du na niejednorodność pokrycia terenu i rodzaju gleby. Z tego powody opracowano 
+wskaźnik NDDI (ang. Normalized Difference Drought Index). Koncentruje się on na 
+założeniu, że różnica między NDVI i NDWI wzrasta wraz ze spadkiem zawartości 
+wody w roślinności. Im wyższa wartość NDDI, tym niższy procent wody w roślin-
+ności, co wskazuje na występowanie stresu suszy. Wskaźnik NDDI jest dostępny dla 
+wielu obszarów upraw i jest bardziej wrażliwy na suszę niż pojedyncze użycie NDVI 
+lub NDWI (Jindo i in. 2021).
+Ludwika Poręba
+9190
+Ze względu na złożoność interakcji suszy w ekosystemach obserwacje telede-
+tekcyjne za pomocą pojedynczego czujnika raczej nie zapewnią kompleksowego  
+i przekonującego opisu ich charakterystyki. Oceny oparte na wielu czujnikach mogą  
+poprawić zrozumienie zjawisk spowodowanych suszą, takich jak śmiertelność drzew 
+czy pożary ekosystemów. Mogą także ułatwić wyjaśnienie mechanizmów związa-
+nych z suszą, w tym tych stojących za reakcją roślinności i sprzężenia zwrotnego  
+ziemia–atmosfera podczas suszy (Jiao i in. 2021).
+Podsumowanie
+Zmieniający się klimat skutkuje intensyfikacją zjawiska suszy rolniczej, co po-
+woduje redukcję plonów. Zmniejszenie plonów wpływa negatywnie na bezpieczeń-
+stwo żywnościowe. Ważne jest zatem znalezienie rozwiązań pozwalających szybko 
+reagować na sytuacje stresowe, tak aby szkody były jak najmniejsze.
+Przy budowaniu rolnictwa odpornego na zmiany klimatu ważne jest wykorzystanie 
+nowoczesnych technologii do monitorowania suszy, tak aby można było ją wykryć 
+już na wczesnym etapie i od razu odpowiednio reagować.
+Mapy cyfrowe oraz teledetekcja w postaci zdjęć satelitarnych dostarczają narzę-
+dzi pozwalających na obserwacje zmian zachodzących na polu pod wpływem suszy  
+w czasie rzeczywistym, w skali zarówno lokalnej, jak i regionalnej oraz szybkie 
+działanie w celu zminimalizowania jej skutków.
+Literatura
+1. A b d e l r a o u f M.A., Abouelghar M., Belal A.A., Saleh N., Yones M., Selim A.I., Amin 
+M.E.S., Elwesemy A., Kucher D.E., Maginan S., Savin I.: Crop yield prediction using multi 
+sensors remote sensing (Review Article). The Egyptian Journal of Remote Sensing and Space 
+Sciences, 2022, 25(3): 711-716.
+2. A d a m i d e s G.: A Review of climate-smart agriculture application in Cyprus. Atmosphere, 
+2020, 11(9), 898. 
+3. A l v i n o A., Marino S.: Remote sensing for irrigation of horticultural crops. Horticulturae, 
+2017, 3(2)40.
+4. A t z b e r g e r C.: Advances in remote sensing of agriculture: Context description, existing 
+operational monitoring systems and major information needs. Remote Sensing, 2013, 5(2):  
+949-981.
+5. B o z A.O., Donmez Y., Ozyavuz M.: Use of climate maps in determining sustainable agriculture 
+areas. Journal of Environmental Protection and Ecology, 2020, 21(3): 1062-1071.
+6. C a l z o l a r i C., Ungaro F., Filippi N., Guermandi M., Malucelli F., Marchi N., Staffilani F., 
+Tarocco P.: A methodological framework to assess the multiple contributions of soils to ecosystem 
+services delivery at regional scale. Geodrema, 2016, 261: 190-203.
+7. C e t i n M., Alsenjar O., Aksu H., Golpinar M.S., Akgul M.A.: Estimation of crop water stress 
+index and leaf area index based on remote sensing data. Water supply, 2023, 23(3): 1390-1404.
+8. D a y i o ğ l u M.A., Türker U.: Digital transformation for sustainable future – Agriculture 4.0:  
+A review. Journal of Agricultural Science, 2021, 27(4): 373-399.
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa....
+9. D e b a n g s h i U.: Climate resilient agriculture an approach to reduce the ill-effect of climate 
+change. International Journal of Recent Advances in Multidisciplinary Topics, 2021, 2(7): 309-315.
+10. D o r o s z e w s k i A., Jadczyszyn J., Kozyra J., Pudełko R., Stuczyński T., Mizak K., 
+Łopatka A., Koza P., Górski T., Wróblewska E.: Podstawy Systemu Monitoringu Suszy 
+Rolniczej. Woda-Środowisko-Obszary Wiejskie, 2012, 12(2): 38, 77-91.
+11. E l a i r C., Chaham K.R., Hadri A.: Assessment of drought variability in the Marrakech-Safi 
+region (Morocco) at different time scales using GIS and remote sensing. Water Supply, 2023, 
+23(11): 4592-4624.
+12. F a l l o o n P., Betts R.: Climate impacts on European agriculture and water management in the 
+context of  adaptation and mitigation – The importance of an integrated approach. Science of Total 
+Environment, 2010, 408: 5667-5687.
+13. F e r g u s o n A., Murray C., Tessema Y.M., McKeown P.C., Reymondin L., Loboguerrero A.M., 
+Talsma T., Allen B., Jarvis A., Golden A., Spillane C.: Can remote sensing enable a Biomass 
+Climate Adaptation Index for agricultural systems? Frontiers in Climate, 2022, 4: 1-15.
+14. G a l i e n i A., D’Ascenzo N., Stagnari F., Pagnani G., Xie Q., Pisante M.: Past and future 
+of plant stress detection: An overview from remote sensing to positron emission tomography. 
+Frontiers in Plant Science, 2021, 11, 609155.
+15. H a w o r t h B.T., Biggs E., Duncan J., Wales N., Boruff B., Bruce E.: Geographic information 
+and communication technologies for supporting smallholder agriculture and climate resilience. 
+Climate, 2018, 6(4), 97.
+16. J i a o W., Wang L., McCabe M.F.: Multi-sensor remote sensing for drought characterization: 
+current status, opportunities and a roadmap for the future. Remote sensing of Environment, 2021, 
+256, 112313.
+17. J i n d o K., Kozan O., Iseki K., Maestrini B., van Evert F.K., Wubengeda Y., Arai E., 
+Shimabukuro Y.E., Sawada Y., Kempenaar C.: Potential utilization of satellite remote 
+sensing for field-based agricultural studies. Chemical and Biological Technologies in Agriculture, 
+2021, 8(58).
+18. J a d c z y s z y n J., Stuczyński T.: Wykorzystanie numerycznej mapy glebowo-rolniczej do 
+analizy obszarów wiejskich. Studia i Raporty IUNG-PIB, 2008, 12(5): 55-64.
+19. J a d c z y s z y n J., Smreczak B.: Mapa glebowo-rolnicza w skali 1:25000 i jej wykorzystanie 
+na potrzeby współczesnego rolnictwa. Studia i Raporty IUNG-PIB, 2017, 51(5): 9-27.
+20. K a r a b u l u t A., Egoh B.N., Lanzanova D., Grizzetti B., Bidoglio G., Pagliero L., 
+Bouraoui F., Aloe A., Reynaud A., Maes J., Vandecasteele I., Mubareka S.: Mapping 
+water provisionig services to suport the ecosystem-water-food-energy nexus in the Danube river 
+basin. Ecosysyem Services, 2016, 17: 278-292.
+21. K a r m a k a r P., Teng S.W., Murshed M., Pang S., Li Y., Lin H.: Crop monitoring by 
+multimodal remote sensing: A review. Remote Sensing Applications: Society and Environment, 
+2024, 33, 101093.
+22. K a r t h i k e y a n L., Chawla I., Mishra A.K.: A review of remote sensing applications in 
+agriculture for food security: Crop growth and yield, irrigation, and crop losses. Journal of Hydrology, 
+2020, 586, 124905.
+23. L u a n Y., Xu J., Lv Y., Liu X., Wang H., Liu S.: Improving the performance in crop water 
+deficit diagnosis with canopy temperature spatial distribution information measured by thermal 
+imaging. Agricultural Water Management, 2021, 246, 106699.
+24. R o z n i k M., Boyd M., Porth L.: Improving crop yield estimation by applying higher resoution 
+satellite NDVI imagery and high-resolution cropland masks. Remote Sensing Applications: Society 
+and Environment, 2022, 25, 100693.
+Ludwika Poręba92
+25. R a i R.K., Karada M.S., Mishra R., Agnihorti D., Patel K.K., Thakur S., Singh D.: 
+Transformative role of remote sensing in advancing horticulture: Optimizing sustainability, efficiency 
+and resilience. International Journal of Environment and Climate Change, 2023, 13(10): 3559-3567.
+26. S a k a p a j i S.C., Puthenkalam J.J.: Harnessing AI for climate-resilient agriculture: Opportunities 
+and challenges. European Journal of Theoretical and Applied Sciences, 2023, 1(6): 1144-1158.
+27. T a n r i v e r d i C., Atilgan A., Degrimenci H., Akyuz A.: Comparasion of crop water stress 
+index (CWSI) and water deficit index (WDI) by using remote sensing (RS). Polish Academy of 
+Science Cracow branch, 2017, 3(1): 879-894.
+28. W e s t H., Quinn N., Horswell M.: Remote sensing for drought monitoring & impact assessment: 
+progress, past challenges and future opportunities. Remote Sensing of Environment, 2019, 232, 
+111291.
+29. W i t e k T.: Mapy glebo-rolnicze oraz kierunki ich wykorzystywania. Seria P 18 IUNG, Puławy 1973.
+30. W i r é h n L.: Nordic agriculture under climate change: A systematic review of challenges, 
+opportunities and adaptation strategies for crop production. Land Use Policy, 2018, 77: 63-74.
+31. W u B., Zhang M., Zeng H., Tian F., Potgieter A.B., Qin X., Yan N., Chang S., Zhao Y., 
+Dong Q., Boken V., Plotnikov D., Guo H., Wu F., Zhao H., Deronde B., Tits L., Loupian E.: 
+Challenges and opportunities in remote sensing-based crop monitoring: a review. National Science 
+Review, 2023, 10(4): 1-17.
+Adres do korespondencji: 
+mgr Ludwika Poręba
+Zakład Gleboznawstwa i Analiz Środowiskowych
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Puławy
+tel. 81 47 86 774 
+e-mail: lporeba@iung.pulawy.pl
+AUTOR ORCID
+Ludwika Poręba 0000-0002-7987-1102
+Wykorzystanie map cyfrowych oraz zdjęć satelitarnych do budowania rolnictwa.... 93

@@ -1,0 +1,523 @@
+Rafał Wawer
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+POTENCJAŁ ROLNICTWA 4.0 i 5.0 W ADAPTACJI GOSPODARKI WODNEJ 
+W ROLNICTWIE DO ZMIANY KLIMATU*
+Słowa kluczowe: rolnictwo 4.0 i 5.0, gospodarka wodna, racjonalne gospodarowanie wodą, 
+innowacje technologiczne, zmiany klimatu
+Wstęp
+W ostatnich latach obserwujemy postępującą zmianę klimatu, która w Polsce 
+objawia się nie tylko wzrostem średniej temperatury i zwiększeniem zmienności 
+warunków termicznych, ale i dużymi zmianami w dystrybucji opadów w ciągu roku 
+(Kozyra i in. 2009). 
+Zagrożenia dla rolnictwa wynikające ze zmieniającego się klimatu są wielorakie 
+i oddziaływają z różną intensywnością w różnych krajobrazach i strefach klimatycz-
+nych Polski. 
+Najbardziej widoczne i niosące duże straty, zwłaszcza lokalnie, są ekstremalne 
+zjawiska pogodowe. Zmiana klimatu zwiększa częstotliwość i intensywność ekstre-
+malnych zjawisk pogodowych, takich jak: susze, powodzie, burze czy gradobicia. 
+W Polsce susze rolnicze w latach 2015, 2018 i 2019 znacząco obniżyły plony zbóż, 
+warzyw i roślin pastewnych. Według raportu Instytutu Uprawy Nawożenia i Gle-
+boznawstwa (IUNG 2018) susza w 2018 r. dotknęła ponad 60% powierzchni upraw 
+w Polsce, powodując straty w plonach rzędu 20–30% w niektórych regionach. Po-
+wodzie, takie jak te w 2010 r., niszczą uprawy i infrastrukturę rolną, co dodatkowo 
+obciąża gospodarstwa.
+Zmiana klimatu powoduje również zmiany w rozkładzie opadów i dostępności 
+wody. Prowadzi do nierównomiernego rozkładu opadów – okresy intensywnych 
+16S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 74(28): 16-28 2025
+*Opracowanie wykonano w ramach zadania 9.0. pt. „Wsparcie działań MRiRW w obszarze cyfryzacji, 
+innowacji cyfrowych i innowacyjnych technologii w rolnictwie, m in. Internetu rzeczy (IoT), sztucznej 
+inteligencji (AI) i rolnictwa 4.0” z dotacji budżetowej przeznaczonej na realizację zadań MRiRW  
+w 2025 r.
+https://doi.org/10.26114/sir.iung.2025.74.02
+17
+deszczów przeplatają się z długotrwałymi suszami. W Polsce obserwuje się spadek 
+dostępności wody dla rolnictwa, szczególnie w okresie wegetacji roślin uprawnych, 
+tj. od kwietnia do września. Badania wskazują, że w ciągu ostatnich 30 lat liczba dni 
+z opadami poniżej 1 mm wzrosła w wielu regionach Polski, co ogranicza podaż wody 
+dla upraw (Kundzewicz i in. 2017). Niedobory wody dotykają szczególnie gleb lek-
+kich, o małej lub średniej retencyjności, których udział w Polsce szacuje się na 63%.
+Ze zjawiskami ekstremalnymi i pewną polaryzacją opadów z kumulacją w okresie 
+chłodnym i nawalnymi opadami w lecie obserwujemy nasiloną erozję gleby i degrada-
+cję zasobów naturalnych. Intensywne opady i susze przyczyniają się do erozji gleby, 
+szczególnie na terenach pagórkowatych, takich jak Wyżyna Lubelska czy Pogórze 
+Karpackie. Według raportu Europejskiej Agencji Środowiska (EEA 2020) zmiana 
+klimatu przyspiesza degradację gleb w Europie Środkowej, co zmniejsza ich zdolność 
+do magazynowania wody i składników odżywczych. W Polsce problem ten dotyczy 
+szczególnie gleb piaszczystych, które tracą próchnicę w wyniku susz.
+Nieodłącznym zjawiskiem towarzyszącym ocieplającemu się globalnie klimatowi 
+jest wzrost temperatury i jego wpływ na wegetację. Średnia temperatura w Polsce 
+wzrosła o ok. 1,7°C od lat 50. XX w., co wpływa na długość sezonu wegetacyjnego, 
+ale także na ryzyko stresu cieplnego dla roślin. Wyższe temperatury mogą przyspie-
+szyć rozwój niektórych upraw (np. kukurydzy), ale jednocześnie zwiększają ryzyko 
+uszkodzenia roślin przez fale upałów. Badania wskazują, że wzrost temperatury  
+o 1°C może obniżyć plony pszenicy o 5–10% w warunkach braku odpowiedniego 
+nawadniania (Asseng i in. 2015). Ponadto wcześniejsze kwitnienie roślin zwiększa 
+ryzyko uszkodzeń przez wiosenne przymrozki.
+Przesuwanie się granic stref klimatycznych, odpowiadających często zasięgom 
+występowania siedlisk przyrodniczych oraz gatunków roślin i zwierząt, powoduje roz-
+przestrzenianie się szkodników i chorób. Cieplejszy klimat sprzyja rozwojowi nowych 
+gatunków szkodników i patogenów. W Polsce odnotowano pojawienie się gatunków 
+inwazyjnych, takich jak omacnica prosowianka, która wcześniej występowała tylko 
+w cieplejszych regionach (Bereś 2015). Wzrost temperatury sprzyja także rozwojowi 
+chorób grzybowych, takich jak rdza czy fuzarioza, co zwiększa zapotrzebowanie na 
+środki ochrony roślin i podnosi koszty produkcji.
+Oprócz negatywnego wpływu na produkcję roślinną i jakość gleby zmiana klima-
+tu wpływa także na sektor hodowlany. Wysoka temperatura powoduje stres cieplny  
+u zwierząt, co obniża ich produktywność (np. wydajność mleczną krów o 10–20%  
+w okresach upałów) oraz zwiększa ryzyko chorób (Nardone i in. 2010). Niedobory 
+pasz wynikające z susz rolniczych dodatkowo podnoszą koszty produkcji.
+Ekonomiczne i społeczne konsekwencje ocieplenia klimatu to przede wszystkim  
+zwiększenie niepewności ekonomicznej rolników. Straty w plonach i wzrost kosztów 
+produkcji (np. na ochronę roślin) mogą obniżyć rentowność gospodarstw. Raport Mi-
+nisterstwa Rolnictwa i Rozwoju Wsi (2021) wskazuje, że małe i średnie gospodarstwa 
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+1918
+w Polsce są szczególnie narażone na skutki zmiany klimatu z powodu ograniczonych 
+zasobów finansowych na adaptację. 
+Strategie adaptacyjne skupiają się przede wszystkim na:
+• wprowadzeniu odmian roślin odpornych na suszę i wysoką temperaturę;
+• rozwoju systemów nawadniania i retencji wody;
+• dywersyfikacji upraw w celu zmniejszenia ryzyka strat;
+• stosowaniu praktyk rolnictwa regeneracyjnego, które poprawiają jakość gleby.
+Listę te należałoby uzupełnić o stosowanie technologii rolnictwa precyzyjnego 
+(rolnictwo 3.0) (Zhu 2011), inteligentnego (rolnictwo 4.0) (Kordowska i in. 2023) 
+i autonomicznego (rolnictwo 5.0), przyjmując ten uproszczony podział semantycz-
+ny uwzględniający ewolucję technologii cyfrowych opierających się na zasadzie 
+wprowadzonej przez rolnictwo precyzyjne – środki produkcji w ilości tylko tyle ile 
+trzeba, gdzie trzeba i kiedy trzeba (Wawer 2023). Według Mesías-Ruiz i in. (2023)  
+w kontekście społeczeństwa 5.0 określają rolnictwo 5.0 jako: „ewolucja w kierunku 
+wysoce zautomatyzowanego i inteligentnego rolnictwa, które integruje technologie, 
+takie jak sztuczna inteligencja, uczenie maszynowe, big data i IoT, aby zwiększyć 
+precyzję ochrony upraw, poprawić efektywność i zapewnić zrównoważony rozwój. 
+Kluczowym elementem jest optymalizacja procesów, takich jak wykrywanie szko-
+dników czy zarządzanie nawadnianiem, przy użyciu zaawansowanych algorytmów  
+i urządzeń brzegowych”.
+Technologie rolnictwa 4.0 i 5.0
+Rozwiązania rolnictwa 5.0 można podzielić pod względem funkcjonalnym na kilka 
+grup, analogicznie do rolnictwa 4.0, idąc za listą sporządzoną przez autora na użytek 
+Rozporządzenia MRiRW z dnia 17.07.2023 w sprawie szczegółowego przeznaczenia, 
+warunków i trybu udzielania wsparcia w zakresie rolnictwa 4.0 w ramach Krajowego 
+Planu Odbudowy i Zwiększania Odporności (Dz.U. z 2023 r. poz. 1389):
+1. Czujniki i sensory przetwarzające wielkość mierzoną (wilgotność powietrzna 
+lub gleby, temperaturę, ciśnienie, lokalizację GPS itd.) na sygnał elektryczny, 
+który może być przesyłany i odczytywany przez urządzenia, które na podstawie 
+pomiaru dają bezpośrednio informacje rolnikowi (np. jaka jest wilgotność lub 
+ile trzeba wody do nawodnienia) albo automatycznie ustawia urządzenia – np. 
+dawkowanie wody, czy nawozów. Dane z czujników mogą być też wysyłane do 
+systemu zarządzania gospodarstwem i ten daje informację rolnikowi lub steruje 
+automatycznie urządzeniami:
+a. Czujniki meteorologiczne: wilgotność i temperatura powietrzna, ciśnienie 
+atmosferyczne, kierunek i prędkość wiatru, usłonecznienie. Są to, m.in.: au-
+tomatyczne stacje pogodowe z transmisją GPRS, LoRaWAN lub inną; zdalne 
+czujniki wilgotności i temperatury powietrza z transmisją radiową krótkiego 
+Rafał Wawer
+1918
+zasięgu (np. sieci WSN zbudowane na protokole ZigBee), dalekiego zasięgu 
+LoRaWAN lub do sieci GSM via GPRS. Dane z tych czujników są używane 
+w praktyce do: 
+– określania parowania wody z gleby i roślin (ewapotranspiracja ET0), aby 
+ustalić odpowiednią dawkę nawodnienia dziennego (niedoskonała metoda); 
+– określania optymalnych terminów zabiegów ochrony roślin – wilgotność  
+i prędkość wiatru; 
+– ostrzegania o przymrozkach. 
+b. Czujniki wilgotności gleby: najczęściej spotykane czujniki do pomiaru wilgot-
+ności gleby to czujniki mierzące stałą dielektryczną typu FDT oraz wakuometry 
+mierzące ciśnienie ssące gleby, które jest ściśle związane z niedoborem wody. 
+Niestety ze względu na to, że każdy gatunek gleby ma swoją charakterystykę, 
+samego pomiaru FDR nie można przekształcić na obliczenie braków wody  
+w glebie – do tego potrzebna jest informacja o gatunku gleby. Sensory podci-
+śnieniowe (wakuometry, tensometry) mierzą bezpośrednio niedobory wody, 
+ale są niestety podatne na rozszczelnienie. Przykłady: pojemnościowe FDR 
+lub TDR z komunikacją radiową; tensometry cyfrowe z komunikacją radiową; 
+czujniki opornościowe – tanie, ale ich dokładność zależy od pH, dlatego nie 
+zaleca się ich stosowania w nawadnianiu precyzyjnym.
+c. Czujniki lokalizacji: przeważnie w formie modułów GPS. Dane o lokalizacji 
+stosowane są we wspieraniu ruchu maszyn kierowanych przez człowieka po 
+ścieżkach, w autonomicznych maszynach poruszających się po ścieżkach,  
+w rolnictwie precyzyjnym – dawkowanie nawozu lub wody na podstawie mapy 
+zasobności pola. Stosowane są również do lokalizacji zwierząt w stadzie. Służą 
+do zarzadzania flotą maszyn w dużych gospodarstwach oraz spółdzielniach, 
+gdzie maszyny są współdzielone. Przykłady: czujniki oparte na GPS lub GPS ze 
+wspomaganiem RTK/RTN, umożliwiające przejazd nadzorowany po ścieżkach 
+(asysta dla operatora traktora); systemy autonomicznego sterowania pojazdem 
+po zadanych ścieżkach na podstawie GPS/RTK.
+d. Czujniki umieszczone na ciele zwierząt hodowlanych: lokalizacja, temperatura, 
+biosensory wykrywające nieprawidłowości w składzie krwi (przeciwciała); 
+e. Czujniki jakości wody: proste niespecyficzne: przewodność elektryczna (świad-
+czy o zawartości jonów: nawozy, zasolenie), mętność; elektrodowe specyficzne 
+zawartość tlenu rozpuszczonego, azotany, pH itd. Sensory elektrodowe spe-
+cyficzne wymagają niestety okresowej kalibracji w roztworach wzorcowych.
+f. Biosensory − czujniki z elementem czułym na materiał biologiczny: prze-
+ciwciała, enzymy, hormony itd. Przykładem mogą tu być czujniki chorób ryb  
+w hodowlach morskich; czujniki wykrywające antygeny wybranych patogenów 
+w hodowlach akwakulturowych; czujniki wykrywające antygeny patogenów 
+w intensywnym chowie zwierząt; czujniki wykrywające zarodniki patogenów 
+roślin uprawnych oraz feromony szkodników. 
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+2120
+g. Czujniki optyczne − czujniki oparte na matrycach fotoczułych w różnych 
+zakresach częstotliwości światła: widzialne, podczerwień, promieniowanie 
+termalne itd. Zastosowanie od teledetekcji po wykrywanie zwierząt z gorączką 
+w hodowlach zamkniętych. Teledetekcja: od satelitów przez drony po skanery 
+powierzchniowe do gleby (przyziemne, dotykowe). Wyposażone w sztuczną 
+inteligencję mogą służyć do wykrywania obecności i identyfikacji obiektów, 
+np. drapieżników, złodzieja itd.
+Przykłady: czujniki nadziemne NDVI połączone w sieć WSN (bezprzewo-
+dową sieć czujników); czujniki termalne wykrywające zwierzęta z gorączką 
+w hodowlach zamkniętych; czujniki do identyfikacji i wykrywania chorób  
+i szkodników; kamery multispektralne do dronów rozpoznawczych, umożli-
+wiające monitoring stanu pól.
+h. Czujniki operacyjne do maszyn − najczęściej zintegrowane w systemie ob-
+sługi maszyny. W starszych maszynach można dokupić czujniki do: pomiaru 
+zużycia paliwa, lokalizacji, parametrów pracy, mapowania plonu, mapowania 
+właściwości gleby (np. pomiar EC na bronie), mapowania rozsiewu/rozrzutu/
+oprysku itd. 
+Przykłady: czujki umożliwiające cyfryzację parku maszynowego wyposażo-
+ne w komunikację zdalną lub przewodową ModBus; pomiar zużycia paliwa; 
+czujnik NDVI wraz z systemem sterującym rozsiewaczem VRA (zmienno-
+dawkującym).
+2. Systemy wspierania decyzji; systemy komputerowe, stacjonarne lub on-line, które 
+na podstawie pomiarów różnych parametrów wykonywanych za pomocą czujników 
+lub importowanych z baz danych w Internecie, dają rolnikowi informację niezbędną 
+do podejmowania decyzji, co do stosowania praktyk i zabiegów. Systemy te mogą 
+również wykonywać automatycznie zadania, np. kontrolę nawadniania. Do automa-
+tyzacji potrzebne są elementy wykonawcze, np. zawory. Systemy DSS w produkcji 
+roślinnej na poziomie pola można podzielić pod względem realizowanych funkcji:
+a. Wspieranie nawadniania: systemy DSS wspomagają rolnika, dając informację 
+kiedy i ile nawadniać, aby otrzymać: maksymalny plon, maksymalny zysk 
+lub uratować plantację przed suszą przy niedoborach wody. Zakres i cel DSS 
+zależą od producenta. Przykłady: systemy wyposażone w bezprzewodową sieć 
+czujników wilgotności gleby WSN, podające bieżącą wilgotność, bieżący stres 
+wodny, prognozę opadu, dawkę nawodnienia dopasowana do rośliny i gleby. 
+Opcjonalnie wyposażone w sterowanie zaworami – bądź automatyczne bądź 
+nadzorowane. Aby ten system mógł pracować, należy wykonać strefowanie 
+pól pod względem glebowym.
+b. Wspieranie nawożenia: system działa w różnych zakresach czasowych; długo-
+terminowo – system opracowuje plan nawożenia wraz z planem jego wykona-
+nia w optymalnych terminach i dawkach, bazując na mapie zasobności gleby  
+i informacji o wymogach rośliny uprawnej oraz danych z czujników;  
+Rafał Wawer
+2120
+– krótkoterminowo – system na podstawie zdjęć satelitarnych lub lotniczych 
+wylicza wskaźniki wigoru (NDVI lub inny) i zaleca dawki nawożenia na 
+bieżąco;
+– w czasie rzeczywistym (NRT) – system dobiera dawkowanie w rozsiewaczu 
+lub opryskiwaczu na podstawie czujnika NDVI zamontowanego z przodu 
+zestawu roboczego, sterując dawkowaniem nawozu wg odczytów z czujnika. 
+Przykłady: systemy bazujące na analizie gleby (zasobność), strefowaniu 
+(teledetekcja satelitarna lub lotnicza, poparta badaniem gleb) oraz danych 
+o potrzebach pokarmowych odmian roślin uprawnych. Monitoring bieżący 
+NDVI i innych parametrów uprawy pozwala na optymalny dobór terminów 
+by zminimalizować straty
+c. Wspieranie ochrony roślin: systemy te można podzielić na prewencyjne lub 
+doraźne. Systemy prewencyjne korzystają z bazy danych chorób, zawierają-
+cych charakterystyki patogenów, środki aktywny, optymalne terminy, w tym 
+interpretację danych meteo itd. Systemy doraźne posiadają zaawansowane na-
+rzędzia rozpoznawania obrazu i identyfikacji chorób/szkodników. Identyfikują 
+zagrożenia i mogą sterować aplikacja środków aktywnych, dobierając dawki do 
+potrzeb i ograniczając zabiegi do niezbędnego minimum. Najnowsze systemy 
+wykorzystują roboty do mechanicznego usuwania chwastów lub szkodników.
+3. Systemy zarządzania gospodarstwem − są to systemy przeznaczone do kom-
+pleksowego zarządzania w gospodarstwie (FMS). Zawierają najczęściej moduły: 
+magazynowe do nawozów i ŚOR; inwentaryzacji i rejestracji czasu pracy maszyn; 
+mapowe do kartowania pól; rolnictwa precyzyjnego obsługujące tworzenie map 
+zawartości składników odżywczych czy stref nawodnieniowych, czasu pracy  
+i zadaniowanie pracowników, czujniki systemu wspierania decyzji; zarządzanie 
+aktuatorami (urządzenia wykonawcze np. zawory do wody czy fertygazji, siłowniki 
+zastawek, przenośniki taśmowe itd.). Mogą też zawierać moduły automatycznego 
+przygotowywania raportów: ślad węglowy, ślad wodny, paszport żywnościowy, 
+zużycie wody na tonę plonu itd. Systemy zarządzania gospodarstwem mogą też 
+być wyposażone w moduły analizy danych z gospodarstwa, np. pracochłonności 
+i kosztu zabiegów. Moduły te ułatwiają efektywne doradztwo i podejmowanie 
+decyzji, aby polepszyć ekonomikę produkcji, czy dobrać właściwie inwestycje  
+w maszyny i budynki. Najbardziej zaawansowane systemy umożliwiają progra-
+mowanie urządzeń autonomicznych – od systemów nawodnień po roboty polowe. 
+Przykłady narzędzi dostępnych na rynku: eAgronom, Agrivi, Farm360, FarmCloud.
+4. Roboty i coboty – urządzenia sterowane zdalnie lub całkowicie autonomiczne, 
+realizujące zadania po zaprogramowaniu przez użytkownika lub odpowiednio 
+skonfigurowany system DSS lub FMS. Na świecie najczęściej spotykane roboty 
+to maszyny do autonomicznej uprawy (traktory z zestawami uprawowymi stero-
+wane za pomocą GPS i bezprzewodowej komunikacji z systemem sterującym/
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+2322
+programatorem), siewu i opryskiwania (samobieżne zestawy z lub bez traktora), 
+roboty do ochrony roślin – automatyczne wykrywanie chwastów lub szkodników 
+i mechaniczna (cięcie lub wypalenie) ich eliminacja lub usunięcie porażonych 
+roślin. Inną gałęzią robotyki rolniczej są maszyny robotyczne do zbioru owoców, 
+samodzielnie rozpoznające stadium dojrzałości owoców na roślinie i wybiórczo 
+zbierających tylko te o odpowiedniej dojrzałości.  Przykłady: ROBOTTI do siewu 
+i rozsiewania; CASE IH, JD 8R – ciągniki autonomiczne; Dino do odchwaszczania 
+upraw warzywniczych.
+5. Inne technologie:
+a. Zdalne systemy wykonawcze − systemy wykonujące pracę, sterowane przez 
+operatora lub automatycznie przez DSS lub FMS. Przykładem mogą tu być 
+zawory w nawodnieniach, zastawki na sieci melioracyjnej sterowanej na 
+podstawie pomiaru wilgotności pól, działka soniczne do rozpędzania chmur, 
+wiatraki przeciwmrozowe, zamgławiacze itd. 
+b. Drony rozpoznawcze − drony wyposażone w kamery specjalistyczne stoso-
+wane do: mapowania wigoru roślin, co daje informacje o stanie łanu/plantacji 
+i lokalizacji, gdzie występują niedobory wody lub składników; wykrywania 
+ognisk chorób lub ekspansji szkodników czy szkód łowieckich.
+c. Drony wykonawcze − drony realizujące aplikację środków czynnych lub 
+nawozów według zasad rolnictwa precyzyjnego, tj. tylko tam, gdzie trzeba  
+i tylko tyle, ile niezbędne. Mogą one operować autonomicznie na podstawie 
+map otworzonych np. przez drony obserwacyjne lub bezpośrednio na podstawie 
+obserwacji własnej. Są to drony do precyzyjnej aplikacji pestycydów.
+d. Systemy ulepszające starsze rozwiązania − systemy umożliwiające zastosowa-
+nie najnowszych technologii na starszych maszynach. Dobrym przykładem są 
+tu sterowniki GPS do traktorów, sterowniki zaworów itd. 
+Podsumowując, rolnictwo 4.0, znane również jako rolnictwo precyzyjne lub cy-
+frowe, stanowi nowoczesny paradygmat oparty na integracji zaawansowanych tech-
+nologii, takich jak internet rzeczy (IoT), sztuczna inteligencja (AI), big data, drony, 
+robotyka, teledetekcja satelitarna oraz systemy GIS (ang. Geographic Information 
+Systems). Technologie te umożliwiają rolnikom zbieranie i analizę danych w czasie 
+rzeczywistym, co pozwala na optymalizację zasobów, zwiększenie efektywności 
+produkcji oraz budowanie odporności na skutki zmiany klimatu. 
+W Polsce, gdzie zmiany klimatu manifestują się poprzez coraz częstsze susze, fale 
+upałów, pojawianie się nowych szkodników oraz anomalie pogodowe zaburzające 
+dotychczasowe terminarze zabiegów nawożenia, technologie rolnictwa 4.0 oferują 
+konkretne rozwiązania adaptacyjne. Obejmują one minimalizację strat, promocję 
+zrównoważonego rozwoju, redukcję emisji gazów cieplarnianych i poprawę bezpie-
+czeństwa żywnościowego (Islam i Karim 2023).
+Rafał Wawer
+2322
+Technologie cyfrowe jako narzędzie do adaptacji rolnictwa do zmiany klimatu
+Rolnictwo jest sektorem szczególnie wrażliwym na zmiany klimatu, ale ma poten-
+cjał do łagodzenia ich skutków poprzez wdrożenie cyfrowych innowacji. Precyzyjne 
+rolnictwo może zmniejszyć zużycie wody o 20–50%, pestycydów o 30–50% oraz 
+nawozów o 15–25%, co bezpośrednio wspiera adaptację do ekstremalnych warun-
+ków pogodowych (Tembhurne i in. 2025). Poniżej przedstawiono szczegółowy opis 
+możliwości zastosowania tych technologii w adaptacji do kluczowych wyzwań kli-
+matycznych w Polsce, z odniesieniami do literatury naukowej.
+1. Adaptacja do susz − susze rolnicze, które w Polsce w latach 2015–2020 spowo-
+dowały straty w plonach rzędu 20–40% (IUNG 2018), są jednym z głównych 
+zagrożeń wynikających ze zmiany klimatu. Technologie rolnictwa 4.0 umożliwiają 
+precyzyjne zarządzanie zasobami wodnymi, co jest kluczowe dla minimalizacji 
+skutków niedoborów wody. 
+a. Systemy nawadniania oparte na IoT i czujnikach: czujniki glebowe i meteoro-
+logiczne IoT monitorują wilgotność gleby, temperaturę i opady w czasie rze-
+czywistym, umożliwiając automatyczne dostosowanie nawadniania. Systemy 
+nawadniania kroplowego zintegrowane z AI mogą zmniejszyć zużycie wody  
+o 30–60% w uprawach intensywnych, takich jak warzywa czy kukurydza, co jest 
+szczególnie istotne w centralnej Polsce, gdzie gleby lekkie są podatne na susze 
+(Chukwu 2023). Badania IUNG-PIB w ramach projektu ENORASIS wskazały 
+na możliwość osiągnięcia redukcji zużycia wody o 65% w ziemniaku w po-
+równaniu z nawadnianiem opartym na maksymalnym parowaniu terenowym 
+w uprawie ziemniaka i/aż 10-krotne zmniejszenie zużycia wody na plantacji 
+maliny wczesnej w porównaniu ze standardowo stosowaną przez rolników 
+strategią nawadniania do pełnej pojemności wodnej gleby (Wawer 2023). Na 
+Cyprze system IoT4Potato, wykorzystujący czujniki gaiatrons, zoptymalizował 
+nawadnianie, redukując zapotrzebowanie na wodę o 22% (Adamides i in. 2020).
+b. Teledetekcja i drony − drony wyposażone w kamery multispektralne oraz sate-
+lity, takie jak Sentinel-1 i Sentinel-2, dostarczają danych o wskaźnikach NDVI 
+(ang. Normalized Difference Vegetation Index), co pozwala na identyfikację 
+obszarów dotkniętych suszą i precyzyjne nawadnianie. Badania wskazują, że 
+te technologie zwiększają efektywność wodną o 20–40%, minimalizując straty 
+plonów w okresach suchych (Adamides i in. 2020). GIS i remote sensing wspie-
+rają mapowanie wilgotności gleby, co ułatwia prognozowanie susz i adaptację 
+upraw w Polsce (Grigorieva i in. 2023).
+c. Modele predykcyjne AI – sztuczna inteligencja analizuje dane historyczne 
+i pogodowe, przewidując ryzyko suszy i optymalizując harmonogramy na-
+wadniania. W Korei Południowej model smart farm RDA integruje AI z IoT, 
+poprawiając odporność na susze poprzez precyzyjne zarządzanie wodą (Jang 
+i in. 2024). Te rozwiązania promują również zrównoważone praktyki, takie 
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+2524
+jak alternate wetting and drying, które zmniejszają zużycie wody o 30–60% 
+(Chukwu 2023).
+2. Adaptacja do fal upałów − fale upałów, które w Polsce stają się coraz częstsze  
+w wyniku wzrostu średniej temperatury o 1,7°C od lat 50. XX wieku (Kundzewicz 
+i in. 2017), powodują stres cieplny u roślin i zwierząt, obniżając plony o 10–20% 
+i produktywność hodowli. Rolnictwo 4.0 oferuje narzędzia do monitorowania  
+i łagodzenia tych efektów.
+a. Monitorowanie mikroklimatu z IoT – czujniki IoT w szklarniach i na polach 
+mierzą temperaturę, wilgotność i nasłonecznienie, umożliwiając automatyczne 
+sterowanie systemami chłodzącymi lub zacieniającymi. W zamkniętych syste-
+mach, takich jak hydroponika czy farmy wertykalne, technologie te redukują 
+zużycie wody o 50% i minimalizują stres cieplny (Grigorieva i in. 2023). GIS  
+i uczenie maszynowe wspierają ocenę przydatności gruntów pod uprawy odpor-
+ne na wysokie temperatury, co jest szczególnie istotne w regionach południowej 
+Polski (Chukwu 2023).
+b. Selekcja odmian odpornych z AI – algorytmy AI analizują dane genetyczne  
+i klimatyczne, wspierając hodowlę odmian odpornych na upały (heat-tole-
+rant varieties). W Japonii i Afryce Południowej cyfrowe narzędzia pomagają  
+w wyborze odmian o niższych wymaganiach chłodu, co jest adaptacją do fal 
+upałów (Teklu i in. 2023). W hodowli zwierząt czujniki IoT monitorują stres 
+cieplny u bydła, dostosowując systemy chłodzenia i poprawiając wydajność 
+mleczną o 15–20% (Chukwu 2023).
+3. Adaptacja do nowych szkodników – zmiana klimatu sprzyja rozprzestrzenianiu  
+się w Polsce nowych szkodników, takich jak omacnica prosowianka (Bereś 2015). 
+Technologie rolnictwa 4.0 umożliwiają wczesne ich wykrywanie i precyzyjne 
+zwalczanie, minimalizując wpływ na środowisko. 
+Drony i teledetekcja do monitoringu: 
+a. Drony z kamerami multispektralnymi i termowizyjnymi wykrywają stres 
+roślinny wywołany przez szkodniki na wczesnym etapie. Na Cyprze dane  
+z satelitów Sentinel-2 wspierają prognozowanie chorób, takich jak Phytophthora 
+infestans, co pozwala na szybką reakcję (Adamides i in. 2020). Technologie 
+te redukują użycie pestycydów o 30–50% poprzez precyzyjne aplikowanie 
+środków ochrony roślin (ang. targeted application) (Tembhurne i in. 2025).
+b. AI w ochronie roślin – uczenie maszynowe analizuje obrazy z dronów i dane 
+środowiskowe, przewidując infestacje szkodników. W Chinach prognozy pest 
+outbreak oparte na AI informują rolników w czasie rzeczywistym, zwiększając 
+skuteczność ochrony roślin o 90% w porównaniu z tradycyjnymi metoda-
+mi (Teklu i in. 2023). Autonomiczne roboty do mechanicznego zwalczania 
+Rafał Wawer
+2524
+szkodników, takich jak chwasty, minimalizują użycie chemikaliów, promując 
+zrównoważone praktyki (Chukwu 2023).
+c. Integrated Pest Management (IPM) z IoT − systemy IoT integrują dane pogo-
+dowe i biologiczne, wspierając IPM. Przykłady z Nepalu pokazują, że cyfrowe 
+narzędzia zwiększają odporność na szkodniki poprzez hodowlę odmian od-
+pornych (ang. resistant varieties) (Teklu i in. 2023). Korzyści obejmują niższe 
+koszty i mniejszy wpływ na środowisko (Jang i in. 2024).
+4. Adaptacja do zmiennych terminów nawożenia − zmienne warunki klimatyczne, 
+takie jak nieregularne opady i zmiany temperatury, wpływają na zmiany terminów 
+nawożenia, zwiększając ryzyko strat składników odżywczych. Rolnictwo 4.0 
+oferuje rozwiązania do precyzyjnego zarządzania nawożeniem.
+a. Variable Rate Technology (VRT): systemy VRT oparte na GPS i GIS umożli-
+wiają zmienne dawkowanie nawozów w zależności od warunków glebowych 
+i potrzeb roślin. Narzędzia takie jak Nutrient Expert zwiększają efektywność 
+azotu o 10–15% (Chukwu 2023). W Szkocji cyfrowe monitorowanie gleby 
+optymalizuje nawożenie w warunkach zmiennej pogody, co jest istotne również 
+dla Polski, gdzie opady są coraz bardziej nieprzewidywalne (Teklu i in. 2023).
+b. Czujniki − czujniki liściowe (np. Leaf Color Chart) i teledetekcja mierzą po-
+trzeby roślin w składniki odżywcze, umożliwiając precyzyjne terminy nawo-
+żenia. W Grecji zwiększone nawożenie azotowe jest dostosowywane cyfrowo 
+do warunków suszy, co minimalizuje straty składników odżywczych (Teklu  
+i in. 2023). Fertygacja ze wsparciem IoT redukuje odpływ nawozów, obniżając 
+emisje N2O o 5–35% (Zhang i in. 2025).
+c. Predykcja AI – algorytmy AI analizują dane pogodowe i glebowe, optymalizu-
+jąc harmonogramy nawożenia. W Rosji platformy cyfrowe wspierają redukcję 
+syntetycznych nawozów, zwiększając efektywność wykorzystania azotu (NUE) 
+o 30–50% (Teklu i in. 2023). 
+Rolnictwo 4.0 integruje powyższe technologie w kompleksowe platformy za-
+rządzania, takie jak gaiasense na Cyprze czy koreański model smart farm, które 
+zwiększają odporność gospodarstw na zmiany klimatu (Jang i in. 2024). W Polsce 
+systemy zarządzania gospodarstwem FMS, takie jak: eAgronom, Farm360 czy 
+FarmCloud; również umożliwiają agregację danych i generowanie informacji niezbęd-
+nych do podejmowania decyzji w warunkach zmieniającego się klimatu. Korzyści 
+ekologiczne obejmują redukcję emisji CO2 o 10–20%, poprawę żyzności gleby oraz 
+zwiększenie dochodów rolników dzięki optymalizacji zasobów (Islam i Karim 2023). 
+W Polsce programy takie jak Strategia zrównoważonego rozwoju wsi, rolnictwa  
+i rybactwa 2030 promują cyfryzację, wspierając wdrożenie technologii rolnictwa 4.0 
+(Kordowska i in. 2023). Strategia Europejskiego Zielonego Ładu i jej mechanizm 
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+2726
+„od pola do stołu” polegający de facto na paszportyzacji żywności może być oparty 
+w całości na cyfrowych narzędziach współpracujących z systemami doradczymi na 
+polu, w transporcie oraz przetwórstwie.
+Wyzwania i ograniczenia 
+Wdrożenie rolnictwa 4.0 w Polsce napotyka bariery, takie jak wysokie koszty 
+technologii, brak kompetencji cyfrowych wśród rolników oraz ograniczone finanso-
+wanie badań i rozwoju (B+R). Małe i średnie gospodarstwa, dominujące w Polsce, 
+borykają się z trudnościami finansowymi przy inwestycjach w technologie precyzyjne 
+(Kordowska i in. 2023). Dodatkowo starsi rolnicy mogą mieć trudności z adapta-
+cją do nowych technologii z powodu braku wykształcenia cyfrowego (Saiz-Rubio  
+i Rovira-Más 2020, Kordowska i in. 2023).
+Przyszłość rolnictwa 4.0 w Polsce zależy od wsparcia finansowego i edukacyj-
+nego. Rozbudowany system państwowego doradztwa rolniczego ma teoretycznie 
+duży potencjał w szerokim propagowaniu technologii cyfrowych, jednak jest on 
+przeciążony doradztwem niezwiązanym bezpośrednio z technologią. Doradztwo 
+współpracuje ściśle z instytucjami badawczo-rozwojowymi podległymi MRiRW, 
+które opracowują bezpieczne i wydajne technologie oraz wdrożenia, co obniża 
+ryzyko dla samych rolników. Kaskadowy system testowania i wdrażania innowacji  
+w rolnictwie od instytucji naukowych przez doradców do rolników, sprawdzał się 
+przez dekady. W obecnym czasie dostęp do najnowszych technologii jest utrud-
+niony dla instytucji badawczych, ze względu na koszty samych innowacji, jak  
+i konieczność zatrudniania wysokiej klasy specjalistów w zakresie automatyzacji  
+i informatyki, dla których warunki zatrudnienia w instytutach nie są wystarczająco 
+atrakcyjne. Powoduje to istotną lukę w wiedzy. Pojawiające się innowacje nie są 
+testowane w warunkach eksperymentalnych, co uniemożliwia ich obiektywną ocenę 
+i przydatność dla rolnictwa w warunkach polskich. Wojewódzkie ODR-y na własną 
+rękę starają się o urządzenia rolnictwa 4.0, ale testy i doświadczenia prowadzone są 
+w niewystarczającym zakresie, nierzadko jako doświadczenie demonstracyjne, a nie 
+ścisłe. W efekcie rolnik jako użytkownik końcowy często zdany jest wyłącznie na 
+materiały reklamowe producenta bądź opinię przedstawiciela handlowego. Powoduje 
+to obiektywnie wzrost ryzyka inwestycyjnego dla rolników. Nietrafione inwestycje 
+są ukazywane w mediach społecznościowych jako przykład wątpliwej użyteczności 
+technologii cyfrowych, opóźniając ich adaptację i upowszechnienie tych, które mają 
+potencjał zwiększenia konkurencyjności polskiej produkcji rolniczej.
+Raport NCBR dotyczący wdrażania technologii rolnictwa 4.0 (Kordowska i in. 
+2023) wskazuje na programy unijne, takie jak Plan Strategiczny dla Wspólnej Poli-
+tyki Rolnej 2023–2027 oraz krajowe inicjatywy promujące cyfryzację i adaptację do 
+zmiany klimatu jako istotne mechanizmy instytucjonalne rozwoju tych technologii  
+Rafał Wawer
+2726
+w Polsce i UE. Polskie instytucje naukowe oraz firmy biorą udział w wielu projektach 
+badawczo-rozwojowych. Powstają startup’y, finansowane są innowacje. Efekt tych 
+działań jest jednak wciąż zbyt mało widoczny w przysłowiowym polu, szczególnie 
+z logo polskiej firmy. Aby zmienić ten stan rzeczy, rekomendacje zawarte w raporcie 
+obejmują: zwiększenie finansowania na B+R w sektorze rolnym, tworzenie farm de-
+monstracyjnych pokazujących korzyści technologii rolnictwa 4.0 oraz szkolenia dla 
+rolników w zakresie kompetencji cyfrowych, aby zwiększyć adaptację technologii.
+Literatura
+1. Adamides G., Kalatzis N., Adamides A., Marianos N., Chatzipapadopoulos F., 
+Giannakopoulou, M., Papadavid G., Vassiliou V., Neocleous D.: Smart Farming 
+Techniques for Climate Change Adaptation in Cyprus. Atmosphere, 2020, 11, 557; https://doi.
+org/10.3390/atmos11060557 
+2. A s s e n g S. i in.: Rising temperatures reduce global wheat production. Nature Climate Change, 
+2015, 5(2): 143-147.
+3. B e r e ś P.: Omacnica prosowianka – nowe zagrożenie dla upraw kukurydzy w Polsce. Progress 
+in Plant Protection, 2015, 55(3): 231-238.
+4. C h u k w u O.: Adaption of smart applications in agriculture to enhance production. Artificial 
+Intelligence in Agriculture, 2023, 12: 36-44; DOI: 10.1016/j.aiia.2024.02.003
+5. EEA 2020. Climate change adaptation in the agriculture sector in Europe. European Environment 
+Agency Report; https://www.eea.europa.eu/publications/climate-change-adaptation-in-the-
+agriculture
+6. G r i g o r i e v a E., Loubimtseva E., Urazmetova A.: Adaptation of Agriculture to Climate 
+Change: A Scoping Review. Climate, 2023, 11(10), 202; DOI: 10.3390/cli11100202
+7. I s l a m M.A., Karim M.A.: The Role of Digital Agriculture in Mitigating Climate Change and 
+Ensuring Food Security: An Overview. Sustainability, 2023, 15(6), 5325; DOI: 10.3390/su15065325
+8. IUNG 2018. Raport o stanie suszy rolniczej w Polsce 2018. Instytut Uprawy Nawożenia i Gle-
+boznawstwa w Puławach; http://www.iung.pl
+9. J a n g S.S., Lee J.Y., Kim H.S.: Effects of changes in climatic means, variability, and agro-technol-
+ogies. ScienceDirect, 2024; https://www.sciencedirect.com/science/article/pii/S0168192324001234
+10. K o r d o w s k a M., Baranowski M., Pisarek J., Wawer R., Czech T.: Rolnictwo 4.0. Iden-
+tyfikacja trendów technologicznych, NCBR, 2023, ss. 91; https://www.gov.pl/web/ncbr/rolnictwo-
+40-identyfikacja-trendow-technologicznych 
+11. K o z y r a J., Doroszewski A., Nieróbca A.: Zmiany klimatyczne i ich przewidywany wpływ 
+na rolnictwo w Polsce. Studia i Raporty IUNG-PIB, 2009, 24: 243-258
+12. K u n d z e w i c z Z.W., Pińskwar I., Brakenridge G.R.: Climate change impacts on water 
+resources in Poland. Hydrological Sciences Journal, 2017, 62(10): 1611-1624. Dostęp: https://www.
+tandfonline.com/doi/abs/10.1080/02626667.2017.1368469
+13. M e s í a s-Ruiz G.A., Pérez-Ortiz M., Dorado J., de Castro A.I., Peña J.M.: Boosting 
+precision crop protection towards agriculture 5.0 via machine learning and emerging technologies: 
+A contextual review. Frontiers in Plant Science, 2023, 14, 1144512.
+14. Ministerstwo Rolnictwa i Rozwoju Wsi (2021). Strategia zrównoważonego rozwoju wsi, rolnictwa 
+i rybactwa 2030.
+15. N a r d o n e A. et al.: Effects of climate change on animal production and sustainability of livestock 
+systems. Livestock Science, 2010, 130(1-3): 57-69.
+Potencjał rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie...
+2928
+16. Rozporządzenie Ministra Rolnictwa i Rozwoju Wsi z dnia 17.07.2023 r. w sprawie szczegółowego 
+przeznaczenia, warunków i trybu udzielania wsparcia w zakresie rolnictwa 4.0 w ramach Krajowego 
+Planu Odbudowy i Zwiększania Odporności (Dz.U. z 2023 r. poz. 1389).
+17. S a i z-Rubio V., Rovira-Más F.: From smart farming towards Agriculture 5.0: A review on crop 
+data management. MDPI Agronomy, 2020, 10(2), 207; https://www.mdpi.com/2073-4395/10/2/20 
+18. T e k l u M.G., Kiflu A., Tigabu E.A.: Effect of climate smart agriculture innovations on 
+climate resilience among smallholder farmers: Empirical evidence from South-Eastern Ethiopia. 
+Sustainability, 2023, 15(5), 4331; DOI: 10.3390/su15054331
+19. T e m b h u r n e J.V. et al.: Deep learning-based classification, detection, and segmentation of 
+tomato plant diseases. Artificial Intelligence in Agriculture, 2025, 12: 131-149; DOI: 10.1016/j.
+aiia.2024.03.005
+20. W a w e r R.: Rolnictwo 4.0. Precyzyjne nawadnianie. Studia i Raporty IUNG-PIB, 2023, 71:  
+177-197; https://doi.org/10.26114/sir.iung.2023.71.09
+21. W a w e r R., Kolasińska K., (red): Kodeks dobrych praktyk wodnych w rolnictwie. Wyd. MRiRW., 
+2021, ss. 216; https://www.gov.pl/web/rolnictwo/kodeks-dobrych-praktyk-wodnych-w-rolnictwie 
+22. Z h a n g X., Zhang Y., Li J.: Enhancing precision agriculture for climate change mitigation. MDPI 
+Agriculture, 2025, 15(3), 412; https://www.mdpi.com/2077-0472/15/3/412
+23. Z h u X.: Technologies for climate change adaptation – Agriculture Sector. ResearchGate, 2011,  
+pp. 218; https://www.osti.gov/etdeweb/biblio/1026421 
+Adres do korespondencji: 
+dr hab. Rafał Wawer, prof. IUNG-PIB
+Zakład Gleboznawstwa i Analiz Systemowych
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Pulawy
+tel. 81 47 86 773
+e-mail: Rafal.Wawer@iung.pulawy.pl
+AUTOR ORCID
+Rafał Wawer 0000-0001-9266-9577
+Rafał Wawer

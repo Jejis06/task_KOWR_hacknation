@@ -1,0 +1,823 @@
+149148 S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 62(16): 149-167 2020
+* Opracowanie wykonano w ramach zadania 2.1 w programie wieloletnim IUNG-PIB.
+Janusz Smagacz
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+KIERUNKI ROZWOJU RÓŻNYCH SYSTEMÓW UPRAWY ROLI  
+W WARUNKACH ZMIENIAJĄCEGO SIĘ KLIMATU* 
+Słowa kluczowe: zmiany klimatu, rolnictwo zrównoważone, konserwująca uprawa roli
+Wstęp
+Znaczna degradacja środowiska glebowego spowodowana intensywnym 
+oddziaływaniem maszyn i narzędzi uprawowych wymusza poszukiwanie nowych 
+technik uprawy roli sprzyjających ochronie gleby i odtwarzaniu naturalnych biocenoz 
+na obszarach o intensywnej produkcji rolnej. Rolnictwo zrównoważone, wpływając 
+korzystnie na środowisko przyrodnicze, zakłada wzrost produkcji rolnej przy 
+jednoczesnym zachowaniu bioróżnorodności w agrocenozach, a dodatkowo ogranicza 
+w znacznym stopniu mineralizację glebowej materii organicznej (próchnicy), erozję  
+i zagęszczenie gleby, wymywanie składników pokarmowych i akumulację związków 
+toksycznych w glebie (6). W ostatnich latach w wielu krajach UE w ramach rozwoju 
+koncepcji rolnictwa zrównoważonego propaguje się w coraz większym stopniu różne 
+techniki bezorkowej uprawy roli, często określanej mianem uprawy zachowawczej lub 
+konserwującej. 
+Uprawa zachowawcza – konserwująca (ang. conservation tillage) jest koncepcją 
+produkcji rolniczej, której głównym celem jest zachowanie naturalnych zasobów 
+przyrody przy równoczesnym osiąganiu wysokich plonów. Uprawa ta bazuje na 
+wspieraniu naturalnych procesów biologicznych w glebie. Wszelkiego rodzaju zabiegi 
+uprawowe są zredukowane do niezbędnego minimum. Środki produkcji pochodzenia 
+organicznego lub syntetycznego są w tym systemie uprawy w ten sposób stosowane, 
+aby nie naruszać biologicznych procesów odtwarzających życie biologiczne  
+i naturalnej struktury gleby (8). Uprawę konserwującą określają trzy podstawowe 
+cechy:
+• długotrwała, znacznie ograniczona intensywność spulchniania roli; 
+doi: 10.26114/sir.iung.2020.62.08
+151150
+• całoroczne przykrycie powierzchni gleby mulczem z resztek pożniwnych lub roślin 
+okrywowych (międzyplonów); 
+• znacznie zróżnicowane zmianowanie uwzględniające stosowanie roślin 
+bobowatych i międzyplonów.  
+Podstawową zaletą uprawy konserwującej jest nieodwracanie wierzchniej warstwy 
+gleby, co w praktyce przekłada się na eliminację pługa jako podstawowego narzędzia 
+uprawowego. W zależności od intensywności i głębokości uprawy na powierzchni 
+gleby lub w przypowierzchniowej jej warstwie pozostawione są resztki pozbiorowe 
+rośliny przedplonowej lub międzyplonu (17). Uprawa zerowa, po której następuje siew 
+bezpośredni, jest skrajnym wariantem uprawy konserwującej, przy którym uprawa 
+roli ogranicza się do spulchnienia jedynie bruzdki siewnej. W trakcie przejazdu 
+agregatem następuje wysianie nasion na dno rowka siewnego w nieuprawioną rolę 
+i ich przykrycie. Uprawa zachowawcza  to również taki system uprawy roli, który 
+w porównaniu z konwencjonalną, płużną uprawą pozostawia na powierzchni gleby 
+przynajmniej 30% resztek pożniwnych (6). Europejskie Stowarzyszenie Rolnictwa 
+Konserwującego określa ten system uprawy jako sposób zagospodarowania 
+gleby zmniejszający destabilizację w jej strukturze i bioróżnorodności. System 
+ten ogranicza w znacznym stopniu degradację gleby i straty wody, co dobrze 
+wpisuje się w ograniczanie negatywnego wpływu zmian klimatu na środowisko. 
+W związku z powyższym, w ostatnich latach zadania uprawy roli uległy pewnemu 
+przewartościowaniu i polegają zasadniczo na:  
+• gromadzeniu wody w glebie i minimalizowaniu bezproduktywnych jej strat; 
+• ograniczeniu strat glebowej materii organicznej – wzrost sekwestracji węgla 
+organicznego w glebie; 
+• zwiększeniu biologicznej aktywności gleby; 
+• ograniczeniu nasilenia erozji wodnej i wietrznej; 
+• poprawie struktury i zmniejszeniu zlewności oraz skłonności gleby do 
+zaskorupiania; 
+• ograniczeniu spływów i wymywania składników nawozowych; 
+• zmniejszeniu kosztów uprawy, czasu pracy oraz zużycia energii. 
+Celem opracowania jest przedstawienie kierunków rozwoju różnych systemów 
+uprawy roli w aspekcie zmian klimatu. Opracowanie ma charakter przeglądowy.  
+Wyniki badań własnych nad porównaniem różnych systemów uprawy roli 
+konfrontowano z wynikami ocen innych autorów, prezentowanymi w literaturze. 
+Analizę porównawczą różnych systemów uprawy roli przedstawiono w sposób 
+wieloaspektowy. 
+Przesłanki do wprowadzania modyfikacji w uprawie roli
+Tradycyjny – płużny system uprawy roli obecnie dominuje w rolnictwie naszego 
+kraju. Niewątpliwą zaletą płużnej techniki uprawy roli jest dokładne przykrycie 
+nawozów naturalnych i organicznych oraz równomierne rozmieszczenie w warstwie 
+Janusz Smagacz
+151150
+ornej gleby składników nawozowych. Korzystne oddziaływanie orki polega również 
+na głębokim przykryciu osypanych nasion chwastów i nasion rośliny przedplonowej, 
+dobrym napowietrzeniu gleby oraz likwidacji głębokich kolein powstających podczas 
+zbioru płodów rolnych w niekorzystnych warunkach wilgotnościowych. Jednakże 
+taki system przygotowania pola pod zasiew może prowadzić do wielu negatywnych 
+zmian środowiska glebowego, dlatego od pewnego czasu można zauważyć 
+tendencję do ciągłego zmniejszania liczby i głębokości zabiegów uprawowych, 
+a w szczególności orek. Duża głębokość i intensywność spulchniania przyspiesza 
+proces mineralizacji próchnicy (5), a jej straty po dwudziestoletniej intensywnej 
+uprawie mogą sięgać nawet 50% (15). Ubytek substancji organicznej wywiera 
+negatywny wpływ na strukturę gleby, pojemność wodną i biologiczną aktywność. 
+Wzrasta również podatność na erozję wodną i wietrzną, szczególnie na dużych 
+polach pozbawionych zadrzewień śródpolnych lub w dużych odległościach od 
+obszarów leśnych (9). Następuje też przesuszenie warstwy ornej, zmniejsza się 
+nośność gleby, a stosowanie ciężkich ciągników do prac uprawowych i transportowych 
+często powoduje nadmierne jej zagęszczenie, w tym również warstwy podornej (1, 24). Gleba 
+po orce wymaga doprawienia, co zwiększa koszty uprawy, zużycie energii i czasu pracy  
+oraz stwarza problemy z dotrzymaniem właściwych terminów agrotechnicznych. 
+W ujęciu amerykańskim uprawa zachowawcza to system uprawy roli, który  
+w porównaniu z konwencjonalną, płużną uprawą pozostawia na powierzchni gleby 
+przynajmniej 30% resztek pożniwnych. W Niemczech natomiast uprawa zachowawcza 
+jest definiowana jako uprawa, której intensywność oddziaływania na glebę jest 
+mniejsza od uprawy konwencjonalnej (system uprawy płużnej), zaś większa od 
+uprawy zerowej (7). Europejskie Stowarzyszenie Rolnictwa Konserwującego określa 
+ten system uprawy jako sposób zagospodarowania gleby zmniejszający destabilizację 
+w jej strukturze i bioróżnorodności (34). 
+Wydaje się, że takie przygotowanie pola pod zasiew powinno być w większym 
+stopniu upowszechnione zarówno na obszarze Polski, jak i w całej Europie. 
+Przedstawione fakty sugerują potrzebę ciągłego zmniejszania liczby i intensywności 
+wykonywanych zabiegów uprawowych, a nawet całkowitego ich wyeliminowania. 
+Upraszczając uprawę można bowiem poprawić stabilność struktury gleby, zwiększyć 
+infiltrację wody i usprawnić jej przewietrzanie poprzez wytworzenie stabilnego 
+układu dużych porów. Proponowane zmiany w systemie uprawy roli mogą  
+w znacznym stopniu ograniczyć erozję wodną i wietrzną, zwiększyć zawartość 
+próchnicy i zmniejszyć koszty prac polowych (31, 35).
+Aktualnie znaczenie uprawy roli, jako zabiegu udostępniającego składniki 
+pokarmowe dla roślin uprawnych oraz odpowiedzialnego za ograniczenie 
+zachwaszczenia nie jest już priorytetem i większą uwagę zwraca się na 
+ochronę środowiska przyrodniczego – ochronę gleby, wody i klimatu. Istotną 
+przesłanką skłaniającą do wprowadzenia modyfikacji w uprawie roli jest również 
+aspekt organizacyjny. Wykonanie, jeśli jest to możliwe, wszystkich zabiegów 
+uprawowych i agrotechnicznych, jak uprawa roli, podanie sztucznych nawozów 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+153152
+mineralnych (posypowo lub wgłębnie), siew nasion podczas jednego, maksymalnie 
+dwóch przejazdów roboczych, umożliwia dotrzymanie optymalnych terminów 
+agrotechnicznych, co jednocześnie poprawia wskaźniki ekonomiczne, np. jednostkowe 
+zużycie paliwa, czas pracy i korzystnie wpływa na uzyskiwany dochód z gospodarstwa. 
+Ciekawym rozwiązaniem jest tzw. pasowa uprawa roli, która polega na spulchnieniu 
+pasa gleby jedynie wzdłuż przyszłych rzędów rośliny uprawnej. Po pasowym 
+spulchnieniu, nawet do 30 cm, wykonuje się nawożenie i siew nasion. Wszystkie te 
+zabiegi można przeprowadzić w trakcie jednego przejazdu zestawem składającym 
+się z maszyny spulchniającej glebę, siewnika i aplikatora umożliwiającego rzędowe 
+(zlokalizowane) stosowanie nawozu. Pierwotnie ten system uprawy wykorzystywany 
+był pod rośliny uprawiane w szerokich rzędach 45 i 75 cm i siewem przy użyciu 
+siewników punktowych, np. kukurydza, burak cukrowy, słonecznik. W późniejszym 
+okresie pojawiła się wersja, w której uprawiane pasy są oddalone od siebie o 30–35 cm, 
+a siew odbywa się za pomocą nabudowanego siewnika rzędowego. Mogą one być 
+używane do pasowej uprawy zbóż, rzepaku, roślin bobowatych (strączkowych) 
+a nawet międzyplonów. Ważniejsze zalety uprawy pasowej są następujące: 
+• gleba nie jest uprawiana na całej powierzchni pola;  
+• zachowana zostaje właściwa jej struktura; 
+• przeciwdziałanie ugniataniu (zagęszczeniu) gleby wskutek przejazdu maszyn  
+i narzędzi uprawowych – lepsza nośność gleby; 
+• zminimalizowanie bezproduktywnych strat wody – mniejsze parowanie z gleby; 
+• gromadzenie (sekwestracja) węgla organicznego; 
+• małe zagrożenie erozją wodną i wietrzną; 
+• zoptymalizowane nawożenie i efektywniejsze wykorzystanie składników 
+pokarmowych przez rośliny uprawne (nawożenie wgłębne); 
+• zdecydowanie mniejsze nakłady energetyczne (zużycie paliwa) i czasu pracy  
+w porównaniu z uprawą tradycyjną. 
+Oddziaływanie na środowisko
+Konserwująca uprawa roli (system bezorkowy, uprawa zerowa, po której następuje 
+siew bezpośredni, uprawa pasowa, tzw. strip-till) charakteryzująca się pozostawieniem 
+resztek roślinnych na powierzchni pola modyfikuje właściwości fizyczne, chemiczne 
+i biologiczne gleby. W odniesieniu do fizycznych właściwości panuje opinia, iż 
+uproszczona uprawa roli, jak również siew bezpośredni prowadzą do zwiększenia 
+zagęszczenia gleby, co rzeczywiście ma miejsce w pierwszych latach stosowania 
+takiego sposobu przygotowania pola pod zasiew. Jednakże w dłuższym okresie 
+czasowym, w wyniku zmniejszenia częstotliwości przejazdów maszyn i narzędzi 
+uprawowych, wzrostu zawartości glebowej materii organicznej (próchnicy), powstaniu 
+trwałej struktury gruzełkowatej i zwiększeniu życia biologicznego, zwiększa się 
+retencja wodna, poprawia nośność gleby, zaś wyraźnemu zmniejszeniu ulegają 
+erozyjne straty składników mineralnych i próchnicy. Wyniki tych badań zostały 
+przedstawione, między innymi, we wcześniejszych opracowaniach własnych (31-33) 
+oraz innych autorów (1, 5, 24, 34). 
+Janusz Smagacz
+153152
+Długoletnia bezpłużna uprawa roli powoduje istotne zmiany właściwości 
+fizycznych górnych i dolnych warstw gleby. Zwięzłość górnych poziomów gleby 
+w pierwszych latach stosowania bezpłużnej uprawy roli jest najczęściej wyższa. 
+Po okresie przejściowym (4-8 lat), w którym następują istotne zmiany warunków 
+fizykochemicznych i biologicznych gleby, zarówno górne, jak i dolne warstwy 
+gleby odznaczają się mniejszą zwięzłością i gęstością w porównaniu z wynikami 
+uzyskanymi po uprawie płużnej. Wieloletnia uprawa bezpłużna prowadzi do większej 
+odporności gleby na ugniatanie w porównaniu z typową uprawą płużną (36).  
+W tabeli 1 przedstawiono zmienność cech fizycznych gleby lekkiej w zależności od 
+ciężaru ciągnika i liczby przejazdów po tym samym śladzie. 
+Tabela 1
+Zależność cech fizycznych gleby lekkiej od ciężaru ciągnika i liczby przejazdów 
+Ciągnik o ciężarze
+(kg)
+Porowatość
+(%)
+Pojemność powietrza
+(%)
+Gęstość
+(g∙cm-3) Wilgotność objętościowa (%)
+bez ugniatania 49,2 34,0 1,36 15,1
+1506
+1 przejazd 42,2 25,7 1,57 16,4
+2320
+1 przejazd 37,1 19,3 1,68 17,8
+2320
+3 przejazdy 36,9 16,7 1,70 18,6
+2320
+10 przejazdów 33,4 13,4 1,78 20,0
+Źródło: Kozicz, 1971 (16)
+W badaniach tych stwierdzono, że ugniatanie gleby, niezależnie od jej kategorii 
+agronomicznej, przejawia się bardzo wyraźnym przyrostem gęstości oraz spadkiem 
+pojemności powietrznej. Zjawisku temu towarzyszy zazwyczaj zmniejszenie się ilości 
+wody łatwo dostępnej dla roślin. Spadek porowatości i pojemności powietrznej oraz 
+wzrost uwilgotnienia i gęstości objętościowej gleby jest zależny od masy ciągnika 
+i liczby przejazdów po tym samym śladzie. Taki przejazd, szczególnie na glebach 
+ciężkich i bardzo ciężkich, powoduje niszczenie trwałych agregatów glebowych, 
+a w miejscach ugniatanych zmniejsza się porowatość, natomiast wzrasta ciężar 
+objętościowy oraz hamowane jest przesiąkanie wód opadowych w głąb profilu 
+glebowego. W rezultacie może to doprowadzić do zagęszczenia warstwy podornej, 
+co z kolei w dużej mierze utrudnia rozwój systemu korzeniowego roślin. Można więc 
+w dużym uproszczeniu stwierdzić, że zmiany cech fizycznych gleby regulują rozwój 
+systemu korzeniowego, a co za tym idzie wpływają bezpośrednio na plonowanie 
+roślin. Na tej podstawie można stwierdzić, że intensywna uprawa płużna, w miarę 
+wydłużenia okresu pomiędzy pierwszym a ostatnim zabiegiem wzruszającym glebę 
+powoduje istotne zwiększenie zwięzłości i gęstości gleby oraz spadek porowatości 
+ogólnej. Pogorszenie się wymienionych właściwości fizycznych gleby wpływa na 
+niższe plony roślin (tab. 2). 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+155154
+Tabela 2
+Wzrost (+) lub spadek (-) plonów roślin – obiekt kontrolny – bez ugniatania 
+Ciągnik o ciężarze
+(kg)
+Gęstość objętościowa
+(g∙cm-3) Burak pastewny Pszenica jara Owies 
+bez ugniatania 1,36 100 100 100
+1506
+1 przejazd 1,57 +0,2 +8,0 +4,3
+2320
+1 przejazd 1,68 -27,9 -8,9 -11,6
+2320
+3 przejazdy 1,70 -58,6 -52,2 -16,3
+2320
+10 przejazdów 1,78 -74,7 -55,0 -27,5
+Źródło: Kozicz, 1971 (16)
+Duża intensywność mechanicznego oddziaływania na glebę w trakcie orki 
+destrukcyjnie wpływa na korzystne dla wzrostu roślin elementy jej struktury i jest 
+często powodem wytworzenia się tzw. podeszwy płużnej, ograniczającej rozwój 
+systemu korzeniowego. Oprócz wysokich kosztów uprawa tradycyjna prowadzi 
+często do niekorzystnych zjawisk. Gleba po orce, przez długi okres pozbawiona 
+okrywy roślinnej, narażona jest na bezpośrednie, destrukcyjne działanie opadów 
+atmosferycznych i wiatrów, nasilających procesy erozyjne. Wymienione czynniki  
+zwiększają spływ powierzchniowy powodujący wymywanie środków ochrony roślin 
+i nawozów, co może być powodem niekorzystnych zmian w ekosystemach (29). 
+Przepuszczalność wodna gleby jest w dużym stopniu uzależniona od gęstości 
+gleby. Zwiększona gęstość i zwięzłość gleby ogranicza przemieszczanie się wody  
+w głąb profilu glebowego. Natomiast pionowy układ porów przyśpiesza przesiąkanie 
+wody. Również zwiększona masa mulczu oraz wyższa zawartość próchnicy 
+poprawia przepuszczalność gleby w warunkach długoletniej uprawy konserwującej. 
+Bezpośrednio po orce gleba wykazuje lepszą przepuszczalność wody w porównaniu 
+z wariantami wieloletniej uprawy uproszczonej lub siewem bezpośrednim, jednak 
+po kilku tygodniach następuje szybkie osiadanie roli i zwiększenie jej zagęszczenia 
+w górnych warstwach.
+Stabilna struktura gleby w wieloletniej uprawie konserwującej stwarza lepsze 
+warunki dla rozwoju roślin w przeciągu całej wegetacji niż uprawa konwencjonalna. 
+Uprawa bezpłużna bez warstwy ochronnej (mulczu), pozostawiając glebę w stanie 
+znacznego zagęszczenia, stwarza korzystniejsze warunki wilgotnościowe tylko  
+w krótkim okresie po wystąpieniu opadów. Po dłuższym okresie bezdeszczowym 
+woda nagromadzona w powierzchniowych warstwach gleby paruje szybciej.  
+W warunkach dużej ilości mulczu na powierzchni pola obserwuje się w pierwszych 
+latach stosowania uprawy bezpłużnej wyższą wilgotność górnych warstw gleby  
+w porównaniu z wilgotnością stwierdzoną w tradycyjnej uprawie płużnej. Większość 
+badań z tego zakresu wskazuje na korzystne oddziaływanie bezpłużnych systemów 
+Janusz Smagacz
+155154
+uprawy roli, głównie siewu bezpośredniego, na zwiększenie zawartości wody, 
+szczególnie w górnych warstwach profilu glebowego (2, 25, 26, 28). 
+Zmniejszenie zagęszczenia wierzchniej warstwy gleby oraz duża warstwa mulczu 
+w uprawie konserwującej warunkuje lepszą dostępność wody. W zależności od 
+ilości doprowadzonej materii organicznej i klimatu wzrost substancji organicznej 
+może wynosić 0,2% rocznie. Każdy 1% substancji organicznej może magazynować 
+150 m3.ha-1 więcej wody. Rośliny okrywowe redukują straty wody o około 30%  
+w porównaniu z uprawą płużną (8).
+Przeprowadzone przez Czyż i in. (4) badania dotyczące oceny wilgotności 
+gleby w różnych systemach uprawy roli wskazują, że siew bezpośredni istotnie 
+podwyższał średnie wartości wilgotności w warstwie 0–35cm w porównaniu z uprawą 
+tradycyjną. Zastosowanie techniki siewu bezpośredniego wpłynęło szczególnie 
+korzystnie na wzrost wilgotności gleby na głębokości 0–5 cm. Podobne zależności 
+zanotowano również w przypadku systemu uprawy uproszczonej w porównaniu  
+z obiektem z płużną uprawą roli (tab. 3). Do podobnych wniosków doszli również  
+J a s k u l s k i  i i n. (13) – tab. 4 oraz M a ł e c k a  i  i n. (22) – tab. 5. 
+Tabela 3
+Wpływ systemu uprawy roli na uwilgotnienie gleby (% V) 
+Warstwa gleby System uprawy roli płużny uproszczony siew bezpośredni
+0–5 24,9 24,9 27,3
+5–10 24,1 25,1 25,3
+10–15 22,7 24,3 24,4
+20–25 23,5 23,6 25,6
+30–35 23,3 24,2 25,7
+Źródło: Czyż i in., 2010 (3)
+Tabela 4
+Wilgotność gleby (% wag.) w warstwie gleby 0–30 cm przed siewem i w okresie wegetacji 
+kukurydzy w zależności od przedplonu i sposobu uprawy roli 
+Uprawa roli Przedplon Średniapszenica ozima jęczmień jary kukurydza
+Przed siewem 
+Płużna  11,4 11,6 11,5 11,5
+Bezorkowa głęboka 11,3 11,8 11,9 11,7
+Bezorkowa płytka 11,9 12,1 13,5 12,5
+Średnia 11,5 11,9 12,3 -
+NIR(0,05) dla: przedplonu – r.n.; uprawy roli – 0,25; interakcji – 0,52 
+Faza BBCH 32-37 
+Płużna  9,3 9,4 9,9 9,5
+Bezorkowa głęboka 9,5 9,6 9,7 9,6
+Bezorkowa płytka 10,4 10,3 10,3 10,3
+Średnia 9,7 9,8 10,0 -
+NIR(0,05) dla: przedplonu – r.n.; uprawy roli – 0,36; interakcji – r.n.
+Źródło: Jaskulski i in., 2015 (13)
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+157156
+Tabela 5
+Wilgotność, gęstość objętościowa  gleby oraz kapilarna pojemność wodna w zależności od systemu 
+uprawy roli (średnio 2010–2011)
+System uprawy roli
+Wilgotność gleby  
+(% v/v)
+Gęstość objętościowa  
+(g·cm-3)
+Kapilarna pojemność 
+wodna (%)
+warstwa gleby (cm)
+0–10 10–20 0–10 10–20 0–10 10–20
+Tradycyjny 15,3 17,9 1,46 1,66 37,6 30,2
+Uproszczony 17,2 19,8 1,54 1,57 34,8 31,9
+Siew bezpośredni 19,5 20,3 1,61 1,59 31,2 32,3
+NIR(0,05) 1,15 1,64 0,05 0,06 1,24 1,25
+Źródło: Małecka i in., 2012 (22)
+Wyniki badań własnych przeprowadzonych na różnych glebach i w zróżnicowanych 
+siedliskach potwierdzają tezę o korzystnym oddziaływaniu uprawy konserwującej 
+(system bezorkowy, uprawa pasowa, uprawa zerowa, po której następuje siew 
+bezpośredni) na kształtowanie wilgotności gleby i dostępności wody dla roślin 
+uprawnych (tab. 6–8). 
+Tabela 6
+Wpływ techniki uprawy roli na uwilgotnienie gleby (%, v·v-1), RZD Kępa-Puławy  
+(średnie z 5 terminów pomiarów, 2018 rok)
+Głębokość (cm) Uprawa roli płużna bezorkowa pasowa
+10 10,2a/* 13,0b 12,9b
+20 11,5a 14,0b 15,7c
+30 16,8a 16,8a 17,1a
+0–30 12,8a 14,6b 15,0b
+/*wartości oznaczone tymi samymi literami nie różnią się istotnie
+Źródło: opracowanie własne
+Tabela 7
+Wpływ techniki uprawy roli na uwilgotnienie gleby (%, v·v-1), Gospodarstwo Indywidualne Rogów 
+(średnie z 5 terminów pomiarów, 2013 rok)
+Uprawa roli Głębokość (cm) Średnia10 20 30 40 60 100
+Płużna 15,4 6,8 7,6 7,7 14,4 24,9 12,8
+Bezorkowa 15,3 8,4 10,0 8,7 13,3 31,3 14,5
+Zerowa 14,5 10,2 10,0 9,9 18,1 33,7 16,0
+Źródło: opracowanie własne
+Janusz Smagacz
+157156
+Tabela 8
+Wpływ techniki uprawy roli na uwilgotnienie gleby (%, v·v-1), SD Jelcz-Laskowice  
+(średnio za 4 lata badań)
+Warstwa gleby  
+(cm)
+Uprawa roli
+płużna bezorkowa zerowa
+0–5 10,7a/* 12,4b 14,8c
+5–10 12,5a 14,4b 14,5b
+10–15 13,5a 15,2b 14,0ab
+30–35 9,8a 11,3b 9,9a
+/*wartości oznaczone tymi samymi literami nie różnią się istotnie
+Źródło: opracowanie własne
+Próchnica
+Istotnym kryterium oceny różnych wariantów konserwującej uprawy roli (uprawa 
+bezorkowa, uprawa zerowa, uprawa pasowa) stosowanych systematycznie w dłuższym 
+okresie czasu jest określenie ich wpływu na niektóre chemiczne właściwości gleby.
+Wieloletnie badania dotyczące wpływu różnych wariantów konserwującej uprawy 
+roli na kształtowanie zawartości próchnicy wskazują na znaczne nagromadzenie 
+materii organicznej w powierzchniowej warstwie gleby, co sprzyja intensywnemu 
+rozwojowi mikroorganizmów glebowych (zwiększa się biologiczna aktywność 
+gleby), ale jednocześnie może prowadzić do przejściowej immobilizacji azotu. 
+Jednak po rozłożeniu materii organicznej (resztek pozbiorowych roślin uprawnych 
+lub międzyplonu), w wyniku zwiększonej aktywności biologicznej gleby azot 
+przechodzi ponownie w formy dostępne dla roślin. Po kilku latach stosowania takiej 
+uprawy, w górnych warstwach gleby ustala się nowy stan równowagi pomiędzy 
+zwiększoną zawartością węgla organicznego i formami mineralnymi azotu. Niższa 
+temperatura gleby w warunkach siewu bezpośredniego i uprawy bezpłużnej  
+w okresie wiosennym warunkuje mniejszą dostępność N z pierwszej dawki startowej. 
+W związku z powyższym, w warunkach długotrwałego stosowania uprawy zerowej, po 
+której następuje siew bezpośredni, pierwsza dawka azotu powinna być odpowiednio 
+zwiększona (5–8 kg N w czystym składniku na 1 tonę słomy) w porównaniu z ilością  
+stosowaną w uprawie płużnej. 
+Badania przeprowadzone przez Kinsella (15) wykazały, że intensywna 
+uprawa płużna może w ciągu 20 lat zmniejszyć zawartość substancji organicznej  
+w glebie nawet o 50%. Straty substancji organicznej są spowodowane przyśpieszoną 
+mineralizacją próchnicy w wyniku intensywnego mieszania gleby oraz zwiększoną 
+erozją wietrzną i wodną na polach bez okrywy roślinnej.
+Wieloletnie badania przeprowadzone przez różnych autorów (3, 12) wskazują, że 
+stosowanie konserwującej uprawy roli przyczynia się do podwyższenia zawartości 
+węgla organicznego oraz azotu ogólnego w górnych warstwach gleby. Zwiększa 
+się również zawartość przyswajalnego fosforu, potasu i magnezu w porównaniu  
+z wartościami stwierdzonymi w warunkach tradycyjnej – płużnej uprawy roli. 
+Podobne zależności stwierdzono również w badaniach Lenarta i Sławińskiego 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+159158
+(tab. 9). Wyniki te dobrze korespondują z wynikami badań uzyskanymi przez  
+Smagacza (tab. 10). 
+Tabela 9
+Wpływ 33-letniej uprawy płużnej i siewu bezpośredniego na wybrane chemiczne właściwości gleby
+Warstwa 
+gleby Uprawa Corg. Nog. C:N P K Mg g·kg-1 mg·kg-1
+0–10 płużna 10,7a/* 1,17a 9,1a 87,1a 234a 78,1a
+siew bezpośredni 14,7b 1,53b 9,6a 130,8b 325b 103,2b
+10–20 płużna 10,1a 1,12a 9,0a 81,4a 153a 77,9a
+siew bezpośredni 11,7b 1,31b 8,9a 99,3b 157b 88,8a
+/*wartości oznaczone tymi samymi literami nie różnią się istotnie
+Źródło: Lenart i Sławiński, 2010 (20)
+Tabela 10
+Zawartość próchnicy (%) po zbiorze pszenicy ozimej w zależności od systemu uprawy roli  
+i warstwy gleby (GI Rogów, średnia z lat 2010–2013)
+Warstwa gleby  
+(cm)
+System uprawy roli Średniapłużny bezorkowy siew bezpośredni
+0–5 1,58 2,04 2,14 1,92
+5–15 1,70 1,68 1,56 1,65
+15–30 1,43 1,24 1,30 1,32
+NIR(0,05) dla: systemu uprawy – 0,13; warstwy gleby – 0,19
+Źródło: Smagacz, 2016 (33)
+Istotnym elementem oceny zastosowania uproszczeń uprawowych jest również 
+ocena nakładów energetycznych w poszczególnych strumieniach energetycznych  
+oraz wskaźnik efektywności energetycznej. 
+Wyniki badań przeprowadzonych przez K r a s o w i c z a  i  M a d e j a  (18) dla 
+trzech technik uprawy roli: uprawy tradycyjnej (płużnej), bezorkowej i uprawy zerowej, 
+po której następuje siew bezpośredni zawarto w tabelach 11–13. Przedstawiono  
+w nich wyniki dotyczące efektywności energetycznej w doświadczeniach z pszenicą 
+ozimą na różnych glebach, tj. lekkich, średnich i ciężkich.
+Tabela 11 
+Wskaźnik efektywności energetycznej według różnych technologii uprawy pszenicy ozimej  
+(SD Jelcz-Laskowice, gleba lekka, 2007–2009)
+Wyszczególnienie
+System uprawy roli
+płużny bezorkowy uprawa zerowa
+Plon (t.ha-1) 4,97 4,69 4,04
+Energia zużycia bezpośrednich nośników energii (MJ) 3047 2253 1535
+Energia zużycia surowców i materiałów (MJ) 9373 9373 9697
+Energia zużycia w czasie eksploatacji urządzeń i budynków (MJ)* 1845 1752 1571
+Energia użytej pracy żywej (MJ) 349 327 268
+Razem nakłady energetyczne (MJ) [Ne] 14613 13703 13070
+Energia otrzymanych produktów roślinnych (MJ) [Pe] 80514 75978 65502
+Wskaźnik efektywności energetycznej [Pe/Ne] 5,51 5,54 5,01
+Źródło: Madej i Krasowicz, 2010b (18)
+Janusz Smagacz
+159158
+Tabela 12 
+Wskaźnik efektywności energetycznej według różnych technologii uprawy pszenicy ozimej  
+(SD Baborówko, gleba średnia, 2007–2009)
+Wyszczególnienie
+System uprawy roli
+płużny bezorkowy uprawa zerowa
+Plon (t.ha-1) 6,43 6,27 5,85
+Energia zużycia bezpośrednich nośników energii (MJ) 3134 2485 1849
+Energia zużycia surowców i materiałów (MJ) 8862 8862 8986
+Energia zużycia w czasie eksploatacji urządzeń  
+i budynków (MJ)* 1139 784 745
+Energia użytej pracy żywej (MJ) 324 251 237
+Razem nakłady energetyczne (MJ) (Ne) 13458 12381 11817
+Energia otrzymanych produktów roślinnych (MJ) (Pe) 104166 101520 94824
+Wskaźnik efektywności energetycznej (Pe/Ne) 7,74 8,20 8,02
+Źródło: Madej i Krasowicz, 2010b (18)
+Tabela 13 
+Wskaźnik efektywności energetycznej według różnych technologii uprawy pszenicy ozimej  
+(Gospodarstwo Indywidualne Rogów, gleba ciężka, 2007–2009)
+Wyszczególnienie
+System uprawy roli
+płużny bezorkowy uprawa zerowa
+Plon (t.ha-1) 7,24 7,32 6,70
+Energia zużycia bezpośrednich nośników energii (MJ) 3245 2699 1872
+Energia zużycia surowców i materiałów (MJ) 10947 10947 11298
+Energia zużycia w czasie eksploatacji urządzeń  
+i budynków (MJ)* 2172 1934 1879
+Energia użytej pracy żywej (MJ) 348 321 308
+Razem nakłady energetyczne (MJ) (Ne) 16712 15901 15357
+Energia otrzymanych produktów roślinnych (MJ) (Pe) 117342 118584 108594
+Wskaźnik efektywności energetycznej (Pe/Ne) 7,02 7,46 7,07
+Źródło: Madej i Krasowicz, 2010b (18)
+We wszystkich analizowanych przypadkach łączne nakłady energetyczne 
+wydatkowane na produkcję z tradycyjną uprawą roli przewyższały nakłady  
+w technologii z uprawą uproszczoną. Stąd też w warunkach uzyskiwania zbliżonych 
+plonów w porównywanych systemach uprawy roli, wskaźnik efektywności 
+energetycznej w technice bezorkowej – konserwującej przewyższał wskaźnik 
+efektywności energetycznej w technice tradycyjnej – uprawa płużna (tab. 14). 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+161160
+Tabela 14
+Porównanie wskaźników efektywności energetycznej (Ee) dla różnych technik uprawy roli pod 
+pszenicę ozimą 
+Wyszczególnienie Roślina
+System uprawy roli
+płużny bezorkowy uprawa zerowa
+plon Ee plon Ee plon Ee
+SD Jelcz-Laskowice pszenica oz. 5,15 5,64 4,88 5,74 4,31 5,30
+SD Baborówko pszenica oz. 6,50 7,58 6,38 8,09 5,91 7,82
+RZD Kępa pszenica oz. po rzepaku 7,53 6,50 8,42 7,64 8,44 8,31 pszenica oz. po pszenicy 7,83 6,59 8,14 7,23 7,55 7,14
+GI Rogów pszenica oz. po grochu 7,42 7,11 7,34 7,39 7,21 7,60 pszenica oz. po pszenicy 6,87 6,59 6,95 7,00 6,31 6,65
+Zródło: Madej i Krasowicz, 2010b (18)
+Z badań przeprowadzonych przez O r z e c h a  i i n. (23) wynika, że zarówno  
+w produkcji poszczególnych roślin (pszenica ozima, bobik, jęczmień jary), jak  
+i w całym zmianowaniu największą energochłonność wykazywała agrotechnika  
+z tradycyjną (płużną) uprawą roli, jednakże różnice w nakładach energii okazały się 
+tu stosunkowo niewielkie (tab. 15). 
+Tabela 15
+Nakłady na agrotechnikę i wartość zebranych plonów roślin w jednostkach energetycznych 
+Wyszczególnienie  Sposób uprawy roli płużny uproszczony siew bezpośredni
+Pszenica ozima
+Nakłady energii (MJ/ha) 14 633 13 788 13 827
+Wartość energetyczna plonu (MJ/ha) 88 248 81 477 78 859
+Wskaźnik efektywności energetycznej 6,03 5,91 5,70
+Bobik
+Nakłady energii (MJ/ha) 17 694 16 466 16 721
+Wartość energetyczna plonu (MJ/ha) 58 858 53 866 47 893
+Wskaźnik efektywności energetycznej 3,33 3,22 2,87
+Jęczmień jary
+Nakłady energii (MJ/ha) 15 175 14 331 14 292
+Wartość energetyczna plonu (MJ/ha) 41 769 36 141 33 915
+Wskaźnik efektywności energetycznej 2,75 2,52 2,37
+Średnio w zmianowaniu 
+Nakłady energii (MJ/ha) 15 834 14 862 14 947
+Wartość energetyczna plonu (MJ/ha) 62 956 57 165 53 556
+Wskaźnik efektywności energetycznej 3,98 3,85 3,58
+Źródło: Orzech i in., 2004 (23)
+O efektywności energetycznej produkcji roślinnej w największym stopniu decydują 
+uzyskane plony. Średnio za 6-lecie najwyższą wartość energetyczną plonu uzyskano 
+Janusz Smagacz
+161160
+w pszenicy ozimej w systemie uprawy płużnej, najniższą zaś w jęczmieniu jarym  
+w warunkach siewu bezpośredniego. Generalnie bardziej energochłonna okazała się 
+agrotechnika bobiku i jęczmienia jarego, niż pszenicy ozimej. Układ ten dotyczy 
+całokształtu agrotechniki w zmianowaniu: bobik – pszenica ozima – jęczmień jary 
+na glebie średniej (tab. 15).
+Uproszczenia w uprawie roli, a zwłaszcza wprowadzenie siewu bezpośredniego 
+spowodowały, iż w strukturze nakładów energetycznych (w porównaniu z tradycyjną 
+uprawą płużną) malał udział środków technicznych i paliwa, a wzrastał udział środków 
+ochrony roślin (tab. 16). Prezentowane wyniki potwierdzają pogląd, iż w zależności 
+od gatunku rośliny od 40 do 70% energii zużywanej w produkcji polowej przypada 
+właśnie na uprawę roli, na co wskazują też między innymi badania G o n e t a (10) 
+oraz D z i e n i  i  i n. (6). 
+Tabela 16
+Struktura nakładów energetycznych poniesionych na wykonanie produkcji roślinnej
+Uprawa roli
+Nakłady energetyczne (%)
+siła robocza
+środki 
+techniczne  
+i paliwo
+nawozy 
+mineralne
+materiał 
+siewny
+środki ochrony 
+roślin
+Pszenica ozima
+Tradycyjna 9,1 18,7 49,2 14,2 8,8
+Bezorkowa 8,8 13,6 52,9 15,2 9,5
+Siew bezpośredni 10,6 7,6 52,1 15,0 17,7
+Bobik
+Tradycyjna 12,9 28,5 38,9 17,3 2,5
+Bezorkowa 12,8 25,0 41,3 18,3 2,6
+Siew bezpośredni 14,7 14,0 41,2 21,0 9,1
+Jęczmień jary
+Tradycyjna 11,9 27,5 45,4 10,9 4,3
+Bezorkowa 11,8 24,1 48,1 11,5 4,6
+Siew bezpośredni 13,5 13,2 48,2 14,2 10,9
+Średnio w zmianowaniu
+Tradycyjna 11,3 24,9 44,5 14,1 5,2
+Bezorkowa 11,1 20,9 47,4 15,0 5,6
+Siew bezpośredni 12,3 11,6 47,2 16,7 11,6
+Źródło: Orzech i in., 2004 (23)
+W badaniach L e p i a r c z y k a  i  i n. (21) stwierdzono, że wartość energetyczna 
+plonu ziarna pszenicy ozimej nie była w sposób istotny kształtowana systemem 
+uprawy roli. Zaznaczyła się jedynie tendencja do mniejszej wydajności tego składnika 
+w obiekcie z bezpłużną uprawą roli. Największą wydajność energii, niezależnie od 
+systemu uprawy roli, uzyskano z plonem ziarna pszenicy ozimej odmiany Turnia. 
+Uprawa mieszaniny odmian (Rysa i Turnia) spowodowała zwiększenie wydajności 
+energii w porównaniu z odmianą Rysa uprawianą w siewie czystym, chociaż różnice 
+te nie były statystycznie potwierdzone (tab. 17). 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+163162
+Tabela 17
+Wydajność energii (GJ·ha-1) pszenicy ozimej (średnie z lat 2006–2008)
+Odmiana System uprawy roli Średnio tradycyjny uproszczony
+Plon ziarna 
+Turnia 106 102 104
+Rysa 100 87 94
+Mieszanina 105 92 99
+Średnio 104 94 –
+NIR0,05
+r.n. 5,7
+dla interakcji – r.n.
+r.n. – różnica nieistotna
+Źródło: Lepiarczyk i in., 2010 (21)
+Podsumowując, należy stwierdzić, że technika z konserwującą uprawą roli dzięki 
+niższym nakładom energetycznym w poszczególnych strumieniach energetycznych 
+oraz zbliżonym plonom w stosunku do techniki tradycyjnej, jest od niej bardziej 
+efektywna energetycznie. Analiza energetyczna pozwala ponadto na porównywanie 
+różnych technik uprawy roli pod względem ich efektywności na przestrzeni lat,  
+z uwagi na fakt, iż analiza ta nie zależy od zmieniających się cen i relacji cenowych 
+pomiędzy produktami rolniczymi i środkami produkcji stosowanymi w technologiach, 
+co niejednokrotnie utrudnia ich porównywanie w latach oraz zmusza do częstej 
+aktualizacji ocen. 
+Wpływ na emisje
+W okresie ostatnich kilkunastu lat obserwuje się stały wzrost średniej temperatury 
+powietrza w ciągu roku w porównaniu z wynikami z poprzedniego stulecia. Jednym 
+z głównych powodów globalnego ocieplania klimatu jest zwiększona emisja gazów 
+cieplarnianych, głównie CO2 i N2O, związana ze spalaniem różnorodnych nośników 
+energetycznych oraz produkcją i stosowaniem nawozów azotowych. 
+Sektor rolniczy przyczynia się do wzrostu efektu cieplarnianego. Badania 
+wykazały, że system uprawy konwencjonalnej (tradycyjna – płużna uprawa roli)  
+w porównaniu z innymi systemami uprawy roli (uprawa bezorkowa, uprawa zerowa) 
+jest głównym powodem zwiększonego wydzielania dwutlenku węgla do atmosfery 
+(19). Uwalnianie się CO2 jest związane z mineralizacją próchnicy w wyniku 
+intensywnego oddziaływania maszyn i narzędzi uprawowych na warstwę orną gleby. 
+W warunkach uprawy konserwującej (systemy bezorkowe) następuje akumulacja 
+humusu od 0,6–1,8 t/ha/rok. Jedna tona substancji organicznej może związać około  
+2 ton dwutlenku węgla (17). Znacznie podwyższona stabilność agregatów glebowych 
+w systemie uprawy konserwującej prowadzi do sekwestracji węgla organicznego 
+w glebie i ogranicza uwalnianie CO2 do atmosfery (11). Intensywna uprawa płużna 
+natomiast degraduje stabilną strukturę gruzełkowatą, przyczyniając się do wzmożonej 
+Janusz Smagacz
+163162
+emisji CO2. Ograniczenie intensywności uprawy roli prowadzi również do znacznego 
+zmniejszenia zużycia paliwa i mniejszego zanieczyszczenia środowiska. S m i t h   
+i  i n. (30) wykazali, że zastąpienie tradycyjnej uprawy płużnej uprawą konserwującą 
+może ograniczyć o około 4,1% ogólną emisję CO2 do atmosfery. 
+Interesujących wyników dostarczyły też badania przeprowadzone przez J a r o s z  
+i  i n. (14) nad emisją CO2 w uprawie kukurydzy na ziarno za pomocą różnych technik 
+uprawy roli. Największą emisję stwierdzono w kukurydzy uprawianej w  zmianowaniu 
+w systemie uprawy płużnej ze zbiorem słomy, co można bezpośrednio wiązać  
+z większym zużyciem oleju napędowego oraz azotu wniesionego w oborniku (tab. 18). 
+Tabela 18
+Emisja CO2 eq/kg nasion z uprawy kukurydzy w SD Baborówko 
+Emisje  
+(g CO2 eq/kg)
+Systemy uprawy (warianty)
+1*/ 2*/ 3*/ 4*/
+2013 2014 2013 2014 2013 2014 2013 2014
+Zużycie ON (l/ha) 8,75 9,32 14,27 14,98 18,97 19,14 22,85 24,09
+Nawozy N (kg N) 48,97 52,13 47,51 49,89 48,23 48,67 55,44 58,45
+Nawozy K2O (kg K2O) 5,70 6,06 5,53 5,80 5,61 5,66 5,31 5,60
+Nawozy P2O5 (kg P2O5) 5,82 6,19 5,64 5,92 5,73 5,78 5,42 5,72
+Pestycydy (kg) 2,30 2,26 2,24 2,16 2,27 2,11 2,15 2,09
+Emisja polowa N2O  
+(g CO2 eq/kg) 99,54 100,74 96,86 98,30 96,53 94,68 113,85 166,44
+Emisja z uprawy  
+(g CO2 eq/kg) 171,08 176,70 172,05 177,07 177,34 176,05 205,02 212,39
+Emisja z uprawy  
+(g CO2 eq/kg/MJ bioetanol) 25,95 29,30 26,59 29,29 28,19 29,54 32,01 35,69
+Emisja z uprawy minus 
+emisja z wywaru  
+(g CO2 eq/kg/MJ bioetanol)
+14,17 15,96 14,50 16,00 15,39 16,13 17,50 19,49
+1*/ monokultura – uprawa bezorkowa i pozostawienie całej ilości resztek pożniwnych na polu,
+2*/ monokultura – uprawa uproszczona i pozostawienie całej ilości resztek pożniwnych na polu,
+3*/ monokultura – uprawa płużna i przyorywanie całej ilości resztek pożniwnych, 
+4*/ zmianowanie – uprawa płużna przy zbiorze całej ilości resztek pożniwnych
+Źródło: Jarosz i in., 2017 (14)
+Emisje z uprawy kukurydzy w pozostałych obiektach były mniejsze, co wynikało 
+głównie z mniejszego poziomu nawożenia azotem (o 30 N/ha) w porównaniu  
+z uprawą kukurydzy w zmianowaniu. Stwierdzono też, że ziarno kukurydzy mogłoby 
+być wykorzystane do produkcji bioetanolu, ponieważ oszacowane emisje z uprawy, 
+po odliczeniu wielkości emisji na produkty uboczne były mniejsze od 20 g CO2  
+eq/kg/MJ bioetanolu, co jest wartością standardową w przypadku uprawy kukurydzy. 
+Inne badania przeprowadzone przez R u t k o w s k ą  i  i n. (27) dotyczące emisji 
+N2O w uprawie kukurydzy wskazują również na istotne zróżnicowanie tego parametru 
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+165164
+w zależności od przyjętego systemu uprawy roli. Z badań tych wynika jednoznacznie, 
+że bezorkowa uprawa roli charakteryzuje się istotnie mniejszą emisją N2O do atmosfery 
+praktycznie w każdym badanym siedlisku (lokalizacji), co jest zjawiskiem korzystnym 
+z uwagi na bezsporny fakt negatywnego oddziaływania rolnictwa na środowisko 
+przyrodnicze (tab. 19). 
+Tabela 19
+Emisje N2O (µg N-N2O m2/h) z gleby w zależności od systemu uprawy roli 
+Rok Uprawa roli Żelazna Baborówko Grabów Czesławice Średnio
+2014 płużna 10,69b/* 11,13b 14,36b 12,06b 12,06b
+bezorkowa 8,66a 9,26a 8,30a 10,54a 9,19a
+2015 płużna 10,43b 9,48a 12,51b 10,78b 10,80b
+bezorkowa 9,18a 9,60a 7,50a 9,22a 8,87a
+/*wartości oznaczone tymi samymi literami nie różnią się istotnie
+Źródło: Rutkowska i in., 2017 (27)
+Dotychczas brak jest bezpośrednich metod ograniczania emisji N2O z rolnictwa. 
+Wydaje się, że emisje te można jednak pośrednio ograniczyć poprzez:
+• utrzymywanie możliwie małego stężenia azotu mineralnego w glebie (podział 
+dawek N, uprawa międzyplonów);
+• precyzyjne metody ustalania dawek nawozów azotowych – testy glebowe  
+i roślinne, rolnictwo precyzyjne (mapy plonów);
+• ograniczanie rozpraszania azotu do środowiska (wymywanie, straty gazowe);   
+• ulepszone techniki (doglebowe) aplikacji nawozów mineralnych, szczególnie 
+naturalnych;
+• poprawną gospodarką glebową materią organiczną.  
+Podsumowanie 
+We współczesnym rolnictwie uprawa roli, obok oddziaływania na wielkość  
+i stabilność plonów, powinna stwarzać także warunki do wzrostu lub utrzymania 
+na odpowiednim poziomie żyzności gleby oraz ograniczać ujemne oddziaływanie 
+rolnictwa na środowisko przyrodnicze. Powinna być preferowana konserwująca 
+uprawa roli, polegająca na stosowaniu uprawy bezorkowej z mulczowaniem 
+powierzchni gleby resztkami pożniwnymi i międzyplonami. Pozostawienie resztek 
+pozbiorowych roślin na powierzchni pola przyczynia się do zmniejszenia spływów 
+powierzchniowych i zwiększa retencję wodną gleby. Zmniejszenie intensywności 
+uprawy powoduje spowolnienie procesu rozkładu glebowej materii organicznej oraz 
+ograniczenie wydzielania CO2 i N2O do atmosfery, co ogranicza efekt cieplarniany. 
+Istnieje pilna potrzeba wdrożenia do szerokiej praktyki rolniczej uzyskanych 
+dotychczas wyników badań naukowych oraz prac badawczo-rozwojowych nad 
+produkcyjno-ekonomicznymi i środowiskowymi konsekwencjami uproszczeń  
+w uprawie roli. Proponowane rozwiązania charakteryzują się bowiem wieloma 
+Janusz Smagacz
+165164
+zaletami. Ograniczenie liczby, głębokości i intensywności wykonywania zabiegów 
+uprawowych powoduje istotne zmniejszenie jednostkowych kosztów produkcji 
+(mniejsze zużycie paliwa i nakłady robocizny), jak również może prowadzić do 
+eliminowania procesów degradacji gleby, poprawiać biologiczną aktywność i sprzyjać 
+gromadzeniu próchnicy w glebie. 
+Należy zaznaczyć, że gospodarstwa rolne bazujące na posiadanym aktualnie 
+sprzęcie nie mogą wprowadzać drastycznych zmian w pożniwnym i przedsiewnym 
+przygotowaniu pola pod zasiew, ponieważ mogą one prowadzić do znacznego wzrostu 
+zachwaszczenia roślin uprawnych, głównie chwastami wieloletnimi. Wskazana jest tu 
+także odpowiednia wiedza fachowa samych rolników, ponieważ wszelkie zaniedbania 
+dotyczące stosowania uproszczeń w uprawie roli prowadzą do drastycznej obniżki 
+plonów i pogorszenia się ekonomicznej opłacalności produkcji. 
+Wydaje się, że w wyniku zastosowania na szerszą skalę optymalnych rozwiązań 
+technologicznych w zakresie uprawy roli, szczególnie w dużych, specjalistycznych 
+gospodarstwach towarowych, wyróżniających się na tle innych zastosowaniem 
+wszelkich innowacji, rolnictwo w Polsce może w znacznym stopniu przyczynić się 
+zarówno do ochrony rolniczej przestrzeni produkcyjnej, jak również ograniczyć 
+niekorzystne oddziaływanie zmian klimatu na środowisko przyrodnicze i produkcję 
+rolniczą. 
+Literatura
+1. B i s k u p s k i  A., P a b i n  J., K u k u ł a  S., W ł o d e k  S., K a u s  A.: Wpływ ugniatającego 
+oddziaływania elementów jezdnych na właściwości fizyczne gleby oraz plonowanie jęczmienia 
+jarego. Zesz. Probl. Post. Nauk Rol., 1998, 460: 405-412. 
+2. B i s k u p s k i  A.,  W ł o d e k  S., P a b i n  J.: Sposoby uprawy roli a plonowanie i zmiany 
+wilgotności gleby. Zesz. Probl. Post. Nauk Rol., 2003, 493: 335-343. 
+3. B l e c h a r c z y k  A., M a ł e c k a  I., S i e r p o w s k i  J.: Wpływ wieloletniego oddziaływania 
+systemów uprawy roli na fizyko-chemiczne właściwości gleby. Fragm. Aron., 2007, 1(93): 7-13. 
+4. C z y ż  E., D e x t e r  A.R., W ł o d e k  S., B i s k u p s k i  A., N i e d ź w i e c k i  J.: Ocena 
+wybranych fizycznych właściwości gleby w różnych systemach uprawy roli. W: Produkcyjne  
+i siedliskowe skutki stosowania różnych systemów uprawy roli. Raport z tematu badawczego nr 
+2.3.2, IUNG-PIB Puławy, 2010: 8-21. 
+5. D a v i d s o n  E. A., A c e r m a n  I.L.: Changes in soil carbon inventories following cultivation 
+of previousely untiled soils. Biogeochemistry, 1993, 20: 161-193.
+6. D z i e n i a  S., P i s k i e r  T., W e r e s z c z a k a  J.: Wpływ uproszczonych sposobów uprawy 
+gleby na nakłady energetyczne i plonowanie pszenżyta ozimego. Zesz. Nauk.  AR Szczecin, 162, 
+Agricult. 1994, 58: 45-48. 
+7. D z i e n i a  S., Z i m n y  L., W e b e r  R.: Najnowsze kierunki w uprawie roli i technice siewu. 
+Fragm. Agron., 2006, 2: 227-241.
+8. F r i e d r i c h  Th., K i e n z l e J., E p p e l e i n  J., B a s c h  G.: Schonende Bodenbearbeitung, 
+Verlag DLG; Konservierende Bodenbearbeitung, 2008: 55-77. 
+9. G a r c i a-T o r r e s  L.: Konservierende Bodenbearbeitung in Europa: Umweltrelevante, 
+ökonomische und EU politische Perspektiven. Deutsche Gesellschaft für Konservierende 
+Bodenbearbeitung, Berlin, 1999: 5-23.
+10. G o n e t  Z.: Metoda i niektóre wyniki badań energochłonności systemów uprawy roli. Fragm. 
+Agron., 1991, 2: 7-18.
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...
+167166
+11. J a c o p s  A., R a u b e r  R., L u d w i g  B.: Impact of reduced tillage on carbon and nitrogen 
+storage of two haplic luvisols after 40 years. Soil and Tillage Research, 2009, 102(1): 158-164.
+12. J a n k o w i a k  J., M a ł e c k a  I.: Uproszczenia uprawowe w zrównoważonym rozwoju rolnictwa. 
+W: Z badań nad rolnictwem społecznie zrównoważonym (6). IERiGŻ-PIB Warszawa 2008, 102: 
+87-113. 
+13. J a s k u l s k i  D., J a s k u l s k a I., J a n i a k  A., B o c z k o w s k i  T.: Changes in some soil 
+properties under the effect of diversified tillage for maize depending on the forecrop. Acta Sci. Pol. 
+Agric., 2015, 14(3): 61-71. 
+14. J a r o s z  Z., K s i ę ż a k  J., F a b e r  A.: Ocena wielkości emisji gazów cieplarnianych systemów 
+uprawy stosowanych w kukurydzy wykorzystywanej do produkcji bioetanolu. Rocz. Nauk. SERiA, 
+2017, XIX (1): 60-65. 
+15. K i n s e l l a  J.: The effect of various tillage systems in soil compaction. Farming for a Better 
+Environment, A White Paper, Soil and Water Conservation Society, Ankeny, Iowa, USA, 1995: 
+15-17.  
+16. K o z i c z  J.: Wpływ ugniatającego działania kół w różnym stopniu obciążonego ciągnika na 
+właściwości fizyczne gleby oraz na wzrost, rozwój i plon niektórych roślin uprawnych. Zesz. Probl. 
+Post. Nauk Rol., 1971, 112: 67-75. 
+17. K ö l l e r  K., L i n k e  Ch.: Erfolgreicher Ackerbau ohne Pflug, 2001: 5-176.
+18. K r a s o w i c z  S., M a d e j  A.: Ocena efektywności energetycznej różnych technik uprawy roli 
+pod pszenicę ozimą. W.: Produkcyjne i siedliskowe skutki stosowania różnych systemów uprawy 
+roli. Raport z tematu badawczego nr 2.3.2, IUNG-PIB Puławy 2010b: 153-157
+19. L a s c a l a  N., B o l o n h e z i  D., P e r e i r a  G.T.: Short-term soil CO2 emission after conventional and reduced tillage of a no-till sugar cane area in southern Brazil. Soil Till. Res., 2006, 91(1-2): 
+244-248. 
+20. L e n a r t  S., S ł a w i ń s k i  P.: Wybrane właściwości gleby oraz występowanie dżdżownic  
+w warunkach siewu bezpośredniego i płużnej uprawy roli. Fragm. Agron., 2010, 4: 86-93. 
+21. L e p i a r c z y k  A., Ł a b z a  T., P u ż y ń s k a  K.: Produkcyjność pszenicy ozimej odmiany 
+Turnia i Rysa wysiewanej w siewie czystym i mieszanym w zależności od system uprwy roli. 
+Annales UMCS, Sec. E,  2010, 65(3): 42-50.
+22. M a ł e c k a  I., S w ę d r z y ń s k a  D., B l e c h a r c z y k  A., D y t m a n-H a g e d o r n M.: 
+Wpływ systemów uprawy roli pod groch na właściwości fizyczne, chemiczne i biologiczne gleby. 
+Fragm. Agron., 2012, 29(4): 106-116.
+23. O r z e c h  K., M a r k s  M., N o w i c k i  J.: Energetyczna ocena trzech sposobów uprawy roli 
+na glebie średniej. Annales UMCS, Sec. E, 2004, 59(3): 1275-1281.  
+24. P a b i n  J., K u k u ł a  S., W ł o d e k  S., B i s k u p s k i  A., K a u s  A.: Wpływ głęboszowania 
+i ugniatania gleby przejazdami ciągników na jej właściwości fizyczne i plony korzeni buraka 
+cukrowego, Zesz. Probl. Post. Nauk Rol., 1998, 460: 395-403.
+25. P h i l l i p s  P.P., P h i l l i p s  S.H.: No-Tillage Agriculture – Principles and Praktice. Van Nostrand 
+Reinhold Company. New York, Toronto 1984, ss. 306. 
+26. R a s m u s s e n  K. J.: Impact of ploughless soil tillage on yield and quality. Acta Scandinavian 
+review. Soil Till. Res., 1999, 53(1): 3-14.
+27. R u t k o w s k a  B., S z u l c  W., S z a r a  E., S k o w r o ń s k a  M., J a d c z y s z y n  T.: Soil 
+N2O emission under conventional and reduced tillage methods and maize cultivation. Plant Soil Environ., 2017, 63(8): 342-347.  
+28. S c h i l l i n g e r  W. F.: Minimum and delayed conservation tillage for wheat – fallow farming. 
+Soil Sci. Soc. Amer. J., 2001, 65: 1203-1209. 
+29. S c h m i d t  W., D o l l  D., N i t z s c h e  O.: Erfahrungen mit konservierender Bodenbearbeitung 
+in Sachsen. Neue Landwirtschaft, 1999, 5: 2-5. 
+30. S m i t h  P., P o w l s o n  D.S., G l e n d i n i n g  W., S m i t h  J.U.: Preliminary estimates of the 
+potential for carbon mitigation in European soils through no-till forming. Global Change Biology, 
+1998, 4(6): 679-685.
+31. S m a g a c z  J.: Produkcyjno-ekonomiczne i środowiskowe skutki różnych systemów uprawy roli. 
+Studia i Raporty IUNG-PIB, 2012, 29(3): 121-134. 
+Janusz Smagacz
+167166
+32. S m a g a c z  J.: Uprawa roli jako element zrównoważenia środowiskowego produkcji roślinnej. 
+Studia i Raporty IUNG-PIB, 2015, 43(17): 89-101. 
+33. S m a g a c z  J.: Konsekwencje organizacyjne i środowiskowe różnych systemów uprawy roli. 
+Studia i Raporty IUNG-PIB, 2016, 47(1): 139-153.   
+34. W e b e r  R.: Wpływ uprawy zachowawczej na ochronę środowiska. Post. Nauk Rol., 2002, 1: 
+57-67. 
+35. W e b e r  R.: Przydatność uprawy konserwującej w rolnictwie zrównoważonym. Monografie  
+i Rozprawy Naukowe, IUNG-PIB, 2010, 25: 1-72. 
+36. W e y e r  T.: Schonende Bodenbearbeitung. In: Konservierende Bodenbearbeitung – Verdichtung, 
+Verlag DLG 2008: 30-44. 
+Adres do korespondencji: 
+dr hab. Janusz Smagacz, prof. IUNG-PIB
+Zakład Systemów i Ekonomiki Produkcji Roślinnej
+IUNG-PIB
+ul. Czartoryskich 8, 24-100 Puławy
+tel.: 81 47 86 804
+e-mail: smagacz@iung.pulawy.pl
+AUTOR ORCID
+Janusz Smagacz 0000-0003-4322-3178
+Kierunki rozwoju różnych systemów uprawy roli w warunkach...

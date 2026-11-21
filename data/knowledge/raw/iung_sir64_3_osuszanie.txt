@@ -1,0 +1,429 @@
+4948
+Jan Jadczyszyn, Beata Bartosiewicz
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+PROCESY OSUSZANIA I DEGRADACJI GLEB* 
+Słowa kluczowe: osuszanie, stepowienie, degradacja gleby, gleby organiczne
+Wstęp
+Geograficzne położenie Polski warunkuje wpływ olbrzymich połaci wody Oceanu 
+Atlantyckiego z Zachodu i rozległych obszarów lądowych ze Wschodu, które 
+kształtują cechy klimatu umiarkowanego przejściowego. W części zachodniej większe 
+oddziaływanie zaznacza wilgotny klimat morski, a w części wschodniej – suchy 
+klimat kontynentalny (29, 18). Analizując warunki termiczno-wilgotnościowe, obszar 
+Polski zakwalifikowano do klimatyczno-glebowego pasa subboralnego, umiarkowanie 
+ciepłego (1). Charakteryzuje się on roczną sumą średnich temperatur dobowych 
+wyższych od 10°C w zakresie 2000–3800°C. Cechy klimatu umiarkowanego wykazują 
+dużą zmienność opadów i temperatury zarówno w sezonie wegetacyjnym, jak  
+i w poszczególnych latach. Zmienne warunki pogodowe przekładają się na okresowe 
+niedobory wody dostępnej dla roślin w sezonie wegetacyjnym. Na większości 
+obszaru Niżu Polskiego średnia roczna suma opadów jest mniejsza od 550 mm,  
+a lokalnie nawet od 500 mm (5). Niedobór wody w sezonie wegetacyjnym mierzony 
+klimatycznym bilansem wodnym (KBW) od Wielkopolski przez Kujawy, Mazowsze, 
+Podlasie i Lubelszczyznę, aż do wschodniej granicy kraju jest większy niż 200 
+mm (rys. 1). Występowanie niekorzystnych stosunków wodnych i naturalnego 
+niedoboru wód powierzchniowych na tym obszarze potwierdzają również badania 
+K l e c z k o w s k i e g o  (13). Zmiany klimatyczne obserwowane w ostatnich dwóch 
+dekadach, które objawiają się wyraźnym wzrostem temperatury powietrza oraz 
+występowaniem okresów bezopadowych wiosną, czyli w fazie największego 
+S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 64(18): 49-60 2020
+* Opracowanie wykonano w ramach zadania 1.5 w programie wieloletnim IUNG-PIB.
+doi: 10.26114/sir.iung.2020.64.03
+5150
+ Jan Jadczyszyn, Beata Bartosiewicz
+zapotrzebowania roślin na wodę, są czynnikami pogłębiającymi deficyt wody. Analiza 
+warunków agroklimatycznych w ostatnich 50 latach w Polsce uwidoczniła wyraźne 
+zwiększenie deficytu wody w sezonie wegetacyjnym, mierzone klimatycznym bilansem 
+wodnym, co prowadzi do znacznego zwiększenia częstotliwości występowania suszy 
+rolniczej (rys. 1) (4). Większość gleb w Polsce charakteryzuje się opadowym typem 
+gospodarki wodnej i korzysta wyłącznie ze źródła wód opadowych ze względu na 
+zbyt niski, pozostający poza zasięgiem systemu korzeniowego roślin uprawnych 
+poziom wód gruntowych. Naturalnym zbiornikiem retencyjnym wody dla roślin jest 
+gleba, która gromadzi wodę w okresie opadów, roztopów i udostępnia ją w okresach 
+bezopadowych, tzw. okresach posuchy. Możliwości retencjonowania wody w glebie 
+zależą od zawartości substancji organicznej oraz udziału frakcji spławialnej i ilastej 
+w całym profilu. Zdecydowana większość gleb mineralnych w Polsce (ponad 60%) 
+wytworzona została z utworów piaszczystych, które mają naturalnie ograniczone 
+możliwości gromadzenia wody i charakteryzują się niską zawartością próchnicy, 
+przeciętnie poniżej 2,0%. 
+Rys. 1. Klimatyczny bilans wodny (KBW) w okresie wegetacyjnym 
+Źródło: Kozyra i Górski, 2005 (15)
+Pogorszenie stosunków wodnych w glebie na przestrzeni ostatnich dwóch 
+wieków wiąże się z działalnością gospodarczą człowieka. Od początku XIX wieku 
+w Wielkopolsce prowadzono intensywny wyrąb lasów i o jedną trzecią zmniejszono 
+zalesienie (16). Już w XIX wieku zdrenowano i osuszono 85% gruntów ornych na 
+Wartość KBW (mm):
+< –250
+–250-(–200)
+–15-(–100)
+–200-(–150)
+–100-(–50)
+> 0
+–50-0
+5150 Procesy osuszania i degradacji gleb 
+Kujawach. Likwidowano tereny bagienne, podmokłe i rozlewiska, które zatrzymywały 
+wodę oraz regulowano i prostowano koryta rzek dla potrzeb żeglugi (11, 16). Kolejny 
+etap regulacji stosunków wodnych i osuszania poprzez melioracje i regulacje koryt rzek 
+prowadzono po II wojnie światowej. W 2011 roku w skali kraju melioracjami wodnymi 
+objęto 41,5% użytków rolnych (GUS, 2011). Wszystkie te działania doprowadziły 
+do obniżenia poziomu wód gruntowych, obniżenia lustra wód w jeziorach,  
+a w części do ich całkowitego wyschnięcia (16) oraz znacznie zmniejszyły zasoby wody 
+w środowisku. W następstwie osuszenia znacznych obszarów Polski uruchomione 
+zostały procesy murszowe, które prowadzą do degradacji gleb torfowych i uwalniania 
+do atmosfery w procesie mineralizacji zasobów węgla w nich zgromadzonych. 
+Osuszenie gleb mineralnych zwiększa ich podatność na procesy erozji wodnej 
+i wietrznej i może prowadzić również do mineralizacji próchnicy oraz zmniejszenia 
+jej pojemności wodnej.
+Celem pracy jest przedstawienie skali degradacji gleb, szczególnie gleb 
+organicznych w Polsce, zachodzącej na skutek ich osuszenia i mineralizacji substancji 
+organicznej. Autorzy zwracają również uwagę na pilne potrzeby wprowadzenia działań 
+ochronnych zmierzających do zwiększenia retencji wody w środowisku, zwłaszcza  
+na obszarach gleb zmeliorowanych, gleb organicznych objętych procesami murszenia 
+i zagrożonych wysoką częstotliwością występowania suszy rolniczej.  
+Procesy stepowienia i pustynnienia gleb
+W wyniku obniżenia poziomu wód gruntowych i pogorszenia pierwotnych 
+stosunków wodnych rozpoczął się proces odwodnienia, osuszania i degradacji 
+gleb, zwany również procesem stepowienia (16, 12). Według Porębskiej  
+i Sadowskiego (23), proces stepowienia to stopniowe wchodzenie sucholubnej 
+roślinności typowej dla strefy półsuchej i przemiana łąk, pastwisk i zarośli  
+w zbiorowiska trawiaste podobne do stepów; wyraża się też znacznym spadkiem 
+zasobów wodnych, zmniejszaniem plonów, ograniczeniem hodowli z powodu braku 
+paszy itp. oraz rozwojem erozji wietrznej. Stepowienie obserwowane jest obecnie 
+w Wielkopolsce, na Pomorzu, Kujawach i południowo-wschodniej Polsce. Proces 
+pustynnienia jest konsekwencją i dalszym nasileniem niekorzystnych zmian obiegu wody  
+w środowisku i postępującą degradacją gleb, zachodzących w wyniku stepowienia 
+i może zachodzić w sposób ciągły lub okresowy. Wyraża się zmniejszeniem liczby 
+gatunków roślin zasiedlających glebę, zmniejszeniem produkcji biomasy, ubytkiem 
+substancji organicznej w glebie (próchnicy), zmniejszeniem retencji wodnej gleb, 
+zwiększeniem rozpylenia wierzchniej warstwy gleby i nasileniem erozji wietrznej 
+i wodnej (23). Nasilenie procesu pustynnienia może w efekcie prowadzić do utraty 
+wody glebowej, ograniczenia lub całkowitej utraty roślinności i bioróżnorodności 
+w środowisku, znacznego ograniczenia lub całkowitego zahamowania produkcji 
+rolniczej i leśnej. Na obszarach typowo rolniczych w kraju dostrzegane jest również 
+5352
+ Jan Jadczyszyn, Beata Bartosiewicz
+pustynnienie przemysłowe w wyniku nadmiernej eksploatacji zasobów wodnych 
+przez przemysł i urbanizację (23). Polska, przystępując w roku 2002 do Konwencji 
+Narodów Zjednoczonych (UNCCD) w sprawie zwalczania przyczyn oraz skutków susz 
+i pustynnienia, rozpoczęła prace nad oceną niekorzystnych zjawisk w naszym kraju. 
+W wyniku tych prac w roku 2004 ukazał się raport z realizacji Konwencji, z którego 
+wynika, że Polska nie jest dotknięta pustynnieniem w rozumieniu Konwencji, ale są 
+obszary zagrożone erozją wietrzną gleb, głównie w Wielkopolsce (16). Europejski 
+Trybunał Obrachunkowy w sprawozdaniu opracowanym w 2018 roku stwierdził, 
+że pustynnienie i degradacja gruntów stanowią aktualnie rosnące zagrożenia w UE 
+(26). Gorące półpustynie występują już w Europie Południowej, m.in. w południowej 
+Portugalii, Hiszpanii, we Włoszech, a także w Bułgarii i Rumunii, gdzie klimat  
+zmienia się z umiarkowanego na suchy. Proces pustynnienia postępuje dalej na północ 
+Europy (26). Trybunał jednak nie odniósł się do skali rzeczywistej degradacji gleb  
+w wyniku tego zjawiska w poszczególnych krajach członkowskich.  
+Trwałe obniżenie poziomu wód gruntowych i osuszenie gleby wywołuje cały 
+łańcuch niekorzystnych zjawisk i procesów prowadzących do degradacji środowiska 
+glebowego i krajobrazu wiejskiego. Największe i nieodwracalne zmiany w wyniku 
+osuszenia odnotowuje się w siedlisku gleb organicznych, w typie gleb torfowych (T), 
+torfowo-mułowych i mułowo-torfowych (E). W wyniku napowietrzenia gleby torfowe 
+z fazy akumulacji przechodzą w fazę decesji, a proces torfotwórczy zastąpiony zostaje 
+procesem murszenia (20). Proces murszenia prowadzi do rozwarstwienia profilu gleby 
+torfowej na charakterystyczne dla gleb murszowych poziomy diagnostyczne (M1, 
+M2, M3). Rozluźnienie wierzchnich poziomów (M1, M2) zwiększa przepuszczalność 
+i ogranicza podsiąk, co sprzyja ich dalszemu wysychaniu oraz ogranicza retencję.  
+W takich warunkach dochodzi do ługowania składników pokarmowych, zwłaszcza 
+wapnia (21). Inną formą degradacji odwodnionych i rolniczo użytkowanych gleb 
+torfowych jest uwalnianie się azotu mineralnego w formie azotanowej i amonowej 
+oraz wydzielanie dużej ilości CO2 w wyniku mineralizacji materii organicznej (19). 
+Procesom mineralizacji materii organicznej sprzyja umiarkowana wilgotność gleby 
+organicznej w granicach 60–70% obj. i zawartość powietrza 20–30% obj. (20).  
+W warunkach Polski powierzchnia odwadnianych i użytkowanych gleb torfowych 
+obniża się przeciętnie o 10 mm rocznie, a straty materii organicznej w ciągu 
+roku wynoszą 7–15 t·ha-1 (20). Proces murszowy jest procesem nieodwracalnym  
+i prowadzi do trwałej degradacji gleb torfowych, utraty nagromadzonej przez tysiące 
+lat materii organicznej. Degradacja gleb organicznych prowadzi do utraty węgla  
+w nich zmagazynowanego, ograniczenia retencji wody i potencjału produkcyjnego 
+oraz trwałych zmian w krajobrazie wiejskim i utraty funkcji ekologicznych. 
+Degradacja gleb mineralnych w wyniku osuszania nie jest tak intensywna jak gleb 
+organicznych. Osuszenie gleb w sposób trwały nasila tempo mineralizacji  próchnicy, 
+zmniejsza pojemność wodną i retencji wody w glebie. Ubytek materii organicznej 
+pogarsza właściwości fizykochemiczne, stosunki powietrzno-wodne oraz aktywność 
+biologiczną gleby. Prowadzi do rozpadu agregatów glebowych i korzystnej struktury 
+5352 Procesy osuszania i degradacji gleb 
+gruzełkowatej, przez co zwiększa podatność gleby na procesy erozji wodnej  
+i wietrznej. Gleby mineralne Polski to w 60% gleby bardzo lekkie i lekkie wytworzone 
+z różnego rodzaju piasków (10), zawierające 1–2% materii organicznej (17). Bardzo 
+drobne uziarnienie skały macierzystej jest podstawą klasyfikacji aż 32% gleb 
+ornych do gruntów słabych i bardzo słabych (25). Gleby piaszczyste charakteryzują 
+się bardzo niską zdolnością retencjonowania wody w profilu glebowym i szybciej 
+ulegają przesuszeniu (www.susza.iung.pulawy.pl). Zmiany klimatyczne i osuszenie 
+gleb mineralnych w wyniku świadomego odwodnienia mają istotny wpływ na 
+ich właściwości fizykochemiczne, w tym zdolności sorpcyjne i buforowe oraz 
+procesy biologiczne warunkujące wiele przemian określanych mianem aktywności 
+biologicznej (https://www.eea.europa.eu/). Każdy wzrost temperatury wiąże się 
+ze zwiększeniem ewaporacji i deficytu wodnego, co w konsekwencji wpływa na 
+zmniejszenie zawartości węgla w glebie (22). Zależność tę potwierdzono w badaniach 
+prowadzonych na gruntach ornych w województwach podlaskim i dolnośląskim 
+(24). Mianowicie, w czasie gdy zaobserwowano podniesienie się średniej rocznej 
+temperatury w stosunku do obserwowanej w poprzednich wieloleciach, odnotowano 
+również statystycznie istotne zmniejszenie się puli węgla w glebie (7). Nasilenie 
+procesu mineralizacji próchnicy powoduje także zmniejszenie pojemności wodnej 
+i retencji wody oraz szereg niekorzystnych zjawisk, tj.: pogorszenie właściwości 
+biologicznych, fizykochemicznych, termicznych oraz stosunków powietrzno- 
+-wodnych, które bezpośrednio wpływają na jakość gleb (27). Decydują o warunkach 
+wzrostu, rozwoju i plonowania roślin uprawnych (2). Proces mineralizacji prowadzi 
+także do rozpadu agregatów glebowych, przez co zwiększa podatność gleby na 
+zagęszczanie oraz procesy erozji wodnej i wietrznej.
+Przestrzenna ocena degradacji gleb organicznych i mineralnych w wyniku 
+osuszenia 
+Naturalne niedobory wód powierzchniowych w Polsce wg Kleczkowskiego 
+(13) występują na Niżu Polskim i obejmują obszar 112,5 tys. km2, co stanowi 36,0% 
+ogólnej powierzchni kraju (rys. 2). Na obszarze z niedoborem wód powierzchniowych 
+występuje zwiększony udział gleb lekkich o małych możliwościach retencyjnych  
+i najbardziej podatnych na suszę rolniczą w skali kraju, co dodatkowo naraża je 
+na procesy degradacji (rys. 3). Udział kategorii I – gleb bardzo podatnych, wynosi 
+26,0% i jest o 4,6% większy w stosunku do ich udziału w skali kraju, a gleb kategorii  
+II – podatnych na suszę, wynosi 42,8% i jest o 7,2% większy w porównaniu ze średnim 
+udziałem w kraju (tab. 1). Równocześnie, udział gleb kategorii III i IV – średnio i mało 
+podatnych na suszę, jest o 11,8% mniejszy. Występowanie na jednym obszarze dwóch 
+niekorzystnych czynników stymulujących stres wodny roślin uprawnych w postaci 
+zwiększonego naturalnego niedoboru wód powierzchniowych oraz zwiększonego 
+udziału gleb wrażliwych na suszę zwiększa ryzyko występowania suszy rolniczej.
+5554
+Kategoria podatności 
+gleb na suszę:
+I – bardzo podatna
+II – podatna
+IV – mało podatna
+III – średnio podatna
+obszary naturalnego niedoboru wody
+Jan Jadczyszyn, Beata Bartosiewicz
+Rys. 2. Obszary naturalnego niedoboru wód w Polsce 
+Źródło: Kleczkowski, 2001 (13)
+Obszary naturalnego niedoboru 
+wód w Polsce:
+powierzchniowych
+podziemnych
+intensywny pobór wód podziemnych
+0 100 200 km
+Rys. 3. Kategorie podatności gleb na suszę rolniczą na obszarze naturalnego niedoboru wód 
+powierzchniowych 
+Źródło: opracowanie własne z wykorzystaniem mapy obszaru naturalnego niedoboru wód 
+powierzchniowych wykonanej przez Kleczkowskiego, 2001 (13)
+5554 Procesy osuszania i degradacji gleb 
+Tabela 1
+Udział procentowy kategorii podatności gleb na suszę rolniczą w kraju i w strefie niedoboru wód 
+powierzchniowych 
+Kategorie podatności 
+gleb na suszę
+Udział w skali kraju 
+(%)
+Udział w strefie niedoboru wód 
+powierzchniowych (%) 
+Różnica 
+(%)
+A B B – A
+I – bardzo podatne 21,4 26,0 4,6
+II – podatne 35,6 42,8 7,2
+III – średnio podatne 24,2 21,7 -2,5
+IV – mało podatne 18,8 9,5 -9,3
+Źródło: opracowanie własne na podstawie Mapy kategorii podatności gleb na suszę rolniczą w skali 1:25 
+000 oraz Mapy naturalnego niedoboru wód w Polsce, red. Kleczkowskiego, 2001 (13)
+Wyniki oceny częstotliwości występowania suszy rolniczej realizowanej przez 
+IUNG-PIB zgodnie z kryteriami ustawy o dopłatach do ubezpieczeń upraw rolnych  
+i zwierząt gospodarskich (3) w latach 2007–2018 w Polsce potwierdzają tę zależność. 
+Częstotliwość występowania suszy rolniczej w gminach położonych w strefie Niżu 
+Polskiego jest kilkakrotnie większa w porównaniu z pozostałymi obszarami (rys. 4). 
+W najbardziej wrażliwych gminach susza w analizowanym okresie 12 lat wystąpiła 
+nawet 10-krotnie (4). Tak częste występowanie suszy rolniczej przynosi wymierne 
+straty gospodarcze dla rolnictwa w postaci spadku plonów, zmniejszenia efektywności 
+wykorzystania nawozów mineralnych i zwiększenia kosztów nawadniania upraw.
+Rys. 4. Liczba lat z suszą rolniczą w latach 2007–2018 
+Źródło: Koza i in., 2019 (14)
+Legenda
+Liczba lat, w których  
+wystąpiła susza  
+w latach 2007–2018
+0
+1
+4–5
+2–3
+6–7
+8–9
+10
+5756
+Typy gleb:
+E – mułowo-torfowe i torfowo-mułowe
+M – murszowo-mineralne i murszowate
+obszary naturalnego niedoboru wód powierzchniowych
+T – torfowe i mułowo-torfowe
+Jan Jadczyszyn, Beata Bartosiewicz
+Obniżenie poziomu wód gruntowych i osuszenie gleb torfowych w pasie Niżu 
+Polskiego i na obszarze naturalnego niedoboru wód powierzchniowych w wyniku 
+drenażu i melioracji uruchomiło procesy murszenia. Efekty trwałej degradacji gleb 
+torfowych w wyniku procesów murszenia widoczne są na mapie glebowo-rolniczej 
+(w skali 1:25 000) w postaci zwiększonej powierzchni występowania gleb murszowo-
+-mineralnych i murszowatych (M) i zmniejszonej powierzchni gleb torfowych (T) 
+oraz mułowo-torfowych i torfowo-mułowych (E) (rys. 5). Udział gleb torfowych (T)  
+w strefie niedoboru wód powierzchniowych jest znacznie mniejszy w porównaniu 
+ze średnim ich udziałem w kraju i wynosi odpowiednio: 3,6 i 5,6% (tab. 2). Podobne 
+zjawisko odnotowano w przypadku gleb mułowo-torfowych i torfowo-mułowych 
+(E), których udział wynosi 0,9% przy średnim dla kraju 1,6%. Odwrotne tendencje 
+stwierdzono natomiast w przypadku gleb murszowo-mineralnych i murszowatych 
+(M), których udział wynosi 7,9% i jest o 1,8% większy w porównaniu ze średnim 
+w kraju (tab. 2). Należy podkreślić, że przytoczone dane dotyczące występowania 
+gleb organicznych i pochodzenia organicznego odczytano na mapie glebowo-rolniczej 
+opracowanej w 1atach 60. XX wieku. Obecnie nie są dostępne w skali całego 
+kraju bardziej aktualne dane dotyczące występowania zasięgów gleb murszowych  
+i murszowatych. Na skutek stałego osuszenia gleb torfowych w ostatnich dekadach  
+i zmian klimatycznych procesy murszenia mogły się jeszcze bardziej nasilić, a zasięgi 
+występowania gleb murszowych i murszowatych mogą być aktualnie jeszcze większe.
+Rys. 5. Mapa gleb organicznych i pochodzenia organicznego 
+Żródło: opracowanie własne na podstawie Mapy glebowo-rolniczej w skali 1:25 000 oraz Mapy obszaru 
+naturalnego niedoboru wód powierzchniowych wykonanej przez Kleczkowskiego, 2001 (13)
+5756 Procesy osuszania i degradacji gleb 
+Tabela 2
+Udział procentowy gleb organicznych i pochodzenia organicznego w kraju i w strefie niedoboru wód 
+powierzchniowych 
+Typy gleb
+Udział w Polsce 
+(%)
+Udział w strefie 
+niedoboru wód 
+powierzchniowych (%) 
+Różnica 
+(%)
+A B B – A
+E – mułowo-torfowe i torfowo-mułowe 1,6 0,9 –0,7
+M – murszowo-mineralne i murszowate 6,1 7,9 1,8
+T – torfowe 5,6 3,6 –2,0
+Źródło: opracowanie własne na podstawie Mapy glebowo-rolniczej w skali 1:25 000 oraz Mapy 
+naturalnego niedoboru wód w Polsce red. Kleczkowskiego, 2001 (13)
+Podsumowanie i wnioski
+Odwodnienie i osuszenie gleb torfowych i mułowo-torfowych  wywołuje procesy 
+murszenia i trwałą ich degradację połączoną z mineralizacją substancji organicznej. 
+Brak jest jednak aktualnych danych kartograficznych, aby określić na poziomie 
+kraju intensywność i skalę przekształcania gleb torfowych. Przytoczone dane z lat 
+60. XX w. wskazują na powszechnie występujące procesy murszenia gleb torfowych 
+w strefie Niżu Polskiego i obszarze niedoboru wód powierzchniowych. W wyniku 
+niekorzystnych zjawisk w siedlisku gleb organicznych znacząco zmniejszają się ich 
+możliwości retencyjne. W wyniku mineralizacji substancji organicznej uwalniane są 
+związki azotu mineralnego, który w formie azotanów stanowi dodatkowe zagrożenie 
+dla wód gruntowych, a do atmosfery uwalniany jest węgiel w postaci CO2. Uwalniany 
+na dużą skalę węgiel z gleb organicznych może znacząco przyspieszać zachodzące 
+zmiany klimatyczne. Osuszanie gleb mineralnych również prowadzi do pogorszenia 
+ich właściwości fizykochemicznych, w tym właściwości sorpcyjnych i buforowych 
+oraz aktywności biologicznej gleb. Niekorzystna zmiana stosunków wodnych 
+i nadmierne napowietrzenie gleb zwiększają potencjalne ryzyko mineralizacji 
+próchnicy, przez co ograniczona zostaje retencja wody i zwiększa się ryzyko 
+wystąpienia suszy oraz podatność na zagęszczenie i procesy erozji wodnej i wietrznej. 
+Największe ryzyko degradacji i mineralizacji substancji organicznej występuje na 
+glebach organicznych trwałych użytków zielonych, które po osuszeniu przekształcane 
+zostają na grunty orne. Systematyczne wykonywanie zabiegów agrotechnicznych 
+nasila ich napowietrzanie i procesy mineralizacji próchnicy. Na obszarze naturalnego 
+niedoboru wód powierzchniowych, które obejmują ponad jedną trzecią powierzchni 
+kraju odnotowuje się zwiększoną częstotliwość występowania suszy rolniczej. 
+Przeprowadzona wstępna ocena procesów degradacji gleb na obszarach odwodnionych 
+i osuszonych nie pozwala na określenie wzajemnych, ścisłych zależności pomiędzy 
+analizowanymi czynnikami. Uwidacznia natomiast skalę zmian w siedlisku glebowym 
+5958
+ Jan Jadczyszyn, Beata Bartosiewicz
+i ich wpływ na produkcję rolniczą oraz ryzyko występowania suszy rolniczej.  
+Do przeprowadzenia wymiernej oceny wpływu osuszania i zmian stosunków wodnych 
+na procesy degradacji gleb organicznych i mineralnych potrzebne są szczegółowe 
+badania terenowe. Powinny one obejmować m.in. ocenę jakościową i ilościową 
+substancji organicznej oraz ocenę stosunków wodnych w profilu glebowym. Prace te 
+będą podstawą aktualizacji zasięgów przestrzennych gleb organicznych i pochodzenia 
+organicznego na mapie glebowo-rolniczej w skali 1:5 000 i umożliwią określenie 
+stopnia i skali przekształceń i degradacji tych gleb.  
+Komisja Europejska nie opracowała dotychczas strategii dotyczącej pustynnienia 
+i wspólnych przepisów w zakresie ochrony gleby oraz działań mających na celu 
+zapobieganie degradacji gleby. Odpowiedzialność za wdrożenie odpowiednich 
+działań na szczeblu krajowym ponoszą kraje członkowskie (26). Istotny wpływ 
+na ograniczenie procesów degradacji gleb w wyniku osuszenia i zjawiska suszy  
+w Polsce może mieć Plan Przeciwdziałania Skutkom Suszy (PPSS) opracowany 
+przez Państwowe Gospodarstwo Wodne Wody Polskie (PGW WP). Przewiduje on 
+m.in. działania prowadzące do zwiększenia ilości i czasu retencji wód na gruntach 
+rolnych. Działania te obejmują tworzenie zadrzewień śródpolnych i pasów ochronnych 
+poprawiających retencyjność wodną gleb oraz zachowanie, tworzenie lub odtworzenie 
+śródpolnych oczek wodnych i mokradeł. Drugi zakres działań przewiduje budowę 
+nowych urządzeń melioracji wodnych nawadniająco-odwadniających lub przebudowę 
+istniejących urządzeń melioracyjnych z funkcji odwadniających na nawadniająco-
+-odwadniające (https://wody.gov.pl/nasze-dzialania/stop-suszy). Rzeczywiste 
+efekty ochronne działań ujętych w planie zależą jednak od tempa ich wdrażania  
+i regionalizacji, która pozwoli skoncentrować siły i środki na obszarach najbardziej 
+dotkniętych procesami degradacji gleb. 
+Literatura
+1. B e d n a r e k  R., S k i b a   S.: Czynniki i procesy glebotwórcze. Gleboznawstwo red. A. Mocek, 
+Wydawnictwo Naukowe PWN, 2015, s. 68-98. 
+2. C z y ż  E.A.,  D e x t e r  A.R.: Fizyczne właściwości gleb. W: Wademekum klasyfikatora gleb, F. 
+Woch (red.) IUNG-PIB, Puławy 2015, s. 22-95.
+3. D o r o s z e w s k i  A.,  Jadczyszyn J., Kozyra J., Pudełko R., Stuczyński T., Mizak K., 
+Ł o p a t k a  A., K o z a  P., G ó r s k i  T., Wr ó b l e w s k a  E.: Podstawy systemu monitoringu suszy 
+rolniczej. Woda-Środowisko-Obszary Wiejskie, Instytut Technologiczno-Przyrodniczy w Falentach, 
+2012 (IV-VI): t. 12, 2: 77-91.
+4. Doroszewski A., Jóźwicki T., Wróblewska W., Kozyra J.: Susza rolnicza w Polsce  
+w latach 1961–2010. IUNG-PIB, Puławy, 2014, s. 144.
+5. Górski T., Demidowicz G., Deputat T., Górska K., Marcinkowska L., Spóz-Pać W., 
+Z a l i w s k i  A., Wr ó b l e w s k a  E.: Atlas Agroklimatyczny. IUNG, Puławy, 1999, s. 58. 
+6. GUS. Ochrona Środowiska. 2012.
+5958 Procesy osuszania i degradacji gleb 
+7. F a m i e l e c  J.,  G ó r k a  K.,  S t u c z y ń s k i  T.,  Wo ł k o w i c z  S.: Oszacowanie kosztów 
+wynikających z wdrażania w Polsce wymagań zawartych w projekcie dyrektywy Parlamentu 
+Europejskiego i Rady ustanawiającej ramy dla ochrony gleb oraz zmieniającej dyrektywę 2004/35/ 
+WE, 2007, Puławy-Warszawa-Kraków.
+8. https://www.eea.europa.eu/pl/sygna142y/sygnaly-2015/artykuly/gleba-a-zmiany-klimatu
+9. https://wody.gov.pl/nasze-dzialania/stop-suszy
+10. I g r a s  J.,  L i p i ń s k i  W.: Regionalne zróżnicowanie stanu agrotechnicznego gleb w Polsce. 
+Raporty PIB, Puławy, 2006, 3: 71-80.
+11. J e r z a k  L.,  M a c i a n t o w i c z   M.,  G o r a j   M.: Strategia rozwoju Polski Zachodniej. 
+Ekspertyza Uniwersytet Zielonogórski regionalna Dyrekcja lasów Państwowych, Polska Akademia 
+Nauk. Zielona Góra, 2011, ss. 81.
+12. K ę d z i o r a  A.: Wody już brakuje, ale stepowienie nam nie grozi. Głos Wielkopolski, 2008.   
+https://gloswielkopolski.pl/wody-juz-brakuje-ale-stepowienie-nam-nie-grozi/ar/67042 
+13. K l e c z k o w s k i  A.: Ochrona hydrosfery i zasoby wód. W: Przemiany środowiska 
+naturalnego ekorozwój, red. M. Kotarba, Kraków, Geosfera, 2001, s. 29-48.
+14. K o z a  P.,  Łopatka A., Jadczyszyn J., Wawer R., Doroszewski A., Siebielec G, 
+Raport IUNG-PIB: 2019. Obszary Wsparcia Nawodnień (OWN). Wyznaczenie obszarów w rożnym 
+stopniu zagrożonych wystąpieniem suszy w Polsce na potrzeby wdrażania operacji „Modernizacja 
+gospodarstw rolnych” Programu Rozwoju Obszarów Wiejskich na lata 2014–2020”.
+15. K o z y r a  J.,  G ó r s k i  T.: Występowanie susz atmosferycznych w Polsce. XXXI Ogólnopolski 
+Zjazd Agrometeorologów, Wyzwania agrometeorologii wobec ekstremalnych zjawisk pogodowych,  
+14–16 wrzesień 2005, Bydgoszcz. Mapa KBW.
+16. K u d l i c k i  Ł.: Zagrożenie pustynnieniem w Polsce. Bezpieczeństwo Narodowe. 1/2006, 
+s. 201-211.
+17. K u ś  J.,  K o p i ń s k i   J.: Gospodarowanie glebową materią organiczną we współczesnym rolnictwie. 
+Zagadnienia doradztwa rolniczego. Centrum Doradztwa Rolniczego w Brwinowie, 2012, s. 5-26.
+18. M i t o s e k  H.: Klimat Puław w świetle spostrzeżeń meteorologicznych w latach 1872–1958, 
+Część II. Opady atmosferyczne. Rocz. Nauk Rol., 1964, T 89-A-2, 273-303.
+19. O k r u s z k o  H.: Wpływ melioracji wodnych na gleby organiczne w warunkach Polski. Zesz. 
+Probl. Post. Nauk Roln., 1976, 177: 159-204.
+20. P i a ś c i k  H.,  G o t k i e w i c z   J.: Przeobrażenia odwodnionych gleb torfowych jako przyczyna 
+ich degradacji. Roczniki Gleboznawcze, 2004. T. LV, 2: 331-338.
+21. P i a ś c i k  H.,  B i e n i e k   B.,  W ó j c i a k   H.: Dekalcytacja gleb torfowych w warunkach Pojezierza 
+Mazurskiego powodowana długoletnim ich użytkowaniem. Zesz. Probl. Post. Nauk Roln., 1998, 
+456: 279-284.
+22. P i k u ł a  D.: Praktyki zapobiegające stratom węgla organicznego z gleby. Studia i Raporty  
+IUNG-PIB, Puławy, 2019, 59(13): 77-91.
+23. P o r ę b s k a  G., S a d o w s k i   M.:Współczesne problemy pustynnienia, Ochrona Środowiska 
+i Zasobów Naturalnych, 2007, 30: 73-82.
+24. Raport z wdrożenia Zintegrowanego Systemu Informacji o Rolniczej Przestrzeni Produkcyjnej  dla 
+potrzeb ochrony gruntów w województwie podlaskim. Oprac. Pod red. Stuczyńskiego T.: Urząd 
+Marszałkowski Województwa Podlaskiego,  IUNG-PIB, Puławy–Białystok. 2006. s. 238.
+25. S k ł o d o w s k i  P.,  B i e l s k a   A.: Właściwości i urodzajność gleb Polski – podstawą kształtowania 
+relacji rolno-środowiskowych. Woda-Środowisko-Obszary Wiejskie. 2009, t. 9, 4(28): 203-214. 
+26. Sprawozdanie Specjalne nr 33 Europejskiego Trybunału Obrachunkowego KE. Zwalczanie 
+pustynnienia w UE – rosnące zagrożenie wymagające intensyfikacji działań. 2018, s. 72. https://
+www.eca.europa.eu/Lists/ECADocuments/SR18_33/SR_DESERTIFICATION_PL.pdf
+27. U k a l s k a-J a r u g a  A.,  S m r e c z a k   B.,  S t r z e l e c k a   J.: Wpływ materii organicznej na jakośc 
+gleb użytkowanych rolniczo. Studia i Raporty IUNG-PIB,  Puławy, 2017, 54(8): 25-39.
+6160
+ Jan Jadczyszyn, Beata Bartosiewicz
+28. www.susza.iung.pulawy.pl
+29. W o ś  A.: Klimat Polski. Wydawnictwo Naukowe PWN. Warszawa, 1999, s. 302.   
+Adres do korespondencji:
+dr Jan Jadczyszyn
+Zakład Gleboznawstwa Erozji i Ochrony Gruntów
+IUNG-PIB
+ul. Czartoryskich 8, 24-100 Puławy
+tel. 81 4786 918 
+e-mail: JanJ@iung.pulawy.pl
+ 
+AUTOR ORCID
+Jan Jadczyszyn 0000-0003-4921-7609
+Beata Bartosiewicz 0000-0003-0148-2999

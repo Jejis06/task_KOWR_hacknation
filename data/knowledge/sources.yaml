@@ -17,6 +17,19 @@ documents:
   - {id: epi, title: "Grupy operacyjne EPI", url: "https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791"}
   - {id: iung_oferta, title: "IUNG-PIB – oferta danych", url: "https://www.gov.pl/attachment/ff15f079-bab8-4a90-8c4a-266d69e567ab"}
   - {id: s2mur_zalozenia, title: "S2MUR – opis założeń projektu", url: "https://www.iung.pl/wp-content/uploads/2026/08/1.-Opis-zalozen-projektu-informatycznego-S2MUR.pdf"}
+  # IUNG-PIB Studia i Raporty (https://www.iung.pl/studia-i-raporty-pib/) – zeszyt 71 w całości poniżej; pozostałe wybrane rozdziały:
+  - {id: zylowska_kozyra_2025, title: "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników (SiR 74/10, bibliografia KOWR)", url: "https://www.iung.pl/sir/zeszyt74_10.pdf"}
+  - {id: iung_sir74_2_wawer_rolnictwo40, title: "Wawer – Potencjał Rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie (SiR 74/2)", url: "https://www.iung.pl/sir/zeszyt74_2.pdf"}
+  - {id: iung_sir74_3_satelity, title: "Jędrejek – Satelitarne systemy obserwacji Ziemi w służbie rolnictwa 4.0 (SiR 74/3)", url: "https://www.iung.pl/sir/zeszyt74_3.pdf"}
+  - {id: iung_sir74_5_mapy_satelity, title: "Poręba – Mapy cyfrowe i zdjęcia satelitarne dla rolnictwa odpornego na zmiany klimatu (SiR 74/5)", url: "https://www.iung.pl/sir/zeszyt74_5.pdf"}
+  - {id: iung_sir67_1_agroklimat, title: "Żyłowska, Kozyra – Zmiany warunków agroklimatycznych w Polsce (SiR 67/1)", url: "https://www.iung.pl/sir/zeszyt67_1.pdf"}
+  - {id: iung_sir66_6_retencja_gleby, title: "Jadczyszyn, Bartosiewicz – Praktyki zwiększające retencję i wykorzystanie wody w glebie (SiR 66/6)", url: "https://www.iung.pl/sir/zeszyt66_6.pdf"}
+  - {id: iung_sir64_3_osuszanie, title: "Jadczyszyn, Bartosiewicz – Procesy osuszania i degradacji gleb (SiR 64/3)", url: "https://iung.pl/sir/zeszyt64_3.pdf"}
+  - {id: iung_sir62_8_uprawa_klimat, title: "Smagacz – Systemy uprawy roli w warunkach zmieniającego się klimatu (SiR 62/8)", url: "https://iung.pl/sir/zeszyt62_8.pdf"}
+  - {id: iung_sir58_5_erozja, title: "Wawer, Nowocień – Erozja wodna i wietrzna w Polsce (SiR 58/5)", url: "https://iung.pl/sir/zeszyt58_5.pdf"}
+  - {id: iung_sir50_krol_stosunki_wodne, title: "Król – Modelowanie wpływu praktyk rolniczych na stosunki wodne gleb (SiR 50, cały zeszyt)", url: "https://iung.pl/wp-content/uploads/2009/10/zesz50.pdf"}
+  - {id: iung_sir47_kus_woda, title: "Kuś – Gospodarowanie wodą w rolnictwie (SiR 47, cały zeszyt)", url: "https://iung.pl/wp-content/uploads/2009/10/zesz47.pdf"}
+  - {id: iung_sir05_5_lopatka_susza, title: "Łopatka – Analiza warunków wodnych gleb i zagrożeń suszą (woj. podlaskie) (SiR 5/5)", url: "https://iung.pl/wp-content/uploads/2009/10/zeszyt05_5.pdf"}
   - {id: iung_sir71, title: "IUNG SiR 71(25) Gospodarka wodna w rolnictwie", url: "https://www.iung.pl/sir/SiR%2071(25)%20ISBN%20elektroniczny%20z%20ok%C5%82adk%C4%85.pdf"}
   - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 2022)", manual: true, url: "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf"}
   # Prawo UE (EUR-Lex, wersje PL) – CELEX z eu_law.yaml
@@ -31,7 +44,6 @@ documents:
   # Priorytet 1 – metodyka (jury porównuje z danymi referencyjnymi, prawdopodobnie SMSR):
   - {id: smsr_podstawy_2012, manual: true, title: "Doroszewski i in. (2012) Podstawy Systemu Monitoringu Suszy Rolniczej, IUNG-PIB (progi KBW per uprawa i kategoria gleby)"}
   - {id: smsr_metodyka_www, manual: true, title: "SMSR IUNG – opis metodyki / kategorie gleb / lista upraw (strona susza.iung.pulawy.pl, zapis do PDF)"}
-  - {id: zylowska_kozyra_2025, manual: true, title: "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników, IUNG-PIB"}
   - {id: fao56, manual: true, title: "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)"}
   # Priorytet 2 – materiały polecane przez ekspertów KOWR:
   - {id: cdr_eporadnik_2025, manual: true, title: "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik"}

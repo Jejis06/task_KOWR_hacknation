@@ -1,0 +1,933 @@
+79S T U D I A   I   R A P O R T Y   IUNG - PIB
+ZESZYT   5 2007
+Artur Łopatka1, Tomasz Stuczyński1, Ewa Czyż1, Jerzy Kozyra2, Jan Jadczyszyn1
+1Zakład Gleboznawstwa Erozji i Ochrony Gruntów
+2Zakład Agrometeorologii i Zastosowań Informatyki
+Instytut Uprawy Nawożenia i Gleboznawstwa - Państwowy Instytut Badawczy
+w Puławach
+ANALIZA WARUNKÓW WODNYCH GLEB I ZAGROŻEŃ
+ZWIĄZANYCH Z SUSZĄ NA PRZYKŁADZIE
+WOJEWÓDZTWA PODLASKIEGO*
+W ostatnich kilkunastu latach obserwuje się wyraźną tendencję do pogłębiania się
+ujemnych wartości klimatycznego bilansu wodnego (KBW) na znacznych obszarach
+kraju w sezonie wegetacyjnym. Prowadzi to do wzrostu częstości występowania zja-
+wiska suszy glebowej i związanych z tym wymiernych strat w uprawach i produkcji
+zwierzęcej. Do rejonów szczególnie narażonych na wystąpienie skrajnie niskich war-
+tości KBW należy pas nizin polskich, zbieżny z występowaniem gleb polodowcowych.
+Do obszarów szczególnie narażonych na suszę należy Wielkopolska i znaczna część
+Podlasia. Dotkliwe susze powodujące 20% spadek plonu występują na tym obszarze
+przeważnie raz na 5-7 lat.
+Pokrywa glebowa tworzy tutaj mozaikę o silnie zróżnicowanych właściwościach
+fizykochemicznych i gospodarce wodnej. Dominują tu gleby lekkie, wytworzone
+z utworów piaszczystych o dużej przepuszczalności (ograniczonej retencji). Gleby te
+w większości charakteryzują się opadowym typem gospodarki wodnej, w którym sys-
+tem korzeniowy roślin jest w stanie efektywnie korzystać wyłącznie z wody opadowej
+retencjonowanej w profilu i znajduje się poza zasięgiem podsiąku kapilarnego wód
+gruntowych. Przestrzenna zmienność właściwości wodnych tych gleb wynika zarów-
+no z dużego zróżnicowania uziarnienia i budowy profilu glebowego, jak również wa-
+runków siedliskowych, związanych z ukształtowaniem terenu. Dobrym przybliżeniem
+przestrzennego zróżnicowania potencjału produkcyjnego gleb i ich właściwości wod-
+nych są kompleksy przydatności rolniczej, zobrazowane na mapach glebowo-rolni-
+czych w skalach: 1:5000, 1:25 000 i 1:100 000.
+Znaczenie jakości pokrywy glebowej i warunków siedliskowych w analizie ryzyka
+plonu, związanego z suszą, było do tej pory niedostatecznie uwzględniane, a straty
+w plonach w poszczególnych regionach kraju były wyrażane wyłącznie w funkcji
+parametrów opisujących pogodę. Zmienne opisujące wpływ jakości gleb na stres wodny
+były uśrednione i pośrednio zawarte w charakterystykach plonów z danego regionu,
+* Opracowanie wykonano w ramach zadań: 1.1, 1.2, 1.3 w wieloletnim programie IUNG-PIB
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+doi: 10.26114/sir.iung.2007.05.05
+80
+których poziom i zmienność odzwierciedla zróżnicowanie warunków glebowo-siedli-
+skowych na tym obszarze. Z punktu widzenia praktycznego w szacowaniu i lokalizacji
+strat w plonach, będących następstwem suszy, podejście takie jest niewystarczające
+– dla przykładu, na glebach lekkich przy KBW wynoszącym 130 mm wzrost i rozwój
+roślin zbożowych może być silnie hamowany, prowadząc do ponad 15% spadku plo-
+nów, natomiast na glebach zwięzłych niżej położych nie obserwuje się wpływu na
+plon.
+Zagadnienia właściwości wodnych gleb i procesów kształtujących zasoby wody
+dostępnej dla roślin nabierają szczególnego znaczenia w kontekście ustawy z dnia
+7 lipca 2005 r. o dopłatach do ubezpieczeń upraw rolnych i zwierząt gospodarskich
+(Dz. U. z 2006 r. Nr 150, poz. 1249; Nr 120, poz. 825 i Nr 157, poz. 1119). Regulacja
+ta wprowadza definicję suszy, określając wartości progowe KBW dla poszczegól-
+nych sześciodekadowych okresów od dnia 1 kwietnia do 30 września danego roku.
+Wartości te są zróżnicowane dla poszczególnych gatunków i grup roślin uprawnych
+oraz gleb podzielonych na kategorie agronomiczne, z uwzględnieniem ich różnej zdol-
+ności do retencjonowania wody dostępnej dla roślin. Wprowadzone rozwiązania prze-
+widują udział budżetu państwa w dopłatach do składek ubezpieczenia upraw rolnych.
+W związku z tym ważnym zagadnieniem jest opracowanie i udostępnienie w formie
+informacji przestrzennej ilościowych danych charakteryzujących zróżnicowanie wła-
+ściwości retencyjnych pokrywy glebowej w Polsce, jak również wdrożenie odpowied-
+nich modeli symulacyjnych dających możliwość bieżącego monitorowania zasobów
+wody dostępnej w glebach, z uwzględnieniem sposobu ich użytkowania.
+W opracowaniu przedstawiono możliwości wykorzystania przestrzennych baz da-
+nych oraz metod modelowania bilansu wodnego gleb z wykorzystaniem danych gle-
+bowych, meteorologicznych oraz danych o ukształtowaniu terenu. Przedstawione po-
+dejście jest prezentacją koncepcji modelowania i możliwości obliczeniowych, przy czym
+rozwiązania te wymagają dalszej kalibracji i udoskonalania w oparciu o niezbędne
+dane zbierane dla różnych upraw i gleb metodą pomiarów bezpośrednich. Wybór wo-
+jewództwa podlaskiego do prac pilotażowych wynika z niekorzystnego stanu gospo-
+darki wodnej w tym województwie, który należy przypisać nie tylko ujemnym klima-
+tycznym bilansom wodnym w sezonie wegetacyjnym, ale również towarzyszącej temu
+zjawisku dominacji gleb lekkich o ograniczonej retencji wodnej. Praktycznym uzasad-
+nieniem dla wykonania testów w tym regionie była dostępność danych przestrzen-
+nych gromadzonych w zasobach podlaskiego systemu informacji przestrzennej (12).
+Oprócz względów praktycznych wynikających z wdrażania monitoringu występo-
+wania suszy rolniczej dodatkowym uzasadnieniem dla przestrzennego rozmieszczenia
+gleb, ze względu na ich zdolności retencyjne, jest opracowanie racjonalnej strategii
+perspektywicznego ich zagospodarowania. Na podstawie tych analiz można wyzna-
+czyć gleby o małych zasobach wody dostępnej dla roślin, gdzie dalszy rozwój produk-
+cji rolniczej i wzrost jej efektywności, konieczny ze względu na istniejące trendy kon-
+kurencji na rynkach rolnych, nie jest możliwy bądź jest silnie ograniczony przez głębo-
+kie deficyty wody. W analizie perspektywicznej należy również brać pod uwagę moż-
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+81
+liwe scenariusze zmian klimatu i przewidywane ich skutki dla wykorzystania dominu-
+jących w regionie gleb lekkich.
+Korzystając z danych i narzędzi zintegrowanego systemu informacji o rolniczej
+przestrzeni produkcyjnej województwa podlaskiego (12) wykonano dwa opracowania
+dotyczące gospodarki wodnej gleb:
+– cyfrową mapę obrazującą potencjalne zasoby wody dostępnej dla roślin, retencjo-
+nowanej przez gleby zależne od uziarnienia profilu glebowego;
+– przestrzenny model bilansu wodnego gleb służący do analizy obiegu wody w zlew-
+niach w czasie rzeczywistym w celu monitorowania zjawisk suszy.
+Rola i właściwości wody w glebie
+Woda jest czynnikiem niezbędnym do życia wszelkich organizmów. Bez niej nie
+mogą zachodzić żadne procesy życiowe w roślinie i glebie. Do najważniejszych funk-
+cji jakie spełnia woda w glebie i w roślinie należą: udostępnienie roślinom składników
+pokarmowych znajdujących się w glebie przez ich rozpuszczanie do postaci wodnego
+roztworu glebowego, transport składników pokarmowych w roślinie, udział w proce-
+sach asymilacji dwutlenku węgla oraz w syntezie węglowodanów i innych związków
+organicznych, regulowanie procesów oddychania, warunków termicznych (transpira-
+cja) oraz utrzymanie turgoru w komórkach. Poza tym woda stanowi podstawowy
+składnik środowiska glebowego, w którym żyje roślina, wpływając na życie mikroflo-
+ry, stan struktury gleby oraz stan fizyczny koloidów glebowych.
+Woda stanowi jeden z czynników glebotwórczych, wywierających wpływ na pro-
+cesy wietrzenia, transport składników i humifikację związków organicznych. Spływ
+powierzchniowy decyduje również o transporcie i akumulacji materiału glebowego
+w procesach deluwialnych i aluwialnych. Woda zawarta w glebie jest tylko częściowo
+dostępna dla roślin, a jej dostępność zależy od siły z jaką jest związana w glebie, czyli
+od siły ssącej gleby. Siła ssąca gleby jest sumą sił osmotycznych, hydrostatycznych,
+grawitacyjnych, molekularnych i kapilarnych. Z punktu widzenia zdolności retencyjnej
+gleb najistotniejsze są [15]:
+– siły kapilarne występujące w porach glebowych (kapilarach) na granicy trzech
+faz: stałej – materiał glebowy, ciekłej – woda glebowa i gazowej – powietrze
+glebowe. Siły te zatrzymują tzw. wodę kapilarną w glebie. Wielkość sił kapilar-
+nych zmienia się wraz ze zmianą średnicy kapilar – ciśnienie ssące jest odwrotnie
+proporcjonalne do średnicy kapilary. Dzięki działaniu tych sił sucha gleba łatwo
+pobiera wodę (zasysa), a trudniej oddaje. Jest to z jednej strony właściwość bar-
+dzo korzystna, gdyż pozwala na dostarczanie wody przez tzw. podsiąk do wierzch-
+nich warstw gleby z poziomu wody gruntowej, ogranicza parowanie z gleby oraz
+odpływ wymuszony przez grawitację, przez co zapobiega szybkiemu i nadmierne-
+mu wysuszeniu gleby. Z drugiej strony niekorzystnie ogranicza zasoby wody, jakie
+mogą wykorzystywać rośliny, ponieważ ich systemy korzeniowe pobierają wodę
+tylko wtedy, gdy siła ssąca korzeni przewyższy siły wiążące wodę z glebą,
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+82
+– siły grawitacyjne, czyli siły naturalnego przyciągania ziemskiego, powodują ruch
+wody grawitacyjnej w głąb gleby w przestworach większych od kapilar. Pomimo
+że woda grawitacyjna jest teoretycznie łatwo dostępna dla roślin zwykle uchodzi
+ona szybko poza zasięg systemu korzeniowego i praktycznie jest mało wykorzy-
+stywana przez rośliny. Kiedy odpływ wody grawitacyjnej jest utrudniony, np. po-
+przez występowanie w profilu warstw słabo przepuszczalnych, korzenie większo-
+ści roślin (jednym z wyjątków jest ryż) cierpią na niedostatek tlenu.
+Miarą siły ssania gleby (F) jest wysokość słupa wody, który może być podtrzymy-
+wany dzięki tej sile. Wartość siły ssania w miarę wysychania gleby wzrasta stopniowo
+i tak w glebie nasyconej wodą – F = 0 cm słupa wody, a w glebie wysuszonej
+w temperaturze 105oC – F = 107 cm słupa wody. W celu łatwiejszego operowania
+liczbami w tak wielkim przedziale, w 1935 r. Schofield zaproponował posługiwanie się
+logarytmem z wielkości F, wprowadzając pojęcie:
+                                             pF = lg10 F (cm H2O)                                     [1]
+gdzie:
+pF – logarytm dziesiętny podciśnienia (wyrażanego w cm słupa wody) wiążącego wodę
+         w glebie
+F – siła ssąca gleby
+Retencja wodna gleb, czyli zdolność gleby do magazynowania wody pochodzącej
+z opadów atmosferycznych, spływów powierzchniowych, poziomych przepływów
+gruntowych, podsiąku kapilarnego i ewentualnie stosowanych nawodnień jest jedną
+z najistotniejszych funkcji gleby decydujących o możliwościach efektywnej uprawy
+roślin. Ze względów praktycznych wyróżniamy następujące stany uwilgotnienia gleb:
+•  pełna pojemność wodna – jest to maksymalna ilość wody możliwa do zmagazy-
+nowania w profilu glebowym, odpowiadająca całkowitemu nasyceniu wodą wol-
+nych przestrzeni międzycząsteczkowych i międzyagregatowych, zmniejszonych
+o objętość zamkniętych banieczek powietrza. Odpowiada to brakowi ciśnienia ssące-
+go – F = 0 cm, czyli pF = 0. Często ilość wody jaką może zmagazynować gleba
+szacuje się na podstawie jej porowatości:
+             porowatość =                                                                                  [2]
+Różnica pomiędzy tymi wielkościami polega na tym, że porowatość nie uwzględnia
+objętości zamkniętych banieczek powietrza i dlatego jest zawsze nieco większa od
+pełnej pojemności wodnej.
+•   polowa pojemność wodna (PPW) – jest to zawartość wody w glebie stwierdzo-
+na po swobodnym odpływie wody grawitacyjnej w danej warstwie gleby uprzednio
+całkowicie wypełnionej wodą, przy braku oddziaływania wody gruntowej i przerwaniu
+parowania terenowego w glebie. W tych warunkach w glebie pozostaje woda, która
+objętość gleby – objętość fazy stałej gleby
+objętość gleby
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+83
+może być utrzymana siłami kapilarnymi. Polowej pojemności wodnej odpowiadają
+zawartości wody w glebie w przedziale ciśnienia ssącego – F = 100-300 cm, czyli
+pF = 2-2,5. Wahania tej wielkości zależą od składu granulometrycznego i mineralnego,
+struktury gleby, gęstości gleby oraz zawartości próchnicy.
+•   punkt trwałego więdnięcia roślin (PTWR) – odpowiada wilgotności gleby, przy
+której pojawiają się oznaki trwałego więdnięcia roślin. Ilość wody odpowiadająca
+PTWR występuje przy ciśnieniu ssania – F = 15800 cm, czyli dla pF = 4,2. Przy
+wilgotności gleby niższej od PTWR woda zawarta w glebie staje się niedostępna dla
+roślin. Korzenie roślin w rzeczywistości mogą wywierać ssanie większe od pF = 4,2,
+ale przewodność kapilar glebowych staje się wówczas tak mała, że straty wody na
+transpirację nie mogą być na czas uzupełniane.
+Bazując na wielkościach zawartych w tabeli 1 zdefiniować można wodę ogólnie
+dostępną dla roślin (WOD), czyli wodę glebową, która może być produktywnie wyko-
+rzystywana przez rośliny. Woda ogólnie dostępna zawarta jest w przedziale wilgotno-
+ści gleby miedzy punktem trwałego więdnięcia (PTWR) a polową pojemnością wodną
+(PPW), co oznacza, że ilość WOD wylicza się z różnicy między zawartością wody
+odpowiadającą PPW a zawartością wody odpowiadającej PTWR:
+                                     WOD = PPW – PTWR                         [3]
+Tabela 1 
+ 
+Zestawienie danych dotyczących retencji wody glebowej oraz dostępności wody dla roślin 
+ 
+Potencjał wody Ø porów 
+w μm pF atm. cm H2O Stan wilgotności gleby Siły wiązania i ruchu Użyteczność dla roślin 
+<0,06 4,7 50 5·104 maksymalna higroskopijna 
+<0,2 4,2 15,8 15800 PTWR 
+molekularne niedostępna pF >4,2 
+<0,6 3,7 5,0 5000 całkowite zahamowanie wzrostu roślin bardzo trudno dostępna pF 3,7-4,2 
+<1,5 3,2 1,5 1500 silne hamowanie wzrostu roślin trudno dostępna pF 3,2-3,7 
+<4,0 2,85 0,7 700 początek hamowania wzrostu roślin łatwo dostępna pF 2,85-3,2 
+<30-10 2,0-2,5 0,1-0,3 100-300 PPW 
+kapilarne 
+bardzo łatwo dostępna 
+pF 2,0-2,85 
+>30 0 0 0 pełna pojemność wodna grawitacji zbędna pF <2,0 
+ 
+Źródło: Czyż E., 2000 (3). 
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+84
+Ilość wody dostępnej dla roślin (mm) zależy głównie od składu granulometryczne-
+go gleb i wynosi (w warstwie 0-100 cm) odpowiednio:
+piasek luźny (pl) – 92 mm;
+piasek słabogliniasty (ps) – 117 mm;
+piasek gliniasty lekki (pgl) – 138 mm;
+piasek gliniasty mocny (pgm) – 155 mm;
+glina lekka (gl) – 185 mm;
+glina średnia (gs) – 200 mm;
+glina ciężka (gc) – 240 mm;
+ił (i) – 220 mm.
+W warunkach klimatycznych naszego kraju po wiosennych roztopach profil glebo-
+wy jest zazwyczaj nasycony do poziomu wilgotności, który odpowiada polowej pojem-
+ności wodnej (PPW). Z upływem czasu wilgotność gleby spada, osiągając minimum
+w szczycie sezonu wegetacyjnego.
+Woda ogólnie dostępna jest maksymalną ilością wody użytecznej dla roślin, która
+może być zgromadzona w glebie. Jest to więc potencjalna użyteczna pojemność zbior-
+nika jakim jest gleba. Stąd też w dalszej części opracowania na określenie wody ogól-
+nie dostępnej dla roślin (WOD) używany będzie też termin potencjalne zasoby wody
+dostępnej dla roślin, dla odróżnienia od rzeczywistych zasobów wody dostępnej
+dla roślin, które zmieniają się w czasie. Znajomość wartości WOD (przy założeniu,
+że przed rozpoczęciem sezonu wegetacyjnego wilgotność gleby jest równa PPW)
+umożliwia proste oszacowanie całkowitego niedoboru wody N (wyrażony w milime-
+trach) w sezonie wegetacyjnym na podstawie wzoru:
+                                              N = PZW – ( O + WOD )                                                [4]
+gdzie:
+PZW – polowe zużycie wody dla danej uprawy (w milimetrach)
+O – suma opadów w sezonie wegetacyjnym (w milimetrach)
+Znając polowe zużycie wody (PZW) poszczególnych roślin [4] można dopasować
+strukturę wykorzystania przestrzeni rolniczej w taki sposób, aby nie dochodziło do
+nadmiernego zużycia i niedoborów wody.
+Zjawiska suszy i ich skutki w rolnictwie
+Susza jest to czasoprzestrzenne zjawisko meteorologiczne, charakteryzujące się
+brakiem lub ostrym niedoborem opadów atmosferycznych, wysoką temperaturą i niską
+wilgotnością powietrza. Jest ona skutkiem dysproporcji między ilością opadów a zuży-
+ciem wody przez rośliny. To zakłócenie bilansu wodnego danego obszaru spowodo-
+wane jest długotrwałym okresem bezopadowym (30–50–60 dni), który powstaje na
+skutek niesprzyjającej cyrkulacji atmosferycznej. Susza, w zależności od miejsca wy-
+stępowania, może przybierać charakter:
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+85
+• ciągły – na terenach pustynnych, zajmujących 5% powierzchni Ziemi,
+• sezonowy – w regionach wyraźnej pory suchej i deszczowej,
+• całkowicie nieprzewidywalny – może wystąpić w dowolnym miejscu i czasie.
+Susza w Polsce ma zwykle charakter dynamiczny, objawiający się pogłębiającą
+różnicą pomiędzy zasobami a potrzebami wodnymi. Rozwija się ona w następujących
+cyklach:
+• susza atmosferyczna z brakiem lub bardzo małymi opadami powoduje zmniejsze-
+nie nie tylko zapasów wody w hydrosferze, ale również zawartości pary wodnej
+w atmosferze;
+• susza glebowa, gdy przedłuża się okres bezopadowy następuje przesuszenie po-
+wierzchniowych, następnie w wyniku transpiracji roślin głębszych warstw gleby;
+• susza hydrologiczna, gdy następuje zmniejszenie odpływu wód gruntowych do
+wód powierzchniowych, zmniejszenie przepływu w rzekach, a w skrajnych przy-
+padkach zanik źródeł i małych cieków wodnych.
+Jeśli w Polsce w okresie wegetacyjnym przez 20 dni nie ma opadów uznaje się, że
+nastąpił początek suszy atmosferycznej. Dalszy brak opadów powoduje suszę gle-
+bową, która wpływa niekorzystnie na wzrost roślin. Nawet jeśli w tym czasie opady
+są minimalne, efekty suszy glebowej mogą zostać złagodzone, lecz mimo to susza
+może przejść w stan suszy hydrologicznej. Susza atmosferyczna i glebowa zanikają
+stosunkowo szybko, natomiast susza hydrologiczna, której efektem jest tzw. niżówka
+hydrologiczna, czyli obniżenie się poziomu wód powierzchniowych i podziemnych, trwa
+na ogół długo, nawet kilka sezonów, bowiem odbudowa zasobów wodnych wymaga
+obfitych oraz długotrwałych opadów deszczu i śniegu. W Polsce susze występują
+najczęściej wtedy, gdy w okresie wegetacyjnym napływa bardzo ciepłe i suche po-
+wietrze zwrotnikowe. Przynosi ono słoneczną pogodę z wysokimi temperaturami oraz
+niedoborem opadów. Jeśli okres ten poprzedzony jest opadami mniejszymi od średnich
+zjawisko suszy może się pogłębić. Statystycznie w Polsce taka sytuacja zdarza się raz
+na 3-7 lat. W minionym stuleciu za najbardziej dotkliwe uważa się susze z lat 1921
+i 1992 – ekstremalny charakter miała susza w okresie lata 2006 r. Okresowe wystę-
+powanie suszy jest charakterystyczną cechą klimatu Polski. Według danych IMiGW
+w ostatnim 50-leciu 14-krotnie wystąpiły susze o różnym nasileniu, zasięgu i czasie
+trwania, a konkretnie w latach: 1951, 1953, 1959, 1963, 1964, 1969, 1971, 1976, 1982,
+1988, 1989, 1990, 1992, 1996. Charakterystyczna była susza w 1992 r. Skutkiem trwa-
+jącego od 1982 r. (ponad 10 lat) deficytu opadów w stosunku do wartości średnich
+z wielolecia obserwowano przez kilka miesięcy obniżenie przepływów oraz poziomów
+wody w rzekach na całym obszarze Polski.
+Każda zmiana, choćby jednego z procesów hydrologicznych, wywołuje reakcję
+wszystkich elementów obiegu wody w środowisku. Stąd, mimo iż praźródłem suszy
+jest niski poziom opadów, to niskie stany wód (susza hydrologiczna), czy wilgotności
+gleby (susza glebowa) nie muszą pokrywać się z suszą atmosferyczną (brak opa-
+dów). Na podstawie rocznego przebiegu zmiennych można wysunąć twierdzenie, że
+największe prawdopodobieństwo wystąpienia suszy atmosferycznej ma miejsce la-
+tem, a hydrologicznej jesienią. Z reguły nie obserwuje się głębokiej suszy wiosennej,
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+86
+gdyż zasoby wody glebowej zostają odbudowane w okresie zimowym. Jednak w ob-
+liczu prawdopodobnych zmian klimatycznych może wzrosnąć ryzyko suszy wiosen-
+nej. Przykłady takiej sytuacji obserwowaliśmy w latach 1992 i 2000.
+Ujemne skutki suszy w rolnictwie występują głównie w okresie największego za-
+potrzebowania roślin w wodę, w okresie terminowych zabiegów uprawowych oraz
+wskutek pogorszenia zaopatrzenia rolnictwa w wodę potrzebną dla ludzi i zwierząt.
+Zapotrzebowanie roślin na wodę zwiększa się wraz z przyrostem zielonej masy, aż
+do fazy kwitnienia, natomiast w późniejszych okresach rozwoju maleje. Największą
+wrażliwość na niedobory wody w glebie wykazują rośliny w okresie zawiązywania
+pąków kwiatowych i wytwarzania organów generatywnych. Wskutek niedostatku
+wody w tym czasie zwiększa się ilość bezpłodnych kwiatów i źle wypełniają się nasio-
+na, ulega zahamowaniu wzrost roślin oraz skraca się okres dojrzewania. Efektem
+tego są gorzej wypełnione nasiona i zniżka plonu roślin.
+Metodyka analiz gospodarki wodnej gleb
+Metodyka opracowania bazy danych retencji gleb na podstawie map glebowo-rolniczych
+w skali 1:25 000 oraz charakterystyk profili wzorcowych
+ 
+Mapa glebowo-rolnicza pozwala scharakteryzować właściwości wodne gleb dzię-
+ki ich silnej korelacji z uziarnieniem. Jednak liczba gatunków gleb wyróżnionych na
+mapie glebowo-rolniczej umożliwia jedynie przybliżoną identyfikację uziarnienia.
+W związku z tym, jako podstawę uszczegółowienia parametryzacji mapy glebowo-
+rolniczej przyjęto wyniki analiz profili wzorcowych. Na terenie województwa podla-
+skiego zlokalizowano ponad 700 takich profili o znanych współrzędnych geograficz-
+nych i zmierzonej charakterystyce uziarnienia. Z założenia profile te są reprezenta-
+tywne dla pokrywy glebowej województwa i mogą być przyporządkowane poszcze-
+gólnym poligonom wydzielonym na mapie. Proces przyporządkowania profilu wzor-
+cowego i wyników oznaczeń składu granulometrycznego poszczególnych poziomów
+profilu do każdego poligonu na mapie glebowo-rolniczej przebiegał w dwóch etapach.
+Pierwszy etap polegał na uporządkowaniu zapisu w bazie danych zawierającej
+informacje o profilach wzorcowych. Każdy profil wzorcowy, niezależnie od liczby
+i miąższości poziomów, został zgeneralizowany do czterech poziomów o następują-
+cych miąższościach (cm): 0-25; 25-75; 75-125; 125-150.
+Miąższości te odpowiadają symbolice zgeneralizowanego zapisu charakteryzują-
+cego skład granulometryczny poszczególnych poziomów profilu na mapie glebowo-
+rolniczej w skali 1:25000.
+Ponieważ w każdym z czterech poziomów charakteryzowanych na mapie, w rze-
+czywistości może występować większe zróżnicowanie uziarnienia, szczegółowe dane
+z profili wzorcowych zostały zgeneralizowane metodą wagowania, zapewniającą ade-
+kwatne do rzeczywistości uśrednienie składu granulometrycznego profilu. Ideę pro-
+cesu generalizacji danych z profili wzorcowych przedstawiono na rysunku 1.
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+87
+Przedstawiony sposób generalizacji składu granulometrycznego profilu wzorco-
+wego zastosowano dla każdego poziomu, wyznaczając średnią ważoną zawartości
+poszczególnych frakcji: piasku, pyłu, części spławialnych oraz iłu koloidalnego. Do
+każdego poziomu zgeneralizowanego profilu wzorcowego przypisano odpowiedni sym-
+bol gatunku gleby, stosując oznaczenia identyczne z legendą stosowaną na mapie gle-
+bowo-rolniczej w skali 1:25000.
+W drugim etapie do profilu glebowego, w każdym z poligonów na mapie glebowo-
+rolniczej, przyporządkowano skład granulometryczny, korzystając z najbardziej po-
+dobnych pod względem budowy i lokalizacji zgeneralizowanych profili wzorcowych.
+Przyporządkowanie poszczególnym poziomom profilu glebowego w danym poligonie
+mapy odpowiednich wartości parametrów składu z profili wzorcowych realizowano
+oddzielnie dla każdego z poziomów tworzących profil. Przyporządkowanie polegało
+na spełnieniu warunku, aby gatunek gleby w rozpatrywanym poziomie profilu, w da-
+nym poligonie mapy był identyczny, jak gatunek gleby w tym samym poziomie profilu
+wzorcowego. Ponadto spośród grupy profili wzorcowych spełniających powyższy
+warunek identyczności składu dla danego poziomu wybierano profil, dla którego za-
+chodziło największe podobieństwo z profilem na mapie, również pod względem poło-
+Rys. 1. Schemat procesu generalizacji zawartości frakcji piasku w profilu glebowym (pi - zawartość
+piasku w i-tym poziomie profilu rzeczywistego analizowanego w laboratorium,  Pj – zawartość
+piasku w j-tym poziomie profilu zgeneralizowanego)
+Źródło: Opracowanie własne.
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+88
+żenia w przestrzeni geograficznej oraz charakterystyki składu w pozostałych pozio-
+mach. Powyższe założenia miały na celu takie powiązanie parametrów składu i in-
+nych właściwości profili wzorcowych z mapą, które najlepiej odzwierciedla procesy
+kształtowania skał macierzystych gleb, dla których przebiegu dobrym odzwierciedle-
+niem jest zróżnicowane fizjografii. Zatem stopień podobieństwa profilu wzorcowego
+do profilu opisującego dany poligon na mapie oceniano, przyznając za zgodność wy-
+mienionych elementów następujące wagi w punktach procentowych:
+– mezoregionu 30,
+– grupy mezoregionów 30,
+– kompleksu przydatności rolniczej 25,
+– gatunku gleby w każdym z pozostałych poziomów profilu 5.
+Do opisu danego poziomu w poligonie mapy wybierano profil wzorcowy, który
+uzyskał największą sumę punktów. W przypadku, gdy dwa lub więcej profili wzorco-
+wych uzyskało tę samą sumę punktów wybierano spośród nich profil położony najbli-
+żej środka geometrycznego rozważanego poligonu.
+Opisaną powyżej procedurę przedstawiono w formie schematu na rysunku 2. Po-
+niżej wyjaśniono znaczenie występujących na schemacie zmiennych:
+i – numer poligonu;
+j – numer zgeneralizowanego profilu wzorcowego;
+A – służy do sumowania liczby punktów uzyskanych za podobieństwo;
+a – służy do przechowywania maksymalnej wartości „A”;
+R – odległość od rozważanego poligonu;
+r – służy do przechowywania maksymalnej wartości „R”;
+N(i) – numer profilu wzorcowego przypisanego do i-tego poligonu.
+Na podstawie składu granulometrycznego i zawartości próchnicy przyporządko-
+wanych profilom z poligonów na mapie glebowo-rolniczej wykonano obliczenia poro-
+watości, polowej pojemności wodnej (PPW) i punktu trwałego więdnięcia roślin
+(PTWR). W tym celu wykorzystano następujące wzory:
+                                          porowatość = 97,173 - 35,996 D [5]
+dla wszystkich typów gleb [13].
+Dla gleb piaskowych, gliniastych oraz iłowych:
+                                        PPW = 5,922 + 0,044 P + 0,342 S + 1,022 Pr [6]
+                                            PTWR = 0,709 + 0,386 I                         [7]
+dla gleb pyłowych:
+                           PPW = 304,569 - 2,845 Pi - 2,944 P – 2,631 (S - I) - 2,803 I + 1,43 Pr             [8]
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+89
+                                                                 PTWR = 1,901 + 0,293 I                         [9]
+gdzie:
+Pi, P, S, I, Pr są procentowymi zawartościami wagowymi frakcji piasku, pyłu, cząstek
+           spławialnych, iłu koloidalnego i próchnicy (14).
+Wartość gęstości objętościowej gleby D obliczono ze wzorów [9]:
+D = 1,78896 - 0,223558 Pr + 0,0170729 Pr2     R2  = 0,50 w warstwie 0-25 [cm]           [10]
+D = 1,59382 + 0,00202135 Pi - 0,0968198 Pr   R2 = 0,45 w warstwie 20-150 [cm]                [11]
+W sytuacji, gdy w bazie profili wzorcowych nie istniał profil o odpowiednim sym-
+bolu grupy granulometrycznej odpowiadającym rozpatrywanemu poziomowi z mapy,
+wartości porowatości, PPW i PTWR (% objętościowy) wyznaczano na podstawie
+danych zawartych w tabeli 2 (14, 15).
+Tabela 2 
+ 
+Porowatość, PPW i PTWR poszczególnych gatunków gleb 
+ 
+PTWR PPW Porowatość 
+warstwa w cm Gatunek gleby 
+0-25 25-75 75-150 0-25 25-75 75-150 0-150 
+pl, plp, zp 2 1,6 2 12 11 10 37,7 
+ps, psp 4 2 3,2 16 14 14 33,7 
+pgl, pglp 4 5 0,8 18 18 16 36,9 
+pgm, pgmp 6 6 4 22 22 18 36,8 
+gl, glp, zg 10 7 10 28 28 28 40,7 
+gs, gsp 12 12 12 32 32 32 41,7 
+gc, gcp 16 16 16 40 40 40 50,1 
+i, ip 24 24 24 46 46 46 50,6 
+plz 10 10 10 30 30 30 46,6 
+pli 11,2 12 11,2 36 36 36 47,9 
+n, tm, mt, wl, ga 20 20 20 50 50 50 90 
+c 22 22 22 42 42 42 46 
+ 
+Źródło: Opracowanie własne. 
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+90
+Metodyka opracowania i opis modelu bilansu wodnego gleb
+Model bilansu wodnego gleby oparty jest na sumowaniu przychodów i rozchodów
+wody w glebie. Wzięto w nim pod uwagę wszystkie istotne mechanizmy przepływu
+wody. Po stronie przychodów uwzględniono trafiający na powierzchnię gleby opad
+atmosferyczny w postaci deszczu oraz zasilanie z poziomu wód gruntowych na dro-
+dze podsiąku kapilarnego. Do rozchodów zaliczono ewapotranspirację, czyli łączny
+ubytek wody w glebie, wynikający z poboru wody przez rośliny oraz parowania
+z odkrytej powierzchni gleby, odpływ w formie spływu powierzchniowego do cieków
+wodnych, jak i odpływ w głąb profilu zasilający wody podziemne. Bilansowanie
+w modelu wykonano w układzie trójwymiarowym z podziałem pokrywy glebowej na
+prostopadłościenne bloki, odzwierciedlające poszczególne warstwy profilu glebowe-
+go. Używany w symulacjach elementarny blok miał boki o długości 100 m i wysokość
+równą miąższości danego poziomu w profilu glebowym, zgodnie z opisem na mapie.
+Dla poziomu ornego przyjęto miąższość równą 25 cm, a dla trzech poziomów podgle-
+bia po 50 cm. W modelu, oprócz podziału profilu na warstwy, wyróżnia się także krok
+czasowy symulacji. Jest to odstęp czasu, po którym wyliczany jest nowy rozkład wil-
+gotności gleby. Symulacja ta prowadzona była z krokiem czasowym jednego dnia.
+Obliczenia numeryczne wykonano w oparciu o schemat ADE (Alternating Direction
+Explicit).
+Przepływy uwzględnione w modelu podzielić można na następujące grupy:
+–przepływy pomiędzy elementarnymi blokami gleby,
+–przepływy poprzez granice obszaru gleby rozważanego w modelu,
+–przepływy poza granicami rozważanego obszaru gleby.
+Przepływy pomiędzy elementarnymi blokami gleby zachodzą pod wpływem różni-
+cy ciśnienia ssącego gleby i opisywane są wzorem Darcy’ego:
+                                                                                             [12]
+gdzie:
+q – [m/s] jest tzw. przepływem, czyli ilością wody [m3] przepływającą przez powierzchnię bloku
+       gleby [m2] w jednostce czasu [s]
+z – jest współrzędną pionową środka bloku gleby liczoną od pewnego umownego poziomu
+      (w tym przypadku powierzchni gleby)
+g – jest współczynnikiem przyspieszenia ziemskiego
+r
+ – gęstość wody.
+Wyrażenia p(q
+) i K(q
+) opisują odpowiednio zależność ciśnienia ssącego gleby oraz
+przewodność hydrauliczną gleby w zależności od jej wilgotności. W opisywanym mo-
+delu zastosowano ich postać funkcyjną zaproponowaną przez Campbella (2):
+÷÷ ł ö çç Ł æ +Ñ= g pzKq r qq
+)()( rr  
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+91
+32
+)(
+)(
++
+-
+÷÷ ł ö çç Ł æ=
+÷÷ ł ö çç Ł æ-=
+b
+s
+b
+s
+KsK
+ap
+q
+qq
+q
+qq
+[13]
+Współczynniki a, b, Ks i q
+s  wyznaczone dla kilku grup gatunków glebowych
+o zbliżonych właściwościach hydraulicznych zebrano w tabeli 3 (7).
+Przypisanie powyższych parametrów do poszczególnych bloków (komórek grida
+100 x 100 m) przeprowadzono na podstawie zdigitalizowanej mapy glebowo-rolniczej
+dla 4 poziomów profilu glebowego: 0-25, 25-75, 75-125 i 125-175 cm.
+Przepływy poprzez granice obszaru gleby (zlewni hydrologicznej) rozważanego
+w modelu: granicą górną dla tych przepływów jest powierzchnia gleby, granicą dolną
+jest dolna powierzchnia czwartego, ostatniego poziomu w profilu glebowym, a granicą
+boczną jest pionowa powierzchnia wycinająca z obszaru będącego granicą zlewni
+hydrologicznych, na które podzielono przestrzeń. Na przepływy poprzez granice ob-
+szaru zlewni składają się następujące procesy:
+– przepływ wody pochodzącej z opadów do wierzchniej warstewki gleby,
+– przepływ przez dolną granicę gleby wymuszony przez stałe w czasie ciśnienie
+ssące na dolnej granicy gleby. Ciśnienie to ustalono tak, by przed rozpoczęciem
+symulacji rozkład wilgotności gleby był rozkładem równowagowym (siły kapilar-
+ne działające na wodę w glebie równoważą siłę grawitacji) wyznaczonym przez
+poziom lustra wody gruntowej znany z mapy hydrologicznej (rys. 3),
+– ewapotranspiracja – odpływ poprzez górną powierzchnię gleby.
+Ilość wody tracona w procesie ewapotranspiracji zależy od czterech czynników:
+– ewapotranspiracji potencjalnej, czyli łącznego parowania z powierzchni gle-
+by i roślin w warunkach braku ograniczeń ilości dostępnej wody w glebie. Wartość
+Tabela 3 
+ 
+Właściwości hydrauliczne wybranych gleb 
+ 
+Gatunek 
+gleby 
+? s 
+(m3 · m-3) a (m) b Ks (m · s-1) 
+pl, plp 0,36 0,120 2,53 4,22 x 10-5 
+ps, psp 0,38 0,295 2,33 2,75 x 10-5 
+pgl, pglp 0,38 0,395 2,59 1,52 x 10-5 
+pgm, pgmp 0,39 0,391 2,88 1,11 x 10-5 
+gp, gl, gpp, glp 0,37 0,399 2,9 9,94 x 10-6 
+gs, gsp 0,49 0,368 4,82 7,67 x 10-6 
+gc, gbc, gcp, ip, i 0,51 0,364 5,82 6,10 x 10-6 
+płp, płz, płg 0,40 0,289 3,64 8,87 x 10-6 
+płi 0,49 0,477 3,41 1,06 x 10-5 
+ 
+Źródło: Opracowanie własne. 
+q
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+92
+Rys. 2. Schemat blokowy algorytmu przeszukiwania bazy danych, prowadzącego
+do przyporządkowania wartości składu granulometrycznego z profilu wzorcowego do danego
+ poziomu profilu w poligonie  mapy glebowej
+Źródło: Opracowanie własne.
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+93
+ewapotranspiracji potencjalnej [mm/31 dni] jest funkcją jedynie czynników meteoro-
+logicznych i w tej pracy  wyliczona została za pomocą wzoru Ivanova (6):
+                                                ETP = 0,0018 (25 + T)2 (100 – H)                       [14]
+gdzie:
+T – temperatura w [°C]
+H – wilgotność względna powietrza w %
+– gęstości i stopnia rozwoju roślinności na powierzchni, opisywanych w tej
+pracy poprzez indeks aktywnej powierzchni liścia LAI (Leaf Area Index), czyli łącznej
+powierzchni zielonych (zdolnych do fotosyntezy i transpiracji) liści przypadających na
+jednostkę powierzchni gleby. W początkowym lub końcowym okresie sezonu wege-
+tacyjnego, kiedy roślinność dopiero rozwija się lub, gdy ulistnienie traci swoje zdolno-
+ści do fotosyntezy i transpiracji, a wartości LAI są mniejsze od trzech, ewapotranspi-
+racja rzeczywista jest obliczana jako iloczyn jednej trzeciej indeksu LAI oraz ewapo-
+transpiracji potencjalnej. W środku sezonu wegetacyjnego, gdy roślinność jest w szczy-
+cie swojego rozwoju, a wartości indeksu LAI są większe od trzech, czynnikiem ogra-
+niczającym ewapotranspirację jest zdolność atmosfery do odprowadzania pary wod-
+nej z powierzchni łanu. Dlatego ewapotranspiracja rzeczywista jest w takich warun-
+kach równa ewapotranspiracji potencjalnej. Wartości LAI w sezonie wegetacyjnym
+oszacowane zostały na podstawie satelitarnych pomiarów współczynnika NDVI (1).
+Do wyliczenia LAI na podstawie NDVI użyto wzoru (10):
+                                                                                             [15]
+– gęstości aktywnych korzeni, która jest wprost proporcjonalna do wielkości
+poboru wody z danej warstwy gleby. W niniejszym opracowaniu założono, że rozkład
+korzeni w profilu glebowym jest taki, że masa korzeniowa maleje liniowo od powierzchni
+do głębokości charakteryzującej daną formację roślinną (tzw. maksymalny zasięg strefy
+korzeniowej); (8),
+– zawartości wody w danej warstwie gleby. Przyjęto, że roślina zaczyna od-
+czuwać stres wynikający z niedostatku wody jeżeli potencjał wody pF w glebie jest
+wyższy niż 3,2. Wraz ze wzrostem ciśnienia ssącego gleby spada zdolność systemu
+korzeniowego do poboru wody, a zatem redukowana jest także wielkość transpiracji.
+Dla potencjałów pF wyższych od 4,2 (PTWR punkt trwałego więdnięcia) roślina prze-
+staje transpirować. Pomiędzy tymi wartościami potencjałów redukcja transpiracji jest
+liniowa (5). Przy zbyt dużym uwilgotnieniu, kiedy pF jest mniejsze niż 2 (PPW polowa
+pojemność wodna) system korzeniowy zaczyna odczuwać brak tlenu, co także skut-
+kuje liniowym obniżeniem transpiracji aż do zera, przy potencjale pF = 0 (pełne nasy-
+cenie).
+987,0714,0 88,0ln323,1 2 =÷ ł öç Ł æ --= RNDVILAI  
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+94
+Rys. 3. Mapa poziomu lustra wody gruntowej w województwie podlaskim
+Źródło: Opracowanie własne na podstawie danych Lipca J. (7).
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+95
+Przepływy poza granicami rozważanego obszaru gleby obejmują następujące pro-
+cesy:
+–opady atmosferyczne zasilające warstewkę wody na powierzchni gleby,
+–spływ powierzchniowy opisywany także w oparciu o zasadę bilansu wodnego,
+jednakże z wykorzystaniem nieco innego wzoru na przepływ (11):
+[16]
+gdzie:
+n – współczynnik szorstkości Manninga
+h – grubość warstewki wody na powierzchni gleby
+Wartości współczynnika n zostały przypisane do poszczególnych form użytkowania
+terenu (warstwa kompleksów użyteczności rolniczej) w oparciu o wartości zebrane
+przez Soczyńską (11).
+Praktyczna realizacja zaprezentowanego modelu znalazła swój wyraz w aplikacji
+Water3D napisanej w języku VisualBasic w środowisku Windows, który jest załączo-
+ny w „Atlasie elektronicznym województwa podlaskiego”.
+Dane wejściowe do modelu obejmują następujące elementy:
+– dane meteorologiczne:
+– wysokość opadów [mm],
+– temperatura powietrza [°C],
+– wilgotnośći względna powietrza [%],
+– dane przestrzenne:
+– ukształtowanie terenu (numeryczny model terenu),
+– skład granulometryczny gleb (mapa glebowo rolnicza),
+– położenie lustra wody gruntowej (mapa hydrologiczna).
+W wyniku modelowania na wyjściu uzyskuje się dane przestrzenne charakteryzu-
+jące:
+–wilgotność objętościowej gleby i jej rozkład w profilu,
+–grubość warstewki wody w miejscach jej stagnacji na powierzchni gleby, np.
+     w zagłębieniach terenu o trudno przepuszczalnym podłożu i utrudnionym odpływie.
+W programie istnieje możliwość zmiany parametrów dotyczących właściwości
+hydraulicznych gleb, współczynnika szorstkości oraz zasięgu strefy korzeniowej. Dane
+przestrzenne (wejściowe i wyjściowe) zapisywane są w formacie ASCII grid, rozpo-
+znawanym przez większość programów GIS, co umożliwia łatwą wizualizację w po-
+staci map generowanych w dowolnym systemie.
+( )
+hzn hq +Ñ= rr 3
+5
+ 
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+96
+Zróżnicowanie występowania wody potencjalnie dostępnej dla roślin
+w województwie podlaskim
+Na podstawie badań zużycia wody przez rośliny uprawne (3) wiadomo, że ponad
+80% wody glebowej wykorzystywanej przez rośliny pochodzi z głębokości do 1 m,
+dlatego też na mapach retencji wodnej gleb w skali 1:25000 przedstawiono rozmiesz-
+czenie potencjalnych zasobów wody dostępnej dla roślin (WOD) w profilu glebowym
+do 1 m. Ze względów praktycznych wyróżniono trzy poziomy zasobów WOD:
+małe: 95-125 mm,
+średnie: 125-170 mm,
+wysokie: 170-300 mm.
+W tabeli 4 zestawiono powierzchnie i udział gleb, według powiatów, należących do
+poszczególnych klas potencjalnych zasobów wody dostępnej dla roślin (WOD). Na
+podstawie opracowanej mapy i bazy danych można wykonywać analizy hierarchii
+potrzeb działań na rzecz zwiększenia retencji wody dla dowolnych obszarów i jedno-
+stek administracyjnych, takich jak gminy i obręby bądź dla obszarów fizyczno-geogra-
+ficznych.
+Z załączonych zestawień tabelarycznych opracowanych dla poszczególnych po-
+wiatów wynika, że szczególnie dużym, ponad 50%, udziałem gleb gruntów ornych
+(GO) o małych potencjalnych zasobach wody dostępnej dla roślin (WOD) charakte-
+ryzują się powiaty: białostocki, grajewski, hajnowski, kolneński i łomżyński. Czynni-
+kiem decydującym o małych zasobach WOD na tych obszarach jest dominacja gleb
+lekkich, wykazujących wysoką zawartość frakcji piasku w swoim składzie. Ponad
+50% udziałem gleb gruntów ornych o dużych potencjalnych zasobach wody ogólnie
+dostępnej dysponują powiaty: augustowski, bielski, moniecki, sejneński, wysokomazo-
+wiecki i zambrowski. Przyczyną lepszych warunków retencyjnych w tych powiatach
+jest duży udział w pokrywie glebowej gruntów ornych utworów zwięźlejszych o wy-
+sokiej zawartości frakcji części spławialnych.
+Wyniki modelowania bilansu wodnego gleb
+Dla celów zobrazowania zagrożeń suszą glebową do symulacji wybrano rok suchy
+(1996) i rok mokry (2001). Dane meteorologiczne pochodzą ze stacji w Suwałkach,
+chociaż nie są to dane reprezentatywne dla całego regionu w konkretnym roku, jed-
+nak oddają dość dobrze charakter skrajnych warunków meteorologicznych, jakie mogą
+zaistnieć w dowolnym obszarze województwa. Zestawienia podstawowych parame-
+trów meteorologicznych przedstawione w tabeli 5 oraz na rysunkach 5 i 6 obrazują
+duży kontrast opadów pomiędzy latami wybranymi dla symulacji.
+Symulacje bilansu wodnego przeprowadzono dla 24 dekad, rozpoczynając oblicze-
+nia od końca 6 dekady w każdym roku. Okres symulacji wybrano tak, aby pełny cykl
+rozwoju roślinności przebiegał wewnątrz tego okresu. Początek tego okresu dla 2001 r.
+pokrywa się z momentem, gdy temperatury powietrza stają się dodatnie i zamarznięta
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+97
+w profilu glebowym woda staje się swobodna. Rejestracja symulowanego rozkładu
+wilgotności gleby w profilu odbywała się w interwale dekadowym.
+Rzeczywiste zasoby wody dostępnej dla roślin zdefiniowane zostały jako różnica
+pomiędzy całkowitą ilością wody obecną w profilu a ilością wody odpowiadającej
+punktowi trwałego więdnięcia roślin (PTWR). Na opracowanych mapach przedsta-
+wiono rzeczywiste zasoby wody dostępnej dla roślin w mm dla profilu glebowego do
+głębokości 100 cm w pierwszej dekadzie czerwca (16 dekada roku). Moment ten
+został wybrany z dwóch powodów:
+ –czerwiec jest okresem, w którym rośliny wykazują dużą wrażliwość na niedo-
+     bory wody;
+–pierwsza dekada czerwca 1996 r. była szczególnie sucha.
+Przedstawione na mapach rzeczywiste zasoby wody dostępnej dla roślin podzie-
+lono na trzy klasy:
+dostateczne – więcej niż 50 mm,
+słabe – 50-0 mm,
+niedostateczne – mniej niż 0 mm.
+Tabela 4 
+ 
+Powierzchnie gleb gruntów ornych należące do poszczególnych klas potencjalnych zasobów 
+wody dostępnej dla roślin (WOD) w województwie podlaskim 
+ 
+Zasoby małe Zasoby średnie Zasoby wysokie 
+Powiat 
+ha % GO ha % GO ha % GO 
+Augustowski 15277 34,14 5979 13,36 23487 52,49 
+Białostocki 58306 51,32 17055 15,01 38259 33,67 
+Bielski 23821 30,46 10514 13,45 43863 56,09 
+Grajewski 21852 53,28 7924 19,32 11241 27,41 
+Hajnowski 26029 52,10 6228 12,47 17706 35,44 
+Kolneński 30506 58,53 13371 25,65 8244 15,82 
+Łomżyński 41837 52,48 16580 20,80 21311 26,73 
+Moniecki 20934 40,74 - - 30455 59,26 
+Sejneński 10561 31,69 3688 11,07 19077 57,24 
+Siematycki 29233 36,87 13755 17,35 36304 45,79 
+Sokólski 44243 40,40 33090 30,21 32183 29,39 
+Suwalski 34411 40,34 12156 14,25 38725 45,40 
+Wysokomazowiecki 18564 21,74 10234 11,98 56594 66,28 
+Zambrowski 11502 31,17 4761 12,90 20644 55,93 
+Woj. podlaskie 387076 44,86 77684 9,00 398093 46,14 
+ 
+Źródło: Opracowanie własne. 
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+98
+Z porównania mapek zamieszczonych na rysunkach 7 i 8 wynika, że tak w latach
+suchych, jak i w latach mokrych na suszę narażone są te same obszary województwa.
+Inna jest jedynie skala problemu. Na podstawie zestawień w tabelach 6 i 7 do obsza-
+rów najbardziej narażonych na suszę glebową w latach mokrych należy zaliczyć po-
+krywę glebową powiatów: suwalskiego, sejneńskiego, sokólskiego i łomżyńskiego.
+W latach mokrych ryzyko suszy glebowej praktycznie nie występuje w powiatach:
+hajnowskim, bielskim, kolneńskim i grajewskim. W latach suchych problem suszy do-
+tyczy wszystkich powiatów, z wyjątkiem powiatu hajnowskiego i bielskiego. Przy-
+czyną dobrego uwilgotnienia gruntów ornych w tych powiatach jest przeważnie płyt-
+ko zalegające zwierciadło wody gruntowej.
+Tabela 5 
+ 
+Warunki meteorologiczne w latach 1996 i 2001 (wg notowań stacji w Suwałkach) 
+ 
+1996 r. (rok suchy) 2001 r. (rok mokry) 
+Nr dekady opad 
+(mm) 
+wilgotność 
+powietrza 
+(%) 
+temperatura 
+powietrza 
+(°C) 
+opad 
+(mm) 
+wilgotność 
+powietrza 
+(%) 
+temperatura 
+powietrza 
+(°C) 
+7 2 83 -6 15 85 -1 
+8 7 78 -4 39 91 2 
+9 17 71 -2 2 72 -3 
+10 18 75 3 7 76 8 
+11 42 68 5 14 82 3 
+12 11 66 11 11 80 11 
+13 8 75 12 3 57 15 
+14 18 74 17 65 69 13 
+15 18 80 11 7 70 10 
+16 1 66 18 23 75 12 
+17 12 71 14 11 82 13 
+18 19 82 13 11 76 16 
+19 30 80 16 31 79 20 
+20 30 83 14 60 73 21 
+21 5 72 16 38 80 21 
+22 7 72 16 28 78 17 
+23 7 65 19 6 79 19 
+24 10 67 19 19 76 16 
+25 7 71 14 29 87 14 
+26 11 80 8 59 90 13 
+27 11 81 7 20 81 8 
+28 4 84 10 28 89 12 
+29 12 84 9 8 89 10 
+30 34 91 6 15 85 5 
+ 
+Źródło: Opracowanie własne na podstawie danych IMiGW. 
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+99
+Rys. 4. Potencjalne zasoby wody dostępnej dla roślin (WOD) w województwie podlaskim
+Źródło: Opracowanie własne na podstawie danych IMiGW.
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+100
+Rys. 5. Rozkład opadów i temperatury powietrza w roku suchym (1996 r.)
+Źródło: Opracowanie własne na podstawie danych IMiGW.
+Rys. 6. Rozkład opadów i temperatury powietrza w roku mokrym (2001 r.)
+Źródło: Opracowanie własne na podstawie danych IMiGW.
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+101
+Rys. 7. Rzeczywiste zasoby wody dostępnej dla roślin WRD w I dekadzie czerwca 1996 r.
+(rok suchy)
+Źródło: Opracowanie własne.
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+102
+ 
+Tabela 6 
+ 
+Rzeczywiste zasoby wody dostępnej dla roślin w roku suchym (1996) 
+ 
+Udział użytków rolnych (%) a zasoby wody Powiat niedostateczne słabe dostateczne 
+Augustowski 10,9 31,0 58,1 
+Białostocki 9,9 51,0 39,1 
+Bielski 4,8 22,4 72,8 
+Grajewski 9,5 42,3 48,1 
+Hajnowski 4,4 42,9 52,7 
+Kolneński 11,9 57,0 31,1 
+Łomżyński 20,9 53,0 26,1 
+Moniecki 13,1 37,9 49,0 
+Sejneński 27,0 26,8 46,2 
+Siematycki 14,5 44,7 40,9 
+Sokólski 26,6 43,9 29,5 
+Suwalski 29,6 41,2 29,2 
+Wysokomazowiecki 13,2 41,6 45,2 
+Zambrowski 14,8 36,3 48,9 
+Woj. podlaskie  14,9 42,1 43,0 
+ 
+Źródło: Opracowanie własne. 
+ Tabela 7 
+ 
+Rzeczywiste zasoby wody dostępnej dla roślin w roku mokrym (2001) 
+ 
+Udział użytków rolnych (%) a zasoby wody Powiat niedostateczne słabe dostateczne 
+Augustowski 4,4 22,0 73,6 
+Białostocki 3,4 41,7 54,9 
+Bielski 1,9 12,8 85,2 
+Grajewski 2,8 34,2 63,0 
+Hajnowski 1,3 28,0 70,7 
+Kolneński 2,5 45,0 52,5 
+Łomżyński 9,1 46,2 44,7 
+Moniecki 4,2 33,7 62,1 
+Sejneński 11,4 24,2 64,4 
+Siematycki 6,4 36,1 57,5 
+Sokólski 9,2 45,4 45,4 
+Suwalski 12,1 38,4 49,4 
+Wysokomazowiecki 5,6 27,6 66,8 
+Zambrowski 7,2 28,1 64,7 
+Woj. podlaskie 5,7 34,5 59,8 
+ 
+Źródło: Opracowanie własne. 
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+103
+Rys. 8. Rzeczywiste zasoby wody dostępnej dla roślin WRD w I dekadzie czerwca 2001 r.
+(rok mokry)
+Źródło: Opracowanie własne.
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+104
+Podsumowanie
+Z charakterystyki właściwości retencyjnych gleb województwa podlaskiego oraz
+z modelowania ich bilansu wodnego wynika, że szczególnie niekorzystne warunki wodne
+i duże zagrożenie suszą występuje na terenie powiatów łomżyńskiego, suwalskiego
+i sokólskiego. Czynnikiem decydującym o niekorzystnym stanie gospodarki wodnej
+gleb jest tutaj, obok warunków klimatycznych, duży udział gleb lekkich w powierzchni
+użytków rolnych, które oprócz niskiej pojemności retencyjnej łatwo tracą wodę
+w wyniku szybkiej infiltracji do głębszych poziomów profilu glebowego. Z punktu wi-
+dzenia potrzeb wodnych roślin na obszarach występowania gleb lekkich, charaktery-
+zujących się tzw. opadowym typem gospodarki wodnej, podsiąk kapilarny nie ma prak-
+tycznie znaczenia, gdyż  zwierciadło wody gruntowej znajduje się na głębokości więk-
+szej od zasięgu strefy korzeniowej. Warunki takie są typowe dla znacznej części po-
+krywy glebowej nie tylko wymienionych powiatów. Duża zmienność warunków gle-
+bowych powoduje, że gleby zbyt suche są rozproszone w całym regionie i lokalnie
+tworzą większe kompleksy, obejmujące swoim zasięgiem niekiedy całe obręby, a na-
+wet gminy. W perspektywie zmian klimatu i pogłębienia ujemnych bilansów wodnych
+w sezonie wegetacyjnym, należy przewidywać dalszą marginalizację znaczących ob-
+szarów gleb lekkich w regionie, które będą wyłączane z produkcji rolniczej. Adaptacja
+do tych warunków wymaga zwiększenia ilości wody retencjonowanej w krajobrazie,
+w tym zwłaszcza odtwarzania pierwotnych siedlisk mokradłowych, tworzenia oczek
+wodnych w bezodpływowych zagłębieniach terenu. Ważnym elementem strategii ada-
+ptacji i przeciwdziałania zagrożeniom jest monitorowanie bilansów wodnych gleb, umoż-
+liwiające poznanie skali i przestrzennego występowania zjawiska suszy glebowej.
+Opracowany model, w celu określenia najlepszych lokalizacji dla małej retencji wod-
+nej i renaturyzacji siedlisk mokradłowych, można również wykorzystać w pracach
+projektowych i planistycznych związanych z urządzaniem terenów wiejskich. Inten-
+syfikacja działań na rzecz stworzenia dużej liczby rozproszonych w przestrzeni ma-
+łych zbiorników retencyjnych w postaci oczek wodnych i mokradeł topogenicznych
+powinna być traktowana jako priorytet polityki dla rolnictwa w województwie podla-
+skim. Właściwa lokalizacja inwestycji z zakresu małej retencji będzie miała wpływ
+zarówno na stan wód gruntowych w bezpośrednim ich otoczeniu, jak również na wa-
+runki mikroklimatyczne związane ze zwiększeniem ilości wody dostępnej dla roślin
+w okresach suchych.
+A. Łopatka, T. Stuczyński, E. Czyż, J. Kozyra, J. Jadczyszyn
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+105
+Literatura
+1. B o c h e n e k  Z.: Operacyjne wykorzystanie zdjęć satelitarnych NOAA AVHRR do oceny
+warunków rozwoju upraw w Polsce. Problemy Telegeoinformacji, 1999, 29.
+2. C a m p b e l l  G. S.: A simple method for determining unsaturated conductivity from moisture
+retention data. Soil Sci., 1974, 117(6): 311-313.
+3. C z y ż  E.: Uwilgotnienie gleb i zużycie wody przez rośliny w zależności od wybranych czynni-
+ków agrotechnicznych. Pam. Puł., 2000, 123.
+4. D z i e ż y c  J.: Nawadnianie roślin. PWRiL Warszawa,1974.
+5. F e d d e s  R. A.,  K o w a l i k   P. J.,  Z a r a d n y  H.: Simulation of field water use and crop yield.
+Wageningen, The Netherlands: Centre for Agricultural Publishing and Documentation, 1978.
+6. I v a n o v  N. N.: Estimation of the amount of evaporation ability. Izv. Vsesojusm. Obshch.-va,
+1954, t. 86.
+7. L i p i e c  J.: Możliwości oceny przewodnictwa wodnego gleb na podstawie ich niektórych
+właściwości. Probl. Agrofiz., 1983, 40.
+8. M o l z  F. J., R e m s o n  I.: Extraction term models of soil moisture use by transpiring plants. Water
+Resources Res., 1970, 6(5): 1346-1356.
+9. N i e d ź w i e c k i  J.: Właściwości hydrauliczne warstwy ornej gleb w zależności od zawartości iłu
+koloidalnego, substancji organicznej i gęstości objętościowej. Rozpr. dokt., IUNG Puławy, 2002.
+10. P o n t a i l l e r  J. Y.,  H y m u s  G. J.,  D r a k e  B. G.: Estimation of leaf area index using ground-
+based remote sensed NDVI measurements: validation and comparison with two indirect techniques.
+Can. J. Remote Sensing, 2003, 29(3): 381-387.
+11. S o c z y ń s k a  U.: Procesy hydrologiczne. PWN Warszawa, 1989.
+12.  S t u c z y ń s k i  T. i in.: Wdrożenie zintegrowanego systemu informacji o rolniczej przestrzeni
+produkcyjnej dla potrzeb ochrony gruntów w województwie podlaskim. IUNG-PIB i Urząd Mar-
+szałkowski Województwa Podlaskiego, Puławy – Białystok, 2006, ISBN-83-89576-76-7: ss. 240.
+13. Ś l u s a r c z y k  E.: Określenie retencji ogólnej i użytecznej w podstawowych gatunkach gleb
+ornych w latach 1971–1975. IUNG Puławy, 1975.
+14. Ś l u s a r c z y k  E.: Określenie retencji użytecznej gleb mineralnych dla prognozowania
+i projektowania nawodnień. Melioracje Rolne, 1979, 3(53).
+15. Z a w a d z k i  S.: Gleboznawstwo. PWRiL Warszawa, 1999.
+Adres do korespondencji:
+dr Tomasz Stuczyński
+Zakład Gleboznawstwa Erozji i Ochrony Gruntów
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Puławy
+tel.: (081) 886 34 21
+e-mail: ts@iung.pulawy.pl
+Analiza warunków wodnych gleb i zagrożeń związanych z suszą na przykładzie ...
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/
+106
+PDF stworzony przez wersję demonstracyjną pdfFactory Pro www.pdffactory.pl/

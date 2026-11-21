@@ -1,0 +1,763 @@
+Katarzyna Żyłowska, Jerzy Kozyra
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+ZMIANY WARUNKÓW AGROKLIMATYCZNYCH W POLSCE*
+Słowa kluczowe: agroklimat, zmiany klimatu, wskaźniki agroklimatyczne
+Wstęp
+Działalność rolnicza nierozerwalnie związana jest z warunkami naturalnymi, szcze-
+gólnie takimi jak: gleba, ukształtowanie terenu i klimat. Można nawet stwierdzić, że 
+warunki klimatyczne determinują rodzaj prowadzonej działalności rolniczej. W nauce 
+o klimacie funkcjonuje pojęcie agroklimatu rozumianego jako przydatność warunków 
+klimatycznych do uprawy roślin na danym obszarze. Do podstawowych elementów 
+opisujących warunki agroklimatyczne zaliczamy: usłonecznienie, temperaturę, opad 
+atmosferyczny, długość okresu wegetacyjnego, długość okresu gospodarczego. Na-
+leży nadmienić, że obok sprzyjających warunków do uprawy roślin w przyrodzie 
+występują także zjawiska powodujące straty w uprawach (susze, powodzie, deszcze 
+nawalne). O potrzebie określenia związków między pogodą a plonowaniem roślin 
+oraz częstością i rozmieszczeniem występowania niekorzystnych dla rolnictwa zjawisk 
+meteorologicznych (przymrozki, grad, susze) pisał Radomski (22). Duże osiągnię-
+cia w badaniach nad agroklimatem Polski i wpływem pogody na roślinę posiada 
+Instytut Uprawy Nawożenia i Gleboznawstwa w Puławach (IUNG). Już w latach  
+60. XX wieku opublikowana została praca „W sprawie określenia wpływu pogody na 
+roślinę” (9). W kolejnych latach zespół prof. Górskiego prowadził dalsze prace nad 
+wpływem temperatury, usłonecznienia (promieniowania) czy niedoboru opadów na 
+roślinę i jej plon (1, 2, 3, 4, 5, 6, 10, 11, 13, 14, 27). Dzięki prowadzonym badaniom 
+S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 67(21): 9-23 2022
+*Opracowanie wykonano w ramach zadania 8.0 pt. „Identyfikacja i opracowanie nowych krajowych 
+ wskaźników jednostkowych oraz zrównoważonych metod produkcji dla celów ochrony środowiska  
+ i przeciwdziałania zmianom klimatu w rolnictwie” z dotacji budżetowej przeznaczonej na realizację 
+ zadań MRiRW w 2022 r.
+https://doi.org/10.26114/sir.iung.2022.67.01
+1110
+ Katarzyna Żyłowska, Jerzy Kozyra
+opracowany został Model Agroklimatu Polski (14), który pozwala na uzyskanie 
+średnich wartości elementów klimatu dla dowolnego punktu w Polsce o znanych 
+współrzędnych geograficznych. 
+W ostatnich latach coraz częściej mówi się o zachodzących zmianach klimatycz-
+nych spowodowanych działalnością człowieka, w tym także działalnością rolniczą 
+(18). Zmiany użytkowania terenu, wylesienia, emisje gazów cieplarnianych pocho-
+dzących bezpośrednio, jak i pośrednio z rolnictwa przyczyniły się między innymi 
+do ocieplania się klimatu. Coraz częściej mamy do czynienia z niekorzystnymi dla 
+rolnictwa zjawiskami pogodowymi, jak susze, deszcze nawalne, burze, fale upałów czy 
+brak porywy śnieżnej zimą, które są skutkiem obserwowanych zmian klimatycznych 
+(19). Zmieniło się także postrzeganie roli agrometeorologii w badaniach. Dotychczas 
+głównym zadaniem tej dziedziny nauki było poznanie wpływu warunków pogodo-
+wych na roślinę i plony. Obecnie coraz większy nacisk kładzie się na zapewnienie 
+bezpieczeństwa żywnościowego poprzez utrzymanie produkcji żywności na co naj-
+mniej dotychczasowym poziomie w wyniku dostosowania rolnictwa do zachodzących 
+zmian klimatu (16, 20). 
+Celem pracy jest opis zmian wybranych elementów agroklimatu Polski, takich 
+jak: średnia temperatura powietrza, wielkość opadu atmosferycznego, długość okresu 
+wegetacyjnego, w latach 1971–2020. 
+Wskaźniki agroklimatyczne
+Warunki agroklimatyczne możemy opisać za pomocą wskaźników, które pozwa-
+lają na przedstawienie różnic warunków uprawy roślin w różnych rejonach naszego 
+kraju. Do najpopularniejszych a zarazem najważniejszych i prostych wskaźników 
+agroklimatycznych możemy zaliczyć: średnią temperaturę powietrza, datę przejścia 
+temperatury przez próg 5°C (rozpoczęcie okresu wegetacyjnego), długość okresu 
+wegetacyjnego oraz wielkość opadu atmosferycznego. 
+Do opisu warunków termicznych wykorzystano dane meteorologiczne z lat 
+1971–2020 pochodzące z 48 stacji synoptycznych (rys. 1) Instytutu Meteorologii 
+i Gospodarki Wodnej – Państwowego Instytutu Badawczego (IMGW-PIB). Dane 
+archiwalne dostępne są na stronie internetowej IMGW pod adresem: danepubliczne.
+imgw.pl/data/dane_pomiarowo_obserwacyjne/. W celu uchwycenia zmian zachodzą-
+cych w warunkach agroklimatycznych okres 1971–2020 został podzielony na dwa 
+wielolecia: 1971–2000 oraz 2001–2020. 
+1110 Zmiany warunków agroklimatycznych w Polsce
+Rys. 1. Stacje synoptyczne IMGW-PIB
+Źródło: opracowanie własne
+Warunki termiczne
+Do opisu warunków termicznych najczęściej wykorzystywana jest wartość śred-
+nia temperatury powietrza (roczna, miesięczna, dobowa czy sezonowa). Średnia 
+roczna temperatura powietrza dla Polski w wieloleciu 1971–2000 wynosiła 8,0°C.  
+W wieloleciu 2001–2020 wartość ta była większa o 1°C i wynosiła 9,0°C. Porównując 
+wielkość średniej rocznej temperatury powietrza w Polsce w całym analizowanym 
+okresie, widać wyraźny trend wzrostowy dla średniej rocznej temperatury, który wy-
+nosi 0,4°C na 10 lat (rys. 2). Najcieplejszym rokiem w badanym wieloleciu był 2019, 
+w którym średnia roczna temperatura powietrza wyniosła 10,3°C. Jest to jedyny rok 
+w analizowanym okresie, w którym wartość średniej rocznej temperatury powietrza 
+przekroczyła 10,0°C. Drugim w kolejności rokiem z najwyższą roczną wartością 
+temperatury powietrza był 2020, w którym zanotowano temperaturę 10,0°C. Trzeci 
+w kolejności jest rok 2018 z temperaturą wynoszącą 9,9°C. Z kolei najchłodniejsze 
+były lata 1980 i 1987 ze średnią roczną temperaturą powietrza wynoszącą 6,5°C.
+ŁEBA
+KOSZALIN
+BIAŁYSTOK
+TORUŃ MŁAWA
+SUWAŁKI
+KĘTRZYN
+OLSZTYN
+ŚWINOUJŚCIE
+SZCZECIN
+CHOJNICE
+KOŁOBRZEG
+ELBLĄG
+GDAŃSKLĘBORK
+USTKA
+SŁUBICE
+PIŁA
+GORZÓW WIELKOPOLSKI
+ZIELONA GÓRA
+ŁÓDŹLESZNO KALISZ
+LUBLIN
+WŁODAWA
+TERESPOLKOŁO
+PŁOCK
+SIEDLCEWARSZAWA
+SULEJÓW
+POZNAŃ
+RZESZÓW
+TARNÓW
+KIELCE
+BIELSKO-BIAŁA
+SANDOMIERZOPOLE
+WIELUŃ
+KRAKÓWRACIBÓRZ
+LEGNICA
+JELENIA GÓRA
+KATOWICE
+KŁODZKO
+WROCŁAW
+NOWY SĄCZ LESKO
+HEL
+ZAKOPANE
+1312
+ Katarzyna Żyłowska, Jerzy Kozyra
+Rys. 2. Średnia roczna temperatura powietrza w Polsce w latach 1971–2020
+Źródło: opracowanie własne
+Wszystkie lata z największą średnią roczną temperaturą powietrza zawarły się  
+w wieloleciu 2001–2020, w którym najniższa wartość wystąpiła w 2010 roku i wy-
+nosiła 7,5°C. 
+Średnia miesięczna temperatura powietrza w wieloleciu 2001–2020 we wszyst-
+kich miesiącach była wyższa niż w miesiącach wielolecia 1971–2000. Największy 
+wzrost miesięcznej temperatury nastąpił w lipcu i listopadzie (1,6°C) oraz kwietniu  
+i sierpniu (1,5°C). Najmniejszy wzrost nastąpił w styczniu (0,4°C). Natomiast czerwiec  
+2019 roku był najcieplejszym miesiącem w historii pomiarów temperatury na ziemiach 
+polskich. Na obszarze środkowo-zachodniej Polski anomalie bezwzględne przekroczy-
+ły w tym roku 6°C (25). Średnia temperatura czerwca w 2019 roku w Polsce wyniosła 
+21,3°C, gdy średnia dla tego miesiąca w latach 2011–2020 to 17,5°C. Najwyższą 
+średnią temperaturę w czerwcu 2019 roku odnotowano w Poznaniu (23,3°C), War-
+szawie (22,9°C), Słubicach i Zielonej Górze (22,8°C) oraz we Wrocławiu (22,7°C).  
+Niemal na wszystkich stacjach w czerwcu 2019 roku średnia temperatura przekro-
+czyła 20°C, z wyjątkiem: Zakopanego (18,1°C), Ustki (19,3°C), Leska (19,9°C), 
+Łeby (19,4°C), Kołobrzegu (18,9°C), Kłodzka (19,6°C), Helu (19,2°C) oraz Elbląga 
+(19,5°C).
+y = 0,0408x + 7,3291
+średnia roczna temperatura (°C)
+11,0
+6,0
+7,0
+8,0
+9,0
+10,0
+liniowy (średnia roczna temperatura)średnia roczna temperatura
+1971
+1995
+1993
+1991
+1989
+1987
+1985
+1983
+1981
+1979
+1977
+1975
+1973
+1997
+2009
+2007
+2005
+2003
+2001
+1999
+2011
+2013
+2015
+2017
+2019
+1312 Zmiany warunków agroklimatycznych w Polsce
+Tabela 1
+Średnia miesięczna i roczna temperatura powietrza w Polsce oraz na wybranych stacjach  
+w wieloleciu 1971–2000 oraz 2001–2020
+Stacja Wielolecie 1971–2000 (°C) I II III IV V VI VII VIII IX X XI XII ROK
+Szczecin –0,1 0,6 3,8 7,9 13,2 16,0 18,0 17,7 13,6 9,0 4,2 1,4 8,8
+Kołobrzeg 0,1 0,6 3,1 6,4 11,1 14,7 17,0 17,1 12,5 9,3 4,5 1,6 8,2
+Olsztyn –2,5 –1,8 1,6 6,7 12,4 15,4 17,1 16,8 12,3 7,7 2,4 –0,8 7,3
+Białystok –3,5 –2,7 1,0 6,8 12,8 15,7 17,1 16,5 11,9 7,0 1,8 –1,6 6,9
+Poznań –1,0 –0,2 3,4 7,9 13,5 16,3 18,1 17,8 13,3 8,6 3,4 0,5 8,5
+Łódź –2,0 –1,0 2,8 7,7 13,4 16,1 17,7 17,6 13,0 8,2 2,8 –0,4 8,0
+Warszawa –2,2 –1,2 2,6 7,9 13,7 16,5 18,1 17,7 13,0 8,1 2,8 –0,4 8,1
+Wrocław –0,8 0,2 3,9 8,2 13,5 16,3 18,1 17,8 13,6 8,9 3,6 0,7 8,7
+Kłodzko –1,9 –1,0 2,8 6,9 12,1 14,8 16,5 16,4 12,5 8,1 2,7 –0,4 7,4
+Lublin –3,1 –2,1 1,8 7,4 13,1 15,8 17,3 17,0 12,5 7,6 2,1 –1,3 7,4
+Rzeszów –2,6 –1,3 2,7 8,0 13,4 16,4 17,9 17,4 13,2 8,3 2,8 –0,7 7,9
+Polska –1,7 –0,8 2,7 7,3 12,8 15,7 17,4 17,2 13,0 8,3 3,1 0,0 7,9
+Wielolecie 2001–2020 (°C)
+I II III IV V VI VII VIII IX X XI XII ROK
+Szczecin 0,6 1,4 4,2 9,4 13,8 17,2 19,2 18,8 14,6 9,8 5,5 2,3 9,7
+Kołobrzeg 0,5 1,1 3,4 7,6 12,1 15,8 18,3 18,1 14,4 9,7 5,7 2,4 9,1
+Olsztyn –2,3 –1,2 2,3 8,0 13,2 16,4 18,7 18,1 13,6 8,2 4,0 0,0 8,3
+Białystok –3,1 –2,1 1,9 8,0 13,3 16,5 18,8 17,8 12,9 7,5 3,4 –0,8 7,8
+Poznań –0,5 0,6 3,9 9,7 14,4 17,9 20,0 19,5 14,7 9,4 5,0 1,3 9,7
+Łódź –1,6 –0,3 3,2 9,1 14,0 17,4 19,5 19,0 14,0 8,8 4,6 0,5 9,0
+Warszawa –1,7 –0,5 3,5 9,5 14,6 18,1 20,2 19,5 14,4 9,0 4,6 0,4 9,3
+Wrocław 0,0 1,2 4,5 10,0 14,5 18,2 20,1 19,6 14,8 9,8 5,5 1,6 10,0
+Kłodzko –1,7 –0,4 3,1 8,3 12,6 16,1 18,0 17,8 13,1 8,6 4,6 0,1 8,4
+Lublin –2,7 –1,5 2,7 8,8 13,8 17,1 19,3 18,8 13,8 8,4 3,9 –0,5 8,5
+Rzeszów –1,9 –0,7 3,5 9,5 14,3 17,9 19,8 19,3 14,2 9,1 4,7 0,0 9,2
+Polska –1,3 –0,1 3,3 8,8 13,5 17,0 19,1 18,7 14,0 9,0 4,7 0,7 8,9
+Różnica pomiędzy wieloleciem 2001–2020 i 1971–2000 (°C)
+I II III IV V VI VII VIII IX X XI XII ROK
+Szczecin 0,7 0,9 0,4 1,5 0,6 1,1 1,2 1,1 1,0 0,7 1,3 0,9 1,0
+Kołobrzeg 0,4 0,5 0,3 1,2 1,1 1,1 1,2 1,0 0,9 0,4 1,2 0,8 0,8
+Olsztyn 0,2 0,6 0,7 1,4 0,7 1,0 1,6 1,4 1,3 0,5 1,6 0,8 1,0
+Białystok 0,3 0,6 0,9 1,1 0,5 0,8 1,6 1,3 1,1 0,5 1,6 0,8 0,9
+Poznań 0,5 0,8 0,5 1,7 0,9 1,6 1,9 1,7 1,3 0,8 1,6 0,8 1,2
+Łódź 0,4 0,7 0,4 1,4 0,6 1,4 1,8 1,4 1,0 0,6 1,8 0,9 1,0
+Warszawa 0,5 0,7 0,9 1,6 0,9 1,6 2,1 1,8 1,4 0,9 1,8 0,8 1,2
+Wrocław 0,8 1,0 0,6 1,9 1,0 1,8 2,0 1,8 1,2 0,9 1,8 0,8 1,3
+Kłodzko 0,2 0,6 0,3 1,5 0,6 1,3 1,5 1,4 0,6 0,6 1,9 0,5 0,9
+Lublin 0,5 0,6 0,8 1,4 0,7 1,3 2,0 1,8 1,2 0,7 1,9 0,7 1,1
+Rzeszów 0,7 0,7 0,8 1,5 0,9 1,6 1,9 2,0 1,1 0,9 1,9 0,7 1,2
+Polska 0,4 0,7 0,6 1,5 0,7 1,3 1,6 1,5 1,1 0,6 1,6 0,7 1,0
+1,0 – najwyższa wartość; 1,0 – najniższa wartość
+Źródło: opracowanie własne
+1514
+ Katarzyna Żyłowska, Jerzy Kozyra
+Średnia temperatura jesieni (wrzesień, październik, listopad) w latach 2001–2020 
+względem okresu 1971–2000 wzrosła o 1,1°C. Największa różnica pomiędzy wielo-
+leciami w okresie jesieni wystąpiła w listopadzie (1,6°C), najmniejsza zaś dotyczyła 
+października (0,6°C). Wzrost temperatury w tym okresie powoduje opóźnienie przej-
+ścia temperatury przez progi termiczne 0°C, 3°C (okres gospodarczy) i 5°C (okres 
+wegetacyjny), powodując wydłużenie okresów rolniczych w Polsce. 
+W najmniejszym stopniu w porównaniu z pozostałymi porami roku zmieniła się 
+średnia temperatura zimy (styczeń, luty, grudzień), wzrost wyniósł 0,6°C. Wraz ze 
+wzrostem średniej temperatury zimy zmianie uległa liczba dni ze średnią dobową 
+temperaturą powietrza poniżej –5°C (rys. 3). W latach 1971–2020 najwięcej takich 
+dni w Polsce zanotowano w latach: 1985, 1987, 1996 oraz 2010 i było to ponad  
+40 dni. Najmniej dni z taką temperaturą było w 2020 roku, gdzie tylko na 5 stacjach 
+synoptycznych (Białystok, Bielsko-Biała, Katowice, Lesko, Nowy Sącz) odnotowano 
+jeden lub dwa dni ze średnią dobową temperaturę poniżej –5°C. Również na stacji 
+w Zakopanem odnotowano tylko 9 dni z temperaturą poniżej –5°C, gdzie średnio  
+w roku było to 35 dni (w okresie 1971–2020).
+Rys. 3. Liczba dni ze średnią dobową temperaturą powietrza poniżej –5°C w latach 1971–2020
+Źródło: opracowanie własne
+Średnia temperatura wiosny (marzec, kwiecień, maj) w latach 2001–2020 była 
+wyższa niż w wieloleciu 1971–2000 o 0,9°C. Największy wzrost temperatury na-
+stąpił w kwietniu i średnio dla Polski wynosił 1,5°C. Okres wiosny jest niezwykle 
+ważny dla rolnictwa. Wzrost temperatury w tym okresie powoduje przyśpieszenie 
+y = –0,1426x + 21,429
+liczba dni
+liniowy (liczba dni)liczba dni
+1971
+1995
+1993
+1991
+1989
+1987
+1985
+1983
+1981
+1979
+1977
+1975
+1973
+1997
+2009
+2007
+2005
+2003
+2001
+1999
+2011
+2013
+2015
+2017
+2019
+45
+5
+15
+25
+35
+40
+0
+10
+20
+30
+1514 Zmiany warunków agroklimatycznych w Polsce
+przejścia temperatury przez progi termiczne wyznaczające okres gospodarczy (3°C) 
+i wegetacyjny (5°C). 
+W miesiącach letnich (czerwiec, lipiec, sierpień) w latach 2001–2020 średnia 
+temperatura powietrza była wyższa niż w wieloleciu 1971–2000 o 1,4°C. Największy 
+wzrost temperatury wystąpił w lipcu (1,6°C). Wraz ze wzrostem temperatury w lecie 
+zmianie uległa liczba dni ze średnią dobową temperaturą powietrza powyżej 25°C  
+(rys. 4). W wieloleciu 1971–2000 średnio rocznie w Polsce było 0,8 dnia z tą tem-
+peraturą, zaś w latach 2001–2020 wartość ta osiągnęła 2,3 dnia (więcej o 1,5 dnia). 
+Najwięcej dni z tak wysoką temperaturą dobową było w 2015 roku, natomiast  
+w 1994 roku – 7 dni. Widoczny jest wyraźny trend wzrostowy, a zatem w kolejnych 
+latach należy spodziewać się jeszcze większej liczby dni upalnych w Polsce.
+Rys. 4. Liczba dni ze średnią dobową temperaturą powietrza powyżej 25°C w latach 1971–2020
+Źródło: opracowanie własne
+Okres wegetacyjny
+Według Słownika meteorologicznego (23) okres wegetacyjny to część roku,  
+w której istnieją warunki klimatyczne sprzyjające rozwojowi roślin. Jako termin 
+rozpoczęcia okresu wegetacyjnego uznaje się przejście średniej dobowej tempe-
+ratury powietrza przez próg 5°C. W poniższych analizach przyjęto, że próg 5°C 
+zostaje przekroczony, jeśli przez pięć kolejnych dni średnia dobowa temperatura 
+powietrza będzie równa lub większa od zadanej wartości. W wieloleciu 1971–2000 
+okres wegetacyjny w Polsce rozpoczynał się średnio 27 marca (tab. 2). Najwcze-
+śniej okres ten rozpoczynał się w zachodniej Polsce (rys. 5). Na stacji w Szczecinie  
+y = 0,0625x – 0,1598
+liczba dni
+liniowy (liczba dni)liczba dni
+1971
+1995
+1993
+1991
+1989
+1987
+1985
+1983
+1981
+1979
+1977
+1975
+1973
+1997
+2009
+2007
+2005
+2003
+2001
+1999
+2011
+2013
+2015
+2017
+2019
+8
+0
+2
+4
+6
+7
+1
+3
+5
+1716
+ Katarzyna Żyłowska, Jerzy Kozyra
+było to 17 marca, w Gorzowie Wielkopolskim – 20 marca, w Zielonej Górze  
+i Lesznie – 19 marca, a w Słubicach nawet 11 marca. Na wschodzie Polski okres 
+wegetacyjny rozpoczynał się w ostatnich dniach marca, a w Polsce północno-wschod-
+niej na początku kwietnia. Na stacji w Olsztynie i Mławie – 4 kwietnia, Kętrzynie  
+i Białymstoku – 7 kwietnia, a w Suwałkach – 13 kwietnia.
+Tabela 2
+Początek, koniec, długość okresu wegetacyjnego w Polsce w wieloleciu 1971–2000 oraz 2001–2020
+1971–2000 (1) 2001–2020 (2) Różnica (2 – 1)
+Początek okresu 
+wegetacyjnego
+27 marzec
+(87 dzień roku)
+22 marzec
+(82 dzień roku)
+–5,0 dni
+odch. stand. 3,3 dnia
+Współczynnik zmienności 19,6% 20,3%
+Koniec okresu 
+wegetacyjnego
+6 listopad
+(311 dzień roku)
+12 listopad
+(317 dzień roku)
+5,3 dnia
+odch. stand. 2,9 dnia
+Współczynnik zmienności 4,5% 5,1%
+Długość okresu 
+wegetacyjnego 225 dni 236 dni 10,0 dni odch. stand. 4,9 dnia
+Współczynnik zmienności 9,7% 9,4%
+Źródło: opracowanie własne
+7-04
+29-03
+6-04
+31-03
+30-03
+26-03
+7-04
+27-03 13-04 7-04
+17-03
+12-03
+4-04
+27-03
+30-03
+24-03
+3-04
+27-0324-03
+15-03
+1-04
+23-03
+28-03
+20-03
+30-03
+22-03
+11-03
+10-02
+25-03
+21-03
+2-04
+26-03 27-03 22-03
+25-03
+23-03
+26-03
+21-03
+1-04
+28-03
+31-03
+30-03
+31-03
+30-03
+4-04
+28-03
+7-04
+6-04
+31-03
+26-03
+30-03
+21-03
+16-03
+18-03
+19-03
+13-03
+17-03
+9-03
+24-03
+17-0329-03
+21-03 30-03
+24-03
+27-03
+25-03
+22-03
+14-03
+14-03
+10-03
+19-03
+15-03
+20-03
+13-03
+13-03
+12-03
+26-03
+23-03
+21-03
+14-03 21-03
+21-03
+28-03
+23-03
+29-03
+27-03
+22-03
+20-03
+17-03
+16-03
+16-03
+13-03
+17-03
+18-03
+18-03
+16-03
+10-03
+14-03
+data przejścia średniej dobowej temperatury  
+powietrza przez próg 5°C w okresie 1971–2000
+data przejścia średniej dobowej temperatury  
+powietrza przez próg 5°C w okresie 2001–2020
+Legenda
+Rys. 5. Średnia data przejścia temperatury przez próg 5°C na wybranych stacjach w Polsce  
+w latach 1971–2000 oraz 2001–2020
+Źródło: opracowanie własne
+1716 Zmiany warunków agroklimatycznych w Polsce
+W wieloleciu 2001–2020 nastąpiło przyśpieszenie rozpoczęcia okresu wegeta-
+cyjnego w Polsce, średnio o 5 dni; średnia temperatura dobowa przechodziła przez 
+próg 5°C już 22 marca. Podobnie jak w poprzednim wieloleciu najwcześniej próg ten  
+był przekraczany na zachodzie kraju – 10–13 marca, a najpóźniej na wschodzie:  
+28 marca we Włodawie, 30 marca w Terespolu oraz na północnym-wschodzie: Bia-
+łystok – 6 kwietnia oraz Suwałki – 7 kwietnia.
+Należy nadmienić, że 22 marca to średnia data przejścia temperatury przez próg 
+5°C dla Polski. Na poszczególnych stacjach próg ten jest osiągany wcześniej lub póź-
+niej, w zależności od położenia danego miejsca jak i roku (rys. 6). Z przedstawionych 
+na rysunku 10 danych wynika, że na stacjach w zachodniej Polsce w pojedynczych 
+latach okres wegetacyjny może rozpoczynać się nawet w lutym. Analizując ostat-
+nie 20 lat, stwierdzamy, że taka sytuacja miała miejsce zarówno na początku, jak 
+i na końcu analizowanego wielolecia. Różnica rozpoczęcia okresu wegetacyjnego  
+w latach 2001–2020 na zachodzie Polski dochodzi do ponad 60 dni. W Poznaniu 
+próg 5°C został przekroczony 6 lutego w 2002 i 2004 roku (57 dzień roku), natomiast  
+w 2013 roku nastąpiło to dopiero 15 kwietnia (106 dzień roku). Różnica rozpoczęcia 
+okresu wegetacyjnego dla Poznania to aż 69 dni. Na stacji w Suwałkach ta różnica 
+była mniejsza i wynosiła 29 dni. Najwcześniej okres wegetacyjny rozpoczął się tam 
+w 2004 roku – 22 marca (82 dzień roku), a najpóźniej w 2013 i było to 20 kwietnia 
+(111 dzień roku).
+Rys. 6. Numer dnia przejścia średniej dobowej temperatury powietrza przez próg 5°C  
+w latach 2001–2020 dla wybranych stacji synoptycznych w Polsce
+Źródło: opracowanie własne
+120
+30
+60
+90
+2000 20142002 20202004 20182006 2008 2010 2012 2016
+SUWAŁKI WŁODAWA WROCŁAWPOZNAŃ
+numer dnia
+1918
+ Katarzyna Żyłowska, Jerzy Kozyra
+Datę zakończenia okresu wegetacyjnego wyznacza ponowne przejście tempera-
+tury przez próg 5°C. Średnio w Polsce okres wegetacyjny kończył się 6 listopada  
+w wieloleciu 1971–2000 oraz 12 listopada w wieloleciu 2001–2020. A zatem  
+w drugim analizowanym okresie nastąpiło opóźnienie zakończenia okresu wegeta-
+cyjnego w Polsce średnio o 5–6 dni. Najwcześniej okres wegetacyjny kończył się we 
+wschodniej Polsce. W latach 1971–2000 w Suwałkach było to 28 października, Bia-
+łymstoku – 29 października, we Włodawie – 1 listopada, a w Terespolu – 2 listopada. 
+W zachodniej Polsce okres wegetacyjny trwał do 8 listopada w Poznaniu, 11 listopada 
+w Legnicy i 12 listopada w Słubicach. Zakończenie okresu wegetacyjnego w wielo-
+leciu 2001–2020 w północno-zachodnich rejonach Polski następuje nawet w trzeciej 
+dekadzie listopada, a w północno-wschodniej Polsce w ostatnich dniach października. 
+Opóźnienie zakończenia okresu wegetacyjnego oraz przyśpieszenie jego rozpoczę-
+cia spowodowało wydłużenie tego okresu. Średnia długość okresu wegetacyjnego  
+w Polsce wynosi 236 dni i w porównaniu z wieloleciem 1971–2000 jest dłuższa  
+o 10 dni (tab. 2). Wydłużenie trwania okresu wegetacyjnego w północno-zachodniej 
+Polsce wynosi w zależności od stacji od 14 do 23 dni, natomiast na wschodzie kraju 
+– od 3 do 7 dni. Najdłuższy okres wegetacyjny w wieloleciu 2001–2020 był na zacho-
+dzie kraju i wynosił ponad 250 dni (Legnica – 252 dni, Słubice – 253 dni, Szczecin –  
+254 dni, Świnoujście – 252 dni, Wrocław – 255 dni). Przesuwając się na wschód 
+kraju, okres wegetacyjny ulega skróceniu – w Suwałkach wynosi 207 dni, a w Bia-
+łymstoku 209 dni. Różnica pomiędzy stacją z najdłuższym okresem wegetacyjnym 
+(Wrocław 255 dni) a najkrótszym (207 dni) wynosi 48 dni. Analizując długość okresu 
+wegetacyjnego w poszczególnych latach, różnice w jego długości są jeszcze więk-
+sze. W 2002 oraz 2016 roku różnica pomiędzy Wrocławiem a Suwałkami wynosiła  
+82 dni, a w 2015 roku – 77 dni. Oczywiście zdarzają się też lata, w których ta różnica 
+jest bardzo mała i wynosi jedynie 8 dni, jak to miało miejsce w 2013 roku.
+Warunki opadowe
+Dla prowadzonej działalności rolniczej obok warunków termicznych niezmiernie 
+ważne są warunki wilgotnościowe, najczęściej charakteryzowane za pomocą sumy 
+opadu atmosferycznego. Wielkość rocznej sumy opadu jest mocno zróżnicowana  
+w obrębie naszego kraju. Największe opady występują w południowej Polsce, na 
+terenach górskich i podgórskich, najniższe notowane są w Polsce centralnej, w Wiel-
+kopolsce i na Kujawach. Dodatkowo wielkość opadu atmosferycznego jest bardzo 
+zróżnicowana w poszczególnych latach. W analizowanym okresie 1971–2020 najniż-
+sze opady odnotowano w 1982 roku i było to 437 mm (rys. 7). Średnia roczna suma 
+opadu dla obszaru Polski wynosząca poniżej 500 mm odnotowana została jeszcze 
+w 2003 roku (499 mm), 2015 (491 mm) i 2018 (492 mm). Najwyższą sumę opadu 
+atmosferycznego, powyżej 750 mm, w analizowanym okresie odnotowano jedynie  
+w trzech latach: 1974 (778 mm), 2010 (827 mm) oraz 2017 (757 mm). Średnia wiel-
+1918 Zmiany warunków agroklimatycznych w Polsce
+kość opadu dla obszaru Polski w wieloleciu 1971–2000 wyniosła 608 mm, zaś dla 
+okresu 2001–2020 – 630 mm. Na uwagę zasługuje więc fakt, że w ostatnich latach, 
+w których mamy do czynienia z suszą, średnia wielkość opadu atmosferycznego 
+była większa. Ma to związek z coraz częściej występującymi deszczami burzowymi 
+i nawalnymi, co jest jednym ze skutków ocieplania się klimatu. 
+Rys. 7. Średnia roczna suma opadu atmosferycznego dla obszaru Polski w latach 1971–2020 
+Źródło: opracowanie własne
+Oprócz zmienności w kolejnych latach występuje także zróżnicowanie w obrę-
+bie jednego roku pomiędzy miesiącami. Miesiącem o największej sumie opadów 
+jest lipiec, zaś najniższe opady przypadają na okres miesięcy zimowych (rys. 8).  
+W wieloleciu 2001–2020 średnia miesięczna suma opadu wyniosła w lipcu 92 mm, 
+zaś w czerwcu i sierpniu – po 71 mm. Średnia suma opadu przypadającego na mie-
+siące letnie to 234 mm. Zdecydowanie mniejsze opady są w miesiącach wiosennych 
+(marzec, kwiecień, maj) i wynoszą 137 mm. 
+W analizowanym okresie 2001–2020 istnieją bardzo duże różnice miesięcznych 
+sum opadu atmosferycznego pomiędzy poszczególnymi latami (tab. 3). Różnica 
+pomiędzy najniższą i najwyższą sumą opadu atmosferycznego dla miesiąca na prze-
+strzeni analizowanych 20 lat wynosi niemal 150 mm dla lipca i 135 mm dla sierpnia. 
+Najniższa różnica około 42 mm występuje w miesiącu marcu.
+średnia roczna suma opadu (mm)
+1971
+1995
+1993
+1991
+1989
+1987
+1985
+1983
+1981
+1979
+1977
+1975
+1973
+1997
+2009
+2007
+2005
+2003
+2001
+1999
+2011
+2013
+2015
+2017
+2019
+850
+450
+550
+650
+750
+800
+400
+500
+600
+700
+2120
+ Katarzyna Żyłowska, Jerzy Kozyra
+Rys. 8. Średnia miesięczna suma opadu atmosferycznego dla obszaru Polski w wieloleciu 2001–2020 
+Źródło: opracowanie własne
+Tabela 3
+Średnia miesięczna suma opadu atmosferycznego dla obszaru Polski w latach 2001–2020
+Rok Miesiąc I II III IV V VI VII VIII IX X XI XII
+2001 30,2 26,7 47,3 65,6 46,3 84,4 143,9 67,3 112,7 27,2 42,5 37,5
+2002 38,9 54,4 36,2 27,1 68,7 77,8 72,1 70,0 51,9 97,5 38,0 16,0
+2003 35,7 10,3 17,8 32,3 61,5 38,9 95,4 37,5 39,5 59,2 27,7 43,2
+2004 36,6 50,3 39,5 37,9 57,4 64,7 91,3 79,5 34,6 51,3 56,7 29,3
+2005 46,5 35,5 30,7 26,6 75,0 48,7 89,6 71,0 38,0 14,2 31,5 74,5
+2006 18,0 30,0 34,0 44,5 59,5 62,6 23,1 151,8 34,6 34,4 60,2 29,6
+2007 84,0 37,4 42,1 16,0 67,5 89,1 109,4 65,6 83,9 33,9 50,4 25,2
+2008 50,1 22,7 55,0 50,2 41,0 40,7 88,7 90,7 53,4 54,3 35,3 34,2
+2009 24,2 37,3 59,7   6,3 75,7 120,9 101,4 57,2 35,8 81,9 47,9 42,7
+2010 32,3 25,2 33,9 32,2 153,3 65,3 104,9 134,8 92,1 15,5 87,2 50,2
+2011 30,6 27,7 19,7 31,5 51,2 65,2 172,8 68,4 34,4 33,2 3,5 40,5
+2012 57,8 32,4 19,3 40,3 44,4 92,9 96,5 67,3 45,3 59,9 43,1 29,5
+2013 54,9 31,9 36,6 31,5 93,8 110,8 56,0 48,7 89,0 25,7 45,3 25,1
+2014 39,5 13,2 41,0 38,4 101,3 62,7 81,4 85,0 52,8 33,8 18,5 48,7
+2015 46,1 10,7 40,7 28,4 54,7 43,1 64,9 17,6 59,2 32,9 62,0 30,6
+2016 28,8 52,7 32,6 39,9 45,8 67,2 130,7 63,0 24,3 94,6 49,0 45,4
+2017 18,9 34,3 39,8 62,2 43,9 77,1 104,9 74,8 108,3 96,5 52,1 44,2
+2018 35,9 11,8 28,0 28,1 40,7 48,2 93,0 41,8 45,7 47,2 14,3 57,6
+2019 44,8 24,3 38,1 22,7 84,0 41,2 57,5 61,2 74,6 39,8 41,4 35,6
+2020 33,1 58,2 27,0   8,8 75,6 110,4 55,1 74,2 67,2 82,6 20,2 28,8
+1,0 – najwyższa wartość; 1,0 – najniższa wartość
+Źródło: opracowanie własne
+średnia miesięczna suma opadu (mm)
+I VIIV XVIIIII VIIIII XIIXV XII
+90
+10
+30
+50
+70
+80
+0
+20
+40
+60
+100
+2120 Zmiany warunków agroklimatycznych w Polsce
+Warto wspomnieć, że opady w miesiącach letnich często są opadami burzowymi, 
+które ze względu na swoją intensywność nie przesiąkają w całości do gleby. Zjawi-
+skiem niepokojącym występującym w ostatnich latach jest również brak opadów  
+w miesiącach zimowych w postaci śniegu. Brak pokrywy śnieżnej z jednej strony nie 
+zabezpiecza przed suszą w okresie wiosennym, a z drugiej strony nie chroni roślin 
+ozimych przed występującymi niskimi temperaturami. 
+Podsumowanie
+Obserwowane obecnie zmiany warunków pogodowych są bez wątpienia skutkiem 
+zachodzących zmian klimatycznych. Jedną z głównych przyczyn globalnego ocieple-
+nia uznaje się emisję gazów cieplarnianych, w dużej mierze związaną z działalnością 
+człowieka, w tym rolniczą. W najnowszym szóstym raporcie opublikowanym przez 
+IPCC (Intergovernmental Panel on Climate Change) (15) po raz kolejny zwraca się 
+uwagę na konieczność ograniczenia emisji gazów cieplarnianych, chcąc zachować 
+wzrost globalnej temperatury poniżej 2°C. 
+Globalne zmiany klimatyczne pociągają za sobą zarówno zmiany regionalne, 
+jak i lokalne. Jak to zostało przedstawione powyżej, zmiany związane ze wzrostem 
+temperatury, wydłużeniem okresu wegetacyjnego czy częstością występowania zja-
+wisk ekstremalnych są faktem. O zmianach agroklimatu Polski już w 2002 roku pisał  
+Górski (7), wskazując na istotność prac dotyczących opisu zmieniających się warun-
+ków. Podkreślał, że z jednej strony porządkują one dotychczasową wiedzę, z drugiej 
+zaś są pomocne w przygotowaniu społeczeństwa i gospodarki na zmieniające się wa-
+runki. Od tego czasu pojawiało się coraz więcej prac opisujących zmiany warunków 
+agroklimatycznych w Polsce (8, 17, 21, 26, 28). Zaczęto też pisać o konieczności 
+adaptacji rolnictwa do zmieniających się warunków klimatycznych w celu minima-
+lizowania wpływu niekorzystnych zjawisk i zaadaptowania korzystnych zmian (20).  
+W 2013 roku w Ministerstwie Środowiska opracowany został dokument „Strategiczny 
+plan adaptacji dla sektorów i obszarów wrażliwych na zmiany klimatu do roku 2020  
+z perspektywą do roku 2030” (24), który opisuje wpływ różnych zjawisk pogodowych 
+na poszczególne działy gospodarki, w tym rolnictwo. 
+W wyniku obserwowanych zachodzących zmian klimatu zasadne wydaje się uak-
+tualnienie tzw. norm klimatycznych dla danego obszaru, jak średnia miesięczna czy 
+roczna temperatura powietrza (12). Zmiany klimatu są także bardzo istotne z punktu 
+widzenia bezpieczeństwa żywnościowego zarówno naszego kraju, jak i całego świata. 
+Wzrost liczby zjawisk ekstremalnych niekorzystnych dla produkcji rolnej, jak: upały, 
+susze, deszcze nawalne znacznie przewyższają korzystne zjawiska związane ze zmia-
+nami klimatycznymi, jak chociażby możliwość uprawy roślin ciepłolubnych na coraz 
+większym obszarze kraju. Podjęcie odpowiednich działań może ograniczyć wpływ 
+zagrożeń wynikających ze zmian klimatu na bezpieczeństwo żywnościowe (16).
+2322
+ Katarzyna Żyłowska, Jerzy Kozyra
+Prognozowany na podstawie dostępnych scenariuszy klimatycznych wzrost tem-
+peratury w kolejnych latach sprawia, że należy monitorować przebieg pogody, co 
+pozwoli na przygotowanie się do nadchodzących zmian.
+Literatura
+1. D e m i d o w i c z G., Doroszewski A., Górski T.: Metodyka szacunku strat w produkcji 
+roślinnej powodowanych deficytem opadów. Roczniki Akademi Rolniczej w Poznaniu, 1997, 
+CCXCI: 233-243.
+2. D e m i d o w i c z G., Doroszewski A., Górski T.: Wstępna ocena zagrożenia przymrozkowe-
+go roślin sadowniczych. Folia Pomeranae Universitatis Technologiae Stetinensis, 202 Agricultura, 
+1999, (79): 57-60.
+3. D e m i d o w i c z G., Doroszewski A., Górski T.: Wpływ niedoboru opadów na straty  
+w produkcji ziemniaka i buraka cukrowego. Zeszyty Problemowe Postępu Nauk Rolniczych, 1996, 
+438: 43-52.
+4. D o r o s z e w s k i A.: Kształtowanie pokroju i produktywności pszenicy ozimej przez promienio-
+wanie odbite. Pamiętnik Puławski, 1999, 118: 121-130.
+5. D o r o s z e w s k i A., Demidowicz G., Górski T.: Wpływ niedoboru opadów na straty  
+w produkcji zbóż jarych w Polsce. Roczniki Akademi Rolniczej w Poznaniu, 1997, CCXCI: 223-231.
+6. F a b e r A.: Efektywność wykorzystania promieniowania świetlnego przez pszenicę ozimą upra-
+wianą na różnych glebach. Fragmenta Agronomica, 2000, 4 (68): 46-52.
+7. G ó r s k i T.: Współczesne zmiany agroklimatu Polski. Pamiętnik Puławski, 2002, 130(I): 241-250.
+8. G ó r s k i T.: Changes in Poland’s agroclimatic conditions over the last century. Papers on Global 
+Change, 2007, 14: 55-67.
+9. G ó r s ki T.: W sprawie określenia wpływu pogody na roślinę. Postępy Nauk Rolniczych, 1964, 
+4(88): 35-56.
+10. G ó r s k i T.: Próba oceny zasobów agroklimatycznych w Europie Środkowej. Pamiętnik Puławski, 
+2001, 124: 141-151.
+11. G ó r s k i T., Doroszewski A.: Wpływ opadów atmosferycznych na plonowanie ziemniaków 
+w Polsce. Zeszyty Problemowe Postępu Nauk Rolniczych, 1986, 284: 369-375.
+12. G ó r s k i T., Kozyra J.: Agroklimatyczna norma średniej temperatury powietrza w Polsce na lata 
+2011–2020. Polish Journal of Agronomy, 2011, 5: 21-28.
+13. G ó r s k i T., Krasowicz S., Kuś J.: Glebowo-klimatyczny potencjał Polski w produkcji zbóż. 
+Pamiętnik Puławski, 1999, 114: 127-142.
+14. G ó r s k i T., Zaliwski A.S.: Model Agroklimatu Polski (Agroclimate Model of Poland). Pamiętnik 
+Puławski, 2002, 130/I: 251-260.
+15. IPCC, 2022. Climate Change 2022 Mitigation of Climate Change. Working Group III Contribution 
+to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change. Summary for 
+Policymakers. 
+16. K a r a c z u n Z.M., Kozyra J.: Wpływ zmian klimatu na bezpieczeństwo żywnościowe Polski. 
+Wydawnictwo SGGW, Warszawa 2020, ss. 119.
+17. K o z y r a J., Doroszewski A., Nieróbca A.: Zmiany klimatyczne i ich przewidywany wpływ 
+na rolnictwo w Polsce. Studia i Raporty IUNG-PIB, Puławy 2009, 14: 243-257.
+18. K u n d z e w i c z Z.W., Juda-Rezler K.: Zagrożenia związane ze zmianami klimatu. Nauka, 
+2010, 4: 69-76.
+19. K u n d z e w i c z Z.W., Hov O., Okruszko T. (red.): Zmiany klimatu i ich wpływ na wybrane 
+sektory w Polsce. Poznań 2017, ss. 273.
+2322
+AUTOR ORCID
+Katarzyna Żyłowska 0000-0002-6019-034X
+Jerzy Kozyra 0000-0002-7082-8765
+20. K u n d z e w i c z Z.W., Kozyra J.: Ograniczenie wpływu zagrożeń klimatycznych w odniesieniu 
+do rolnictwa i obszarów wiejskich. Polish Journal of Agronomy, 2011, 7: 68-81.
+21. N i e r ó b c a A., Kozyra J., Mizak K., Wróblewska E.: Zmiany długości okresu wegetacyj-
+nego w Polsce. Woda-Środowisko-Obszary Wiejskie, 2013, t. 13., 2(42): 81-94.
+22. R a d o m s k i C.: O niektórych zagadnieniach meteorologii rolniczej w Polsce. Postępy Nauk 
+Rolniczych, 1966, 4(100): 3-14.
+23. Słownik meteorologiczny. T. Niedźwiedź red., PTGeof\/IMGW, Warszawa 2003, ss. 495. 
+24. Strategiczny plan adaptacji dla sektorów i obszarów wrażliwych na zmiany klimatu do roku 2020 
+z perspektywą do roku 2030 (SPA 2020), 2013. Ministerstwo Środowiska, Warszawa.
+25. T w a r d o s z R., Wałach P.: Niezwykle ciepła pogoda w czerwcu 2019 roku w Polsce i jej 
+przyczyny cyrkulacyjne. Przegląd Geofizyczny, 2020, LXV(3-4): 179-194.
+26. W ę g r z y n A., Wojkowski J., Skowera B.: Rolnicze okresy termiczne na Lubelszczyźnie 
+w latach 1981–2010. Acta Agrophysica, 2017, 24(3): 535-551.
+27. Z a l i w s k i A.S., Nieróbca A., Kozyra J., Górski T.: Aplikacja WEINDEX do oceny wpływu 
+pogody na plon roślin uprawnych. Studia i Raporty IUNG-PIB, Puławy 2014, 38(12): 115-127.
+28. Ż m u d z k a E.: Współczesne zmiany klimatu Polski. Acta Agrophysica, 2009, 13(2): 555-568.
+Adres do korespondencji:
+dr Katarzyna Żyłowska; dr hab. Jerzy Kozyra
+Zakład Biogospodarki i Analiz Systemowych
+IUNG-PIB
+ul. Czartoryskich 8
+24-100 Puławy
+tel.: 81 4786 768; 81 4786 764
+e-mail: Katarzyna.Zylowska@iung.pulawy.pl; Jerzy.Kozyra@iung.pulawy.pl
+Zmiany warunków agroklimatycznych w Polsce

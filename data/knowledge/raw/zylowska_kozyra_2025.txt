@@ -1,0 +1,518 @@
+141140
+Katarzyna Żyłowska, Jerzy Kozyra
+Instytut Uprawy Nawożenia i Gleboznawstwa – Państwowy Instytut Badawczy  
+w Puławach
+ZINTEGROWANE MONITOROWANIE SUSZY NA POTRZEBY ROLNICTWA 
+– PRZEGLĄD SYSTEMÓW I WSKAŹNIKÓW*
+Słowa kluczowe: susza, systemy monitoringu, wskaźniki suszy meteorologicznej, wskaźniki 
+suszy rolniczej
+Wstęp
+Rolnictwo jest uznawane za jeden z najbardziej wrażliwych sektorów gospodarki 
+na zmianę klimatu – zarówno ze względu na bezpośredni wpływ warunków meteo-
+rologicznych na przebieg procesów produkcyjnych, jak i ograniczone możliwości 
+ich kontrolowania (IPCC 2019, FAO 2016). W ostatnich latach, w związku z coraz 
+częstszym występowaniem zjawisk ekstremalnych i pogłębieniem się deficytów 
+wody w Polsce (Urban i in. 2022, Żyłowska i Kozyra 2023), wzrosło ryzyko strat  
+w rolnictwie, co przekłada się na poważne konsekwencje gospodarcze (Kundzewicz 
+i in. 2017, Piniewski i in. 2020, Karaczun i Kozyra 2020).
+Znaczące odchylenia od średnich warunków klimatycznych wymuszają koniecz-
+ność modyfikacji praktyk agrotechnicznych, natomiast ekstremalne zjawiska pogo-
+dowe – takie jak susze, fale upałów czy nawalne opady – zakłócają funkcjonowanie 
+agroekosystemów, prowadząc do znacznych strat plonów (Olesen i Bindi 2002, Górski 
+i in. 2008, Jaggard i in. 2010). W obliczu rosnącego ryzyka strat spowodowanych 
+suszą niezbędne staje się wdrażanie modeli decyzyjnych opartych na wskaźnikach 
+uwzględniających cykl hydrologiczny w obrębie szeroko pojętego monitoringu na 
+rzecz adaptacji do zmiany klimatu (van Lanen i Peters 2000, Gronaszewski i in. 2020, 
+Leeper i in. 2022) (rys. 1). 
+140S T U D I A  I  R A P O R T Y  IUNG-PIB
+ZESZYT 74(28): 140-153 2025
+*Opracowanie wykonano w ramach zadania 1.8. pt. „Wykorzystanie dronów w rolnictwie” z dotacji 
+budżetowej przeznaczonej na realizację zadań MRiRW w 2025 r.
+https://doi.org/10.26114/sir.iung.2025.74.10
+141140
+Rys. 1. Relacja między suszą meteorologiczną i suszą rolniczą 
+Źródło: opracowanie własne na podstawie van Lanen i Peters 2000
+Wyniki i dyskusja
+Nowoczesne metody monitorowania suszy obejmują wykorzystanie m.in. da-
+nych satelitarnych (Hazaymeh i Hassan 2016), modelowania hydrologicznego  
+i modelowania agroekosystemów oraz integrację danych modelowych z informacjami 
+lokalnymi (Kasperska-Wołowicz i Łabędzki 2006, Łabędzki i Bąk 2011). Odchodzi 
+się od monitoringu wykorzystującego pojedyncze wskaźniki suszy, odnoszącego się 
+tylko do opadów atmosferycznych lub pochodnych, tj. standaryzowany wskaźnik 
+opadu (SPI, ang. Standardized Precipitation Index), które nie uwzględniają roli tem-
+peratury i parowania w powstawaniu warunków suszy (Vicente-Serrano i in. 2010) 
+i proponuje się bardziej złożone systemy biorące pod uwagę różne parametry (Van 
+Lanen i Peters 2000, Łabęcki i Bąk 2013). Z punktu widzenia precyzji szacowania 
+obszarów dotkniętych niedoborem wody takie podejście jest niezwykle istotne, 
+gdyż umożliwia uwzględnienie wielu czynników prowadzących do powstania suszy,  
+a nie tylko wielkości opadu atmosferycznego. Wyzwaniem dla systemów wsparcia 
+decyzji w rolnictwie w kontekście suszy jest implementacja wyników monitoringu 
+i skuteczna integracja danych pochodzących z różnych źródeł (Kępińska-Kasprzak 
+i Struzik 2023). Implementacja wskaźników w proces podejmowania decyzji nadal 
+stwarza problemy w optymalizacji wielokryterialnej w nowoczesnych technologiach 
+decyzyjnych (Nendel i in. 2023). 
+W niniejszym opracowaniu omówiono sześć systemów monitorowania suszy, 
+koncentrując się na końcowych produktach generowanych przez każdy z systemów 
+pod kątem ich aplikacyjnego wykorzystania w rolnictwie. 
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+Deficyt opadów  
+atmosferycznych Wyższe parowanie
+Deficyt wody  
+w glebie
+Deficyt opadów  
+atmosferycznych
+Ograniczenie 
+przepływu wody do 
+wód podziemnych
+Ograniczenie 
+podsiąku 
+kapilarnego
+Obniżenie poziomu 
+wód gruntowych
+Susza 
+meteorologicznaSusza rolnicza
+143142
+Europejskie Obserwatorium ds. Suszy
+Europejskie Obserwatorium ds. Suszy (EDO, ang. European Drought Observatory) 
+jest serwisem prowadzonym przez Wspólne Centrum Badawcze Komisji Europejskiej 
+(JRC) (https://drought.emergency.copernicus.eu/tumbo/edo/map/). Podstawowym 
+wskaźnikiem wykorzystywanym w tym systemie jest wskaźnik CDI (ang. Combined 
+Drought Indicator) (Cammalleri i in. 2021). Wskaźnik CDI jest obliczany w cyklu 
+dziesięciodniowym, natomiast raz w miesiącu są publikowane raporty dotyczące 
+warunków suszy w Europie. CDI określany jest przestrzennie na podstawie norm 
+opadowych, wskaźników wilgotności gleby oraz anomalii wegetacyjnych, wyzna-
+czanych na podstawie danych satelitarnych.
+Na podstawie wartości CDI wyróżnia się obszary zagrożone wystąpieniem suszy, 
+tereny, na których roślinność jest już dotknięta suszą oraz obszary, gdzie warunki su-
+szy zaczynają ustępować. Dodatkowo klasyfikowane są trzy poziomy intensywności 
+zjawiska: obszary do obserwacji, obszary objęte ostrzeżeniami o możliwości wystą-
+pienia suszy oraz obszary z alertem, gdzie notuje się występowanie suszy rolniczej. 
+W przypadku obszarów, na których następuje poprawa warunków, na osobnej mapie 
+przedstawiane są klasy regeneracji: tymczasowa regeneracja wilgotności gleby, tym-
+czasowa regeneracja roślinności oraz pełna regeneracja obszaru.
+Serwis EDO oferuje również dostęp do interaktywnych map umożliwiających 
+przegląd danych bieżących i historycznych oraz analizę anomalii klimatycznych na 
+tle długoterminowych norm (średnia z lat 1995–2020). Użytkownicy mają możliwość 
+przeglądania raportów sytuacyjnych dla poszczególnych krajów i regionów Europy, 
+analizy trendów sezonowych i wieloletnich, a także integracji danych z systemem 
+Copernicus EMS (ang. Emergency Management Service) wspierającym działania 
+kryzysowe w sytuacjach zagrożeń klimatycznych. Platforma umożliwia także po-
+bieranie danych i ich dalsze przetwarzanie w aplikacjach analitycznych, co czyni 
+ją istotnym narzędziem w planowaniu adaptacyjnym oraz zarządzaniu ryzykiem  
+w rolnictwie i gospodarce wodnej.
+Monitor Suszy w Stanach Zjednoczonych
+Monitor Suszy w Stanach Zjednoczonych (USDM, ang. U.S. Drought Monitor) to 
+serwis prowadzony we współpracy instytucji federalnych, stanowych oraz ośrodków 
+akademickich (https://droughtmonitor.unl.edu/). System został opracowany przez 
+zespół meteorologów i klimatologów z Narodowego Centrum Łagodzenia Skutków 
+Suszy Uniwersytetu w Nebrasce (NDMC), Narodowej Agencji ds. Oceanów i At-
+mosfery (NOAA) oraz Departamentu Rolnictwa Stanów Zjednoczonych (USDA).
+Do monitorowania suszy wykorzystywane są dane pochodzące zarówno z naziem-
+nych stacji meteorologicznych, jak i z obserwacji satelitarnych. USDM korzysta także 
+z szerokiej sieci ponad 450 obserwatorów terenowych, obejmującej przedstawicieli 
+Katarzyna Żyłowska, Jerzy Kozyra
+143142
+agencji rządowych, służb rolniczych, hydrologów, klimatologów oraz lokalnych eks-
+pertów ds. zarządzania zasobami wodnymi. Obserwatorzy ci dostarczają bieżących 
+informacji o skutkach suszy w konkretnych lokalizacjach, takich jak: pogorszenie 
+stanu upraw, niedobory wody, uszkodzenia roślinności naturalnej czy zakłócenia 
+w funkcjonowaniu lokalnej gospodarki. Dane zebrane w ramach tej sieci stanowią 
+ważny komponent walidacyjny i jakościowy, który pozwala na dostosowanie map 
+suszy do realnych warunków w terenie. System posiada dedykowane moduły dla 
+różnych sektorów rolnictwa, w których integrowane są dane meteorologiczne, stan 
+upraw oraz informacje od obserwatorów terenowych, co znacząco zwiększa trafność 
+analiz i prognoz (Leeper i in. 2022).
+Mapy wskaźników suszy nanoszone są na obszary upraw konkretnych gatunków 
+roślin, co pozwala na oszacowanie rzeczywistej powierzchni produkcyjnej narażo-
+nej na potencjalne straty plonów. Stopień intensywności suszy przedstawiany jest  
+w systemie sześciostopniowej skali opracowanej na podstawie porównania skumulo-
+wanych wartości wskaźników suszy z danymi historycznymi. Skala obejmuje: brak 
+suszy oraz stan „nieznacznej suszy” (D0), a dla obszarów objętych właściwą suszą 
+wyróżniono cztery poziomy: umiarkowaną (D1), silną (D2), ekstremalną (D3) oraz 
+wyjątkową (D4).
+Na podstawie aktualnych danych co tydzień publikowane są mapy przedstawiające 
+intensywność suszy w przedziałach siedmiodniowych. Dodatkowo w formie tabela-
+rycznej prezentowany jest procentowy udział powierzchni kraju przyporządkowanej 
+do każdej z klas suszy. W serwisie USDM dostępne są również krótkie raporty opi-
+sujące bieżące warunki suszy w poszczególnych regionach Stanów Zjednoczonych.
+Monitoring suszy dla Europy Środkowo-Wschodniej – Clim4Cast
+System Clim4Cast został opracowany w ramach projektu Interreg EUROPA 
+ŚRODKOWA 2021 i jego głównym celem jest zintegrowane monitorowanie zagrożeń 
+związanych z suszą, falami upałów oraz ryzykiem pożarowym (www.clim4cast.eu). 
+Inicjatorem i liderem projektu jest Instytut Badań nad Zmianami Globalnymi (Glo-
+bal Change Research Institute) z Czech, który udostępnia infrastrukturę systemową 
+opartą na założeniach czeskiego systemu monitorowania suszy InterSUCHO (Trnka 
+i in. 2020), wykorzystywanego również na Słowacji.
+Do obliczeń wskaźników intensywności suszy wykorzystywane są dane satelitarne 
+dostępne dla instytucji naukowo-badawczych. Dane meteorologiczne pochodzą ze 
+Zintegrowanego Systemu Prognoz Pogody (IFS), opracowanego przez Europejskie 
+Centrum Średnioterminowych Prognoz Pogody (ECMWF). Informacje o pokryciu 
+terenu generowane są na podstawie indeksu powierzchni liściowej (LAI, ang. Leaf 
+Area Index) obliczanego ze zdjęć satelitarnych. Dane o właściwościach gleby pochodzą 
+z globalnej bazy SoilGrids (Hengl i in. 2014 i 2017).
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+145144
+System opiera się na wskaźniku intensywności suszy wyznaczanym przy użyciu 
+modelu bilansu wodnego SoilClim (Řehoř i in. 2021). Na podstawie danych meteoro-
+logicznych, informacji o pokryciu terenu oraz właściwości glebowych obliczana jest 
+względna wilgotność gleby. Następnie wartości dziennej wilgotności porównywane są 
+ze średnią wartością z okresu referencyjnego 1981–2020. W wyniku tego porównania 
+każdy piksel klasyfikowany jest do jednej z sześciu kategorii intensywności suszy.
+Na podstawie tych danych generowane są mapy prezentujące intensywność suszy 
+na trzech głębokościach: do 40 cm, do 100 cm oraz do 200 cm, obejmujące obszar 
+krajów Europy Środkowo-Wschodniej. Mapy te przedstawiają aktualny rozkład 
+przestrzenny wskaźnika intensywności suszy oraz prognozy na kolejne dni (rys. 2), 
+z przestrzenną rozdzielczością 10 km.
+Rys. 2. Rozkład przestrzenny wskaźnika intensywności suszy w warstwie 0–40 cm 
+ w okresie od 8 do 17 lipca 2025 roku
+Źródło: www.clim4cast.eu
+Drugim wskaźnikiem systemu Clim4Cast jest deficyt wilgotności gleby obliczany 
+również przy użyciu bilansu wodnego SoilClim. Deficyt wilgotności gleby jest wyli-
+czany na podstawie różnicy pomiędzy wilgotnością gleby dla danego dnia a wartością 
+mediany wyznaczoną na podstawie okresu referencyjnego. Okres referencyjny dla 
+tego wskaźnika to lata 1961–2010. Dane wyliczane do tego wskaźnika pochodzą  
+z tych samych źródeł co przy wskaźniku intensywności suszy. Deficyt wilgotności 
+gleby wyrażony jest w mm, wartości ujemne oznaczają niedobór wody w glebie, 
+Katarzyna Żyłowska, Jerzy Kozyra
+145144
+zaś wartości dodatnie wskazują na nadwyżkę wody w profilu glebowym. Podobnie 
+jak przy wskaźniku intensywności suszy deficyt wilgotności gleby jest pokazywany 
+na trzech poziomach głębokości profilu glebowego. Przykład prezentacji wyników 
+przedstawiono na rysunku 3. W podobny sposób przedstawiany jest również wskaźnik 
+względnego nasycenia gleby. 
+Rys. 3. Rozkład przestrzenny wskaźnika deficytu wilgotności gleby w warstwie 0–100 cm 
+w okresie od 8 do 17 lipca 2025 roku
+Źródło: www.clim4cast.eu
+Polskie systemy monitorowania suszy
+System Monitoringu Suszy Rolniczej (SMSR) to specjalistyczny system wspo-
+magający rolnictwo w zakresie ubezpieczeń rolnych, którego głównym celem jest 
+identyfikacja obszarów dotkniętych stratami plonów spowodowanymi suszą. System 
+ten prowadzony jest przez Instytut Uprawy Nawożenia i Gleboznawstwa – Państwo-
+wy Instytut Badawczy (IUNG-PIB), a jego wyniki (rys. 4–6) są wykorzystywane 
+m.in. przy realizacji ustawy z dnia 7 lipca 2005 r. o ubezpieczeniach upraw rolnych  
+i zwierząt gospodarskich (Dz.U. 2005 poz. 1249). W SMSR przyjęto, że spadek kli-
+matycznego bilansu wodnego (KBW) poniżej określonego progu dla danej rośliny  
+i kategorii glebowej oznacza co najmniej 20% stratę plonu. W ramach SMSR gleby  
+w Polsce podzielono na cztery kategorie podatności na suszę, w zależności od ich 
+składu granulometrycznego, przypisanego do odpowiednich kategorii agronomicz-
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+147146
+nych. Do pierwszej kategorii, czyli gleb bardzo podatnych na suszę, zaliczono między 
+innymi piasek luźny, piasek luźny pylasty, piasek słabo gliniasty oraz piasek słabo 
+gliniasty pylasty. Druga kategoria obejmuje gleby podatne na suszę, trzecia – gleby 
+średnio podatne, a czwarta – gleby najmniej podatne, takie jak gliny średnie, gliny 
+ciężkie, pył ilasty oraz iły. Mapa ilustrująca podatność gleb na suszę dostępna jest 
+na stronie internetowej SMSR (www.clim4cast.eu). Użytkownicy mają tam również 
+możliwość sprawdzenia, do której kategorii została przypisana konkretna działka 
+ewidencyjna. Wartości progowe KBW różnią się znacznie między kategoriami gle-
+bowymi – różnica ta może wynosić nawet ok. 100 mm pomiędzy glebami najbardziej 
+i najmniej podatnymi na suszę.
+Rys. 4. Mapa klimatycznego bilansu wodnego (KBW) w okresie od 1 maja do 30 czerwca 2025 roku  
+będąca podstawowym produktem Systemu Monitoringu Suszy Rolniczej
+Źródło: www.clim4cast.eu
+Katarzyna Żyłowska, Jerzy Kozyra
+KBW (mm)
+–139 - –130
+–129 - –120
+–119 - –110
+–109 - –100
+–99 - –90
+–89 - –80
+–79 - –70
+–69 - –60
+–59 - –50
+>–50
+IUNG-PIB
+03.07.2025
+Puławy
+–239 - –230
+–229 - –220
+–219 - –210
+–209 - –200
+–199 - –190
+–189 - –180
+–179 - –170
+–169 - –160
+–159 - –150
+–149 - –140
+<–300
+–299 - –290
+–289 - –280
+–279 - –270
+–269 - –260
+–259 - –250
+–249 - –240
+147146
+Rys. 5. Mapa udziału gleb zagrożonych suszą dla zbóż jarych w okresie od 21 marca do 30 czerwca 
+2025 roku będąca podstawowym produktem Systemu Monitoringu Suszy Rolniczej
+Źródło: www.clim4cast.eu
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+Udział gleb zagrożonych suszą – zasięg 
+maksymalny w roku 2025 dla: 
+zboża jare
+kryterium suszy (wg rozp. MRiRW)
+nie zostało przekroczone
+do 10%
+10–30%
+30–50%
+50–80%
+80–100% 2025-07-04 Puławy
+149148
+Rys. 6. Informacja dla gmin wskazująca na zagrożenie suszą dla poszczególnych upraw na I kategorii 
+glebowej w gminie Międzyrzecz (powiat: międzyrzecki; woj. lubuskie), będąca produktem  
+Systemu Monitoringu Suszy Rolniczej
+Źródło: www.clim4cast.eu
+SMSR do określenia KBW w okresach sześciodekadowych wykorzystuje zasoby 
+danych Instytutu Meteorologii i Gospodarki Wodnej – Państwowego Instytutu Ba-
+dawczego (IMGW-PIB) udostępniane poprzez API oraz sieć stacji meteorologicznych 
+należących do IUNG-PIB, stacji meteorologicznych, które zostały skonfigurowane po-
+dobnie jak stacje IUNG-PIB a zakupione przez samorządy lokalne, samorządy rolnicze 
+oraz ośrodki doradztwa rolniczego. W ramach systemu funkcjonuje sieć gospodarstw 
+referencyjnych, w których pod różnymi uprawami mierzona jest profilowo do 1 m 
+głębokości wilgotność gleby. W każdym z gospodarstw funkcjonuje automatyczna 
+stacja meteorologiczna wyposażona w sondę profilową wilgotności gleby. 
+Znaczący zasób wskaźników suszy na potrzeby rolnictwa oferują systemy udo-
+stępniane przez IMGW-PIB, głównie poprzez serwis AGROMETEO IMGW-PIB 
+Katarzyna Żyłowska, Jerzy Kozyra
+149148
+(https://agrometeo.imgw.pl). Wskaźniki suszy tego serwisu to: klimatyczny bilans 
+wodny (KBW), wskaźnik hydrotermiczny (Chmist-Sikora i in. 2022), wilgotność 
+gleby, okresy nadmiaru i niedoboru opadów oraz stopień zaspokojenia potrzeb wod-
+nych roślin uprawnych. 
+Klimatyczny bilans wodny prezentowany jest w układzie dekadowym i mie-
+sięcznym, co umożliwia całoroczne monitorowanie sytuacji, a tym samym stanowi 
+uzupełnienie systemu SMSR w ujęciu klimatycznym. Dane o opadach pochodzą  
+z systemu RainGRS (te dane są również udostępniane na potrzeby SMSR), który łączy 
+informacje z pomiarów naziemnych, radarowych i satelitarnych. Ewapotranspiracja 
+określana jest na podstawie satelitarnego produktu EUMETSAT Land SAF. Wilgotność 
+gleby monitorowana jest z wykorzystaniem danych satelitarnych, a rozdzielczość 
+przestrzenna tego wskaźnika wynosi 25 km. W serwisie prezentowany jest również 
+wskaźnik hydrotermiczny Sielianinowa (HTC), który pozwala ocenić ogólne warunki 
+wilgotnościowe w danym okresie. Otrzymane wartości klasyfikowane są do jednej 
+z dziewięciu klas – od skrajnie suchego po skrajnie wilgotny. W systemie wyznacza 
+się też stopień zaspokojenia potrzeb wodnych roślin uprawnych jako różnicę pomię-
+dzy rzeczywistą sumą opadów a optymalną ilością opadów miesięcznych dla danej 
+uprawy. Uzyskane wartości klasyfikowane są jako: optimum (różnica ±10% wzglę-
+dem wartości referencyjnej), nadmiar (powyżej +10%) lub niedobór (poniżej –10%). 
+Optymalne wielkości opadów dla tych wskaźników zostały określone na podstawie 
+badań Dzieżyca (1989).
+Podsumowanie
+W artykule przeprowadzono przegląd sześciu wybranych systemów monitorowa-
+nia suszy, skupiając się na analizie generowanych przez nie produktów końcowych 
+oraz ocenie ich potencjalnej przydatności w zastosowaniach rolniczych. Szczególną 
+uwagę zwrócono na zakres przestrzennej i czasowej rozdzielczości danych, rodzaje 
+wykorzystywanych wskaźników (m.in. CDI, KBW, Soil Moisture Deficit) (tab. 1), 
+możliwość prognozowania i stopień integracji danych lokalnych. Przykłady systemów 
+takich jak EDO, USDM czy Clim4Cast wskazują na rosnącą rolę modeli bilansu 
+wodnego i wskaźników wielokryterialnych, natomiast polskie systemy (SMSR, 
+AGROMETEO) stanowią przykład wdrożenia narzędzi dopasowanych do specyfiki 
+krajowego rolnictwa i systemu ubezpieczeń upraw.
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+151150
+Tabela 1
+Zestaw wskaźników wykorzystywanych w prezentowanych systemach monitoringu suszy 
+System 
+monitoringu
+Wskaźniki suszy 
+meteorologicznej Wskaźniki suszy rolniczej Wynik
+SMSR •  klimatyczny bilans  wodny 
+•  strata plonów na 4 
+kategoriach glebowych 
+•  dostępność wody  
+w glebie 
+% obszarów 
+gruntów objętych 
+suszą dla 14 upraw
+AGROMETEO  
+IMGW-PIB
+•  klimatyczny bilans wodny 
+•  współczynnik hydrotermiczny 
+HTC
+•  okresy niedoborów  
+i nadmiarów opadów
+• stopień zaspokojenia 
+potrzeb wodnych wg 
+optymalnych 
+EDO European 
+Drought Monitor 
+standaryzowany wskaźnik 
+opadu (SPI, ang. Standardized 
+Precipitation Index)
+•  anomalia wilgotności 
+gleby (Soil Moisture 
+Anomaly SMA)
+•  anomalia stanu 
+roślinności (Anomaly 
+of Vegetation Condition 
+FAPAR Anomaly)
+łączony wskaźnik 
+suszy (Combined 
+Drought Indicator 
+CDI)
+U.S Drought 
+Monitor
+•  standaryzowany wskaźnik 
+opadu (SPI, ang. Standardized 
+Precipitation Index)
+•  standaryzowany wskaźnik 
+klimatycznego bilansu 
+wodnego (SPEI, ang.
+Standardized Precipitation-
+Evapotranspiration Index)
+•  % obszaru 
+objętego suszą 
+przez uprawę  
+i kategorię suszy 
+meteorologicznej
+•  raporty 
+obserwatorów
+Clim4Cast / 
+Intersucho wskaźnik suchości 
+•  deficyt wilgotności 
+gleby 
+•  względne nasycenie 
+gleby wodą 
+ 
+szacunkowy 
+wpływ suszy 
+na plony wg 
+obserwatorów
+Źródło: opracowanie własne
+Rozwój nowych metod monitorowania warunków meteorologicznych, w tym 
+integracja danych satelitarnych, modelowanie hydrologiczne, wykorzystanie modeli 
+prognozujących plon, a także zastosowanie sztucznej inteligencji w analizie danych 
+i automatyzacji pomiarów, znacząco zwiększa możliwości wczesnego wykrywania 
+suszy i prognozowania jej skutków. Przedstawione w pracy systemy wskazują, że 
+modelowy system monitoringu suszy powinien integrować najlepsze praktyki i rozwią-
+zania zaobserwowane w istniejących systemach krajowych (tj. SMSR, AGROMETEO) 
+Katarzyna Żyłowska, Jerzy Kozyra
+151150
+oraz międzynarodowych (tj. EDO, U.S. Drought Monitor, Clim4Cast). Celem takiego 
+systemu powinno być nie tylko wykrywanie suszy i jej klasyfikacja, ale również 
+prognozowanie zagrożeń, wspieranie decyzji administracyjnych oraz wzmacnianie 
+adaptacji rolnictwa do zmiennych warunków klimatycznych. W systemie monitoringu 
+suszy kluczową rolę powinny odgrywać nie tylko dane z automatycznych stacji po-
+miarowych, satelitów i modeli, ale również lokalne obserwacje terenowe prowadzone 
+przez wyspecjalizowaną sieć obserwatorów. Doświadczenia takich systemów jak U.S. 
+Drought Monitor oraz InterSucho jednoznacznie pokazują, że włączenie lokalnych 
+raportów do systemu znacząco zwiększa jego trafność, wiarygodność i użyteczność 
+decyzyjną. Zastosowanie sieci obserwatorów terenowych w modelowym systemie 
+monitoringu suszy ma kilka istotnych zalet. Przede wszystkim umożliwia walidację 
+danych z modeli i satelitów, co zwiększa ich wiarygodność. Ponadto pozwala na 
+szybkie wykrywanie skutków suszy, zanim staną się one widoczne we wskaźnikach 
+ilościowych, co jest szczególnie ważne w okresach przejściowych i w sytuacjach 
+lokalnych niedoborów wody. Lokalne raporty mogą również wskazywać na błędną 
+klasyfikację wskaźnikową, wymuszając korektę map zagrożenia. Dodatkowo dane 
+zebrane przez obserwatorów w jednolitym systemie mogą stanowić cenny materiał 
+do kalibracji istniejących już modeli w zmieniających się warunkach klimatycznych.
+Wyniki analizy wskazują, że skuteczne aplikacyjne wykorzystanie tych systemów 
+w rolnictwie wymaga nie tylko wysokiej jakości danych wejściowych, ale również ich 
+integracji w nowoczesnych narzędziach wspomagania decyzji. Opracowane produkty 
+– mapy, wskaźniki, prognozy – mogą stanowić podstawę do podejmowania decyzji 
+zarządczych na poziomie gospodarstwa, regionu i polityki publicznej, wspierając 
+działania w zakresie monitorowania ryzyka oraz planowania adaptacyjnego dla rol-
+nictwa wobec zmiany klimatu. 
+Literatura
+1. B a c h m a i r S., Stahl K., Collins K., Hannaford J., Acreman M., Svoboda M., Knutson C., 
+Smith K.H., Wall N., Fuchs B., Crossman N.D., Overton I.C.: Drought indicators revisited: 
+the need for a wider consideration of environment and society. WIREs Water, 2016, 3: 516-536. 
+2. Cammalleri, C., Arias-Muñoz, C., Barbosa, P., de Jager, A., Magni, D., Masante, D., Mazzeschi, 
+M., McCormick, N., Naumann, G., Spinoni, J., and Vogt, J.: A revision of the Combined Drought 
+Indicator (CDI) used in the European Drought Observatory (EDO), Natural Hazards and Earth 
+System Sciences, 2021, 21: 481-495. 
+3. C h m i s t-Sikorska J., Kępińska-Kasprzak M., Struzik P.: Agricultural drought assessment on 
+the base of Hydro-thermal Coefficient of Selyaninov in Poland. Italian Journal of Agrometeorology 
+2022, (1): 3-12; DOI: 10.36253/ijam-1530
+4. D z i e ż y c J.: Potrzeby wodne roślin uprawnych. PWN Warszawa, 1989, ss. 418.
+5. FAO 2016. The state of food and agriculture climate change, agriculture and food security. Food 
+and Agriculture Organization of the United Nations, Rome 2016.
+6. G ó r s k i T., Kozyra J., Doroszewski A.: Field crop losses in Poland due to extreme weather 
+conditions – case studies. In: The Influence of extreme phenomen on the natural environment and 
+human living conditions, S. Liszewski (ed.). Łódź. ŁTN, 2008, pp. 35-49.
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów...
+7. G r a n o s z e w s k i W., Kowalczyk A., Ploch I., Rubinkiewicz J., Uścinowicz G., 
+Woźnicka M., Kępińska-Kasprzak M., Limanówka D., Doktor R., Struzik P., Dubel 
+A., Skotak K., Hajto M., Kozyra J., Pudełko R., Żyłowska K., Jędrejek A., Łopatka A., 
+Jadczyszyn J., Nieróbca A., Doroszewski A., Barszczeewska M.: Rola instytutów 
+badawczych we wsparciu działań adaptacyjnych do zmian klimatu. Przegląd Geologiczny, 2020, 
+68(1): 25-44.
+8. H a z a y m e h K., Hassan Q.K.: Remote sensing of agricultural drought monitoring: A state 
+of art review. AIMS Environmental Science, 2016, 3(4): 604-630.
+9. Hengl T., de Jesus J.M., MacMillan R.A., Batjes N.H., Heuvelink G.B.M., Ribeiro E.  
+i in.: SoilGrids1km – Global Soil Information Based on Automated Mapping. PLoS ONE, 2014, 
+9(8): e105992.
+10. H e n g l T., de Jesus J.M., Heuvelink G.B.M., Ruiperez Gonzalez M., Kilibarda M., 
+Blagotić A.: SoilGrids250m: Global gridded soil information based on machine learning. PLoS 
+ONE, 2017, 12(2): e0169748. 
+11. Interreg Central Europe „Central European Alliance for Increasing Climate Change Resilience 
+to Combined Consequences of Drought, Heatwave, and Fire Weather through Regionally-Tuned 
+Forecasting” Clim4Cast; www.clim4cast.eu
+12. IPCC, 2019: Climate Change and Land: an IPCC special report on climate change, desertification, 
+land degradation, sustainable land management, food security, and greenhouse gas fluxes in terrestrial 
+ecosystems [P.R. Shukla, J. Skea, E. Calvo Buendia, V. Masson-Delmotte, H.-O. Pörtner, D. C. 
+Roberts, P. Zhai, R. Slade, S. Connors, R. van Diemen, M. Ferrat, E. Haughey, S. Luz, S. Neogi, 
+M. Pathak, J. Petzold, J. Portugal Pereira, P. Vyas, E. Huntley, K. Kissick, M. Belkacemi, J. Malley, 
+(eds.)]. Cambridge University Press, Cambridge, UK and New York, NY, USA, pp. 896; https://
+doi.org/ 10.1017/9781009157988.
+13. J a g g a r d K.W., Qi A., Ober E.S.: Possible changes to arable crop yields by 2050. Philosophical 
+Transactions of the Royal Society B, 2010, 365: 2835-2851.
+14. K a r a c z u n Z.M., Kozyra J.: Wpływ zmian klimatu na bezpieczeństwo żywnościowe Polski. 
+Wydawnictwo SGGW, Warszawa, 2020, ss. 119.
+15. K a s p e r s k a-Wołowicz W., Łabędzki L.: Koncepcja systemu monitorowania suszy na 
+obszarach rolniczych. Woda-Środowisko-Obszary Wiejskie, 2006, t. 6, 1(16): 161-171.
+16. K ę p i ń s k a-Kasprzak M., Struzik P.: Monitoring of Plant Cultivation Conditions Using Ground 
+Measurements and Satellite Products. Water 2023, 15, 449; https://doi.org/10.3390/w15030449. 
+17. K u n d z e w i c z Z.W., Hov O., Okruszko T. (red.): Zmiany klimatu i ich wpływ na wybrane 
+sektory w Polsce. Poznań, 2017, ss. 273.
+18. L e e p e r R.D., Bilotta R., Petersen B., Stiles C.J., Heim R., Fuchs B., Prat O.P., Palecki M., 
+Ansari S.: Characterizing U.S. drought over the past 20 years using the U.S. drought monitor. 
+International Journal of Climatology, 2022, 42(12): 6616-6630. 
+19. Ł a b ę d z k i L., Bąk B.: Prognozowanie suszy meteorologicznej i rolniczej w systemie 
+monitorowania suszy na Kujawach i w dolinie górnej Noteci. Infrastruktura i Ekologia Terenów 
+Wiejskich, 2011, 5: 19-28.
+20. Ł a b ę d z k i L., Bąk B.: Monitoring i prognozowanie przebiegu i skutków deficytu wody na 
+obszarach wiejskich. Infrastruktura i Ekologia Terenów Wiejskich, 2013, 2/I: 65-76.
+21. N e n d e l C. (ed.): Modelling climate change impacts on agricultural systems. Burleigh Dodds 
+Science Publishing, Cambridge, UK, 2023, pp. 39-74; www.bdspublishing.com (dostęp: 20.07.2025).
+22. Oficjalny serwis agrometeorologiczny prowadzony przez IMGW-PIB; https://agrometeo.imgw.pl
+23. O l e s e n J.E., Bindi M.: Consequences of climate change for European agricultural productivity, 
+land use and policy. European Journal of Agronomy, 2002, 16: 239-262.
+Katarzyna Żyłowska, Jerzy Kozyra152
+24. P i n i e w s k i M., Marcinkowski P., O’Keeffe J., Szcześniak M., Nieróbca A., Kozyra 
+J., Kundzewicz Z.W., Okruszko T.: Model-based reconstruction and projections of soil moisture 
+anomalies and crop losses in Poland. Theoretical and Applied Climatology, 2020; https://doi.
+org/10.1007/s00704-020-03106-6
+25. Ř e h o ř J., Brazdil R., Lhotka O., Trnka M., Balek J., Stepanek P., Zahradnicek P.: 
+Precipitation in  the Czech Republic in light of subjective and objective classifications of circulation 
+types. Atmosphere, 2021, 12, 1536.
+26. T r n k a M., Hlavinka P., Mozny M. i in.: Czech Drought Monitor System for monitoring and 
+forecasting agricultural drought and drought impacts. International Journal of Climatology, 2020, 
+40: 5941-5958. 
+27. U r b a n G., Kuchar L., Kepińska-Kasprzak M., Łaszyca E.Z.: A climatic water balance 
+variability during the growing season in Poland in the context of modern climate change, 
+„Meteorologische Zeitschrift”, 2022, t. 31.
+28. Ustawa z dnia 7 lipca 2005 roku o ubezpieczeniach upraw rolnych i zwierząt gospodarskich  
+(Dz.U. 2005 r. poz. 1249).
+29. V a n Lanen H.A.J., Peters E.: Definition, Effects and Assessment of Groundwater Droughts. In: 
+Drought and Drought Mitigation in Europe, J.V. Vogt, F. Somma (eds). Advances in Natural and 
+Technological Hazards Research, vol 14. Springer, 2000, Dordrecht; https://doi.org/10.1007/978-
+94-015-9472-1_4
+30. V i c e n t e-Serrano V., Beguería S.M., López-Moreno S., Juan I.: A multi-scalar drought 
+index sensitive to global warming: The Standardized Precipitation Evapotranspiration Index (SPEI). 
+Journal of Climate, 2010, 23(7): 1696-1718; https://doi.org/10.1175/2009JCLI2909.1
+31. Ż y ł o w s k a K., Kozyra J.: Zmiany klimatycznego bilansu wodnego okresu wegetacyjnego  
+w Polsce w latach 1971–2020. Studia i Raporty IUNG-PIB, 2023, 71(25): 75-87.
+Adres do korespondencji: 
+dr Katarzyna Żyłowska
+dr hab. Jerzy Kozyra, prof. IUNG-PIB
+Zakład Biogospodarki i Agrometeorologii
+IUNG-PIB
+ul. Czartoryskich 8 
+24-100 Puławy
+tel. 81 47 86 786; 764
+e-mail: kzylowska@iung.pulawy.pl
+Jerzy.Kozyra@iung.pulawy.pl
+AUTOR ORCID
+Katarzyna Żyłowska 0000-0002-6019-034X
+Jerzy Kozyra 0000-0002-7082-8765
+Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów... 153
