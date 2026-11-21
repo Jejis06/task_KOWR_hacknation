@@ -112,10 +112,14 @@
   "ekoschemat_tuz": {
     "title": "Ekoschemat retencjonowanie wody na TUZ",
     "url": "https://www.gov.pl/attachment/5b8e988c-33e8-4d41-bda7-82157d073500",
+    "manual": false,
     "http": 200,
-    "retrieved_at": "2026-11-21T11:39:05.513153+00:00",
-    "ok": false,
-    "note": "nie PDF (content-type application/vnd.openxmlformats-officedocument.wordprocessingml.document)"
+    "retrieved_at": "2026-11-21T11:53:22.552694+00:00",
+    "ok": true,
+    "file": "ekoschemat_tuz.docx",
+    "bytes": 18866,
+    "sha256": "019411495c75cde6f65941eb1f24887b5e1baaffee2874343388d18377bd10be",
+    "text_chars": 3035
   },
   "interwencja_torfowiska": {
     "title": "Interwencja 8 – torfowiska i obszary podmokłe",
@@ -170,10 +174,10 @@
   "melioracje_a5_2022": {
     "title": "Wody Polskie – Melioracje wodne (A5, 2022)",
     "url": "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf",
-    "http": 200,
-    "retrieved_at": "2026-11-21T11:40:45.746857+00:00",
+    "manual": true,
     "ok": false,
-    "note": "nie PDF (content-type text/html;charset=UTF-8)"
+    "retrieved_at": "2026-11-21T11:53:34.152587+00:00",
+    "note": "brak pliku – wrzuć raw/melioracje_a5_2022.pdf lub .docx"
   },
   "eu_rdw_32000L0060": {
     "title": "Ramowa Dyrektywa Wodna 2000/60/WE",
@@ -234,5 +238,93 @@
     "bytes": 2044463,
     "sha256": "12c2e49906269c73696072840940c6ca2dd70729b3c6bef974ca74346c080a65",
     "text_chars": 262638
+  },
+  "smsr_podstawy_2012": {
+    "title": "Doroszewski i in. (2012) Podstawy Systemu Monitoringu Suszy Rolniczej, IUNG-PIB (progi KBW per uprawa i kategoria gleby)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152808+00:00",
+    "note": "brak pliku – wrzuć raw/smsr_podstawy_2012.pdf lub .docx"
+  },
+  "smsr_metodyka_www": {
+    "title": "SMSR IUNG – opis metodyki / kategorie gleb / lista upraw (strona susza.iung.pulawy.pl, zapis do PDF)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152830+00:00",
+    "note": "brak pliku – wrzuć raw/smsr_metodyka_www.pdf lub .docx"
+  },
+  "zylowska_kozyra_2025": {
+    "title": "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników, IUNG-PIB",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152850+00:00",
+    "note": "brak pliku – wrzuć raw/zylowska_kozyra_2025.pdf lub .docx"
+  },
+  "fao56": {
+    "title": "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152869+00:00",
+    "note": "brak pliku – wrzuć raw/fao56.pdf lub .docx"
+  },
+  "cdr_eporadnik_2025": {
+    "title": "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152884+00:00",
+    "note": "brak pliku – wrzuć raw/cdr_eporadnik_2025.pdf lub .docx"
+  },
+  "pak_dane_satelitarne_2024": {
+    "title": "Polska Agencja Kosmiczna (2024) Dane satelitarne dla administracji publicznej (rozdz. 6.3.3–6.3.4)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152900+00:00",
+    "note": "brak pliku – wrzuć raw/pak_dane_satelitarne_2024.pdf lub .docx"
+  },
+  "nwrm_guide_2015": {
+    "title": "KE (2015) A Guide to Support the Selection, Design and Implementation of Natural Water Retention Measures",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152914+00:00",
+    "note": "brak pliku – wrzuć raw/nwrm_guide_2015.pdf lub .docx"
+  },
+  "wzor_zgloszenie_wodnoprawne": {
+    "title": "Wzór zgłoszenia wodnoprawnego (gov.pl / Wody Polskie)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152929+00:00",
+    "note": "brak pliku – wrzuć raw/wzor_zgloszenie_wodnoprawne.pdf lub .docx"
+  },
+  "wzor_wniosek_pozwolenie": {
+    "title": "Wzór wniosku o pozwolenie wodnoprawne (gov.pl / biznes.gov.pl)",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152943+00:00",
+    "note": "brak pliku – wrzuć raw/wzor_wniosek_pozwolenie.pdf lub .docx"
+  },
+  "katalog_oplat_wody_polskie": {
+    "title": "Wody Polskie – katalog/tabela opłat za zgłoszenie, pozwolenie, ocenę wodnoprawną",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152957+00:00",
+    "note": "brak pliku – wrzuć raw/katalog_oplat_wody_polskie.pdf lub .docx"
+  },
+  "prawo_wodne_tj": {
+    "title": "Ustawa Prawo wodne – aktualny tekst jednolity (ISAP, PDF), z nowelizacją z 19.06.2026",
+    "url": null,
+    "manual": true,
+    "ok": false,
+    "retrieved_at": "2026-11-21T11:53:34.152972+00:00",
+    "note": "brak pliku – wrzuć raw/prawo_wodne_tj.pdf lub .docx"
   }
 }

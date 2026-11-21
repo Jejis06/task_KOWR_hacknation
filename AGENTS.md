@@ -34,7 +34,7 @@ cd backend && uv run pytest            # szybkie, bez sieci
 cd backend && uv run pytest -m live    # na prawdziwych API
 cd frontend && npm run build           # typecheck + build
 # odświeżenie lokalnych dokumentów (prawo, poradniki, EUR-Lex)
-cd backend && uv run --with pypdf python ../scripts/fetch_knowledge.py [--force]
+make knowledge   # = uv run --with pypdf --with python-docx python ../scripts/fetch_knowledge.py [--force]
 ```
 
 Przykładowa działka do testów: `146505_8.0116.5` (Warszawa).
@@ -190,7 +190,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `funding/programs.yaml` | ARiMR I.10.1.1, I.10.4, FGR Plus, ekoschemat TUZ, interwencja 8, EPI, NFOŚiGW…; `for_farmer` |
 | `eu_law/eu_law.yaml` | RDW, azotanowa, powodziowa, reuse 2020/741, WPR 2021/2115 (DKR), Natura 2000, OOŚ, odbudowa przyrody |
 | `crops/crops.yaml` | 14 upraw: terminy siewu i zbioru, fazy i Kc FAO-56, Zr, p, okresy krytyczne, wymagania glebowe, `winter_rules`; **progi SMSR do uzupełnienia** |
-| `sources.yaml` + `raw/` | 24 dokumenty (gov.pl, Wody Polskie, ARiMR, IUNG, EUR-Lex). W repo `raw/*.txt` i `manifest.json`; PDF-y są gitignorowane i odtwarzane skryptem. Brakuje: `ekoschemat_tuz` (docx) i `melioracje_a5_2022` (HTML) |
+| `sources.yaml` + `raw/` | 23 dokumenty pobrane automatycznie (gov.pl, Wody Polskie, ARiMR, IUNG, EUR-Lex). Wpisy `manual: true` to pliki wrzucane ręcznie jako `raw/<id>.pdf` lub `.docx`; `make knowledge` wyciąga z nich tekst. W repo są `raw/*.txt` i `manifest.json`; PDF i DOCX są gitignorowane. Brakujące pliki: `grep MISS` w wyniku `make knowledge` albo `ok: false` w `manifest.json` |
 
 Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowledge/{crops|legal_pl|eu_law|procedures|funding|measures}`.
 
@@ -265,4 +265,5 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · fetch_knowledge: obsługa DOCX i plików wrzucanych ręcznie (`manual: true`); 12 dokumentów do pobrania ręcznie dopisanych do sources.yaml.
 - 2026-11-21 · init · szkielet backendu (kontrakt, cache, http, orkiestrator, ULDK, weather z fallbackiem NASA POWER), frontend (mapa, formularz, karty bloków, mocki), baza wiedzy YAML, 22 dokumenty źródłowe, AGENTS.md, prompty A i B.

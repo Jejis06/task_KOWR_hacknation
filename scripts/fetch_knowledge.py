@@ -1,7 +1,12 @@
-"""Pobiera dokumenty z data/knowledge/sources.yaml do data/knowledge/raw/ i wyciąga tekst.
+"""Pobiera dokumenty z data/knowledge/sources.yaml do data/knowledge/raw/ i wyciąga z nich tekst.
 
-Uruchom:  cd backend && uv run --with pypdf python ../scripts/fetch_knowledge.py [--force]
-Wynik: raw/<id>.pdf, raw/<id>.txt, raw/manifest.json (status, rozmiar, sha256, data pobrania).
+Uruchom:  make knowledge     (= cd backend && uv run --with pypdf --with python-docx python ../scripts/fetch_knowledge.py)
+          ... --force        ponownie pobiera wszystko
+
+Dokumenty dodane RĘCZNIE: wrzuć plik jako data/knowledge/raw/<id>.pdf (albo .docx) i dopisz wpis do
+sources.yaml z `manual: true` (url opcjonalny). Skrypt nie pobiera go z sieci, tylko wyciąga tekst do <id>.txt.
+
+Wynik: raw/<id>.pdf|.docx, raw/<id>.txt, raw/manifest.json (status, rozmiar, sha256, data).
 Dokumenty traktujemy jako DANE (nie instrukcje). Nie wykonujemy żadnych plików.
 """
 from __future__ import annotations
@@ -19,17 +24,50 @@ ROOT = Path(__file__).resolve().parents[1]
 KDIR = ROOT / "data" / "knowledge"
 RAW = KDIR / "raw"
 UA = "KOWR-HackNation2026-Prototype/0.1 (knowledge snapshot)"
+EXTS = (".pdf", ".docx")
 
 
-def extract_text(pdf: Path) -> str:
+def now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def kind_of(content: bytes) -> str | None:
+    if content[:4] == b"%PDF":
+        return ".pdf"
+    if content[:2] == b"PK":  # docx = zip
+        return ".docx"
+    return None
+
+
+def extract_text(path: Path) -> str:
     try:
-        from pypdf import PdfReader
-    except ImportError:
-        return ""
-    try:
-        return "\n".join((p.extract_text() or "") for p in PdfReader(str(pdf)).pages)
+        if path.suffix == ".pdf":
+            from pypdf import PdfReader
+            return "\n".join((p.extract_text() or "") for p in PdfReader(str(path)).pages)
+        if path.suffix == ".docx":
+            import docx  # python-docx
+            d = docx.Document(str(path))
+            parts = [p.text for p in d.paragraphs]
+            for t in d.tables:
+                parts += [" | ".join(c.text for c in row.cells) for row in t.rows]
+            return "\n".join(parts)
+    except ImportError as e:
+        return f"[brak biblioteki do ekstrakcji: {e}]"
     except Exception as e:  # noqa: BLE001
         return f"[błąd ekstrakcji: {e}]"
+    return ""
+
+
+def existing_file(doc_id: str) -> Path | None:
+    return next((RAW / f"{doc_id}{ext}" for ext in EXTS if (RAW / f"{doc_id}{ext}").exists()), None)
+
+
+def finalize(doc: dict, path: Path, entry: dict) -> dict:
+    data = path.read_bytes()
+    txt = extract_text(path)
+    (RAW / f"{doc['id']}.txt").write_text(txt, encoding="utf-8")
+    return entry | {"ok": True, "file": path.name, "bytes": len(data),
+                    "sha256": hashlib.sha256(data).hexdigest(), "text_chars": len(txt)}
 
 
 def main(force: bool = False) -> None:
@@ -39,27 +77,36 @@ def main(force: bool = False) -> None:
     manifest = json.loads(mpath.read_text()) if mpath.exists() else {}
     with httpx.Client(headers={"User-Agent": UA}, follow_redirects=True, timeout=60) as c:
         for d in docs:
-            out = RAW / f"{d['id']}.pdf"
-            if out.exists() and not force:
-                print(f"skip  {d['id']}")
-                continue
+            base = {"title": d["title"], "url": d.get("url"), "manual": bool(d.get("manual"))}
+            have = existing_file(d["id"])
+            txt_missing = not (RAW / f"{d['id']}.txt").exists()
             try:
+                if have and (d.get("manual") or not force):
+                    if txt_missing or force:
+                        manifest[d["id"]] = finalize(d, have, base | {"retrieved_at": manifest.get(
+                            d["id"], {}).get("retrieved_at", now())})
+                        print(f"text  {d['id']}  ({have.name})")
+                    else:
+                        print(f"skip  {d['id']}")
+                    continue
+                if d.get("manual") or not d.get("url"):
+                    manifest[d["id"]] = base | {"ok": False, "retrieved_at": now(),
+                                                "note": f"brak pliku – wrzuć raw/{d['id']}.pdf lub .docx"}
+                    print(f"MISS  {d['id']}  (wrzuć plik ręcznie)")
+                    continue
                 r = c.get(d["url"])
-                ok = r.status_code == 200 and r.content[:4] == b"%PDF"
-                entry = {"title": d["title"], "url": d["url"], "http": r.status_code,
-                         "retrieved_at": datetime.now(timezone.utc).isoformat(), "ok": ok}
-                if ok:
+                ext = kind_of(r.content) if r.status_code == 200 else None
+                entry = base | {"http": r.status_code, "retrieved_at": now()}
+                if ext:
+                    out = RAW / f"{d['id']}{ext}"
                     out.write_bytes(r.content)
-                    txt = extract_text(out)
-                    (RAW / f"{d['id']}.txt").write_text(txt, encoding="utf-8")
-                    entry |= {"bytes": len(r.content), "sha256": hashlib.sha256(r.content).hexdigest(),
-                              "text_chars": len(txt)}
+                    entry = finalize(d, out, entry)
+                    print(f"ok    {d['id']}  {ext}  {len(r.content)//1024} KB")
                 else:
-                    entry["note"] = f"nie PDF (content-type {r.headers.get('content-type')})"
-                print(f"{'ok  ' if ok else 'FAIL'}  {d['id']}  {r.status_code}  {len(r.content)//1024} KB")
+                    entry |= {"ok": False, "note": f"nie PDF/DOCX (content-type {r.headers.get('content-type')})"}
+                    print(f"FAIL  {d['id']}  {r.status_code}")
             except Exception as e:  # noqa: BLE001
-                entry = {"title": d["title"], "url": d["url"], "ok": False, "error": str(e),
-                         "retrieved_at": datetime.now(timezone.utc).isoformat()}
+                entry = base | {"ok": False, "error": str(e), "retrieved_at": now()}
                 print(f"FAIL  {d['id']}  {e}")
             manifest[d["id"]] = entry
     mpath.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")

@@ -18,7 +18,7 @@ documents:
   - {id: iung_oferta, title: "IUNG-PIB – oferta danych", url: "https://www.gov.pl/attachment/ff15f079-bab8-4a90-8c4a-266d69e567ab"}
   - {id: s2mur_zalozenia, title: "S2MUR – opis założeń projektu", url: "https://www.iung.pl/wp-content/uploads/2026/08/1.-Opis-zalozen-projektu-informatycznego-S2MUR.pdf"}
   - {id: iung_sir71, title: "IUNG SiR 71(25) Gospodarka wodna w rolnictwie", url: "https://www.iung.pl/sir/SiR%2071(25)%20ISBN%20elektroniczny%20z%20ok%C5%82adk%C4%85.pdf"}
-  - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 2022)", url: "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf"}
+  - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 2022)", manual: true, url: "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf"}
   # Prawo UE (EUR-Lex, wersje PL) – CELEX z eu_law.yaml
   - {id: eu_rdw_32000L0060, title: "Ramowa Dyrektywa Wodna 2000/60/WE", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32000L0060"}
   - {id: eu_azotanowa_31991L0676, title: "Dyrektywa azotanowa 91/676/EWG", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:31991L0676"}
@@ -26,3 +26,19 @@ documents:
   - {id: eu_reuse_32020R0741, title: "Rozporządzenie 2020/741 ponowne wykorzystanie wody", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32020R0741"}
   - {id: eu_wpr_32021R2115, title: "Rozporządzenie 2021/2115 plany strategiczne WPR", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32021R2115"}
   - {id: eu_odbudowa_32024R1991, title: "Rozporządzenie 2024/1991 odbudowa zasobów przyrodniczych", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32024R1991"}
+
+  # ── DO POBRANIA RĘCZNIE (brak stabilnego linku) – wrzuć jako data/knowledge/raw/<id>.pdf lub .docx, potem `make knowledge`
+  # Priorytet 1 – metodyka (jury porównuje z danymi referencyjnymi, prawdopodobnie SMSR):
+  - {id: smsr_podstawy_2012, manual: true, title: "Doroszewski i in. (2012) Podstawy Systemu Monitoringu Suszy Rolniczej, IUNG-PIB (progi KBW per uprawa i kategoria gleby)"}
+  - {id: smsr_metodyka_www, manual: true, title: "SMSR IUNG – opis metodyki / kategorie gleb / lista upraw (strona susza.iung.pulawy.pl, zapis do PDF)"}
+  - {id: zylowska_kozyra_2025, manual: true, title: "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników, IUNG-PIB"}
+  - {id: fao56, manual: true, title: "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)"}
+  # Priorytet 2 – materiały polecane przez ekspertów KOWR:
+  - {id: cdr_eporadnik_2025, manual: true, title: "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik"}
+  - {id: pak_dane_satelitarne_2024, manual: true, title: "Polska Agencja Kosmiczna (2024) Dane satelitarne dla administracji publicznej (rozdz. 6.3.3–6.3.4)"}
+  - {id: nwrm_guide_2015, manual: true, title: "KE (2015) A Guide to Support the Selection, Design and Implementation of Natural Water Retention Measures"}
+  # Priorytet 3 – formalności (weryfikacja opłat i wzorów):
+  - {id: wzor_zgloszenie_wodnoprawne, manual: true, title: "Wzór zgłoszenia wodnoprawnego (gov.pl / Wody Polskie)"}
+  - {id: wzor_wniosek_pozwolenie, manual: true, title: "Wzór wniosku o pozwolenie wodnoprawne (gov.pl / biznes.gov.pl)"}
+  - {id: katalog_oplat_wody_polskie, manual: true, title: "Wody Polskie – katalog/tabela opłat za zgłoszenie, pozwolenie, ocenę wodnoprawną"}
+  - {id: prawo_wodne_tj, manual: true, title: "Ustawa Prawo wodne – aktualny tekst jednolity (ISAP, PDF), z nowelizacją z 19.06.2026"}

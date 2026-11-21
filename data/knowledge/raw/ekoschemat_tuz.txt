@@ -1,0 +1,46 @@
+Tabela. 2. Szacunkowe stawki ekoschematów obszarowych
+
+Rodzaj płatności w ramach ekoschematów obszarowych z uwzględnieniem praktyk 
+i wariantów ekoschematów | Rodzaj płatności w ramach ekoschematów obszarowych z uwzględnieniem praktyk 
+i wariantów ekoschematów | Liczba punktów 
+na ha powierzchni obszaru zatwierdzonego 
+do wsparcia | Stawka szacunkowa 
+płatności w ramach ekoschematów obszarowych
+Szacunkowa stawka za 1 pkt, to ok.:
+92,76 PLN/pkt
+Rodzaj płatności w ramach ekoschematów obszarowych z uwzględnieniem praktyk 
+i wariantów ekoschematów | Rodzaj płatności w ramach ekoschematów obszarowych z uwzględnieniem praktyk 
+i wariantów ekoschematów | [pkt/ha] | [PLN//ha]
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Ekstensywne użytkowanie trwałych użytków zielonych z obsadą zwierząt  | 5 | 463,80
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Międzyplony ozime lub wsiewki śródplonowe | 5 | 463,80
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Opracowanie i przestrzeganie planu nawożenia - wariant podstawowy | 1 | 92,76
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Opracowanie i przestrzeganie planu nawożenia - wariant z wapnowaniem | 3 | 278,28
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Zróżnicowana struktura upraw  | 3 | 278,28
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Wymieszanie obornika na gruntach ornych w terminie 12 godzin od jego aplikacji  | 2 | 185,52
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Stosowanie nawozów naturalnych płynnych innymi metodami niż rozbryzgowo | 3 | 278,28
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Uproszczone systemy uprawy | 3 | 278,28
+Rolnictwo węglowe i zarządzanie składnikami odżywczymi, 
+w tym praktyki: | Wymieszanie słomy z glebą | 1 | 92,76
+Obszary z roślinami miododajnymi | Obszary z roślinami miododajnymi |  | 1 111,35
+Integrowana produkcja roślin, w tym grupa upraw: | sadowniczych  |  | 1 414,74
+Integrowana produkcja roślin, w tym grupa upraw: | jagodowych |  | 1 276,48
+Integrowana produkcja roślin, w tym grupa upraw: | rolniczych |  | 603,00
+Integrowana produkcja roślin, w tym grupa upraw: | warzywnych |  | 1 276,48
+Biologiczna uprawa, w tym wariant: | Mikrobiologiczne środki ochrony roślin |  | 371,08
+Biologiczna uprawa, w tym wariant: | Nawozowe produkty mikrobiologiczne |  | 92,76
+Retencjonowanie wody na trwałych użytkach zielonych | Retencjonowanie wody na trwałych użytkach zielonych |  | 260,69
+Grunty wyłączone z produkcji | Grunty wyłączone z produkcji |  | 522,30
+Materiał siewny kategorii elitarny lub materiał siewny kategorii kwalifikowany,
+w tym: | zboża |  | 110,38
+Materiał siewny kategorii elitarny lub materiał siewny kategorii kwalifikowany,
+w tym: | rośliny strączkowe  |  | 179,04
+Materiał siewny kategorii elitarny lub materiał siewny kategorii kwalifikowany,
+w tym: | ziemniaki |  | 462,89
