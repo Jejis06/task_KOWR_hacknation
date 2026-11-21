@@ -374,6 +374,16 @@ def _weir_point(ctx: AnalysisContext, ditch: dict) -> dict | None:
         return None
 
 
+COARSE_DEM_M = 25.0          # DEM rzadszy niż to = model zgrubny (Copernicus 30 m)
+COARSE_MIN_AREA_HA = 3.0     # poniżej tej powierzchni zagłębienia z modelu 30 m są niewiarygodne
+
+
+def _coarse_terrain(ctx: AnalysisContext, terr: dict | None) -> bool:
+    """Rzeźba z modelu ~30 m na małej działce: kilka komórek siatki – zagłębień i miejsc odpływu nie oceniamy."""
+    res = (terr or {}).get("dem_resolution_m")
+    return bool(res and res >= COARSE_DEM_M and (ctx.parcel.area_ha or 0) < COARSE_MIN_AREA_HA)
+
+
 def _best_depression(terr: dict | None) -> dict | None:
     deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
             if (f.get("properties") or {}).get("touches_parcel")]
@@ -453,6 +463,8 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
         flood = (hyd or {}).get("in_flood_zone") or (hyd or {}).get("in_flood_hazard_area")
         deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
                 if (f.get("properties") or {}).get("touches_parcel")]
+        if _coarse_terrain(ctx, terr):
+            deps = []
         if deps and not flood:
             best = _best_depression(terr) or max(deps, key=lambda f: (f.get("properties") or {}).get("volume_m3") or 0)
             p = best.get("properties") or {}
@@ -481,7 +493,8 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
                 when="poza sezonem (paź–mar), po zgłoszeniu wodnoprawnym", where=best)
         slope = (terr or {}).get("slope_mean_deg")
         near_water = [x for x in (hyd or {}).get("nearest_water") or [] if x["distance_m"] <= 100 and x.get("kind") != "ditch"]
-        exits = [f for f in ((terr or {}).get("runoff_exits_geojson") or {}).get("features") or []]
+        exits = [] if _coarse_terrain(ctx, terr) else \
+            [f for f in ((terr or {}).get("runoff_exits_geojson") or {}).get("features") or []]
         if share.get("odplyw_powierzchniowy", 0) >= 0.25 or (slope is not None and slope > 2) or near_water or exits:
             ev = []
             if slope is not None:
@@ -705,6 +718,12 @@ def analyse_all(ctx: AnalysisContext, d: dict[str, dict | None], not_applicable:
     if _strict_protected(d["protected_areas"]):
         res.limitations.append("Działka leży w parku narodowym lub rezerwacie – nie proponujemy budowy zbiorników, "
                                "zastawek ani urządzeń wodnych; każde działanie uzgodnij z dyrekcją parku / RDOŚ.")
+    terr = d.get("terrain") or {}
+    if terr.get("dem_source") and "zapasowe" in terr["dem_source"]:
+        res.limitations.append(
+            "Rzeźbę terenu policzyliśmy z modelu Copernicus 30 m, bo usługa GUGiK NMT chwilowo nie odpowiadała – zagłębienia "
+            "i kierunki spływu są przybliżone" + (" i przy tej powierzchni działki ich nie oceniamy." if _coarse_terrain(ctx, terr)
+                                                  else "; sprawdź je w terenie."))
     res.limitations += [
         "Progi oceny (punkty za KBW, susze, NDVI) i udziały przyczyn to szacunek zespołu – nie oficjalna klasyfikacja.",
         "Nie uwzględniamy drenażu (brak otwartej mapy drenaży w Polsce), nawadniania sąsiadów ani lokalnych burz "
@@ -736,7 +755,7 @@ class AnalysisConnector(Connector):
     uses_crop = True
     live_ttl_s = 3 * 3600
     timeout_s = 20
-    cache_version = 4   # 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
+    cache_version = 5   # 5: zgrubny DEM – bez zagłębień na małych działkach; 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
     depends_on: ClassVar[tuple[str, ...]] = DEPS
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:

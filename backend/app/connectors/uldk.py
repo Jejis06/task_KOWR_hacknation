@@ -15,7 +15,7 @@ import re
 from app.contracts.models import GeoJSONGeometry, ParcelRef
 from app.core.cache import cache_get, cache_set, make_key
 from app.core.geo import area_ha, geom_to_geojson, parse_wkt
-from app.core.http import get_client
+from app.core.http import get_client, is_limit_response, is_limited, mark_limited
 
 log = logging.getLogger(__name__)
 
@@ -39,6 +39,8 @@ async def _uldk_get(params: dict, attempts: int = 3) -> str:
     """ULDK bez podążania za przekierowaniem: przy limicie GUGiK odsyła 302 na stronę zastępczą, która zwraca „0” i
     fikcyjną geometrię (punkt z `inf`) – wcześniej kończyło się to błędem 500. Krótko ponawiamy, potem UldkLimited."""
     client = get_client()
+    if is_limited(ULDK_URL):
+        raise UldkLimited("Usługa GUGiK ULDK chwilowo ogranicza liczbę zapytań – spróbuj ponownie za minutę.")
     for i in range(attempts):
         try:
             r = await client.get(ULDK_URL, params=params, timeout=10, follow_redirects=False)
@@ -47,6 +49,8 @@ async def _uldk_get(params: dict, attempts: int = 3) -> str:
             r = None
         if r is not None and r.status_code == 200:
             return r.text
+        if r is not None and is_limit_response(r) and i == attempts - 1:
+            mark_limited(ULDK_URL, 45)
         log.warning("ULDK ogranicza zapytania (HTTP %s, próba %d/%d)", r.status_code if r else "brak", i + 1, attempts)
         if i < attempts - 1:
             await asyncio.sleep(1.0 + i)

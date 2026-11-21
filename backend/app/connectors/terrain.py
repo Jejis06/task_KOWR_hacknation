@@ -22,7 +22,7 @@ from app.config import settings
 from app.connectors.base import Connector
 from app.contracts.models import AnalysisContext, BlockStatus, DataBlock, TerrainInfo
 from app.core.geo import to_2180, to_4326
-from app.core.http import get_client, get_with_retry
+from app.core.http import get_client, get_with_retry, is_limited, mark_limited
 from app.science import terrain as T
 
 log = logging.getLogger(__name__)
@@ -83,6 +83,8 @@ async def fetch_grid(bounds: tuple[float, float, float, float], cell: float, nro
     sem = asyncio.Semaphore(NMT_PARALLEL)
 
     blocked = asyncio.Event()
+    if is_limited(NMT_POINTS):     # GUGiK niedawno odmówił – od razu DEM zapasowy, bez kolejnych zapytań
+        blocked.set()
 
     async def ask(ch: list[tuple[float, float]]) -> list[float | None] | None:
         if blocked.is_set():
@@ -98,6 +100,8 @@ async def fetch_grid(bounds: tuple[float, float, float, float], cell: float, nro
             return None
         if r.status_code in (301, 302, 303, 307, 429) or r.status_code >= 500:
             blocked.set()          # usługa odmawia – nie męczymy jej dalej, przechodzimy na DEM zapasowy
+            if r.status_code in (301, 302, 303, 307, 429):
+                mark_limited(NMT_POINTS)
             return None
         vals = parse_heights(r.text)
         return vals if len(vals) == len(ch) else None
@@ -320,7 +324,7 @@ class TerrainConnector(Connector):
     category = "spatial"
     live_ttl_s = 30 * 24 * 3600
     timeout_s = 20
-    cache_version = 4   # 4: odporne pobieranie NMT; 3: siatka wyrównana do wspólnej kratki + filtr brzegu okna
+    cache_version = 5   # 5: dem_source; 4: odporne pobieranie NMT; 3: siatka wyrównana do wspólnej kratki + filtr brzegu okna
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         parcel = to_2180(shape(ctx.parcel.geometry.model_dump()))
@@ -340,7 +344,9 @@ class TerrainConnector(Connector):
         info = TerrainInfo(**{k: v for k, v in a.items() if not k.startswith("_")},
                            depressions_geojson=_fc(a["_dep"]), flow_lines_geojson=_fc(a["_flow"]),
                            runoff_exits_geojson=_fc(a["_exits"]),
-                           dem_resolution_m=cell)
+                           dem_resolution_m=max(cell, 30.0) if dem_src == "copdem" else cell,
+                           dem_source="Copernicus DEM GLO-30 (30 m, źródło zapasowe)" if dem_src == "copdem"
+                           else "GUGiK NMT (lotniczy skaning laserowy)")
         n_dep = sum(1 for f in a["_dep"] if f["props"]["touches_parcel"])
         n_flow = sum(1 for f in a["_flow"] if f["props"]["crosses_parcel"])
         unc = [f"Wysokości z NMT GUGiK (skaning laserowy) próbkowane co {cell:.0f} m – drobne formy "

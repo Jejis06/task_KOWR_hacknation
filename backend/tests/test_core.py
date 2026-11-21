@@ -94,3 +94,22 @@ def test_tile_bbox_3857_world_and_quadrant():
     assert abs(w[0] + 20037508.34) < 1 and abs(w[3] - 20037508.34) < 1
     q = tile_bbox_3857(1, 1, 0)          # prawa górna ćwiartka
     assert abs(q[0]) < 1e-6 and abs(q[1]) < 1e-6
+
+
+def test_gugik_redirect_is_limit_and_cooldown():
+    from app.core import http as H
+    req = httpx.Request("GET", "https://services.gugik.gov.pl/nmt/")
+    redirect = httpx.Response(302, headers={"Location": "https://integracja01.gugik.gov.pl/resp/nmt.php"}, request=req)
+    assert H.is_limit_response(redirect)
+    assert not H.is_limit_response(httpx.Response(200, request=req))
+    H.mark_limited("https://example-limit.test/x", 30)
+    assert H.is_limited("https://example-limit.test/other") and not H.is_limited("https://inny.test/")
+
+
+def test_api_cache_headers():
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+    with TestClient(app) as c:
+        r = c.get("/api/knowledge/crops")
+        assert r.status_code == 200 and "max-age=86400" in r.headers["cache-control"]

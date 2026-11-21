@@ -197,6 +197,7 @@ class TerrainInfo(BaseModel):
     # ── 2026-11-21 (koordynator) ── odcinki granicy działki, przez które spływ (D8) wypływa z pola
     # FeatureCollection LineString (EPSG:4326), properties {catchment_ha, length_m}; zagłębienia mają też {catchment_ha}
     runoff_exits_geojson: dict | None = None
+    dem_source: str | None = None               # 2026-11-22 (B): które źródło wysokości zadziałało (NMT / Copernicus zapasowo)
 
 
 class WaterFeature(BaseModel):

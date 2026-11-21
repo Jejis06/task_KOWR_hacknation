@@ -10,12 +10,11 @@ from __future__ import annotations
 import asyncio
 import logging
 import math
-import time
 
 from fastapi import APIRouter, HTTPException, Response
 
 from app.core.cache import cache_get, cache_set, make_key
-from app.core.http import get_client
+from app.core.http import get_client, is_limit_response, is_limited, mark_limited
 
 log = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/tiles", tags=["tiles"])
@@ -41,7 +40,6 @@ LAYERS: dict[str, dict] = {
     },
 }
 _SEMS: dict[str, asyncio.Semaphore] = {}
-_COOLDOWN_UNTIL: dict[str, float] = {}   # po limicie źródła (302/429) przez chwilę nie pytamy go wcale
 COOLDOWN_S = 60
 
 
@@ -64,15 +62,14 @@ async def _fetch(layer: str, z: int, x: int, y: int) -> bytes:
     else:
         params = None
         url = cfg["url"].format(z=z, x=x, y=y)
-    if time.monotonic() < _COOLDOWN_UNTIL.get(layer, 0):
+    if is_limited(url):
         raise HTTPException(503, f"Źródło kafelków {layer} chwilowo ogranicza zapytania.", headers={"Retry-After": str(COOLDOWN_S)})
     sem = _SEMS.setdefault(layer, asyncio.Semaphore(cfg["limit"]))
     async with sem:
         # bez podążania za przekierowaniem: GUGiK przy limicie odsyła 302 na stronę zastępczą (nie obraz)
         r = await get_client().get(url, params=params, timeout=15, follow_redirects=False)
-    if r.status_code in (301, 302, 303, 307, 429):
-        _COOLDOWN_UNTIL[layer] = time.monotonic() + COOLDOWN_S
-        log.warning("Kafelki %s: źródło ogranicza zapytania (HTTP %s) – przerwa %d s", layer, r.status_code, COOLDOWN_S)
+    if is_limit_response(r) or r.status_code in (301, 302, 303, 307):
+        mark_limited(url, COOLDOWN_S)
     ctype = r.headers.get("content-type", "")
     if r.status_code != 200 or not ctype.startswith("image/"):
         raise HTTPException(502, f"Źródło kafelków {layer} niedostępne (HTTP {r.status_code}).")

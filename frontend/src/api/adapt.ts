@@ -201,6 +201,7 @@ function terrain(d: any): DataPayload {
       { label: "Spadek średni", value: slopePct != null ? `${nf(slopePct, 1)}%` : "brak danych" },
       { label: "Wysokość", value: d.elevation_min_m != null ? `${nf(d.elevation_min_m)}–${nf(d.elevation_max_m)} m n.p.m.` : "brak danych" },
       { label: "Miejsca odpływu z pola", value: String(exits.length) },
+      { label: "Model wysokości", value: d.dem_source ?? "brak danych" },
     ],
     rows: [
       ...deps.slice(0, 6).map((f, i) => ({ label: `Zagłębienie ${i + 1}`, mapId: `dep-${i}`,
