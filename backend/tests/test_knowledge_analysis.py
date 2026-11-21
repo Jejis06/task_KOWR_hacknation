@@ -101,3 +101,12 @@ def test_national_park_no_infrastructure():
 def test_cucumber_and_cabbage_in_crops():
     ids = {x["id"] for x in loader.items("crops")}
     assert {"ogorek", "kapusta"} <= ids
+
+
+def test_drought_years_window_is_ten_seasons():
+    c = ctx(d=date(2025, 7, 15))
+    d = dry_data(c)
+    d["drought"]["drought_years"] = [2015, 2019]
+    a = analyse_all(c, d).assessment
+    assert a.drought_years == [2019]
+    assert any("1 z 10" in e.text for e in a.evidence)

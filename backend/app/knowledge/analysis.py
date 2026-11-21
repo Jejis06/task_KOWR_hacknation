@@ -111,7 +111,7 @@ def assess(ctx: AnalysisContext, d: dict[str, dict | None]) -> WaterAssessment |
     if veg and veg.get("anomaly") is not None and veg.get("in_growing_season"):
         if veg["anomaly"] < -0.1:
             pts += 1
-        ev.append(_ev(f"NDVI {veg['anomaly']:+.2f} względem normy dla tej pory roku".replace(".", ","), "vegetation"))
+        ev.append(_ev(f"NDVI {veg['anomaly']:+.2f} względem normy dla tej pory roku".replace(".", ",").replace("-", "−"), "vegetation"))
     cur_level = "none" if pts == 0 else "low" if pts == 1 else "moderate" if pts <= 3 else "high" if pts == 4 else "very_high"
     if not in_season and LEVELS.index(cur_level) > LEVELS.index("moderate"):
         cur_level = "moderate"   # poza sezonem rośliny nie cierpią z braku wody – oceniamy zapas w glebie
@@ -120,8 +120,9 @@ def assess(ctx: AnalysisContext, d: dict[str, dict | None]) -> WaterAssessment |
                     "Poza sezonem wegetacji ocena dotyczy zapasu wody w glebie przed wiosną, a nie stresu roślin."
                     if not in_season else "Bieżący bilans wody nie odbiega wyraźnie od normy."))
 
-    years = sorted(set((dr or {}).get("drought_years") or []))
-    n_years = len([y for y in years if y > ctx.as_of.year - 10])
+    # okno = 10 ostatnich sezonów (z bieżącym); lata spoza okna nie są ani liczone, ani pokazywane
+    years = sorted(y for y in set((dr or {}).get("drought_years") or []) if ctx.as_of.year - 10 < y <= ctx.as_of.year)
+    n_years = len(years)
     hist = "low" if n_years == 0 else "moderate" if n_years <= 2 else "high" if n_years <= 4 else "very_high"
     cat = _soil_cat(soil)
     if cat == 1:
@@ -419,7 +420,7 @@ class AnalysisConnector(Connector):
     uses_crop = True
     live_ttl_s = 3 * 3600
     timeout_s = 20
-    cache_version = 1
+    cache_version = 2
     depends_on: ClassVar[tuple[str, ...]] = DEPS
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:

@@ -12,6 +12,8 @@ import { dateStr, dateTimeStr, todayIso } from "../lib/format";
 
 type BlockState = Record<string, DataBlock | "loading">;
 const WIDE = new Set(["weather_history", "legal_context"]);
+// Bloki liczone z innych bloków – pobieramy je po blokach danych (trafiają w cache zamiast dublować zapytania do źródeł).
+const SECOND_PHASE = new Set(["legal_context", "analysis"]);
 
 export function ParcelPage() {
   const [blocksInfo, setBlocksInfo] = useState<BlockInfo[]>([]);
@@ -25,6 +27,7 @@ export function ParcelPage() {
   const [busy, setBusy] = useState(false);
   const [elapsed, setElapsed] = useState<number | null>(null);
   const [view, setView] = useState<"report" | "data">("report");
+  const [picked, setPicked] = useState<ParcelRef | null>(null);   // działka wskazana na mapie (przed analizą)
   const run = useRef(0);
 
   useEffect(() => {
@@ -50,8 +53,8 @@ export function ParcelPage() {
       setAnalysed({ date, crop, at: new Date().toISOString() });
       const query: Query = { id: p.id, date, crop: crop || undefined };
       setBlocks(Object.fromEntries(blocksInfo.map((b) => [b.key, "loading" as const])));
-      // wszystkie bloki równolegle, render progresywny (każdy blok niezależnie)
-      await Promise.all(blocksInfo.map((b) =>
+      // bloki danych równolegle (render progresywny), potem bloki pochodne (prawo, analiza)
+      const load = (list: BlockInfo[]) => Promise.all(list.map((b) =>
         api.block(b.key, query)
           .then((blk) => token === run.current && setBlocks((s) => ({ ...s, [b.key]: blk })))
           .catch((e) => token === run.current && setBlocks((s) => ({
@@ -59,6 +62,8 @@ export function ParcelPage() {
               messages: [e instanceof Error ? e.message : String(e)] },
           }))),
       ));
+      await load(blocksInfo.filter((b) => !SECOND_PHASE.has(b.key)));
+      if (token === run.current) await load(blocksInfo.filter((b) => SECOND_PHASE.has(b.key)));
       if (token === run.current) setElapsed((performance.now() - t0) / 1000);
     } catch (e) {
       if (token !== run.current) return;
@@ -68,6 +73,19 @@ export function ParcelPage() {
         : msg);
     } finally {
       if (token === run.current) setBusy(false);
+    }
+  }
+
+  /** Kliknięcie mapy na ekranie startowym: tylko wskazanie działki (obrys + numer), analiza po przycisku. */
+  async function pick(lon: number, lat: number) {
+    if (busy) return;
+    setError(null);
+    try {
+      const p = await api.resolve({ lon, lat });
+      setPicked(p);
+      setForm((f) => ({ ...f, id: p.id }));
+    } catch (e) {
+      setError(e instanceof Error ? `${e.message} Przybliż mapę i kliknij środek pola.` : String(e));
     }
   }
 
@@ -94,7 +112,7 @@ export function ParcelPage() {
 
   return (
     <KnowledgeContext.Provider value={knowledge}>
-      <div className="parcel-page">
+      <div className={analysed ? "parcel-page" : "parcel-page landing"}>
         {USE_MOCKS && <div className="mock-banner no-print">Tryb demonstracyjny: dane przykładowe (MOCK), nie z prawdziwych źródeł.</div>}
 
         {parcel && analysed && view === "data" && (
@@ -111,11 +129,21 @@ export function ParcelPage() {
           <SearchForm crops={crops} busy={busy} value={form} onChange={setForm}
             onSubmit={() => analyse({ id: form.id.trim() })} />
           {error && <div className="error" role="alert">{error}</div>}
-          <ParcelMap parcel={parcel} overlays={overlays} onPick={(lon, lat) => !busy && analyse({ lon, lat })} />
-          {parcel && <ParcelHeader parcel={parcel} />}
+          {!analysed && (
+            <p className="landing-intro no-print">Wpisz numer działki albo kliknij swoje pole na mapie, wybierz datę i uprawę,
+              a potem naciśnij <b>„Sprawdź działkę”</b>. Dostaniesz ocenę sytuacji wodnej, jej przyczyny i co możesz zrobić –
+              z podaniem źródeł i dat. Nie zbieramy danych osobowych.</p>
+          )}
+          <ParcelMap parcel={picked && picked.id !== parcel?.id ? picked : parcel} overlays={picked && picked.id !== parcel?.id ? {} : overlays}
+            expandable={!!(picked || parcel)} onPick={pick} />
+          {picked && picked.id !== parcel?.id && (
+            <p className="picked no-print" role="status">Wybrano działkę <b>{picked.id}</b> ({picked.region_name}, {picked.commune}) –
+              naciśnij „Sprawdź działkę”.</p>
+          )}
+          {parcel && analysed && <ParcelHeader parcel={parcel} />}
         </section>
 
-        <section className="right">
+        {analysed && <section className="right">
           {total > 0 && (
             <div className="progress no-print" aria-live="polite">
               <span>{ready < total ? `Pobieram dane: ${ready} z ${total}…` : `Gotowe: ${total} bloków${elapsed ? ` w ${elapsed.toFixed(1)} s` : ""}`}</span>
@@ -134,19 +162,7 @@ export function ParcelPage() {
           {parcel && analysed && view === "report" && (
             <ReportView parcel={parcel} asOf={analysed.date} cropName={cropName} generatedAt={analysed.at} infos={blocksInfo} blocks={blocks} />
           )}
-          {!parcel && !busy && (
-            <div className="welcome">
-              <h2>Jak to działa</h2>
-              <ol>
-                <li>Wpisz numer działki albo kliknij swoje pole na mapie.</li>
-                <li>Wybierz datę (dziś albo dowolny dzień z 10 lat) i uprawę.</li>
-                <li>Zobaczysz w jednym miejscu: opady i suszę z 10 lat, glebę, ukształtowanie terenu, wody w pobliżu,
-                  stan roślin z satelity, kalendarz uprawy oraz jakie zgody są potrzebne na staw, studnię czy nawadnianie.</li>
-              </ol>
-              <p className="small">Przy każdej informacji podajemy źródło, datę i ograniczenia. Nie zbieramy żadnych danych osobowych.</p>
-            </div>
-          )}
-          {(view === "data" || !analysed) && (
+          {view === "data" && (
             <>
               <div className="cards">
                 {dataInfos.map((b) => (
@@ -160,7 +176,7 @@ export function ParcelPage() {
             <p className="print-only small">Prototyp HackNation 2026 (KOWR). Informacja orientacyjna – nie zastępuje porady eksperta ani decyzji organów.
               Dane: GUGiK, IMGW-PIB, IUNG-PIB, Copernicus, Wody Polskie, PIG-PIB, GUS, Open-Meteo/ERA5, NASA POWER.</p>
           )}
-        </section>
+        </section>}
       </div>
     </KnowledgeContext.Provider>
   );

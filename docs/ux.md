@@ -59,3 +59,15 @@ oznaczonych „MOCK” (baner na górze strony). Kształt danych 1:1 z kontrakte
 - Każde stwierdzenie ma **dowody** (📊 liczba z jednostką · nazwa bloku · data danych). Rekomendacja pokazuje: kiedy, gdzie (miejsce
   na mapie na pomarańczowo), formalności (karta z `legal_context` dobrana po `legal_ids`, z opłatą na rok analizy) i dofinansowanie.
 - „Zapisz dane (JSON)” – plik z działką, datą, uprawą i wszystkimi blokami (wymóg „raport można zapisać w formie pliku”).
+
+## Zmiany po testach z użytkownikami (21.11, gałąź fix/ui-feedback)
+
+- **Ekran startowy:** tylko formularz, krótki opis i duża mapa. Kliknięcie mapy *wskazuje* działkę (obrys + numer w polu),
+  analiza rusza dopiero po „Sprawdź działkę”. Po wskazaniu działki przycisk **⤢ Powiększ mapę** rozwija cały kafelek na ekran (Esc / ✕ zamyka).
+- **KBW:** wartość + jedno zdanie („Sucho: o 60 mm wody mniej niż zwykle o tej porze roku”) + dwa paski na wspólnej skali (teraz / zwykle).
+- **Wykres opadów:** słupki półprzezroczyste jako tło, linia normy 10-letniej gruba i ciemnopomarańczowa, rysowana na wierzchu.
+- **Sezony:** czerwony wiersz = sezon wyraźnie suchszy niż średnia (KBW niższy o ponad max(30 mm, 0,5·odch. std.)); legenda pod tabelą.
+- **Bez szumu:** komunikaty techniczne (np. przełączenie źródła) i czas pobrania są w „Szczegółach technicznych”; prognoza bez ramki ograniczeń
+  (są w „Skąd te dane”); źródła na kartach zwinięte do jednej linii.
+- **Strefa powodziowa:** niebieska informacja, nie czerwony alarm – „wynik modelu dla rzadkiej, dużej powodzi, nie bieżące zagrożenie”.
+- **Park narodowy / rezerwat:** zamiast kart „staw / studnia / nawadnianie” jedna karta „budowa urządzeń wodnych praktycznie wykluczona”.
