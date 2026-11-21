@@ -15,6 +15,11 @@ const CATEGORY_LABEL: Record<string, string> = {
   meteo: "pogoda", satellite: "satelita", soil: "gleba", hydro: "woda", spatial: "teren", knowledge: "wiedza", derived: "statystyka",
 };
 
+// Prognoza: ograniczenia są w panelu „Skąd te dane” – na karcie tylko zaśmiecały widok.
+const HIDE_UNCERTAINTY = new Set(["weather_forecast"]);
+/** Krótka nazwa źródła do jednej linii (pełna lista po rozwinięciu). */
+const shortName = (n: string) => (n.length > 60 ? `${n.slice(0, 57).trimEnd()}…` : n);
+
 const EMPTY_TEXT: Record<string, string> = {
   not_implemented: "Ten blok jest jeszcze w przygotowaniu – dane pojawią się w kolejnej wersji aplikacji.",
   no_data: "Źródło odpowiedziało, ale nie ma danych dla tej działki lub daty.",
@@ -61,27 +66,34 @@ export function BlockCard({ info, block, asOf, wide }: { info: BlockInfo; block?
       {b && b.data != null && <ErrorBoundaryView b={b} asOf={asOf} />}
       {b && b.data == null && <p className="empty">{EMPTY_TEXT[b.status] ?? "Brak danych."}</p>}
 
-      {b && b.messages.length > 0 && <ul className="messages">{b.messages.map((m, i) => <li key={i}>{m}</li>)}</ul>}
-      {b && b.uncertainty.length > 0 && (
+      {b && b.uncertainty.length > 0 && !HIDE_UNCERTAINTY.has(b.key) && (
         <div className="uncertainty"><b>Ograniczenia i niepewność:</b>
           <ul>{b.uncertainty.map((u, i) => <li key={i}>{u}</li>)}</ul></div>
       )}
       {b && b.provenance.length > 0 && (
-        <footer className="prov">
-          {b.provenance.map((p, i) => (
-            <span key={i}>
-              Źródło: {p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer noopener">{p.source_name}</a> : p.source_name}
-              {" · "}{modeLabel(p)}
-              {" · "}{p.data_as_of ? `dane do ${dateStr(p.data_as_of)}` : `pobrano ${dateTimeStr(p.retrieved_at)}`}
-              {p.licence ? ` · licencja: ${p.licence}` : ""}
-            </span>
-          ))}
-        </footer>
+        <details className="prov">
+          <summary>
+            Źródło: {shortName(b.provenance[0].source_name)}{b.provenance.length > 1 ? ` (+${b.provenance.length - 1})` : ""}
+            {" · "}{b.provenance[0].data_as_of ? `dane do ${dateStr(b.provenance[0].data_as_of)}` : `pobrano ${dateStr(b.provenance[0].retrieved_at)}`}
+          </summary>
+          <ul>
+            {b.provenance.map((p, i) => (
+              <li key={i}>
+                {p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer noopener">{p.source_name}</a> : p.source_name}
+                {" · "}{modeLabel(p)}
+                {" · "}{p.data_as_of ? `dane do ${dateStr(p.data_as_of)}` : `pobrano ${dateTimeStr(p.retrieved_at)}`}
+                {p.licence ? ` · licencja: ${p.licence}` : ""}
+              </li>
+            ))}
+          </ul>
+        </details>
       )}
-      {b && b.data != null && (
+      {b && (b.data != null || b.messages.length > 0) && (
         <details className="raw no-print">
-          <summary>Szczegóły (dane techniczne JSON)</summary>
-          <pre>{JSON.stringify(b.data, null, 1).slice(0, 20000)}</pre>
+          <summary>Szczegóły techniczne</summary>
+          {b.messages.length > 0 && <ul className="messages">{b.messages.map((m, i) => <li key={i}>{m}</li>)}</ul>}
+          {b.data != null && <pre>{JSON.stringify(b.data, null, 1).slice(0, 20000)}</pre>}
+          {b.elapsed_ms != null && <p className="small muted">Czas pobrania: {(b.elapsed_ms / 1000).toFixed(1)} s</p>}
         </details>
       )}
     </article>

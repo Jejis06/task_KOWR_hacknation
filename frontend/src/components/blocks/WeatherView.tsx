@@ -19,18 +19,36 @@ function monthlySums(d: WeatherHistory) {
   return [...map.entries()].map(([k, v]) => ({ month: k, p: Math.round(v.p), e: Math.round(v.e), n: v.n }));
 }
 
+/** KBW z 60 dni: wartość + porównanie z normą na wspólnej skali + jedno zdanie po ludzku. */
 function Kbw60({ d }: { d: WeatherHistory }) {
   if (d.cwb_60d_mm == null) return <p className="muted">Bilans wodny z 60 dni: brak danych.</p>;
-  const diff = d.cwb_60d_normal_mm != null ? d.cwb_60d_mm - d.cwb_60d_normal_mm : null;
-  const tone = diff == null ? "" : diff < -40 ? "bad" : diff < -15 ? "warn" : "good";
+  const cur = d.cwb_60d_mm, norm = d.cwb_60d_normal_mm;
+  const diff = norm != null ? cur - norm : null;
+  const verdict = diff == null ? null : Math.abs(diff) < 10
+    ? { tone: "good", text: "W normie – podobnie jak zwykle o tej porze roku." }
+    : diff < 0 ? { tone: diff < -40 ? "bad" : "warn", text: `Sucho: o ${num(-diff, "mm")} wody mniej niż zwykle o tej porze roku.` }
+    : { tone: "good", text: `Wilgotniej niż zwykle: o ${num(diff, "mm")} wody więcej niż zwykle o tej porze roku.` };
+  const max = Math.max(20, Math.abs(cur), Math.abs(norm ?? 0));
+  const bar = (v: number) => {
+    const w = (Math.abs(v) / max) * 50;
+    return { left: v < 0 ? `${50 - w}%` : "50%", width: `${w}%` };
+  };
   return (
-    <div className={`stat ${tone}`}>
-      <div className="stat-label"><Term k="KBW" /> – ostatnie 60 dni do {dateStr(d.end)}</div>
-      <div className="stat-value">{signed(d.cwb_60d_mm, "mm")}</div>
-      <div className="stat-sub">
-        norma dla tego okresu: {signed(d.cwb_60d_normal_mm, "mm")}
-        {diff != null && <> · {diff < 0 ? "sucho: " : "wilgotniej niż zwykle: "}<b>{signed(diff, "mm")}</b> względem normy</>}
-      </div>
+    <div className={`stat kbw ${verdict?.tone ?? ""}`}>
+      <div className="stat-label">Bilans wodny (<Term k="KBW" />) z ostatnich 60 dni – do {dateStr(d.end)}</div>
+      <div className="stat-value">{signed(cur, "mm")}</div>
+      {verdict && <div className="kbw-verdict">{verdict.text}</div>}
+      {norm != null && (
+        <div className="kbw-bars" role="img" aria-label={`Teraz ${signed(cur, "mm")}, zwykle ${signed(norm, "mm")}`}>
+          <div className="kbw-row"><span className="kbw-lbl">teraz</span>
+            <span className="kbw-track"><span className="kbw-zero" /><span className={`kbw-fill ${cur < 0 ? "neg" : "pos"}`} style={bar(cur)} /></span>
+            <span className="kbw-val">{signed(cur, "mm")}</span></div>
+          <div className="kbw-row"><span className="kbw-lbl">zwykle</span>
+            <span className="kbw-track"><span className="kbw-zero" /><span className="kbw-fill norm" style={bar(norm)} /></span>
+            <span className="kbw-val">{signed(norm, "mm")}</span></div>
+          <div className="kbw-scale small muted"><span>← mniej wody (parowanie &gt; opad)</span><span>więcej wody →</span></div>
+        </div>
+      )}
     </div>
   );
 }
@@ -44,9 +62,10 @@ export function WeatherView({ d, asOf }: { d: WeatherHistory; asOf: string }) {
     data: {
       labels: sums.map((s) => `${MONTHS_SHORT[+s.month.slice(5) - 1]} ${s.month.slice(0, 4)}`),
       datasets: [
-        { type: "bar", label: "opad w miesiącu [mm]", data: sums.map((s) => s.p), backgroundColor: COLORS.rain, borderWidth: 0 },
+        { type: "bar", label: "opad w miesiącu [mm]", data: sums.map((s) => s.p), backgroundColor: "rgba(47,111,179,.28)",
+          borderWidth: 0, order: 2 },
         { type: "line", label: "norma 10-letnia [mm]", data: sums.map((s) => normal.get(+s.month.slice(5))?.precip_mean_mm ?? null),
-          borderColor: COLORS.normal, borderWidth: 1.5, pointRadius: 0, tension: 0.3 },
+          borderColor: "#b45309", borderWidth: 3.5, pointRadius: 0, tension: 0.35, order: 1 },
       ],
     },
     options: { plugins: { legend: { position: "bottom" } }, scales: { x: { ticks: { maxTicksLimit: 11, autoSkip: true } }, y: { title: { display: true, text: "mm" } } } },
@@ -68,7 +87,11 @@ export function WeatherView({ d, asOf }: { d: WeatherHistory; asOf: string }) {
   }), [thisYear, normal, year]);
 
   const seasons = [...d.seasons].sort((a, b) => b.year - a.year);
-  const worst = d.seasons.reduce<number | null>((m, s) => (s.cwb_apr_sep_mm != null && (m == null || s.cwb_apr_sep_mm < m) ? s.cwb_apr_sep_mm : m), null);
+  const cwbs = d.seasons.map((x) => x.cwb_apr_sep_mm).filter((v): v is number => v != null);
+  const mean = cwbs.length ? cwbs.reduce((a, b) => a + b, 0) / cwbs.length : null;
+  const sd = cwbs.length > 1 && mean != null ? Math.sqrt(cwbs.reduce((a, b) => a + (b - mean) ** 2, 0) / cwbs.length) : null;
+  const limit = mean != null && sd != null ? Math.max(30, 0.5 * sd) : null;   // ile mm poniżej średniej = „wyraźnie suchszy”
+  const isDry = (v: number | null) => v != null && mean != null && limit != null && v < mean - limit;
 
   return (
     <div className="view">
@@ -95,7 +118,7 @@ export function WeatherView({ d, asOf }: { d: WeatherHistory; asOf: string }) {
           <thead><tr><th>Rok</th><th>Opad</th><th>Parowanie <Term k="ET₀" /></th><th><Term k="KBW" /></th><th>Najdłużej bez deszczu</th></tr></thead>
           <tbody>
             {seasons.map((s) => (
-              <tr key={s.year} className={s.cwb_apr_sep_mm != null && s.cwb_apr_sep_mm === worst ? "row-bad" : ""}>
+              <tr key={s.year} className={isDry(s.cwb_apr_sep_mm) ? "row-bad" : ""}>
                 <td>{s.year}</td><td>{num(s.precip_apr_sep_mm, "mm")}</td><td>{num(s.et0_apr_sep_mm, "mm")}</td>
                 <td>{signed(s.cwb_apr_sep_mm, "mm")}</td><td>{num(s.longest_dry_spell_days, "dni")}</td>
               </tr>
@@ -103,8 +126,12 @@ export function WeatherView({ d, asOf }: { d: WeatherHistory; asOf: string }) {
           </tbody>
         </table>
       </div>
-      <p className="muted small">Najsuchszy sezon wyróżniony. „Bez deszczu” = kolejne dni z opadem poniżej 1 mm.
-        Dane pogodowe: {d.provider}; {d.grid_resolution_note}.</p>
+      {mean != null && limit != null && (
+        <p className="legend-note"><span className="swatch bad" /> <b>Czerwony wiersz = sezon wyraźnie suchszy niż zwykle</b>:
+          bilans wodny (KBW) niższy o ponad {num(limit, "mm")} od średniej z tych lat ({signed(mean, "mm")}).
+          Im bardziej ujemny KBW, tym więcej wody brakowało roślinom.</p>
+      )}
+      <p className="muted small">„Najdłużej bez deszczu” = najdłuższy ciąg dni z opadem poniżej 1 mm w kwietniu–wrześniu.</p>
     </div>
   );
 }
@@ -131,7 +158,6 @@ export function ForecastView({ d }: { d: WeatherForecast }) {
           <div className="stat-sub">bilans: {signed(sumP - sumE, "mm", 1)}</div></div>
       </div>
       <ChartBox config={config} height={180} label="Prognoza opadu i parowania" />
-      <p className="muted small">Prognoza od {dateStr(d.dates[0])} do {dateStr(d.dates[d.dates.length - 1])} ({d.provider}).</p>
     </div>
   );
 }

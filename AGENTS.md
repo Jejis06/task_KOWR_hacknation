@@ -126,6 +126,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ✅ | `crops.yaml` + data analizy: kampania (ozime od siewu jesienią, jare/wieloletnie w roku), fazy FAO-56 z datami i Kc, aktualna faza, okres krytyczny (miesiące z „(V–VI)”), `sowing_ok_now`, ostrzeżenia siewu, `suggested_crops_now`; bez uprawy – ogólny okres wegetacji | `CropCalendarInfo` | `blocks.py` (`crop_calendar()` – czysta funkcja) |
 | `legal_context` | B | 🟡 | reguły (nie LLM) z `legal_pl` + `procedures` + `funding`, 8 tematów (staw, oczko, zastawka, studnia ≤30 m, studnia głębinowa, nawadnianie z cieku / ze studni, istniejący zbiornik/rów); opłata wg roku daty analizy; limit 5 m³/d w mm dla powierzchni działki; fakty z hydrology / protected_areas / terrain przez `run_block` – bloki A są już ✅; po scaleniu profil na żywo: wszystkie 12 bloków `ok` (9,3 s) | `LegalContextInfo` | `blocks.py` (`legal_hints()`) |
+| `analysis` | B | ✅ | reguły (nie LLM) z bloków danych: ocena bieżąca (KBW 60 dni vs norma, susza, NDVI) i wieloletnia (sezony z suszą w 10 latach + kat. gleby), udziały przyczyn, rekomendacje NWRM (zastawka, oczko w zagłębieniu poza strefą powodziową, pas buforowy, mokradło, agrotechnika), nawadnianie FAO-56; park narodowy/rezerwat → bez retencji krajobrazowej | `AnalysisResult` | `knowledge/analysis.py` |
 
 ### Zweryfikowane endpointy (21.11.2026, HTTP 200, chyba że zaznaczono inaczej)
 
@@ -299,6 +300,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · B · fix/ui-feedback: blok `analysis` (raport nie blokuje już sekcji 2–5); teren – siatka NMT wyrównana do wspólnej kratki (spójne spływy u sąsiadów); ekran startowy (formularz + mapa, wyniki po „Sprawdź działkę”, klik mapy tylko wskazuje działkę); powiększanie kafelka mapy; ogórek i kapusta; KBW z paskami teraz/zwykle i zdaniem; linia normy na wykresie wyraźna; legenda czerwonych sezonów; komunikaty techniczne i ograniczenia prognozy schowane; strefa powodziowa bez czerwieni; źródła zwinięte; park narodowy/rezerwat – bez opcji budowy w prawie i analizie; front pobiera `legal_context`/`analysis` po blokach danych.
 - 2026-11-21 · koordynator · scalono `agent-a-data` + `agent-b-product` do `main`; konflikty: `types.ts` (jedna definicja typów A + typy B), `fixtures.ts` (mocki B + `realSamples` A), AGENTS.md.
 - 2026-11-21 · A · fix `drought`: parser SMSR mylił „Kategoria gleby IV” z „I” (cache SMSR v2); ruff --fix.
 - 2026-11-21 · A · pełny profil 9,4–11,6 s z pustym cache, ~1 ms z cache (3 działki); `docs/data_sources.md` uzupełnione; mocki = prawdziwe próbki.

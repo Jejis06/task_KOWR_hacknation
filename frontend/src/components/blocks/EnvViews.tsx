@@ -120,18 +120,27 @@ export function TerrainView({ d }: { d: TerrainInfo }) {
 }
 
 // ───────────── wody ─────────────
+const FLOOD_TEXT: Record<string, string> = {
+  "10%": "„raz na 10 lat” (10%)", "1%": "„raz na 100 lat” (1%)", "0.2%": "„raz na 500 lat” (0,2%)",
+};
 const KIND: Record<WaterKind, string> = { river: "rzeka", stream: "ciek / strumień", ditch: "rów melioracyjny", lake: "jezioro",
   pond: "staw / oczko", reservoir: "zbiornik", spring: "źródło", other: "inne" };
 
 export function HydrologyView({ d }: { d: HydrologyInfo }) {
   return (
     <div className="view">
-      <div className={`stat ${d.in_flood_zone ? "bad" : d.flood_zone_checked ? "good" : ""}`}>
-        <div className="stat-label">Strefa zagrożenia powodziowego (<Term k="ISOK" />)</div>
-        <div className="stat-value">{!d.flood_zone_checked ? "nie sprawdzono" : d.in_flood_zone ? `TAK – ${d.in_flood_zone}` : "poza strefą"}</div>
-        <div className="stat-sub">{d.in_flood_zone ? `scenariusz: woda ${d.in_flood_zone === "10%" ? "raz na 10 lat" : d.in_flood_zone === "1%" ? "raz na 100 lat" : "raz na 500 lat"}`
-          : d.flood_zone_checked ? "mapy obejmują tylko wybrane rzeki; nie pokazują zalań od ulew" : "warstwa niedostępna"}</div>
+      {/* Spokojny ton: strefa powodziowa to informacja do planowania, nie alarm (scenariusz 1% = średnio raz na 100 lat). */}
+      <div className={`stat ${d.in_flood_zone || d.in_flood_hazard_area ? "info" : d.flood_zone_checked ? "good" : ""}`}>
+        <div className="stat-label">Zagrożenie powodziowe z rzek (<Term k="ISOK" />)</div>
+        <div className="stat-value">{!d.flood_zone_checked ? "nie sprawdzono"
+          : d.in_flood_zone ? `strefa ${FLOOD_TEXT[d.in_flood_zone]}` : d.in_flood_hazard_area ? "w zasięgu mapy zagrożenia" : "poza strefą"}</div>
+        <div className="stat-sub">{d.in_flood_zone || d.in_flood_hazard_area
+          ? "Wynik modelu dla rzadkiej, dużej powodzi – nie bieżące zagrożenie. Ma znaczenie przy planowaniu stawu lub zbiornika (sprawdź w Wodach Polskich)."
+          : d.flood_zone_checked ? "Mapy obejmują wybrane rzeki i nie pokazują podtopień po ulewach." : "Warstwa była niedostępna."}</div>
       </div>
+      {d.in_groundwater_flood_area && (
+        <p className="small">Teren w obszarze możliwych podtopień wodami gruntowymi (PIG-PIB) – woda gruntowa bywa tu płytko.</p>
+      )}
       <h4>Wody w pobliżu</h4>
       {d.nearest_water.length ? (
         <div className="table-wrap"><table className="tbl"><thead><tr><th>Co</th><th>Nazwa</th><th>Odległość</th></tr></thead><tbody>

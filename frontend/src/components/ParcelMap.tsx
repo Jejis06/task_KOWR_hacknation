@@ -1,5 +1,5 @@
 // Czysty Leaflet (BSD-2) – bez react-leaflet (licencja Hippocratic, niezgodna z przeniesieniem praw na KOWR).
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import type { HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
 
@@ -8,7 +8,10 @@ export interface MapOverlays {
   places?: { title: string; geojson: GeoJSON.GeoJsonObject }[];   // miejsca z rekomendacji (raport)
 }
 
-export function ParcelMap(props: { parcel: ParcelRef | null; overlays?: MapOverlays; onPick: (lon: number, lat: number) => void }) {
+export function ParcelMap(props: {
+  parcel: ParcelRef | null; overlays?: MapOverlays; expandable?: boolean; onPick: (lon: number, lat: number) => void;
+}) {
+  const [expanded, setExpanded] = useState(false);
   const el = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const parcelLayer = useRef<L.GeoJSON | null>(null);
@@ -71,8 +74,30 @@ export function ParcelMap(props: { parcel: ParcelRef | null; overlays?: MapOverl
     }
   }, [props.overlays?.terrain, props.overlays?.hydrology, props.overlays?.places]);
 
+  // powiększenie całego kafelka (nie zoom): po zmianie rozmiaru Leaflet musi przeliczyć wymiary
+  useEffect(() => {
+    const m = map.current;
+    if (!m) return;
+    const t = setTimeout(() => {
+      m.invalidateSize();
+      if (props.parcel) {
+        const [x1, y1, x2, y2] = props.parcel.bbox;
+        m.fitBounds([[y1, x1], [y2, x2]], { padding: [40, 40], maxZoom: 17 });
+      }
+    }, 60);
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setExpanded(false);
+    if (expanded) window.addEventListener("keydown", esc);
+    document.body.classList.toggle("map-open", expanded);
+    return () => { clearTimeout(t); window.removeEventListener("keydown", esc); };
+  }, [expanded]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <div className="map-wrap">
+    <div className={`map-wrap${expanded ? " expanded" : ""}`}>
+      {props.expandable && (
+        <button type="button" className="map-expand no-print" aria-pressed={expanded} onClick={() => setExpanded((v) => !v)}>
+          {expanded ? "✕ Zmniejsz mapę" : "⤢ Powiększ mapę"}
+        </button>
+      )}
       <div className="map" ref={el} role="application" aria-label="Mapa – kliknij pole, aby wybrać działkę" />
       <p className="hint no-print">Przybliż mapę i kliknij swoje pole – granice działek widać od dużego przybliżenia. Zmień podkład na „Zdjęcie lotnicze” w prawym górnym rogu.</p>
     </div>

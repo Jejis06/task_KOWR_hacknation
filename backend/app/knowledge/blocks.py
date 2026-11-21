@@ -477,6 +477,22 @@ def legal_hints(ctx: AnalysisContext, hydro: dict | None, prot: dict | None,
 
     if slope is not None and slope > 3:
         hints[0].facts_used.append(f"średni spadek {slope:.1f}° – zbiornik wymaga grobli; uwaga na spływ i erozję")
+
+    # Park narodowy / rezerwat: budowa urządzeń wodnych praktycznie wykluczona – nie pokazujemy opcji budowy,
+    # tylko jedną kartę z wyjaśnieniem + korzystanie z tego, co już istnieje.
+    if strict:
+        names = ", ".join(f"{h['kind']} {h.get('name') or ''}".strip() for h in strict)
+        keep = [h for h in hints if h.topic == "istniejący zbiornik"]
+        return [LegalHint(
+            topic="obszar chroniony", title=f"Działka na obszarze ściśle chronionym ({names})",
+            requirement="budowa urządzeń wodnych praktycznie wykluczona", group="depends", status="OK",
+            caution="W parku narodowym i rezerwacie przyrody obowiązują zakazy budowy obiektów i urządzeń technicznych "
+                    "oraz zmiany stosunków wodnych.",
+            why=("Dlatego nie pokazujemy opcji budowy stawu, zastawki, studni ani urządzeń do nawadniania. "
+                 "Każde działanie (także zmiana sposobu użytkowania łąki) uzgodnij z dyrekcją parku albo RDOŚ – "
+                 "czasem to park sam prowadzi działania retencyjne (np. renaturyzację)."),
+            sources=["Ustawa z 16.04.2004 o ochronie przyrody, art. 15 ust. 1"], facts_used=[names],
+        )] + keep
     return hints
 
 
@@ -500,8 +516,12 @@ class LegalContextConnector(Connector):
         }
         hints = legal_hints(ctx, data["hydrology"], data["protected_areas"], data["terrain"])
 
+        strict = [h for h in (data["protected_areas"] or {}).get("hits") or []
+                  if any(k in (h.get("kind") or "").lower() for k in ("rezerwat", "park narodowy"))]
         funding = []
         for f in loader.items("funding"):
+            if strict and f.get("measures"):
+                continue  # inwestycje w zbiorniki – nie na obszarze ściśle chronionym
             if not f.get("for_farmer") or f.get("active") is False:
                 continue
             if "TUZ" in str(f.get("applies_to_land", "")) and ctx.crop not in (None, "", "tuz"):

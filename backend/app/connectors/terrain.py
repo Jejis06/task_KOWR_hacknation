@@ -30,13 +30,32 @@ MAX_POINTS = 7_000
 CHUNK = 1_000  # usługa zwraca wysokości tylko dla ~1000 pierwszych punktów żądania
 
 
+# Krok siatki tylko z ustalonych poziomów, a początek siatki przyciągnięty do wielokrotności kroku
+# w EPSG:2180 – sąsiednie działki dostają TE SAME punkty NMT, więc zagłębienia i linie spływu w części
+# wspólnej się pokrywają (wcześniej siatka była zakotwiczona w rogu bbox każdej działki osobno).
+CELL_LEVELS = (5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0)
+EDGE_MARGIN_M = 150.0  # obiekty dalej niż tyle od działki są zależne od brzegu okna – nie pokazujemy ich
+
+
+def snapped_grid(bounds: tuple[float, float, float, float], max_points: int = MAX_POINTS,
+                 min_cell: float = 5.0) -> tuple[tuple[float, float, float, float], float, int, int]:
+    """Zwraca (bbox przyciągnięty do kratki, krok, liczba wierszy, liczba kolumn)."""
+    minx, miny, maxx, maxy = bounds
+    for cell in CELL_LEVELS:
+        if cell < min_cell:
+            continue
+        x0, y0 = math.floor(minx / cell) * cell, math.floor(miny / cell) * cell
+        x1, y1 = math.ceil(maxx / cell) * cell, math.ceil(maxy / cell) * cell
+        ncols, nrows = int(round((x1 - x0) / cell)) + 1, int(round((y1 - y0) / cell)) + 1
+        if nrows * ncols <= max_points:
+            break
+    return (x0, y0, x1, y1), cell, nrows, ncols
+
+
 def grid_spec(bounds: tuple[float, float, float, float], max_points: int = MAX_POINTS,
               min_cell: float = 5.0) -> tuple[float, int, int]:
-    minx, miny, maxx, maxy = bounds
-    w, h = maxx - minx, maxy - miny
-    cell = max(min_cell, math.sqrt(w * h / max_points))
-    cell = float(math.ceil(cell))
-    return cell, int(h // cell) + 1, int(w // cell) + 1
+    _, cell, nrows, ncols = snapped_grid(bounds, max_points, min_cell)
+    return cell, nrows, ncols
 
 
 def parse_heights(text: str) -> list[float | None]:
@@ -121,6 +140,8 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
             "area_m2": round(float(m.sum() * cell ** 2)), "max_depth_m": round(float(depth[m].max()), 2),
             "volume_m3": round(float(depth[m].sum() * cell ** 2)),
             "touches_parcel": bool(geom.intersects(parcel_2180))}})
+    near = parcel_2180.buffer(EDGE_MARGIN_M)
+    dep_feats = [f for f in dep_feats if f["geom"].intersects(near)]
     dep_feats.sort(key=lambda f: (-int(f["props"]["touches_parcel"]), -f["props"]["volume_m3"]))
     dep_feats = dep_feats[:30]
 
@@ -148,6 +169,7 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
             flow_feats.append({"geom": ln.simplify(cell / 2), "props": {
                 "length_m": round(ln.length), "catchment_ha": round(float(acc[ri, ci] * cell ** 2 / 1e4), 2),
                 "crosses_parcel": bool(ln.intersects(parcel_2180))}})
+        flow_feats = [f for f in flow_feats if f["geom"].intersects(near)]
         flow_feats.sort(key=lambda f: (-int(f["props"]["crosses_parcel"]), -f["props"]["catchment_ha"]))
         flow_feats = flow_feats[:40]
 
@@ -178,12 +200,11 @@ class TerrainConnector(Connector):
     category = "spatial"
     live_ttl_s = 30 * 24 * 3600
     timeout_s = 15
-    cache_version = 2
+    cache_version = 3   # 3: siatka wyrównana do wspólnej kratki + filtr brzegu okna
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         parcel = to_2180(shape(ctx.parcel.geometry.model_dump()))
-        bounds = parcel.buffer(settings.analysis_buffer_m).bounds
-        cell, nrows, ncols = grid_spec(bounds)
+        bounds, cell, nrows, ncols = snapped_grid(parcel.buffer(settings.analysis_buffer_m).bounds)
         z = await fetch_grid(bounds, cell, nrows, ncols)
         if np.isnan(z).mean() > 0.5:
             return self.block(BlockStatus.no_data, messages=["NMT nie zwrócił wysokości dla tego obszaru."],
@@ -198,7 +219,7 @@ class TerrainConnector(Connector):
                f"(bruzdy, rowy węższe niż {cell:.0f} m) mogą być niewidoczne.",
                "Zagłębienia i linie spływu wyznaczone z samej rzeźby terenu – nie uwzględniają drenażu, "
                "przepustów ani rowów pod drogami.",
-               f"Na działce i w jej pobliżu (300 m): {n_dep} zagłębień bezodpływowych stykających się z działką, "
+               f"Pokazujemy obiekty do {EDGE_MARGIN_M:.0f} m od działki (dalej wynik zależy od brzegu okna analizy): {n_dep} zagłębień bezodpływowych stykających się z działką, "
                f"{n_flow} głównych linii spływu przecinających działkę."]
         status = BlockStatus.ok
         if a["_nan_share"] > 0.05:
