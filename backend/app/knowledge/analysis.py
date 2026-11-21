@@ -12,6 +12,7 @@ Progi punktowe są autorskie (SZACUNEK) i opisane w `method` / `limitations`; op
 from __future__ import annotations
 
 import asyncio
+import re
 from datetime import date, timedelta
 from typing import Any, ClassVar
 
@@ -23,12 +24,14 @@ from app.contracts.models import (
     Cause,
     DataBlock,
     Evidence,
+    FundingRef,
     IrrigationAdvice,
     Recommendation,
+    SowingOption,
     WaterAssessment,
 )
 from app.knowledge import loader
-from app.knowledge.blocks import _block_data, _knowledge_prov
+from app.knowledge.blocks import FAO56_URL, _block_data, _knowledge_prov, doc_prov
 from app.science import fao56
 
 LEVELS = ["none", "low", "moderate", "high", "very_high"]
@@ -56,12 +59,86 @@ DEP_TITLES = {"weather_history": "opady i parowanie", "weather_forecast": "progn
 def _mm(v: float | None, signed: bool = False) -> str:
     if v is None:
         return "brak danych"
-    s = f"{abs(v):.0f}".replace(".", ",")
+    s = _pl_dec(f"{abs(v):.0f}")
     return (("+" if v > 0 else "−" if v < 0 else "") if signed else ("−" if v < 0 else "")) + s + " mm"
+
+
+def _pl_dec(s: str) -> str:
+    """Przecinek dziesiętny tylko między cyframi („0.6°” → „0,6°”), bez psucia „ok.” i końca zdania."""
+    return re.sub(r"(?<=\d)\.(?=\d)", ",", s)
 
 
 def _ev(text: str, block: str) -> Evidence:
     return Evidence(text=text, block=block)
+
+
+MONTH_ABBR = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
+
+
+def _window(text: str, year: int) -> tuple[date, date]:
+    a, b = text.split("..")
+    return date(year, int(a[:2]), int(a[3:])), date(year, int(b[:2]), int(b[3:]))
+
+
+def _dm(d: date) -> str:
+    return f"{d.day} {MONTH_ABBR[d.month - 1]}"
+
+
+def _cover_source(i: int | None) -> tuple[str | None, str | None]:
+    src = loader.meta("cover_crops").get("sources") or []
+    if i is None or i >= len(src):
+        return None, None
+    return src[i].get("title"), src[i].get("url")
+
+
+def cover_crop_options(ctx: AnalysisContext, soil: dict | None, n: int = 3) -> list[SowingOption]:
+    """Gatunki międzyplonu dobrane do uprawy głównej (termin zbioru, pokrewieństwo) i gleby; najbliższe okno siewu."""
+    meta = loader.meta("cover_crops")
+    crop = loader.get_item("crops", ctx.crop) if ctx.crop else None
+    harvest = (crop or {}).get("harvest") or ""
+    early_until = meta.get("early_harvest_until", "08-25")
+    late = bool(".." in harvest and harvest.split("..")[0] > early_until)   # zbiór zaczyna się po terminie → tylko ozime
+    cat = _soil_cat(soil)
+    scored = []
+    for it in loader.items("cover_crops"):
+        if ctx.crop and ctx.crop in (it.get("avoid_after") or []):
+            continue
+        if late and it.get("type") == "ściernisk":
+            continue
+        if ".." in harvest and it["sow"].split("..")[1] < harvest.split("..")[0]:   # okno siewu kończy się przed zbiorem
+            continue
+        score = (2 if cat in (it.get("soils") or []) else 0) + (1 if it.get("status") == "OK" else 0)
+        scored.append((score, it))
+    scored.sort(key=lambda x: -x[0])
+    out = []
+    for _, it in scored[:n]:
+        a, b = _window(it["sow"], ctx.as_of.year)
+        if ctx.as_of > b:                                  # tegoroczne okno minęło → przyszły rok
+            a, b = _window(it["sow"], ctx.as_of.year + 1)
+        title, url = _cover_source(it.get("source"))
+        kind = "międzyplon ścierniskowy – zaraz po zbiorze" if it.get("type") == "ściernisk" else "międzyplon ozimy"
+        out.append(SowingOption(name=it["name_pl"], when=f"siew {_dm(a)} – {_dm(b)} {b.year} ({kind})",
+                                why=it["why"], source_title=title, source_url=url))
+    return out
+
+
+def _funding_refs(ids: list[str]) -> list[FundingRef]:
+    out = []
+    for i in ids:
+        it = loader.get_item("funding", i)
+        if not it:
+            continue
+        url = next((u for u in (loader.public_source(x) for x in it.get("sources") or []) if u), None)
+        out.append(FundingRef(name=it.get("name") or i, url=url))
+    return out
+
+
+def mulch_options() -> list[SowingOption]:
+    out = []
+    for it in loader.load("cover_crops").get("mulch") or []:
+        title, url = _cover_source(it.get("source"))
+        out.append(SowingOption(name=it["name_pl"], when=it["when"], why=it["why"], source_title=title, source_url=url))
+    return out
 
 
 def _seasons_pl(n: int) -> str:
@@ -130,7 +207,7 @@ def assess(ctx: AnalysisContext, d: dict[str, dict | None]) -> WaterAssessment |
     if veg and veg.get("anomaly") is not None and veg.get("in_growing_season"):
         if veg["anomaly"] < -0.1:
             pts += 1
-        ev.append(_ev(f"NDVI {veg['anomaly']:+.2f} względem normy dla tej pory roku".replace(".", ",").replace("-", "−"), "vegetation"))
+        ev.append(_ev(_pl_dec(f"NDVI {veg['anomaly']:+.2f} względem normy dla tej pory roku").replace("-", "−"), "vegetation"))
     # KBW (pogoda, siatka ~10 km) × NDMI (wilgotność liści z Sentinel-2, 20 m, ta działka): przyczyna vs skutek
     field_check = None
     ndmi_a = veg.get("ndmi_anomaly") if veg and veg.get("in_growing_season") else None
@@ -155,7 +232,7 @@ def assess(ctx: AnalysisContext, d: dict[str, dict | None]) -> WaterAssessment |
                        "label_pl": label, "text": text}
         if case == "confirmed":
             pts += 1
-        ev.append(_ev(f"NDMI (woda w liściach) {ndmi_a:+.2f} względem normy – {label.lower()}".replace(".", ",")
+        ev.append(_ev(_pl_dec(f"NDMI (woda w liściach) {ndmi_a:+.2f} względem normy – {label.lower()}")
                       .replace("-", "−"), "vegetation"))
     cur_level = "none" if pts == 0 else "low" if pts == 1 else "moderate" if pts <= 3 else "high" if pts == 4 else "very_high"
     if not in_season and LEVELS.index(cur_level) > LEVELS.index("moderate"):
@@ -183,7 +260,7 @@ def assess(ctx: AnalysisContext, d: dict[str, dict | None]) -> WaterAssessment |
     seasons = (w or {}).get("seasons") or []
     worst = min((s for s in seasons if s.get("cwb_apr_sep_mm") is not None), key=lambda s: s["cwb_apr_sep_mm"], default=None)
     if worst:
-        ev.append(_ev(f"najsuchszy sezon IV–IX: {worst['year']}, KBW {_mm(worst['cwb_apr_sep_mm'], True)}", "weather_history"))
+        ev.append(_ev(f"najsuchszy sezon (kwi–wrz): {worst['year']}, KBW {_mm(worst['cwb_apr_sep_mm'], True)}", "weather_history"))
 
     # miesiące ryzyka: okresy suszy z bloku drought → najczęstsze miesiące; inaczej najbardziej ujemny KBW IV–IX
     months: dict[int, int] = {}
@@ -249,7 +326,7 @@ def causes(ctx: AnalysisContext, d: dict[str, dict | None], field_check: dict | 
     if terr:
         slope = terr.get("slope_mean_deg")
         if slope is not None:
-            ev.append(_ev(f"średni spadek działki {slope:.1f}°".replace(".", ","), "terrain"))
+            ev.append(_ev(_pl_dec(f"średni spadek działki {slope:.1f}°"), "terrain"))
             wt += 0.6 if slope > 3 else 0.3 if slope > 1.5 else 0.0
         if terr.get("position") in ("hilltop", "upper_slope"):
             wt += 0.3
@@ -283,6 +360,20 @@ def causes(ctx: AnalysisContext, d: dict[str, dict | None], field_check: dict | 
 
 
 # ───────────────────────────── bilans ilościowy działki ─────────────────────────────
+def _weir_point(ctx: AnalysisContext, ditch: dict) -> dict | None:
+    """Proponowane miejsce zastawki: punkt rowu najbliższy działce (EPSG:4326; orientacyjnie – do sprawdzenia w terenie)."""
+    from shapely.geometry import mapping, shape
+    from shapely.ops import nearest_points
+    try:
+        g = ditch.get("geometry")
+        if not g:
+            return None
+        pt = nearest_points(shape(ctx.parcel.geometry.model_dump()), shape(g))[1]
+        return {"type": "Feature", "geometry": mapping(pt), "properties": {"kind": "weir"}}
+    except Exception:  # noqa: BLE001 – brak geometrii to nie błąd analizy
+        return None
+
+
 def _best_depression(terr: dict | None) -> dict | None:
     deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
             if (f.get("properties") or {}).get("touches_parcel")]
@@ -338,11 +429,13 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
     perennial = bool(crop and crop.get("type") == "wieloletnia")
     recs: list[Recommendation] = []
 
-    def add(mid: str, title: str, why: str, ev: list[Evidence], when: str | None = None, where: dict | None = None):
+    def add(mid: str, title: str, why: str, ev: list[Evidence], when: str | None = None, where: dict | None = None,
+            sowing: list[SowingOption] | None = None):
         m = measures[mid]
         recs.append(Recommendation(measure_id=mid, group=m["group"], title=title, why=why, when=when or m.get("when"),
                                    addresses=list(m.get("addresses") or []), legal_ids=list(m.get("legal_ids") or []),
-                                   funding_ids=list(m.get("funding") or []), where_geojson=where, evidence=ev))
+                                   funding_ids=list(m.get("funding") or []), where_geojson=where, evidence=ev,
+                                   sowing=sowing or [], funding=_funding_refs(m.get("funding") or [])))
 
     # retencja krajobrazowa – nie w parku narodowym / rezerwacie (budowa urządzeń praktycznie wykluczona)
     if not strict:
@@ -355,7 +448,8 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
             add("zastawka_row", f"Zastawka na rowie {nm}",
                 f"Rów {dch['distance_m']:.0f} m od działki odprowadza wodę poza gospodarstwo. Piętrzenie (zastawka) wiosną "
                 "zatrzyma wodę z roztopów w okolicy i podniesie poziom wód gruntowych.",
-                [_ev(f"rów melioracyjny: {dch['distance_m']:.0f} m od działki", "hydrology")], when="przed roztopami (II–III)")
+                [_ev(f"rów melioracyjny: {dch['distance_m']:.0f} m od działki", "hydrology")], when="przed roztopami (lut–mar)",
+                where=_weir_point(ctx, dch))
         flood = (hyd or {}).get("in_flood_zone") or (hyd or {}).get("in_flood_hazard_area")
         deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
                 if (f.get("properties") or {}).get("touches_parcel")]
@@ -370,9 +464,9 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
             why = (f"Na działce jest naturalne zagłębienie (ok. {p.get('area_m2', 0):.0f} m², do {p.get('max_depth_m', 0):.1f} m), "
                    "w którym zbiera się woda – mniej kopania. Do 5000 m² i 3 m głębokości wystarczy zgłoszenie wodnoprawne.").replace(".0 m", " m")
             if wb.get("depression_catchment_ha") is not None:
-                ev.append(_ev(f"zlewnia zagłębienia (spływ D8): {wb['depression_catchment_ha']:.1f} ha".replace(".", ","), "terrain"))
+                ev.append(_ev(_pl_dec(f"zlewnia zagłębienia (spływ D8): {wb['depression_catchment_ha']:.1f} ha"), "terrain"))
             if wb.get("depression_inflow_m3") is not None:
-                ev.append(_ev(f"napływ w półroczu chłodnym ok. {wb['depression_inflow_m3']:.0f} m³ (nadwyżka KBW X–III "
+                ev.append(_ev(f"napływ w półroczu chłodnym ok. {wb['depression_inflow_m3']:.0f} m³ (nadwyżka KBW paź–mar "
                               f"{wb['winter_surplus_mm']:.0f} mm × zlewnia; górny szacunek)", "weather_history"))
                 fill = wb.get("depression_fill_pct")
                 if fill is not None and fill < 50:
@@ -381,24 +475,24 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
                 elif fill is not None:
                     why += f" Zlewnia wystarcza, by zimą napełnić zagłębienie (napływ ok. {wb['depression_inflow_m3']:.0f} m³)."
             if wb.get("coverage_season_pct") is not None and wb.get("season_deficit_m3"):
-                ev.append(_ev(f"pojemność pokrywa ok. {wb['coverage_season_pct']:.0f}% średniego niedoboru wody w sezonie "
-                              f"({wb['season_deficit_m3']:.0f} m³ na całą działkę)".replace(".", ","), "weather_history"))
+                ev.append(_ev(_pl_dec(f"pojemność pokrywa ok. {wb['coverage_season_pct']:.0f}% średniego niedoboru wody w sezonie "
+                              f"({wb['season_deficit_m3']:.0f} m³ na całą działkę)"), "weather_history"))
             add("oczko_zbiornik", "Oczko wodne lub mały zbiornik w zagłębieniu terenu", why, ev,
-                when="poza sezonem (X–III), po zgłoszeniu wodnoprawnym", where=best)
+                when="poza sezonem (paź–mar), po zgłoszeniu wodnoprawnym", where=best)
         slope = (terr or {}).get("slope_mean_deg")
         near_water = [x for x in (hyd or {}).get("nearest_water") or [] if x["distance_m"] <= 100 and x.get("kind") != "ditch"]
         exits = [f for f in ((terr or {}).get("runoff_exits_geojson") or {}).get("features") or []]
         if share.get("odplyw_powierzchniowy", 0) >= 0.25 or (slope is not None and slope > 2) or near_water or exits:
             ev = []
             if slope is not None:
-                ev.append(_ev(f"średni spadek {slope:.1f}°".replace(".", ","), "terrain"))
+                ev.append(_ev(_pl_dec(f"średni spadek {slope:.1f}°"), "terrain"))
             if near_water:
                 ev.append(_ev(f"{near_water[0].get('name') or 'ciek'} {near_water[0]['distance_m']:.0f} m od działki", "hydrology"))
             if exits:
                 total_len = sum((f.get("properties") or {}).get("length_m") or 0 for f in exits)
                 top = max((f.get("properties") or {}).get("catchment_ha") or 0 for f in exits)
-                ev.append(_ev(f"woda spływa z pola w {len(exits)} miejscach granicy (łącznie ok. {total_len:.0f} m); "
-                              f"największy spływ zbiera wodę z {top:.1f} ha".replace(".", ","), "terrain"))
+                ev.append(_ev(_pl_dec(f"woda spływa z pola w {len(exits)} miejscach granicy (łącznie ok. {total_len:.0f} m); "
+                              f"największy spływ zbiera wodę z {top:.1f} ha"), "terrain"))
                 why = (f"Woda ucieka z pola w {len(exits)} konkretnych miejscach granicy (zaznaczone na mapie). Pas traw, krzewów "
                        f"lub drzew właśnie tam – łącznie ok. {total_len:.0f} m zamiast całego obwodu – spowolni odpływ, zatrzyma "
                        "glebę i ograniczy wysuszanie przez wiatr.")
@@ -423,7 +517,8 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
     if not perennial:
         add("miedzyplony", "Międzyplon po zbiorze plonu głównego",
             "Okrywa roślinna po żniwach ogranicza parowanie i erozję, a po przyoraniu zwiększa próchnicę i zapas wody w glebie.",
-            [_ev(f"węgiel organiczny {soc:.0f} g/kg", "soil")] if soc is not None else [], when="VII–VIII, zaraz po zbiorze")
+            [_ev(f"węgiel organiczny {soc:.0f} g/kg", "soil")] if soc is not None else [], when="zaraz po zbiorze plonu głównego",
+            sowing=cover_crop_options(ctx, soil))
     if g >= 0.2 or not perennial:
         ev = [_ev(f"udział przyczyny „gleba słabo zatrzymuje wodę”: {g:.0%}", "soil")] if g else []
         sav = _mulch_saving(ctx, d)
@@ -433,7 +528,7 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
                           "(FAO-56: −5% parowania na każde 10% okrycia)", "crop_calendar"))
         add("resztki_mulcz", "Zostaw resztki pożniwne jako mulcz",
             "Mulcz na powierzchni zmniejsza parowanie z wierzchniej warstwy gleby w okresie najczęstszych susz.",
-            ev, when="po zbiorze")
+            ev, when="po zbiorze", sowing=mulch_options())
     if (soc is not None and soc < 15) or _soil_cat(soil) in (1, 2):
         add("materia_organiczna", "Zwiększ materię organiczną (obornik, kompost)",
             "Każdy wzrost próchnicy zwiększa pojemność wodną gleby (inicjatywa „4 promile”).",
@@ -447,7 +542,7 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
     if slope is not None and slope > 3 and not perennial:
         add("uprawa_w_poprzek_stoku", "Uprawa w poprzek stoku",
             "Bruzdy w poprzek spadku zatrzymują wodę deszczową na polu i ograniczają erozję.",
-            [_ev(f"średni spadek {slope:.1f}°".replace(".", ","), "terrain")])
+            [_ev(_pl_dec(f"średni spadek {slope:.1f}°"), "terrain")])
 
     # priorytet = suma udziałów przyczyn, na które działa rekomendacja (w obrębie grupy)
     for grp in ("retencja_krajobrazowa", "agrotechnika"):
@@ -561,13 +656,12 @@ def irrigation(ctx: AnalysisContext, d: dict[str, dict | None]) -> IrrigationAdv
               for x in bal.days if x.day >= ctx.as_of - timedelta(days=60)]
     ev = [_ev(f"bilans wody w strefie korzeni od {start.strftime('%d.%m')}: ubyło {now.dr:.0f} mm z {now.taw:.0f} mm "
               f"wody dostępnej (łatwo dostępne {now.raw:.0f} mm)", "weather_history"),
-          _ev(f"zapas wody w glebie {awc:.0f} mm/m × korzenie {zr:.1f} m (FAO-56 równ. 82–83)".replace(".", ","),
+          _ev(_pl_dec(f"zapas wody w glebie {awc:.0f} mm/m × korzenie {zr:.1f} m (FAO-56 równ. 82–83)"),
               "soil" if soil else "crop_calendar")]
     if ratio is not None and ratio < 0.999:
         ev.append(_ev(f"od początku sezonu rośliny zużyły {ratio:.0%} wody, której potrzebowały (Ks < 1 w {sum(1 for x in bal.days if not x.forecast and x.ks < 1)} dniach)", "weather_history"))
     if loss:
-        ev.append(_ev(f"szacowany spadek plonu przez niedobór wody: ok. {loss:.0%} (FAO-56 równ. 90, Ky = {ky:.2f})"
-                      .replace(".", ","), "crop_calendar"))
+        ev.append(_ev(_pl_dec(f"szacowany spadek plonu przez niedobór wody: ok. {loss:.0%} (FAO-56 równ. 90, Ky = {ky:.2f})"), "crop_calendar"))
     common = dict(depletion_mm=now.dr, taw_mm=now.taw, raw_mm=now.raw, ks=now.ks, horizon_days=horizon,
                   season_et_ratio=ratio, yield_loss_pct=round(loss * 100, 1) if loss is not None else None,
                   soil_water=series, days_to_stress=days_to, stress_date=stress.day.isoformat() if stress else None)
@@ -625,13 +719,13 @@ def analyse_all(ctx: AnalysisContext, d: dict[str, dict | None], not_applicable:
         "Ocena bieżąca: KBW z 60 dni względem normy z 10 lat, aktualna ocena suszy (SMSR / KBW działki / EDO), anomalia NDVI.",
         "Podatność wieloletnia: liczba sezonów z suszą rolniczą w 10 latach (progi KBW SMSR, rozp. MRiRW z 11.04.2019) "
         "skorygowana kategorią gleby SMSR.",
-        "Przyczyny: średni KBW IV–IX, kategoria gleby i zapas wody, spadek terenu i linie spływu, rowy, wrażliwość uprawy.",
+        "Przyczyny: średni KBW w sezonie (kwi–wrz), kategoria gleby i zapas wody, spadek terenu i linie spływu, rowy, wrażliwość uprawy.",
         "Rekomendacje: katalog naturalnych metod retencji (NWRM, KE 2014/2015), najpierw retencja, potem agrotechnika, "
         "nawadnianie na końcu.",
         "Nawadnianie: dobowy bilans wody w strefie korzeni FAO-56 (rozdz. 8, równ. 81–88) od początku faz uprawy, "
         "współczynnik stresu Ks (równ. 84), p skorygowane do ETc (tab. 22), Kc pełni wzrostu skorygowane do wiatru i "
         "wilgotności (równ. 62), spadek plonu 1 − Ya/Ym = Ky(1 − ETa/ETc) (równ. 90, Ky z tab. 24 za FAO-33).",
-        "Bilans ilościowy: 1 mm na 1 ha = 10 m³; napływ do zagłębienia = nadwyżka KBW X–III × zlewnia D8 (górny szacunek).",
+        "Bilans ilościowy: 1 mm na 1 ha = 10 m³; napływ do zagłębienia = nadwyżka KBW paź–mar × zlewnia D8 (górny szacunek).",
         "KBW × NDMI: pogoda (siatka ~10 km) zestawiona z wilgotnością liści z Sentinel-2 (20 m) na tej działce.",
     ]
     return res
@@ -642,7 +736,7 @@ class AnalysisConnector(Connector):
     uses_crop = True
     live_ttl_s = 3 * 3600
     timeout_s = 20
-    cache_version = 3
+    cache_version = 4   # 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
     depends_on: ClassVar[tuple[str, ...]] = DEPS
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
@@ -652,9 +746,14 @@ class AnalysisConnector(Connector):
         d = {k: _block_data(b) for k, b in zip(DEPS, blocks)}
         na = {k for k, b in zip(DEPS, blocks) if not isinstance(b, BaseException) and b.status == BlockStatus.not_applicable}
         res = analyse_all(ctx, d, na)
-        prov = [_knowledge_prov("reguły analizy (knowledge/analysis.py) + katalog działań (retention_measures.yaml)",
-                                loader.meta("measures").get("snapshot_date"),
-                                notes="wynik liczony z bloków danych pobranych dla tej działki i daty")]
+        snap = loader.meta("measures").get("snapshot_date")
+        prov = [doc_prov("smsr_podstawy_2012", snap, notes="ocena suszy: KBW w okresach 60-dniowych i progi dla kategorii gleb; "
+                         "wynik liczony z danych pobranych dla tej działki i daty"),
+                _knowledge_prov("FAO-56 Crop evapotranspiration (Allen i in.) – dobowy bilans wody w strefie korzeni", snap,
+                                url=FAO56_URL, notes="rozdz. 8 i 11: nawadnianie, mulcz"),
+                doc_prov("nwrm_guide_2015", snap, notes="naturalne metody zatrzymywania wody (zastawki, oczka, pasy buforowe)"),
+                doc_prov("cdr_eporadnik_2025", snap, notes="międzyplony, mulcz, mała retencja w gospodarstwie"),
+                doc_prov("iung_sir66_6_retencja_gleby", snap, notes="praktyki zwiększające retencję wody w glebie")]
         if res.assessment is None:
             return self.block(BlockStatus.no_data, res, provenance=prov, uncertainty=res.limitations,
                               messages=["Brak danych do oceny sytuacji wodnej."])

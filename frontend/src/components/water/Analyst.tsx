@@ -12,6 +12,7 @@ import {
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { blockDefinitions, canShowAdvice, type DataBlock } from "@/api/client";
+import { seasonRows, seasonWindow } from "@/api/adapt";
 import { CropCalendarView, SourceLine, Sources, Term } from "./shared";
 type Props = { blocks: Record<string, DataBlock>; onMap: (id: string) => void; loading: boolean; date: string };
 const STATUS: Record<string, string> = {
@@ -170,6 +171,60 @@ function DataChart({ block }: { block: DataBlock }) {
     </>
   );
 }
+const fmt = (v: number | null, signed = false) =>
+  v == null ? "brak" : `${signed && v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(v).toLocaleString("pl-PL")}`;
+
+/** Sezony wegetacyjne jak arkusz: kolumny z liczbami wyrównanymi do prawej, okno = okres wegetacji uprawy. */
+function SeasonTable({ weather, cal, date }: { weather: DataBlock; cal: DataBlock | undefined; date: string }) {
+  const w = seasonWindow(cal?.data.raw);
+  const rows = seasonRows(weather.data.raw, w, date);
+  const full = rows.filter((r) => !r.partial && r.cwb != null);
+  const mean = full.length ? Math.round(full.reduce((a, r) => a + (r.cwb as number), 0) / full.length) : null;
+  if (!rows.length) return <p className="text-xs text-muted-foreground">Brak dziennej serii pogody – tabela sezonów niedostępna.</p>;
+  return (
+    <>
+      <h3 className="text-xs font-semibold mt-4">Sezony wegetacyjne · {w.label}</h3>
+      <div className="sheet-wrap">
+        <table className="sheet-table">
+          <thead>
+            <tr>
+              <th scope="col">Rok</th>
+              <th scope="col" className="num">Opad [mm]</th>
+              <th scope="col" className="num">Parowanie <Term name="ET₀" /> [mm]</th>
+              <th scope="col" className="num">Bilans <Term name="KBW" /> [mm]</th>
+              <th scope="col" className="num">Najdłużej bez deszczu [dni]</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.year} className={[r.dry ? "dry" : "", r.partial ? "partial" : ""].join(" ").trim()}>
+                <th scope="row">{w.crossYear ? `${r.year - 1}/${String(r.year).slice(2)}` : r.year}{r.partial ? "*" : ""}</th>
+                <td className="num">{fmt(r.precip)}</td>
+                <td className="num">{fmt(r.et0)}</td>
+                <td className={`num strong ${r.cwb != null && r.cwb < 0 ? "neg" : "pos"}`}>{fmt(r.cwb, true)}</td>
+                <td className="num">{fmt(r.drySpell)}</td>
+              </tr>
+            ))}
+          </tbody>
+          {mean != null && (
+            <tfoot>
+              <tr><th scope="row">Średnio</th><td className="num" /><td className="num" />
+                <td className="num strong">{fmt(mean, true)}</td><td className="num" /></tr>
+            </tfoot>
+          )}
+        </table>
+      </div>
+      <p className="legend-note">
+        <span className="swatch-dry" /> <strong>Czerwony wiersz</strong> = sezon wyraźnie suchszy niż zwykle (bilans niższy o ponad
+        max(30 mm, ½ odchylenia standardowego) od średniej).
+        {rows.some((r) => r.partial) && <> * sezon trwa – liczony do daty analizy.</>}
+        {" "}„Najdłużej bez deszczu” = najdłuższy ciąg dni z opadem poniżej 1 mm.
+        {!w.crop && " Wybierz uprawę, aby policzyć sezon dla jej okresu wegetacji."}
+      </p>
+    </>
+  );
+}
+
 export default function Analyst({ blocks, onMap, loading, date }: Props) {
   return (
     <div className="analyst-grid" id="data-content" role="tabpanel" aria-labelledby="data-tab">
@@ -217,17 +272,16 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                 </div>
               ))}
             {b.key === "crop_calendar" && <CropCalendarView block={b} asOf={date} />}
-            {b.data.rows && b.key !== "land_cover" && b.key !== "crop_calendar" && (
+            {b.key === "weather_history" && <SeasonTable weather={b} cal={blocks["crop_calendar"]} date={date} />}
+            {b.data.rows && b.key !== "land_cover" && b.key !== "crop_calendar" && b.key !== "weather_history" && (
               <>
                 <h3 className="text-xs font-semibold mt-4">
-                  {b.key === "weather_history"
-                    ? "Sezony wegetacyjne · kwiecień–wrzesień (10 lat wstecz i lata po dacie analizy)"
-                    : b.key === "hydrology" ? "Wody w okolicy – kliknij, aby wycentrować na mapie" : "Szczegóły"}
+                  {b.key === "hydrology" ? "Wody w okolicy – kliknij, aby wycentrować na mapie" : "Szczegóły"}
                 </h3>
                 <table className="data-table">
                   <thead>
                     <tr>
-                      <th scope="col">{b.key === "weather_history" ? "Rok" : "Informacja"}</th>
+                      <th scope="col">Informacja</th>
                       <th scope="col">Wartość</th>
                     </tr>
                   </thead>

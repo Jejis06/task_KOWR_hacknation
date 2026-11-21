@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import health, knowledge, parcel
+from app.api.routes import health, knowledge, parcel, tiles
 from app.config import settings
 from app.core.http import close_client
 
@@ -26,3 +26,4 @@ app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_me
 app.include_router(health.router)
 app.include_router(parcel.router)
 app.include_router(knowledge.router)
+app.include_router(tiles.router)

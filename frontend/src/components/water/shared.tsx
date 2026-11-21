@@ -97,7 +97,7 @@ export function Sources({ block }: { block: DataBlock | undefined }) {
             </p>
             <p>
               {p.licence ?? "licencja: brak informacji"} ·{" "}
-              {p.mode === "local_snapshot" ? "Baza wiedzy zespołu" : p.mode === "live" ? "Dane pobrane teraz" : "Dane pobrane wcześniej (pamięć podręczna)"}
+              {p.mode === "local_snapshot" ? "Dokument źródłowy (wersja z dnia podanego wyżej)" : p.mode === "live" ? "Dane pobrane teraz" : "Dane pobrane wcześniej (pamięć podręczna)"}
             </p>
             {p.notes && <p>{p.notes}</p>}
             {p.query_url && (

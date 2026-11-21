@@ -71,3 +71,12 @@ oznaczonych „MOCK” (baner na górze strony). Kształt danych 1:1 z kontrakte
   (są w „Skąd te dane”); źródła na kartach zwinięte do jednej linii.
 - **Strefa powodziowa:** niebieska informacja, nie czerwony alarm – „wynik modelu dla rzadkiej, dużej powodzi, nie bieżące zagrożenie”.
 - **Park narodowy / rezerwat:** zamiast kart „staw / studnia / nawadnianie” jedna karta „budowa urządzeń wodnych praktycznie wykluczona”.
+
+## Zmiany po testach z użytkownikami (21.11, wieczór, gałąź fix/farmer-feedback-3)
+
+- **Zadbaj o glebę:** międzyplon i mulcz pokazują „Co i kiedy siać / zrobić” (gatunek, okno siewu z rokiem, dlaczego, źródło) zamiast formalności wodnych i dotacji.
+- **Miesiące** zawsze skrótami (sty, lut, …, gru), nigdy cyframi rzymskimi.
+- **Sezony wegetacyjne:** tabela jak arkusz (Rok | Opad | Parowanie | Bilans | Najdłużej bez deszczu, liczby do prawej), okno = okres wegetacji wybranej uprawy, bez uprawy marzec–wrzesień; wiersz średniej.
+- **Źródła:** tylko tytuły dokumentów i linki (ustawa w ISAP, FAO-56, SMSR, CDR, Wody Polskie, ARiMR) – bez nazw plików aplikacji.
+- **Miarka KBW:** prawdziwa skala w mm z podziałką i linią zera (opad = parowanie); słupki teraz/zwykle od zera.
+- **Mapa:** „Woda i kierunek odpływu” (niebieskie: zagłębienia, spływ, miejsca ucieczki wody) osobno od „Proponowanych działań” (pinezki z ikoną: zastawka na rowie, zbiornik/oczko, pas zieleni, studnia – tylko gdy nawadnianie zasadne i prawo nie wyklucza ujęcia).

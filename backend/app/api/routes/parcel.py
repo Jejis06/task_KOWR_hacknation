@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException, Query
 
 from app.config import settings
 from app.connectors.registry import BLOCKS
-from app.connectors.uldk import ParcelNotFound, resolve_by_id, resolve_by_xy
+from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy
 from app.contracts.models import AnalysisContext, BlockInfo, DataBlock, ParcelProfile, ParcelRef
 from app.services.profile import build_profile, run_block
 
@@ -32,6 +32,8 @@ async def _resolve(id: str | None, lon: float | None, lat: float | None) -> Parc
             return await resolve_by_xy(lon, lat)
     except ParcelNotFound as e:
         raise HTTPException(404, f"Nie znaleziono działki: {e}") from e
+    except UldkLimited as e:
+        raise HTTPException(503, str(e), headers={"Retry-After": "60"}) from e
     raise HTTPException(422, "Podaj identyfikator działki (id) albo współrzędne (lon, lat).")
 
 

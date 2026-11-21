@@ -359,6 +359,21 @@ class Cause(BaseModel):
     evidence: list[Evidence] = Field(default_factory=list)
 
 
+class SowingOption(BaseModel):
+    """2026-11-21 (B): gatunek międzyplonu lub sposób mulczowania – co i kiedy zrobić (zamiast formalności wodnych)."""
+    name: str
+    when: str                          # „siew 20 lip – 25 sie 2027” / „zaraz po zbiorze”
+    why: str
+    source_title: str | None = None
+    source_url: str | None = None
+
+
+class FundingRef(BaseModel):
+    """2026-11-21 (B): nazwa programu i link – żeby UI nie pokazywał wewnętrznych identyfikatorów."""
+    name: str
+    url: str | None = None
+
+
 class Recommendation(BaseModel):
     measure_id: str                    # → data/knowledge/procedures/retention_measures.yaml
     group: Literal["retencja_krajobrazowa", "agrotechnika", "nawadnianie"]
@@ -371,6 +386,8 @@ class Recommendation(BaseModel):
     legal_ids: list[str] = Field(default_factory=list)   # → legal_pl; UI dobiera kartę z legal_context
     funding_ids: list[str] = Field(default_factory=list)
     evidence: list[Evidence] = Field(default_factory=list)
+    sowing: list[SowingOption] = Field(default_factory=list)   # 2026-11-21 (B): międzyplon/mulcz – gatunki i terminy
+    funding: list[FundingRef] = Field(default_factory=list)    # 2026-11-21 (B): programy z funding_ids po nazwie
 
 
 class IrrigationAdvice(BaseModel):

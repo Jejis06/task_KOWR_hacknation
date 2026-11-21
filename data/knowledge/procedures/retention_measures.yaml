@@ -10,7 +10,7 @@ items:
     name: Międzyplony / poplony
     group: agrotechnika
     addresses: [gleba_niska_retencja, odplyw_powierzchniowy]
-    when: "Siew po zbiorze plonu głównego (VII–VIII), pozostawienie na zimę lub do wiosny"
+    when: "Siew po zbiorze plonu głównego (lip–sie), pozostawienie na zimę lub do wiosny"
     effect: "Zwiększa materię organiczną i infiltrację, chroni przed parowaniem i erozją."
     legal: brak
     funding: []

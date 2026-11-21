@@ -73,6 +73,36 @@ function Measure({
             </Button>
           )}
         </div>
+        {r.group === "agrotechnika" ? (
+          !r.sowing?.length && !r.when ? null : <details className="details-box" open={!!r.sowing?.length}>
+            <summary>{r.measure_id === "miedzyplony" ? "Co i kiedy siać" : r.sowing?.length ? "Co i kiedy zrobić" : "Kiedy"}</summary>
+            <div className="details-content">
+              {r.sowing?.length ? (
+                <ul className="sowing-list">
+                  {r.sowing.map((o) => (
+                    <li key={o.name}>
+                      <strong>{o.name}</strong>
+                      <span className="sowing-when">{o.when}</span>
+                      <span>{o.why}</span>
+                      {o.source_url && (
+                        <a href={o.source_url} target="_blank" rel="noreferrer" className="sowing-src">
+                          Źródło: {o.source_title ?? "dokument"}
+                        </a>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p><strong>Kiedy:</strong> {r.when ?? "w dogodnym terminie agrotechnicznym"}</p>
+              )}
+              {r.measure_id === "miedzyplony" && (
+                <p className="text-xs text-muted-foreground mt-2">
+                  Gatunki dobrane do uprawy głównej (termin zbioru, wspólne choroby) i gleby. Terminy orientacyjne – lokalnie ±1–2 tygodnie.
+                </p>
+              )}
+            </div>
+          </details>
+        ) : (
         <details className="details-box">
           <summary>Kiedy, formalności i wsparcie</summary>
           <div className="details-content">
@@ -83,7 +113,7 @@ function Measure({
               <strong>Formalności:</strong>{" "}
               {hint
                 ? `${hint.requirement} – ${hint.title ?? hint.topic}`
-                : r.group === "agrotechnika" || !r.legal_ids.length
+                : !r.legal_ids.length
                   ? "Bez formalności wodnych."
                   : "Przed pracami sprawdź, czy potrzebne jest zgłoszenie lub pozwolenie wodnoprawne."}{" "}
               {r.legal_ids.length > 0 && <Term name="Pozwolenie wodnoprawne" />}
@@ -92,13 +122,25 @@ function Measure({
             {hint?.caution && <p className="text-warning">⚠ {hint.caution}</p>}
             <p className="mt-2">
               <strong>Wsparcie:</strong>{" "}
-              {r.funding_ids.length
-                ? `Możliwe programy (sprawdź aktualne nabory): ${r.funding_ids.join(", ")}.`
-                : "Brak przypisanego programu dofinansowania."}
+              {r.funding?.length ? (
+                <>
+                  Możliwe programy (sprawdź aktualne nabory):{" "}
+                  {r.funding.map((f, i) => (
+                    <span key={f.name}>
+                      {i > 0 && "; "}
+                      {f.url ? <a href={f.url} target="_blank" rel="noreferrer" className="underline">{f.name}</a> : f.name}
+                    </span>
+                  ))}
+                  .
+                </>
+              ) : (
+                "Brak przypisanego programu dofinansowania."
+              )}
             </p>
             <SourceLine block={blocks["legal_context"]} />
           </div>
         </details>
+        )}
       </div>
     </article>
     </FlipCard>
@@ -111,6 +153,55 @@ const ILLU: Record<string, "pond" | "weir" | "soil" | "irrigation" | "terrain"> 
 };
 const nf = (v: number | null | undefined, d = 0) => (v == null ? "–" : v.toLocaleString("pl-PL", { maximumFractionDigits: d }));
 const sezony = (n: number) => (n === 0 ? "brak suchych sezonów na 10" : n === 1 ? "1 suchy sezon na 10" : n < 5 ? `${n} suche sezony na 10` : `${n} suchych sezonów na 10`);
+
+/**
+ * Miarka bilansu wody (KBW z 60 dni) w prawdziwej skali mm: linia zera = opad równy parowaniu, słupki od zera
+ * w dół (niedobór) lub w górę (nadwyżka), podziałka co „ładny” krok dobrany do wartości.
+ */
+function WaterGauge({ cur, norm }: { cur: number | null; norm: number | null }) {
+  const vals = [cur ?? 0, norm ?? 0, 0];
+  const rawMin = Math.min(...vals), rawMax = Math.max(...vals);
+  const span = Math.max(40, rawMax - rawMin);
+  const step = [10, 20, 25, 50, 100].find((s) => span / s <= 6) ?? 100;
+  const lo = Math.floor((rawMin - span * 0.08) / step) * step, hi = Math.ceil((rawMax + span * 0.08) / step) * step;
+  const H = 160, top = 18, W = 150, axisX = 38;
+  const y = (v: number) => top + ((hi - v) / (hi - lo)) * H;
+  const ticks: number[] = [];
+  for (let t = lo; t <= hi; t += step) ticks.push(t);
+  const bar = (v: number | null, x: number, cls: string, label: string) => {
+    if (v == null) return null;
+    const y0 = y(0), y1 = y(v);
+    return (
+      <g>
+        <rect x={x} y={Math.min(y0, y1)} width={26} height={Math.max(1.5, Math.abs(y1 - y0))} rx={2}
+          className={`wg-bar ${cls} ${v < 0 ? "neg" : "pos"}`} />
+        <text x={x + 13} y={v < 0 ? y1 + 13 : y1 - 5} textAnchor="middle" className={`wg-val ${cls}`}>
+          {v > 0 ? "+" : v < 0 ? "−" : ""}{Math.abs(Math.round(v))}
+        </text>
+        <text x={x + 13} y={top + H + 16} textAnchor="middle" className="wg-lbl">{label}</text>
+      </g>
+    );
+  };
+  return (
+    <div className="water-gauge" role="img" aria-label={`Bilans wody z 60 dni: teraz ${smm(cur)}, zwykle ${smm(norm)}. Zero oznacza opad równy parowaniu.`}>
+      <svg viewBox={`0 0 ${W} ${top + H + 24}`} width={W} height={top + H + 24}>
+        <rect x={axisX} y={top} width={W - axisX - 6} height={H} className="wg-frame" />
+        {ticks.map((t) => (
+          <g key={t}>
+            <line x1={axisX - 5} x2={t === 0 ? W - 6 : axisX} y1={y(t)} y2={y(t)} className={t === 0 ? "wg-zero" : "wg-tick"} />
+            <text x={axisX - 8} y={y(t) + 3.5} textAnchor="end" className="wg-tick-lbl">{t > 0 ? `+${t}` : t}</text>
+          </g>
+        ))}
+        {bar(cur, axisX + 14, "cur", "teraz")}
+        {bar(norm, axisX + 62, "norm", "zwykle")}
+        <text x={axisX - 8} y={9} textAnchor="end" className="wg-unit">mm</text>
+      </svg>
+      <div className="gauge-caption">
+        Bilans wody z 60 dni <Term name="KBW" /> · 0 = opad równy parowaniu
+      </div>
+    </div>
+  );
+}
 
 /** Bilans ilościowy: niedobór wody na całej działce [m³] vs pojemność i napływ do zagłębienia. */
 function WaterBalancePanel({ wb, onMap }: { wb: WaterBalance; onMap: (id: string) => void }) {
@@ -182,8 +273,6 @@ export default function Report({ blocks, date, onMap, onData, loading }: Props) 
   const weather = blocks["weather_history"];
   const forecast = blocks["weather_forecast"];
   const cur = weather?.data.balance_mm ?? null, norm = weather?.data.normal_mm ?? null;
-  const lo = Math.min(-200, cur ?? 0, norm ?? 0), hi = Math.max(60, cur ?? 0, norm ?? 0);
-  const lvl = (v: number | null) => (v == null ? 0 : ((v - lo) / (hi - lo)) * 100);
   const years = Array.from({ length: 10 }, (_, i) => Number(date.slice(0, 4)) - 9 + i);
   if (!canShowAdvice(analysis) || !a)
     return (
@@ -243,36 +332,7 @@ export default function Report({ blocks, date, onMap, onData, loading }: Props) 
                 <Term name="Pewność oceny" />
               </div>
             </div>
-            <div
-              className="gauge"
-              role="img"
-              aria-label={`Bilans wody: ${smm(cur)}. Zwykle ${smm(norm)}.`}
-            >
-              <div className="gauge-track">
-                <div className="gauge-water" style={{ height: `${lvl(cur)}%` }} />
-                <div className="gauge-normal" style={{ top: "auto", bottom: `${lvl(norm)}%` }} />
-                <div className="gauge-current" style={{ bottom: `${lvl(cur)}%` }} />
-              </div>
-              <div className="gauge-labels" style={{ display: "flex", flexDirection: (cur ?? 0) >= (norm ?? 0) ? "column-reverse" : "column" }}>
-                <div className="normal">
-                  Zwykle
-                  <strong>
-                    {norm != null ? Math.round(norm) : "—"}{" "}
-                    <small className="text-xs font-normal">mm</small>
-                  </strong>
-                </div>
-                <div className="current">
-                  Teraz
-                  <strong>
-                    {cur != null ? Math.round(cur) : "—"}{" "}
-                    <small className="text-xs font-normal">mm</small>
-                  </strong>
-                </div>
-              </div>
-              <div className="gauge-caption">
-                Bilans wody z 60 dni <Term name="KBW" />
-              </div>
-            </div>
+            <WaterGauge cur={cur} norm={norm} />
           </div>
           <div className="verdict-bottom">
             <Droplets size={18} />

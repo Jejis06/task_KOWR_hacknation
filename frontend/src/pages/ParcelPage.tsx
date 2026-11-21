@@ -64,6 +64,8 @@ export function ParcelPage() {
   const [crop, setCrop] = useState(USE_MOCKS ? "wheat" : "");
   const [crops, setCrops] = useState<Crop[]>([]);
   const [selected, setSelected] = useState<ParcelRef | null>(null);
+  /** działka kliknięta na mapie po analizie – pokazujemy jej dane, analiza dopiero po „Sprawdź tę działkę” */
+  const [picked, setPicked] = useState<ParcelRef | null>(null);
   const [context, setContext] = useState<{ date: string; crop: string; parcel: ParcelRef | null }>({ date: sampleDate, crop: "", parcel: null });
   const [blocks, setBlocks] = useState<Record<string, DataBlock>>({});
   const [tab, setTab] = useState<"report" | "data">("report");
@@ -80,6 +82,8 @@ export function ParcelPage() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const idInput = useRef<HTMLInputElement>(null);
   const bounds = dateBounds();
+  /** ekran startowy = sam formularz; mapa i raport dopiero po „Sprawdź działkę” */
+  const started = loading || !!context.parcel;
   useEffect(() => {
     const ctrl = new AbortController();
     api
@@ -140,7 +144,11 @@ export function ParcelPage() {
   }, [tab, focusBlock]);
   async function analyze(e: React.FormEvent) {
     e.preventDefault();
+    await runAnalysis(id);
+  }
+  async function runAnalysis(parcelId: string) {
     setError("");
+    setPicked(null);
     if (!validDate(date)) {
       setError(
         "Wybierz dzień od " + formatDate(bounds.min) + " do " + formatDate(bounds.max) + ".",
@@ -156,7 +164,7 @@ export function ParcelPage() {
     setTab("report");
     setHighlight(null);
     try {
-      const p = await api.resolve({ id: id.trim() }, ctrl.signal);
+      const p = await api.resolve({ id: parcelId.trim() }, ctrl.signal);
       const definitions = await api.blocks(ctrl.signal);
       if (ctrl.signal.aborted) return;
       setSelected(p);
@@ -206,10 +214,11 @@ export function ParcelPage() {
   async function selectMap(lon: number, lat: number) {
     try {
       const p = await api.resolve({ lon, lat });
-      setId(p.id);
-      if (p.id !== selected?.id) setSelected(p);
+      setPicked(p.id === selected?.id ? null : p);
       setSelectionMessage(
-        `Wybrano działkę ${p.parcel_number}. ${USE_MOCKS ? "W trybie demonstracyjnym mapa wybiera przykładową działkę." : "Kliknij „Sprawdź działkę”."}`,
+        p.id === selected?.id
+          ? `To analizowana działka ${p.parcel_number}.`
+          : `Działka ${p.parcel_number}, ${p.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha. Aby ją ocenić, wybierz „Sprawdź tę działkę” na mapie.`,
       );
       setError("");
     } catch (err) {
@@ -300,7 +309,7 @@ export function ParcelPage() {
             </span>
           )}
         </div>
-        <div className="workspace">
+        <div className={started ? "workspace" : "workspace landing"}>
           <aside className="field-column" aria-label="Wybór działki">
             <form className="form-section" onSubmit={analyze}>
               <h2 className="section-title">
@@ -326,7 +335,7 @@ export function ParcelPage() {
                 spellCheck={false}
               />
               <div id="parcel-hint" className="form-hint">
-                Np. {DEMO_ID} · lub wybierz pole na mapie
+                Np. {DEMO_ID} albo „obręb numer”, np. Słupia Wielka 7
               </div>
               <div className="form-row">
                 <div>
@@ -394,7 +403,7 @@ export function ParcelPage() {
                 </div>
               )}
             </form>
-            <div
+            {started && <div
               ref={mapContainer}
               className={fullscreen ? "map-fullscreen" : ""}
               role={fullscreen ? "dialog" : undefined}
@@ -419,8 +428,14 @@ export function ParcelPage() {
                   </Button>
                 </div>
               )}
+              {selected ? (
               <Suspense fallback={<div className="map-shell skeleton" aria-label="Wczytywanie mapy" />}>
                   <ParcelMap
+                    picked={picked}
+                    onAnalyze={(pid) => {
+                      setId(pid);
+                      void runAnalysis(pid);
+                    }}
                     parcel={selected}
                     blocks={blocks}
                     showAnalysis={!!context.parcel && selected?.id === context.parcel.id}
@@ -431,8 +446,11 @@ export function ParcelPage() {
                     onFullscreen={() => setFullscreen((v) => !v)}
                   />
               </Suspense>
-            </div>
-            {selected && <div className="parcel-details">
+              ) : (
+                <div className="map-shell skeleton" aria-label="Wyszukuję działkę na mapie" />
+              )}
+            </div>}
+            {started && selected && <div className="parcel-details">
               <div className="parcel-details-top">
                 <strong>Działka {selected.parcel_number ?? selected.id}</strong>
                 <span className="area-label">{selected.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha</span>
@@ -447,7 +465,7 @@ export function ParcelPage() {
                 · {context.parcel?.id === selected.id ? `analiza na ${formatDate(context.date)}` : "nie sprawdzono jeszcze"}
               </div>
             </div>}
-            <div className="field-note">
+            {started && <div className="field-note">
               <Leaf size={20} />
               <div>
                 <strong className="text-foreground font-medium">Każda kropla ma znaczenie.</strong>
@@ -456,12 +474,12 @@ export function ParcelPage() {
                 <br />
                 Nawadnianie rozważamy na końcu.
               </div>
-            </div>
+            </div>}
             <div className="sr-only" role="status" aria-live="polite">
               {selectionMessage}
             </div>
           </aside>
-          <div className="report-column">
+          {started && <div className="report-column">
             <div className="report-toolbar">
               <div
                 className="report-tabs"
@@ -566,7 +584,7 @@ export function ParcelPage() {
             ) : (
               <Analyst blocks={blocks} onMap={showMap} loading={loading} date={context.date} />
             )}
-          </div>
+          </div>}
         </div>
         <footer className="site-footer">
           <span className="footer-brand">

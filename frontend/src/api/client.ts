@@ -55,6 +55,7 @@ export type Assessment = {
   evidence: Evidence[];
   field_check?: FieldCheck | null;
 };
+export type SowingOption = { name: string; when: string; why: string; source_title: string | null; source_url: string | null };
 export type Recommendation = {
   measure_id: string;
   group: "retencja_krajobrazowa" | "agrotechnika" | "nawadnianie";
@@ -66,6 +67,9 @@ export type Recommendation = {
   legal_ids: string[];
   funding_ids: string[];
   evidence: Evidence[];
+  /** międzyplon / mulcz: co i kiedy zrobić (2026-11-21, B) */
+  sowing?: SowingOption[];
+  funding?: { name: string; url: string | null }[];
 };
 export type SoilWaterDay = { date: string; dr_mm: number; raw_mm: number; taw_mm: number; forecast: boolean };
 export type Irrigation = {

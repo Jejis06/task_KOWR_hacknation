@@ -188,7 +188,7 @@ class WeatherHistoryConnector(Connector):
                                    notes=f"{sc['distance_km']} km od działki; walidacja opadu reanalizy"))
             if sc.get("season_bias_pct") is not None and abs(sc["season_bias_pct"]) >= 15:
                 unc.append(f"Opad z reanalizy różni się od pomiarów stacji IMGW {sc['station']} "
-                           f"({sc['distance_km']} km) średnio o {sc['season_bias_pct']:+.0f}% w sezonach IV–IX – "
+                           f"({sc['distance_km']} km) średnio o {sc['season_bias_pct']:+.0f}% w sezonach kwi–wrz – "
                            "traktuj sumy opadów ostrożnie.")
         status = BlockStatus.ok
         if (ctx.as_of - series.dates[-1]).days > 3:

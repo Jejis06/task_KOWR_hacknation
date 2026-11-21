@@ -220,7 +220,7 @@ class VegetationConnector(Connector):
         status = BlockStatus.ok
         if not in_season:
             status = BlockStatus.partial if series else BlockStatus.not_applicable
-            msgs.append("Poza sezonem wegetacji (XI–III) bieżący NDVI nie opisuje stanu upraw (rośliny w spoczynku, "
+            msgs.append("Poza sezonem wegetacji (lis–mar) bieżący NDVI nie opisuje stanu upraw (rośliny w spoczynku, "
                         "pole po zbiorze) – nie porównujemy go z normą; pokazujemy historię sezonów.")
         elif latest_obs is None:
             status = BlockStatus.partial
@@ -245,7 +245,7 @@ class VegetationConnector(Connector):
         newest = max([s.date for s in series] + ([info.latest.date] if info.latest else []), default=None)
         prov = self.prov("Copernicus Sentinel-2 L2A (ESA) – Microsoft Planetary Computer (STAC + Data API)",
                          source_url="https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a", licence=LIC.format(year=as_of.year), data_as_of=newest,
-                         notes=f"{len(series)} scen w serii (≤1/miesiąc IV–X); statystyki liczone dla granic działki")
+                         notes=f"{len(series)} scen w serii (≤1/miesiąc kwi–paź); statystyki liczone dla granic działki")
         if not series and not info.latest:
             return self.block(BlockStatus.no_data if in_season else BlockStatus.not_applicable, info,
                               provenance=[prov], messages=msgs + ["Nie znaleziono czystych scen dla działki."],

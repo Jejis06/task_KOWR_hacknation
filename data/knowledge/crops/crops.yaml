@@ -34,7 +34,7 @@ items:
     root_depth_m: 1.5
     p: 0.55
     ky: 1.05   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)", "kwitnienie i nalewanie ziarna (VI)"]
+    critical: ["strzelanie w źdźbło – kłoszenie (maj–cze)", "kwitnienie i nalewanie ziarna (cze)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie i ciężkie, kompleksy pszenne (1–2, 4); słabo na piaskach"
     smsr_cwb_thresholds_mm: null
@@ -52,7 +52,7 @@ items:
     root_depth_m: 1.2
     p: 0.55
     ky: 1.15   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)"]
+    critical: ["strzelanie w źdźbło – kłoszenie (maj–cze)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie, zasobne"
     smsr_cwb_thresholds_mm: null
@@ -69,7 +69,7 @@ items:
     kc: [0.3, 1.15, 0.25]
     root_depth_m: 1.0
     p: 0.55
-    critical: ["krzewienie – kłoszenie (V–VI)"]
+    critical: ["krzewienie – kłoszenie (maj–cze)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie, odczyn obojętny"
     smsr_cwb_thresholds_mm: null
@@ -86,7 +86,7 @@ items:
     kc: [0.4, 1.15, 0.25]
     root_depth_m: 1.5
     p: 0.6
-    critical: ["strzelanie w źdźbło – kwitnienie (V)"]
+    critical: ["strzelanie w źdźbło – kwitnienie (maj)"]
     drought_sensitivity: niska
     soil_preference: "gleby lekkie i piaszczyste (kompleksy żytnie 5–7) – najlepiej znosi suszę wśród zbóż"
     smsr_cwb_thresholds_mm: null
@@ -103,7 +103,7 @@ items:
     kc: [0.4, 1.15, 0.3]
     root_depth_m: 1.5
     p: 0.55
-    critical: ["strzelanie w źdźbło – kłoszenie (V–VI)", "nalewanie ziarna (VI–VII)"]
+    critical: ["strzelanie w źdźbło – kłoszenie (maj–cze)", "nalewanie ziarna (cze–lip)"]
     drought_sensitivity: niska
     soil_preference: "gleby lżejsze i średnie (kompleksy żytnie bardzo dobre i dobre, pszenne słabe) – lepiej od pszenicy znosi suszę"
     smsr_cwb_thresholds_mm: null
@@ -120,7 +120,7 @@ items:
     kc: [0.4, 1.15, 0.25]
     root_depth_m: 1.2
     p: 0.55
-    critical: ["strzelanie w źdźbło – kłoszenie (IV–V)"]
+    critical: ["strzelanie w źdźbło – kłoszenie (kwi–maj)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie i zasobne, odczyn obojętny; wcześnie schodzi z pola (przed szczytem letnich susz)"
     smsr_cwb_thresholds_mm: null
@@ -137,7 +137,7 @@ items:
     kc: [0.3, 1.15, 0.25]
     root_depth_m: 1.0
     p: 0.55
-    critical: ["wiechowanie (VI)"]
+    critical: ["wiechowanie (cze)"]
     drought_sensitivity: wysoka
     soil_preference: "znosi gleby lżejsze i kwaśne, ale ma duże potrzeby wodne – wrażliwy na suszę w czerwcu"
     smsr_cwb_thresholds_mm: null
@@ -157,7 +157,7 @@ items:
     root_depth_m: 1.2
     p: 0.55
     ky: 1.25   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["wiechowanie i kwitnienie (VII) – najbardziej krytyczne", "nalewanie ziarna (VIII)"]
+    critical: ["wiechowanie i kwitnienie (lip) – najbardziej krytyczne", "nalewanie ziarna (sie)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie, ciepłe; wrażliwa na przymrozki (siew dopiero po ustąpieniu)"
     smsr_cwb_thresholds_mm: null
@@ -177,7 +177,7 @@ items:
     root_depth_m: 1.2
     p: 0.55
     ky: 1.25   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["wiechowanie i kwitnienie (VII)"]
+    critical: ["wiechowanie i kwitnienie (lip)"]
     drought_sensitivity: wysoka
     soil_preference: "jak kukurydza na ziarno"
     smsr_cwb_thresholds_mm: null
@@ -194,7 +194,7 @@ items:
     kc: [0.35, 1.1, 0.35]
     root_depth_m: 1.2
     p: 0.6
-    critical: ["wschody jesienią (VIII–IX)", "pąkowanie – kwitnienie (IV–V)"]
+    critical: ["wschody jesienią (sie–wrz)", "pąkowanie – kwitnienie (kwi–maj)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie i ciężkie, zasobne w wodę"
     smsr_cwb_thresholds_mm: null
@@ -212,7 +212,7 @@ items:
     root_depth_m: 0.5
     p: 0.35
     ky: 1.1   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["zawiązywanie i przyrost bulw (VI–VII)"]
+    critical: ["zawiązywanie i przyrost bulw (cze–lip)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby lekkie i średnie, przewiewne; płytki system korzeniowy – częsty kandydat do nawadniania"
     smsr_cwb_thresholds_mm: null
@@ -230,7 +230,7 @@ items:
     root_depth_m: 1.0
     p: 0.55
     ky: 1.0   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["wschody (IV–V)", "intensywny przyrost korzeni (VII–VIII)"]
+    critical: ["wschody (kwi–maj)", "intensywny przyrost korzeni (lip–sie)"]
     drought_sensitivity: średnia
     soil_preference: "gleby żyzne, średnie i ciężkie, kompleksy pszenne"
     smsr_cwb_thresholds_mm: null
@@ -249,7 +249,7 @@ items:
     root_depth_m: 1.0
     p: 0.5
     ky: 0.85   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["kwitnienie i zawiązywanie strąków (VII)"]
+    critical: ["kwitnienie i zawiązywanie strąków (lip)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie, ciepłe stanowiska"
     smsr_cwb_thresholds_mm: null
@@ -267,7 +267,7 @@ items:
     root_depth_m: 0.8
     p: 0.4
     ky: 1.15   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["kwitnienie (V–VI)"]
+    critical: ["kwitnienie (maj–cze)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie"
     smsr_cwb_thresholds_mm: null
@@ -278,13 +278,13 @@ items:
     smsr_group: "nie dotyczy – łąki i pastwiska monitoruje S2MUR, nie SMSR"
     type: wieloletnia
     sowing: null
-    harvest: "pokosy V–IX"
+    harvest: "pokosy maj–wrz"
     stages_start: "04-01"
     stages: [10, 20, 150, 30]
     kc: [0.9, 1.0, 0.85]
     root_depth_m: 0.6
     p: 0.6
-    critical: ["odrost po I pokosie (VI–VII)"]
+    critical: ["odrost po I pokosie (cze–lip)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby wilgotne, doliny; kandydat do ekoschematu retencjonowania wody na TUZ"
     smsr_cwb_thresholds_mm: null
@@ -294,14 +294,14 @@ items:
     name_pl: Truskawka
     smsr_group: truskawki
     type: wieloletnia
-    sowing: "sadzenie VIII–IX lub IV"
+    sowing: "sadzenie sie–wrz lub w kwietniu"
     harvest: "06-01..07-10"
     stages_start: "04-01"
     stages: [20, 30, 40, 30]
     kc: [0.4, 0.85, 0.75]
     root_depth_m: 0.25
     p: 0.2
-    critical: ["kwitnienie i owocowanie (V–VI)"]
+    critical: ["kwitnienie i owocowanie (maj–cze)"]
     drought_sensitivity: bardzo wysoka
     soil_preference: "gleby próchniczne; bardzo płytkie korzenie – zwykle wymaga nawadniania kroplowego"
     smsr_cwb_thresholds_mm: null
@@ -318,7 +318,7 @@ items:
     kc: [0.5, 1.0, 0.75]
     root_depth_m: 1.5
     p: 0.5
-    critical: ["opadanie czerwcowe zawiązków (VI)", "wzrost owoców (VII–VIII)"]
+    critical: ["opadanie czerwcowe zawiązków (cze)", "wzrost owoców (lip–sie)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie, głębokie"
     smsr_cwb_thresholds_mm: null
@@ -337,7 +337,7 @@ items:
     kc: [0.6, 1.0, 0.75]
     root_depth_m: 0.7
     p: 0.5
-    critical: ["kwitnienie i zawiązywanie owoców (VII)", "owocowanie (VII–VIII)"]
+    critical: ["kwitnienie i zawiązywanie owoców (lip)", "owocowanie (lip–sie)"]
     drought_sensitivity: bardzo wysoka
     soil_preference: "gleby próchniczne, ciepłe, zasobne w wodę; płytki system korzeniowy – zwykle wymaga nawadniania (kroplowego)"
     smsr_cwb_thresholds_mm: null
@@ -355,13 +355,13 @@ items:
     root_depth_m: 0.6
     p: 0.45
     ky: 0.95   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
-    critical: ["formowanie główek (VIII–IX)"]
+    critical: ["formowanie główek (sie–wrz)"]
     drought_sensitivity: wysoka
-    soil_preference: "gleby żyzne, średnie i ciężkie, wilgotne; termin to sadzenie rozsady (siew rozsady IV)"
+    soil_preference: "gleby żyzne, średnie i ciężkie, wilgotne; termin to sadzenie rozsady (siew rozsady w kwietniu)"
     smsr_cwb_thresholds_mm: null
     status: SZACUNEK
 
 winter_rules:
-  - "Siew jesienny (IX–X): tylko uprawy ozime (pszenica, żyto, pszenżyto, jęczmień ozimy, rzepak do początku IX)."
-  - "XI–II: brak siewów polowych; czas na planowanie retencji (zastawki, oczka, zgłoszenia wodnoprawne przed sezonem)."
-  - "Uprawy ciepłolubne (kukurydza, soja) – siew dopiero przy glebie ≥8–10 °C, zwykle od 20 IV; okres wegetacji 120–160 dni wyklucza siew późnym latem."
+  - "Siew jesienny (wrz–paź): tylko uprawy ozime (pszenica, żyto, pszenżyto, jęczmień ozimy, rzepak do początku września)."
+  - "Lis–lut: brak siewów polowych; czas na planowanie retencji (zastawki, oczka, zgłoszenia wodnoprawne przed sezonem)."
+  - "Uprawy ciepłolubne (kukurydza, soja) – siew dopiero przy glebie ≥8–10 °C, zwykle od 20 kwi; okres wegetacji 120–160 dni wyklucza siew późnym latem."

@@ -8,12 +8,16 @@ To NIE jest Connector bloku – to resolver wywoływany przed wszystkimi blokami
 """
 from __future__ import annotations
 
+import asyncio
+import logging
 import re
 
 from app.contracts.models import GeoJSONGeometry, ParcelRef
 from app.core.cache import cache_get, cache_set, make_key
 from app.core.geo import area_ha, geom_to_geojson, parse_wkt
-from app.core.http import get_with_retry
+from app.core.http import get_client
+
+log = logging.getLogger(__name__)
 
 ULDK_URL = "https://uldk.gugik.gov.pl/"
 RESULT_FIELDS = "geom_wkt,id,voivodeship,county,commune,region,parcel"
@@ -25,6 +29,28 @@ PARCEL_ID_RE = re.compile(r"^\d{6}_\d\.\d{4}(\.AR_\d+)?\.[\w/]+$")
 
 class ParcelNotFound(Exception):
     pass
+
+
+class UldkLimited(Exception):
+    """GUGiK ogranicza zapytania z naszego IP (302 na integracja01…/resp/uldk.php albo 429) – to nie „brak działki”."""
+
+
+async def _uldk_get(params: dict, attempts: int = 3) -> str:
+    """ULDK bez podążania za przekierowaniem: przy limicie GUGiK odsyła 302 na stronę zastępczą, która zwraca „0” i
+    fikcyjną geometrię (punkt z `inf`) – wcześniej kończyło się to błędem 500. Krótko ponawiamy, potem UldkLimited."""
+    client = get_client()
+    for i in range(attempts):
+        try:
+            r = await client.get(ULDK_URL, params=params, timeout=10, follow_redirects=False)
+        except Exception as e:  # noqa: BLE001 – błąd sieci traktujemy jak niedostępność usługi
+            log.warning("ULDK: %s", e)
+            r = None
+        if r is not None and r.status_code == 200:
+            return r.text
+        log.warning("ULDK ogranicza zapytania (HTTP %s, próba %d/%d)", r.status_code if r else "brak", i + 1, attempts)
+        if i < attempts - 1:
+            await asyncio.sleep(1.0 + i)
+    raise UldkLimited("Usługa GUGiK ULDK chwilowo ogranicza liczbę zapytań – spróbuj ponownie za minutę.")
 
 
 def looks_like_parcel_id(text: str) -> bool:
@@ -40,7 +66,12 @@ def _parse(body: str) -> ParcelRef:
         raise ParcelNotFound(head or "pusta odpowiedź ULDK")
     # ULDK może zwrócić kilka działek (po nazwie obrębu) – bierzemy pierwszą
     f = lines[1].split("|")
-    geom = parse_wkt(f[0])
+    try:
+        geom = parse_wkt(f[0])
+    except Exception as e:  # noqa: BLE001 – uszkodzona geometria (np. strona zastępcza przy limicie)
+        raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.") from e
+    if geom.is_empty or not all(abs(v) < 1e6 for v in geom.bounds):
+        raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.")
     pid = f[1]
     m = re.match(r"^(\d{6}_\d)\.(\d{4})(?:\.AR_\d+)?\.(.+)$", pid)
     minx, miny, maxx, maxy = geom.bounds
@@ -66,9 +97,8 @@ async def resolve_by_id(parcel_id: str) -> ParcelRef:
     key = make_key("uldk_id", id=parcel_id.strip())
     if (hit := cache_get(key)) is not None:
         return ParcelRef.model_validate(hit)
-    r = await get_with_retry(ULDK_URL, params={"request": "GetParcelByIdOrNr", "id": parcel_id.strip(),
-                                               "result": RESULT_FIELDS, "srid": "4326"}, timeout_s=10)
-    ref = _parse(r.text)
+    ref = _parse(await _uldk_get({"request": "GetParcelByIdOrNr", "id": parcel_id.strip(),
+                                  "result": RESULT_FIELDS, "srid": "4326"}))
     cache_set(key, ref.model_dump(mode="json"), PARCEL_TTL_S)
     return ref
 
@@ -77,9 +107,8 @@ async def resolve_by_xy(lon: float, lat: float) -> ParcelRef:
     key = make_key("uldk_xy", lon=round(lon, 6), lat=round(lat, 6))
     if (hit := cache_get(key)) is not None:
         return ParcelRef.model_validate(hit)
-    r = await get_with_retry(ULDK_URL, params={"request": "GetParcelByXY", "xy": f"{lon},{lat},4326",
-                                               "result": RESULT_FIELDS, "srid": "4326"}, timeout_s=10)
-    ref = _parse(r.text)
+    ref = _parse(await _uldk_get({"request": "GetParcelByXY", "xy": f"{lon},{lat},4326",
+                                  "result": RESULT_FIELDS, "srid": "4326"}))
     cache_set(key, ref.model_dump(mode="json"), PARCEL_TTL_S)
     cache_set(make_key("uldk_id", id=ref.id), ref.model_dump(mode="json"), PARCEL_TTL_S)
     return ref
