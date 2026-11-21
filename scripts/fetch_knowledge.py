@@ -115,6 +115,9 @@ def main(force: bool = False) -> None:
                     else:
                         print(f"skip  {d['id']}")
                     continue
+                if (d.get("manual") or not d.get("url")) and not txt_missing:
+                    print(f"skip  {d['id']}  (tekst w repo, PDF tylko lokalnie)")
+                    continue
                 if d.get("manual") or not d.get("url"):
                     manifest[d["id"]] = base | {"ok": False, "retrieved_at": now(),
                                                 "note": f"brak pliku – wrzuć raw/{d['id']}.pdf lub .docx"}
