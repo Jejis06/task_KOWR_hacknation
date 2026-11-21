@@ -2,7 +2,11 @@ meta:
   title: Procedury wodnoprawne krok po kroku
   snapshot_date: 2026-11-21
   organs: "KZGW → RZGW → Zarząd Zlewni (ZZ) → Nadzór Wodny (NW)"
-  disclaimer: "Informacja orientacyjna. Aktualne wzory i opłaty – karty usług gov.pl i katalog opłat Wód Polskich."
+  disclaimer: "Informacja orientacyjna. Opłaty: stawki z obwieszczenia Ministra Infrastruktury w M.P. na dany rok (strona Katalog opłat Wód Polskich podaje tylko rachunki, nie kwoty). Wzory: raw/wzor_*.txt i karty usług gov.pl."
+  forms:
+    zgloszenie: data/knowledge/raw/wzor_zgloszenie_wodnoprawne.txt
+    pozwolenie: data/knowledge/raw/wzor_wniosek_pozwolenie.txt
+  legal_text: "Prawo wodne t.j. Dz.U. 2026 poz. 1335 + nowelizacja Dz.U. 2026 poz. 1358 (w życie 3.11.2026)"
 
 items:
   - id: zgloszenie_wodnoprawne
@@ -19,8 +23,13 @@ items:
       - "Zgłoszenie wygasa po 3 latach od zgłoszonego terminu rozpoczęcia robót."
       - Po wykonaniu urządzenia – zgłoszenie do SIGW (zmiany danych w ciągu 30 dni).
     deadlines: {organ_objection_days: 30, bip_publication_days: 7, validity_years: 3}
-    fee_pln: 87
-    fee_status: DO_WERYFIKACJI
+    fee_pln: 132.33
+    fees:
+      "2026": 132.33   # M.P. 2025 poz. 717
+      "2027": 137.09   # M.P. 2026 poz. 430
+      statutory_base: 87   # art. 398 Prawa wodnego, waloryzowana corocznie obwieszczeniem w M.P.
+    fee_status: OK
+    fee_sources: ["data/knowledge/raw/oplaty_wodnoprawne_2026.txt", "data/knowledge/raw/oplaty_wodnoprawne_2027.txt", "https://monitorpolski.gov.pl/M2025000071701.pdf"]
     typical_duration: "1–2 miesiące"
     typical_duration_status: SZACUNEK
     status: OK
@@ -41,7 +50,13 @@ items:
       - dowód opłaty; przy pełnomocniku – pełnomocnictwo z opłatą skarbową
     notes: "Jeden wniosek może obejmować kilka pozwoleń – opłata się mnoży."
     fee_pln: 330.07
-    fee_status: DO_WERYFIKACJI
+    fees:
+      "2026": 330.07   # M.P. 2025 poz. 717
+      "2027": 341.95   # M.P. 2026 poz. 430
+      statutory_base: 217   # art. 398 Prawa wodnego, waloryzowana corocznie obwieszczeniem w M.P.
+      multiple_permits_max: {"2026": 6601.67, "2027": 6839.33}   # kilka różnych pozwoleń w jednej decyzji: iloczyn, max
+    fee_status: OK
+    fee_sources: ["data/knowledge/raw/oplaty_wodnoprawne_2026.txt", "data/knowledge/raw/oplaty_wodnoprawne_2027.txt", "https://monitorpolski.gov.pl/M2025000071701.pdf"]
     typical_duration: "od kilku miesięcy do ponad roku"
     typical_duration_status: SZACUNEK
     status: OK
@@ -76,8 +91,13 @@ items:
     title: Ocena wodnoprawna
     organ: Zarząd Zlewni lub RZGW
     when: "Dla przedsięwzięć mogących wpłynąć na cele środowiskowe JCWP; w ramach decyzji środowiskowej, jeśli ta jest wymagana."
-    fee_pln: 868
-    fee_status: DO_WERYFIKACJI
+    fee_pln: 1320.35
+    fees:
+      "2026": 1320.35   # M.P. 2025 poz. 717
+      "2027": 1367.88   # M.P. 2026 poz. 430
+      statutory_base: 868   # art. 398 Prawa wodnego, waloryzowana corocznie obwieszczeniem w M.P.
+    fee_status: OK
+    fee_sources: ["data/knowledge/raw/oplaty_wodnoprawne_2026.txt", "data/knowledge/raw/oplaty_wodnoprawne_2027.txt", "https://monitorpolski.gov.pl/M2025000071701.pdf"]
     status: OK
     sources: [https://www.gov.pl/web/wody-polskie-wroclaw/zalatw-sprawe]
 

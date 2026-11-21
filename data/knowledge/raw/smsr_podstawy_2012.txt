@@ -1,0 +1,432 @@
+ 
+Adres do korespondencji:  dr hab. Andrzej Doroszewski, pr of. nadzw., Instytut Uprawy Nawo żenia 
+i Gleboznawstwa – PIB w Pu ławach, ul. Czartoryskich 8, 24-100 Pu ławy; tel. +48 81 886-34-21 
+w. 292, fax 81 886-45-47, e-mail: ador@iung.pulawy.pl  
+ 
+Wpłynęło  15.02.2012 r.  
+Zrecenzowano 27.03.2012 r.  
+Zaakceptowano  18.05.2012 r. 
+A – koncepcja 
+B – zestawienie danych 
+C – analizy statystyczne 
+D – interpretacja wyników 
+E – przygotowanie maszynopisu 
+F – przegląd literatury 
+PODSTAWY SYSTEMU MONITORINGU 
+SUSZY ROLNICZEJ 
+Andrzej DOROSZEWSKI AEF, Jan JADCZYSZYN AD,  
+Jerzy KOZYRA AB, Rafał PUDEŁKO AB,  
+Tomasz STUCZYŃSKI A, Katarzyna MIZAK B,  
+Artur ŁOPATKA AC, Piotr KOZA E, Tadeusz GÓRSKI C,  
+Elżbieta WRÓBLEWSKA E  
+Instytut Uprawy Nawożenia i Gleboznawstwa – PIB w Puławach  
+S t r e s z c z e n i e 
+Susza w Polsce występuje w ostatnich latach coraz częściej, zwłaszcza od 1992 roku. Jest bardzo 
+ważnym problemem gospodarczym dla ca łego kraju z powodu du żych strat w plonach, a tym samym 
+przychodów rolnika i przyczyn ą wzrostu cen artykuł ów żywnościowych. Większa częstość występo-
+wania suszy jest wynikiem obserwowanych w osta tnich latach zmian klimatycznych. W systemie 
+monitoringu suszy rolniczej warunki meteorologiczne, powoduj ące susz ę, s ą okre ślane za pomoc ą 
+klimatycznego bilansu wodnego. System został opracowany i wdrożony przez IUNG-PIB na wniosek 
+Ministerstwa Rolnictwa i Rozwoju Wsi. Opracowany system zawiera aplikacje komputerowe, inte-
+grujące dane meteorologiczne, potrzebne do obliczen ia klimatycznego bila nsu wodnego oraz dane 
+z cyfrowej mapy glebowo-rolniczej, obrazuj ącej przestrzenne zróżnicowanie retencji wodnej różnych 
+kategorii agronomicznych gleb. System zawiera narz ędzia, s łużące do oceny suszy dla poszczegól-
+nych grup i gatunków ro ślin uprawnych. Wyniki analiz s ą prezentowane na stronie internetowej 
+w postaci map oraz tabel. Dla monitorowa nych upraw rolniczych opracowywane s ą dane, przedsta-
+wiające zagrożenie suszą dla wszystkich gmin Polski w okres ie wegetacyjnym. System monitoringu 
+suszy składa się z bazy danych pogodowych, glebowych, aplikacji GIS do przetwarzania i integracji 
+danych przestrzennych oraz internetowego systemu prezentacji wyników. 
+Słowa kluczowe: internetow y monitoring suszy rolniczej, klimatyczny bilans wodny (KBW), susza, 
+wilgotność gleb  
+pdf: www.itep.edu.pl/wydawnictwo © Instytut Technologiczno-Przyrodniczy w Falentach, 2012
+ WODA-ŚRODOWISKO-OBSZARY WIEJSKIE 2012 (IV–VI): t. 12 z. 2 (38)
+  WATER-ENVIRONMENT-RURAL AREAS ISSN 1642-8145    s. 77–91
+
+78 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+WSTĘP I CEL PRACY 
+W ostatnich latach zwi ększyła si ę czę stość wyst ępowania ekstremalnych zja-
+wisk pogodowych, powoduj ących znaczne straty w plonach [G ÓRSKI i in. 2008; 
+ŁABĘDZKI 2004]. Przyczyną powstawania tych strat jest między innymi susza, któ-
+ra w Polsce w ostatnich dwudziestu latach wyst ępuje szczególnie czę sto [D ORO-
+SZEWSKI i in. 2008a, b; ŁABĘDZKI 2006]. Zwi ększenie cz ęstości wyst ępowania 
+suszy jest wynikiem przede wszystkim wzrostu temperatury powietrza w okresie 
+wegetacyjnym oraz wyst ępowania okresów bezopadowych lub okresów z powta-
+rzającymi się opadami mniejszymi niż średnie [GÓRSKI 2006; KOZYRA i in. 2009a; 
+KUNDZEWICZ i in. 2006; ŁABĘDZKI 2006]. W systemie monitoringu suszy rolni-
+czej (SMSR) warunki meteorologiczne, powodujące suszę, są określane za pomocą 
+klimatycznego bilansu wodnego (KBW) [D OROSZEWSKI i in. 2008a; K ANECKA-
+GESZKE, SMARZYŃSKA 2007; L EGATES, MCCABE 2005; ŁABĘDZKI 2006; R OJEK 
+1987]. Szczególnie w ostatnich latach, wiosn ą i wczesnym latem wartości KBW są 
+coraz mniejsze, co oznacza, ż e występujące okresy suszy s ą coraz bardziej dotkli-
+we. Zbiega si ę to z okresem najwi ększego zapotrzebowania na wod ę przez ro śliny 
+uprawne, zw łaszcza przez zbo ża. Przejawem trendu wyst ępowania duż ych niedo-
+borów wody by ła ekstremalna susza w 2006 r., w wyniku której średnie krajowe 
+plony niektórych upraw zmniejszy ły się nawet o 30%. Prognozowane zmiany kli-
+matu [STUCZYŃSKI i in. 2000; WATSON i in. 1997] uzasadniaj ą konieczność bieżą-
+cego prowadzenia monitoringu występowania i zasięgu suszy. 
+O wyst ąpieniu strat plonów z powodu suszy decyduje cał y kompleks warun-
+ków meteorologicznych, glebowych i agronomicznych. Pierwsze stadium niedobo-
+ru opadów jest okre ślane jako wyst ąpienie suszy meteorologicznej. Przed łużający 
+się brak opadu oraz procesy zwi ązane z ewapotranspiracj ą powodują zmniejszenie 
+plonów, ten okres jest okre ślany jako susza rolnicza [N IEDŹWIEDŹ 2003]. Susza 
+meteorologiczna jest okre ślana na podstawie danych meteorologicznych – wielko-
+ści i czasu trwania opadu atmosferycznego. Dane o opadzie nie s ą jednak że wy-
+starczające do okre ślenia suszy rolniczej. Susza meteorologiczna nie uwzgl ędnia 
+bowiem efektu ewapotranspiracji roślin oraz właściwości gleb. 
+Zgodnie z definicj ą okre śloną w ustawie o ubezpieczeniach upraw rolnych 
+i zwierząt gospodarskich [Ustawa 2005], „suszę  oznaczaj ą szkody spowodowane 
+wystąpieniem, w dowolnym sześciodekadowym okresie od dnia 1 kwietnia do dnia 
+30 wrze śnia, spadku klimatycznego bilansu wodnego poni żej warto ści okre ślonej 
+dla poszczególnych gatunków roślin uprawnych i gleb”. W czasie od 1 IV do 30 IX 
+zawiera się trzynaście okresów sześciodekadowych [DOROSZEWSKI i in. 2008a]. 
+SMSR w Polsce zosta ł opracowany i uruchomiony przez Instytut Uprawy Na-
+wożenia i Gleboznawstwa – Pa ństwowy Instytut Badawczy (IUNG-PIB) w Pu ła-
+wach na wniosek Ministerstwa Rolnictwa i Rozwoju Wsi. Rang ę problemu moni-
+toringu suszy podkreśla również fakt, że znalazł on stosowne umocowania prawne 
+[Ustawa 2005]. Ministerstwo Rolnictwa i Rozwoju Wsi w oparciu o ustaw ę reali-
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  79 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+zuje zadanie monitoringu suszy, precyzując, że IUNG-PIB wyznacza aktualne war-
+tości KBW „w okresie od dnia 1 czerwca do dnia 20 października, w terminie do 10 
+dni po zako ńczeniu sze ściodekadowego okresu, wska źniki klimatycznego bilansu 
+wodnego dla poszczególnych gatunków ro ślin uprawnych i gleb, z podzia łem na 
+województwa, na podstawie danych przekazywanych przez Instytut Uprawy Na-
+wożenia i Gleboznawstwa Państwowy Instytut Badawczy” [Ustawa 2008]. 
+Założenia systemu monitoringu suszy rolniczej opracowano na podstawie ba-
+dań agrometeorologicznych [D EMIDOWICZ i in. 1996; 1997; D OROSZEWSKI, GÓR-
+SKI 1995; DOROSZEWSKI i in. 1997]. Istotnym elementem w opracowaniu Systemu 
+przez IUNG-PIB w Puławach była posiadana przez Instytut baza danych o glebach. 
+Celem pracy by ło opracowanie szybko dzia łającego systemu, umożliwiającego 
+szeroką ocenę zagrożenia suszą głównych upraw polowych dla ka żdej gminy Pol-
+ski z uwzględnieniem stanu zróżnicowania warunków glebowych. 
+METODY 
+Susza meteorologiczna jest wyznaczana za pomoc ą KBW, to jest ró żnicy mię-
+dzy opadem atmosferycznym a ewapotranspiracją potencjalną: 
+ KBW  = P – ETP  (1) 
+gdzie: 
+P – opad atmosferyczny, mm; 
+ETP – ewapotranspiracja, mm. 
+Wartość ewapotranspiracji potencjalnej jest obliczana na podstawie uproszczo-
+nego wzoru Penmana [PENMAN 1948]: 
+ ETP = 161 + 19,57d – 152,7 lnd + 0,0004034h2 + 0,00186 (t + 5)3 +  
+ + 0,004192 (100 – f)2 + 0,0003681v (100 – f)2,5  (2) 
+gdzie: 
+d – długość dnia, h; 
+h – usłonecznienie, h; 
+t – średnia temperatura powietrza, °C; 
+f – wilgotność względna, godz. 13:00, %; 
+v – średnia prędkość wiatru, m·s–1. 
+Dane dotyczące opadu atmosferycznego P pochodzą z 54 stacji synoptycznych 
+oraz 163 posterunków opadowych Instytutu Meteorologii i Gospodarki Wodnej 
+(IMGW), 50 stacji meteorologicznych Centralnego O środka Badania Odmian Ro-
+ślin Uprawnych (COBORU) oraz 27 stacji automatycznych IUNG-PIB. Warto ść 
+80 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+ewapotranspiracji potencjalnej ETP w SMSR jest wyznaczana na podstawie da-
+nych meteorologicznych z 54 stacji synoptycznych IMGW oraz z 27 stacji automa-
+tycznych IUNG-PIB. Łącznie SMSR wykorzystuje dane pozyskiwane z 294 punk-
+tów (rys. 1). 
+ 
+Rys. 1. Rozmieszczenie stacji meteorologicznych SMSR w Polsce w 2012 r.;  
+źródło: opracowanie własne 
+Fig. 1. Distribution of meteorological stations of the System of Agricultural Drought  
+Monitoring in Poland in 2012; source: own elaboration 
+Na podstawie danych meteorologicznych wyznaczane s ą wartości KBW. Prze-
+strzenne dane z pomiarów punktowych s ą interpolowane z u życiem aplikacji Geo-
+graphic Information System (GIS). 
+W wyznaczaniu suszy rolniczej istotn ą rolę odgrywa podatno ść gleb na niedo-
+bór wody, która jest uzale żniona od sk ładu granulometrycznego, wyra żonego 
+w kategoriach agronomicznych. W skali kraju wydzielono cztery kategorie podat-
+ności gleb na susz ę, które różnicują przestrzennie retencję wodną i potencjalną do-
+stępność wody dla roślin uprawnych [DOROSZEWSKI i in. 2008a; JADCZYSZYN i in. 
+2009; KOZYRA i in. 2009b]. Kategorie agronomiczne gleb ustalono na podstawie 
+składu granulometrycznego (uziarnienia) na podstawie informacji, zawartej na ma-
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  81 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+pach glebowo-rolniczych w skali 1:5000, przedstawiaj ących przestrzenne zasi ęgi 
+kompleksów przydatno ści rolniczej gleb. Do okre ślenia przestrzennej zmienno ści 
+gleb oraz ich w łaściwości pod wzgl ędem zdolno ści do gromadzenia wody wyko-
+rzystano mapy glebowo-rolnicze wed ług kategorii agronomicznych [K OZYRA i in. 
+2009b]. Podatność gleb na suszę w SMSR jest okre ślana z użyciem mapy w wersji 
+cyfrowej w skali 1:25 000. 
+Dla wszystkich monitorowanych upraw rolniczych opracowywane s ą co deka-
+dę mapy, przedstawiaj ące zasi ęg suszy rolniczej. Na podstawie zintegrowanych 
+danych przestrzennych obliczane s ą dla ka żdego okresu sze ściodekadowego aktu-
+alne wartości KBW dla ka żdej gminy w Polsce (3064 gmin) w okresie wegetacyj-
+nym i porównywane z warto ściami krytycznymi KBW, zamieszczonymi w Rozpo-
+rządzeniu Ministra Rolnictwa i Rozwoju Wsi [2009]. Obszary, na których obliczo-
+ne wartości są mniejsze od przyj ętych w Rozporz ądzeniu z uwzgl ędnieniem kate-
+gorii glebowych i rodzaju upraw, są określane jako potencjalnie zagrożone suszą. 
+Ocena zagrożenia suszą jest przeprowadzana na podstawie wykonywanej co 10 
+dni aktualnej cyfrowej mapy KBW oraz cyfrowej mapy kategorii glebowych. 
+SMSR zawiera aplikacje komputerowe, integruj ące dane meteorologiczne, po-
+trzebne do obliczenia KBW oraz dane z cyfrowej mapy glebowo-rolniczej. 
+Okresy raportowania są prezentowane na stronie internetowej: http://www.susza. 
+iung.pulawy.pl/index.html?str=okr_rap. Dla każdego z tych okresów opracowywa-
+ny jest co 10 dni raport o zagro żeniu suszą rolniczą w Polsce, uwzględniający gru-
+py i gatunki ro ślin. Obliczenia s ą realizowane za pomoc ą aplikacji, wykorzystują -
+cej oprogram
+owanie ArcGIS. System porównuje kryteria zawarte w „Ustawie 
+o ubezpieczeniach upraw rolnych i zwierz ąt gospodarskich” [Ustawa 2005] z wy-
+mienionymi powy żej warstwami, okre śla dla ka żdego gatunku lub grupy ro ślin, 
+czy na glebach danej kategorii zosta ł przekroczony próg KBW . Na podstawie 
+otrzymanych map jest obliczany udzia ł powierzchni zagro żonych susz ą w po-
+szczególnych gminach. 
+W SMSR prowadzony jest monitoring wilgotno ści gleby, maj ący na celu po-
+znanie zależności pomiędzy stresem wodnym, mierzonym liczb ą dni uwilgotnienia 
+poniżej wartości krytycznej, odpowiadaj ącej punktowi trwa łego więdnięcia roślin, 
+a plonem ro ślin na ró żnych gatunkach gleb w zróż nicowanych warunkach siedli-
+skowych i klimatycznych. Uzyskane wyniki bada ń służą do weryfikacji wyznacze-
+nia przestrzennych zasięgów zagrożenia suszy rolniczej. 
+Na potrzeby monitoringu suszy rolniczej prowadzone s ą w 20 gospodarstwach 
+rolnych pomiary wilgotno ści gleby. Stan ich uwilgotnienia jest mierzony na sze-
+ściu poziomach profilu glebowego: 10, 20, 30, 40, 60 i 100 cm za pomoc ą sondy 
+profilowej PR2 Delta-T®. Pomiary prowadzi się od początku okresu wegetacyjnego 
+na 60 polach referencyjnych z ró żnymi uprawami i o ró żnej kategorii podatno ści 
+gleby na suszę . Pomiary wykonuje si ę dwa razy w tygodniu. Aktualn ą wilgotność 
+porównuje się ze stanem uwilgotnienia gleby, odpowiadaj ącemu punktowi trwa łe-
+go więdnięcia roślin. Miarą stresu wodnego jest wilgotność objętościowa (w %). 
+82 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+WYNIKI 
+SMSR umożliwia ocenę zagrożenia suszą rolniczą głównych upraw rolnych na 
+podstawie bie żących danych meteorologicznych oraz danych glebowych. Wyniki 
+analiz s ą udost ępniane do publicznej informacji na stronie internetowej Minister-
+stwa Rolnictwa i Rozwoju Wsi oraz pod adresem http://www.susza.iung.pulawy.pl 
+dla kolejnych okresów sześciodekadowych w sezonie wegetacyjnym z aktualizacj ą 
+co 10 dni dla ka żdej gminy Polski (rys. 2). Przedstawiane wyniki zagro żenia suszą 
+rolniczą są prezentowane w języku polskim i angielskim. 
+ 
+Rys. 2. Strona główna Systemu Monitoringu Suszy Rolniczej; źródło: IUNG-PIB Puławy 
+Fig. 2. Main page of the System of Agricultural Drought Monitoring; source: IUNG-PIB Puławy 
+W ocenie wystąpienia suszy rolniczej ważną cechą jest określenie zmniejszenia 
+plonu. W IUNG–PIB w Pu ławach opracowano wartoś ci krytyczne KBW, powodu-
+jące zmniejszenie plonów o 20% dla nastę pujących grup i gatunków ro ślin: zbó ż 
+ozimych i jarych, kukurydzy na ziarno i na kiszonk ę, rzepaku i rzepiku, ziemniaka, 
+buraka cukrowego, chmielu, tytoniu, warzyw gruntowych, drzew i krzewów owo-
+cowych, truskawek, roślin strączkowych (rys. 3). Wartoś ci krytyczne KBW dla po-
+szczególnych gatunków roślin uprawnych i gleb s ą zawarte w Rozporządzeniu Mi-
+nistra Rolnictwa i Rozwoju Wsi [2009]. Progowe warto ści KBW są prezentowane 
+na stronie internetowej: http://www.susza. iung.pulawy.pl/index.html?str=okr_rosl. 
+Wystąpienie krytycznej wartoś ci KBW oznacza zmniejszenie plonów w danym ro-
+ku w stosunku do wartości średnich wieloletnich w Polsce. 
+Na podstawie danych meteorologicznych wykre ślane s ą po ka żdym skoń czo-
+nym  sześciodekadowym okresie mapy,  przedstawiające rozkład KBW  dla obszaru 
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  83 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+ 
+Rys. 3. Wartości progowe KBW dla gatunków i grup roślin uprawnych i gleb wyrażone w mm;  
+źródło: wyniki własne 
+Fig. 3. Critical values of climatic water balance for species and groups of crops and soils expressed  
+in mm; source: own studies 
+Polski, które nast ępnie zamieszczane s ą na stronie internetowej: http://www.susza. 
+iung.pulawy.pl/index.html?str=kbw (rys. 4). W interpolacji KBW uwzględniane są 
+warstwy GIS: dane dotyczące opadów atmosferycznych oraz ewapotranspiracji. 
+Wyniki analizy zagrożenia suszą w każdym okresie sześciodekadowym są opi-
+sywane w formie komentarza agrometeorologa, które s ą zamieszczane na stronie 
+internetowej http://www.susza.iung.pulawy.pl/index.html?str=comm. 
+Zróżnicowanie przestrzenne pokrywy glebowej w Polsce jest reprezentowane 
+poprzez kategorie agronomiczne, które są przedstawione w tabeli, umieszczonej na 
+stronie internetowej: http://www.susza.iung.pulawy.pl/index.html?str=kat_gl. 
+Na potrzeby SMSR opracowano map ę podatnoś ci gleb na susz ę w wersji cy-
+frowej. Mapa ta jest zamieszczona w In ternecie: http://www.susza.iung.pulawy.pl/ 
+index.html?str=mapkat (rys. 5). Mapa przedstawia zró żnicowanie przestrzenne po-
+krywy  gleb  w Polsce  według  kategorii  glebowych  o różnej podatności na suszę:  
+84 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+ 
+Rys. 4. Mapa klimatycznego bilansu wodnego; źródło: wyniki własne 
+Fig. 4. Map of climatic water balance; source: own studies 
+gleby bardzo lekkie – bardzo podatne, gleby lekkie – podatne, średnie – ś rednio 
+podatne, ci ężkie – ma ło podatne [D OROSZEWSKI i in. 2008a; J ADCZYSZYN i in. 
+2009]. 
+W SMSR prowadzony jest monitoring wilgotno ści gleby. Wyniki pomiarów s ą 
+prezentowane na stronie internetowe j: http://www.susza.iung.pulawy.pl/index. 
+html?str=stacje. Prezentowana jest ma pa rozmieszczenia stacji monitoringu wil-
+gotności gleb (rys. 6) oraz dane pomiarowe z tych stacji (rys. 7–8). 
+W ka żdym okresie sze ściodekadowym generowane s ą mapy zasi ęgu zagro że-
+nia suszą rolniczą dla 14 grup i gatunków upraw, branych pod uwag ę w SMSR – 
+przykładowa mapa przedstawiona jest na rysunku 9. Zasię g wyst ępowania suszy 
+dla poszczególnych okresów sze ściodekadowych oraz poszczególnych grup i ga-
+tunków upraw jest prezentowany na stronie internetowej: http://www.susza.iung. 
+pulawy.pl/index.html?str=maps. 
+W latach 2008 oraz 2009 w SMSR zamieszczane by ły tabele, przedstawiaj ące 
+zagrożenie suszą we wszystkich gminach Polski z uwzględnieniem 4 kategorii gleb 
+i 12 grup i gatunków ro ślin, od 2010 r. poszerzono prezentacje zagro żenia susz ą 
+o kukurydzę na kiszonkę  oraz rozdzielono grupę drzew  i krzewów owocowych na 
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  85 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+ 
+Rys. 5. Interfejs użytkownika mapy internetowej, dotyczącej kategorii podatności  
+gleb na suszę; źródło: IUNG-PIB Puławy 
+Fig. 5. The interface of a user of the internet map on the category of soil  
+susceptibility to drought; source: IUNG-PIB Puławy 
+ 
+Rys. 6. Stacje monitoringu wilgotności gleby; źródło: IUNG-PIB Puławy 
+Fig. 6. Stations monitoring soil moisture; source: IUNG-PIB Puławy 
+86 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+ 
+Rys. 7. Prezentacja danych glebowo-klimatycznych w punktach prowadzących  
+monitoring wilgotności gleby; źródło: IUNG-PIB Puławy 
+Fig. 7. Presentation of soil and climatic data at the points carrying soil moisture  
+monitoring; source: IUNG-PIB Puławy 
+I
+  
+Rys. 8. Wilgotność gleby I kategorii w Królikowie (woj. kujawsko-pomorskie); źródło: wyniki własne 
+Fig. 8. Moisture of the first category soil in Królikowo (kujawsko-pomorskie voivodeship);  
+source: own studies 
+dwie. Tabele przedstawiaj ące zagro żenie susz ą dla ka żdej gminy Polski s ą za-
+mieszczane na stronie internetowej Ministerstwa Rolnictwa i Rozwoju Wsi jako 
+Obwieszczenie Ministra: http://bip.min rol.gov.pl/DesktopModules/Announcement/ 
+ViewAnnouncement.aspx?ModuleID=1530&TabOrgID=1665&LangId=0&  
+AnnouncementId=7895 oraz na stronie inte rnetowej IUNG-PIB: http://www.susza. 
+iung.pulawy.pl/index.html?str=tab&lang=pl (rys. 10). 
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  87 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+ 
+Rys. 9. Zasięg występowania suszy dla zbóż jarych w 2011 roku; źródło: wyniki własne 
+Fig. 9. The range of drought occurrence for spring cereals in 2011; source: own studies 
+Po wybraniu jednej z gmin (np. gm. Blizanów) można zapoznać się ze szczegó-
+łowym wykazem zagro żenia suszą na jej terenie (rys. 10) z uwzgl ędnieniem kate-
+gorii glebowych, grup i gatunków ro ślin oraz okresów raportowania. Dodatkowo 
+podany jest procentowy udział gleb gruntów ornych, które są zagrożone suszą. 
+Informacje o wystąpieniu suszy lub jej braku s ą przedstawiane w Internecie dla 
+każdej gminy Polski oraz 14 grup i gatunków roś lin z uwzgl ędnieniem 4 kategorii 
+glebowych w cią gu 48–72 godzin po ka żdym sko ńczonym sze ściodekadowym 
+okresie sezonu wegetacyjnego. 
+Dane, dotyczące plonów, uzyskane na podstawie KBW, porównywano z dany-
+mi przedstawianymi przez G łówny Urz ąd Statystyczny (GUS). Straty plonów, 
+określone za pomoc ą KBW z powodu suszy w 2008 r. dla pszenicy ozimej na po-
+ziomie województw były zbieżne z zmniejszeniem plonów wed ług GUS. Wykaza-
+no pełną zgodność wyników w przypadku zmniejszenia plonów, wyznaczonego za 
+pomocą KBW (z uwzgl ędnieniem podatności gleb na niedobór wody) oraz wed ług 
+GUS. W 2009 r., w którym nie stwierdzono suszy na podstawie KBW, nie stwier-
+dzono również zmniejszenia plonu według GUS [MIZAK i in. 2011]. 
+88 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+ 
+ 
+Rys. 10. Szczegółowy opis zagrożeń suszą w konkretnej gminie; źródło: wyniki własne 
+Fig. 10. A detailed description of the risks of drought in a given community;  
+source: own studies 
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  89 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+Opracowany system monitoringu jest skierowany g łównie do instytucji ubez-
+pieczeniowych, organów administracji państwowej i samorządowej, służby doradz-
+twa rolniczego oraz rolników, którzy dla ka żdej gminy Polski mog ą na bie żąco 
+w okresie wegetacyjnym uzyskać informacje o zagrożeniu suszą. 
+WNIOSKI 
+1. System monitoringu suszy ro lniczej do wyznaczania obszarów zagro żonych 
+suszą dla 14 grup i gatunków upraw uwzgl ędnia warunki pogodowe oraz podat-
+ność gleb na susz ę, wykorzystuj ąc warto ści KBW oraz uwzgl ędniając kategori ę 
+gleb. 
+2. System monitoringu suszy rolniczej wykorzystuje aplikacje GIS do przetwa-
+rzania i interpolacji danych przestrzennych. 
+3. W systemie monitoringu suszy rolniczej zastosowano procedury, umożliwia-
+jące szczegółową prezentację wyników za pomocą systemu internetowego. 
+4. System monitoringu suszy jest weryfikowany na podstawie pomiarów wil-
+gotności gleby oraz bezpośrednich obserwacji polowych. 
+5. Informacje o wyst ąpieniu suszy lub jej braku s ą przedstawiane w Internecie 
+dla każdej gminy Polski w ci ągu 48–72 godzin po ka żdym skończonym sześciode-
+kadowym okresie sezonu wegetacyjnego. 
+LITERATURA 
+DEMIDOWICZ G., DOROSZEWSKI A., GÓRSKI T. 1996. Wpływ niedoboru opadów na straty w produkcji 
+ziemniaka i buraka cukroweg o. Zeszyty Problemowe Postę pów Nauk Rolniczych. Z. 438 s. 43–
+52. 
+DEMIDOWICZ G., DOROSZEWSKI A., GÓRSKI T. 1997. Metodyka szacunku strat w produkcji ro ślinnej 
+powodowanych deficytem opadów. Roczniki AR w Poznaniu. T. 291. Melioracje i In żynieria 
+Środowiska. Z. 17 s. 233–243. 
+DOROSZEWSKI A., GÓRSKI T. 1995. Prosty wska źnik ewapotranspiracji potencjalnej. Roczniki AR 
+w Poznaniu. T. 271. Melioracje i Inżynieria Środowiska. Z. 16 s. 3–8. 
+DOROSZEWSKI A., DEMIDOWICZ G., GÓRSKI T. 1997. Wpływ niedoboru opadów na straty w produkcji 
+zbóż jarych w Polsce. Roczniki AR w Poznaniu. T. 291. Melioracje i In żynieria Środowiska. 
+Z. 17 s. 223–231. 
+DOROSZEWSKI A., KOZYRA J., PUDEŁKO R., STUCZYŃSKI T., JADCZYSZYN J., KOZA P., ŁOPATKA A. 
+2008a. Monitoring suszy roln iczej w Polsce. Wiadomo ści Melioracyjne i Łąkarskie. Nr 1 s. 35–
+38. 
+DOROSZEWSKI A., KOZYRA J., PUDEŁKO R., JADCZYSZYN J., STUCZYŃSKI T., MIZAK K., KOZA P. 2008b. 
+Częstość występowania suszy w uprawie tytoniu. Przegląd Tytoniowy. Nr 1 s. 13–15. 
+GÓRSKI T. 2006. Zmiany warunków  agroklimatycznych i d ługość okresu wegetacyjnego w ostatnim 
+stuleciu. W: D ługotrwałe przemiany krajobrazu Polski w wyniku zmian klimatu i u żytkowania 
+ziemi. Poznań. Pr. zbior. Red. M. Gutry-Korycka, A. K ędziora, L. Starkel, L. Ryszkowski. Po-
+znań. IGBP Komitet Narodowy s. 65–77. 
+90 Woda-Środowisko-Obszary Wiejskie t. 12 z. 2 (38) 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38)  
+GÓRSKI T., KOZYRA J., DOROSZEWSKI A. 2008. Field crop losses in Po land due to extreme weather 
+conditions: case studies. W: The influence of extreme phenomena on the natural environment 
+and human living conditions. Pr. Zbior. Red. S. Liszewski. Łodź. ŁTN s. 35–49. 
+JADCZYSZYN J., STUCZYŃSKI T., ŁOPATKA A., KOZA P., DOROSZEWSKI A., KOZYRA J. 2009. Sucho na 
+mapie. Rolnik Dzierżawca. Nr 4 s. 62–65. 
+KANECKA-GESZKE E., SMARZYŃSKA K. 2007. Ocena suszy meteorologi cznej w wybranych regionach 
+agroklimatycznych Polski przy u życiu różnych wskaźników. Acta Scientiarum Polonorum. For-
+matio Circumiectus. Nr 6. Z. 2 s. 41–50. 
+KOZYRA J., DOROSZEWSKI A., NIERÓBCA A. 2009a. Zmiany klimatyczne i ich przewidywany wp ływ 
+na rolnictwo w Polsce. Studia i Raporty IUNG-PIB. Puławy. Z. 14 s. 243–257. 
+KOZYRA J., DOROSZEWSKI A., STUCZYŃSKI T., JADCZYSZYN J., ŁOPATKA A., PUDEŁKO R., KOZA P., 
+NIERÓBCA A., MIZAK K., BORZĘCKA-WALKER M. 2009b. Agricultural Drought Monitoring Sys-
+tems (ADMS) – including crop specific requirements and soil map for the detection of areas af-
+fected by drought in Poland. W: Impact of climate change and adaptation in agriculture. Extend-
+ed Abstracts of the International Symposium. Pr. zbior. Red. J. Eitzinger, G. Kubu. [online]. Vi-
+enna, June 22–23 2009. University of Natural Resources’ and Applied Life Sciences (BOKU). 
+BOKU-Met Report 17 [Dost ęp 12.04.2012]. Dost ępny w Internecie: ht tp://www.boku.ac.at/met/ 
+report.pdf s. 37–39. 
+KUNDZEWICZ Z., SZWED M., RADZIEJEWSKI M. 2006. Zmiany globalne i ekstremalne zjawiska hydro-
+logiczne: powodzie i susze. W: D ługookresowe przemiany krajobr azu Polski w wyniku zmian 
+klimatu i u żytkowania ziemi. Pr. zbior. Red. M. Gutry-Korycka, A. K ędziora, L. Starkel, 
+L. Ryszkowski. Poznań. Komitet Narodowy IGBP s. 169–180. 
+LEGATES D.R., MCCABE G.J. 2005. A re-evaluation of the aver age annual global water balance: Phy-
+sical Geography. Vol. 26 s. 467–479. 
+ŁABĘDZKI L. 2004. Problematyka susz w Polsce. Woda Środowisko Obszary Wiejskie. T. 4. Z. 1 
+s. 47–66. 
+ŁABĘDZKI L. 2006, Susze rolnicze. Zarys problematyki oraz metody monitorowania i klasyfikacji. 
+Woda Środowisko Obszary Wiejskie. Rozprawy Naukowe Monografie. Nr 17 ss. 107. 
+MIZAK K., PUDEŁKO R., KOZYRA J., NIERÓBCA A., DOROSZEWSKI A., ŚWITAJ Ł., ŁOPATKA A. 2011. 
+Wyniki monitoringu suszy rolniczej w uprawach  pszenicy ozimej w Polsce w latach 2008–2010. 
+Woda Środowisko Obszary Wiejskie. T. 11. Z. 2 (34) s. 95–107. 
+NIEDŹWIEDŹ T. 2003. S łownik meteorologiczny. Seria Atlasy i Monografie IMGW. Warszawa. 
+PTGeof. ISBN 83-88897-25-X ss. 496. 
+PENMANN H.L. 1948. Natural evaporation from open water, bare soil and grass. W: Proceedings of the 
+Royal Society of London. Vol. 193 s. 120–145. 
+ROJEK M. 1987. Rozk ład czasowy i przestrzenny klimatycznych i rolniczo-klimatycznych bilansów 
+wodnych na terenie Polski. Zeszyty Naukowe AR we Wrocławiu. Z. 62 ss. 68. 
+Rozporządzenie Ministra Rolnictwa i Rozwoju Ws i z dnia 9 czerwca 2009 r. w sprawie warto ści kli-
+matycznego bilansu wodnego dla poszczególnych gatunków ro ślin uprawnych i gleb. Dz. U. 
+2009. Nr 89 poz. 735. 
+STUCZYŃSKI T., DEMIDOWICZ G., DEPUTAT T., GÓRSKI T., KRASOWICZ S., KUŚ J. 2000. Adaptation 
+scenarios of future climate ch ange. Environmental Monitoring and Assessment. Vol. 61 s. 133–
+144. 
+Ustawa z dnia 7 lipca 2005 r. o ubezpie czeniach upraw rolnych i zwierz ąt gospodarskich. Dz. U. 
+2005. Nr 150 poz. 1249 z późn. zm. 
+Ustawa z dnia 25 lipca 2008 r.  o zmianie ustawy o ubezpieczeniu upraw rolnych i zwierząt gospodar-
+skich oraz ustawy o krajowym systemie ewiden cji producentów, ewidencji gospodarstw rolnych 
+oraz ewidencji wniosków o przyznanie płatności. Dz. U. 2008. Nr 145 poz. 918. 
+ A. Doroszewski i in.: Podstawy systemu monitoringu suszy rolniczej  91 
+© ITP Woda Środ. Obsz. Wiej. 2012 (IV–VI), t. 12 z. 2 (38) 
+WATSON R.T, ZINYOWERA M.C., MOSS R.H., DOKKEN D.J. (red.) 1997. IPCC The regional impact of 
+climate change: IPCC special report on the regional impacts of climate change. An assessment of 
+vulnerability [online]. [Dost ęp 2012.04.12]. Dost ępny w Internecie: ht tp://www.grida.no/  
+climate/ipcc/regional/index.htm 
+Andrzej DOROSZEWSKI, Jan JADCZYSZYN, Jerzy KOZYRA, Rafał PUDEŁKO,  
+Tomasz STUCZYŃSKI, Katarzyna MIZAK, Artur ŁOPATKA, Piotr KOZA, Tadeusz GÓRSKI,  
+Elżbieta WRÓBLEWSKA  
+FUNDAMENTALS OF THE AGRICULTURAL DROUGHT MONITORING SYSTEM 
+Key words: climatic water balance, drought, internet m onitoring of agricultural drought, soil mois-
+ture 
+S u m m a r y 
+Drought in Poland appears more frequently in the re cent years, particularly  since 1992. It is an 
+important economic problem for the whole country si nce it may bring substantial yield losses, dimin-
+ished farmers’ incomes and a rise of the prices of food products. Increased frequency of droughts is 
+an outcome of climate changes observed recently. In the System of Agricultural Drought Monitoring 
+weather conditions resulting in drought are defined by the climatic water balance. The system ordered 
+by the Ministry of Agriculture and Rural Develo pment was prepared and implemented by the IUNG-
+PIB. It contains computer applications that integrate meteorological data needed for calculating the 
+climatic water balance and data from the digital soil-agricultural map that illustrates spatial differenti-
+ation of water retention in soils of different agrono mic categories. The system contains tools that are 
+used to assess drought for particular groups and sp ecies of crop plants. Resu lts of analyses are pre-
+sented at a web site in a form of maps and tables. The data presenting the risk of drought during vege-
+tation season are prepared for monitored agricultural crops in all communes of Poland. The system of 
+drought monitoring consists of weather and soil database, of GIS applications to process and integrate 
+spatial data and of the internet system of data presentation. 
+ 

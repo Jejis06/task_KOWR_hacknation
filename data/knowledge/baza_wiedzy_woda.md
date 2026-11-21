@@ -126,7 +126,7 @@ Natura 2000 i obszar chronionego krajobrazu nie wykluczają, ale komplikują pro
 - **Ocena wodnoprawna:** dla przedsięwzięć mogących wpłynąć na osiągnięcie celów środowiskowych JCWP; wniosek do zarządu zlewni lub RZGW. Jeśli wymagana jest decyzja środowiskowa, ocena wodnoprawna odbywa się w jej ramach.
 - **Legalizacja urządzenia wodnego** wykonanego bez zgody: wniosek do Wód Polskich, z mapą sytuacyjno-wysokościową i szkicami urządzenia.
 - **Po wykonaniu urządzenia:** zgłoszenie do Systemu Informacyjnego Gospodarowania Wodami (SIGW); zmiany danych w ciągu 30 dni.
-- **Opłaty administracyjne:** pozwolenie wodnoprawne ok. 330,07 zł, zgłoszenie ok. 87 zł, ocena wodnoprawna ok. 868 zł [DO WERYFIKACJI w katalogu opłat Wód Polskich].
+- **Opłaty administracyjne** [OK]: od 1.01.2026 (M.P. 2025 poz. 717) zgłoszenie 132,33 zł, pozwolenie 330,07 zł (kilka różnych pozwoleń w jednej decyzji: maks. 6601,67 zł), ocena wodnoprawna 1320,35 zł. Od 1.01.2027 (M.P. 2026 poz. 430): 137,09 / 341,95 / 1367,88 zł. Stawki bazowe z art. 398 (87 / 217 / 868 zł) są co roku waloryzowane. Strona „Katalog opłat” Wód Polskich podaje tylko rachunki.
 - **Czas:** zgłoszenie zwykle 1–2 miesiące; pozwolenie od kilku miesięcy do ponad roku [SZACUNEK; oficjalnych średnich brak].
 - **Wzory i poradniki:** karty usług gov.pl (pozwolenie, zgłoszenie), wzór wniosku o pozwolenie (także na biznes.gov.pl), FAQ Wód Polskich, poradniki „Pobór wód na potrzeby działalności rolniczej” i „Melioracje wodne w ustawie Prawo wodne”, Q&A „Zgoda wodnoprawna krok po kroku” (12.2024).
 - **Rejestry:** kataster wodny gromadzi m.in. dane o pozwoleniach wodnoprawnych dotyczących poboru wody i odprowadzania ścieków; wgląd jest nieodpłatny. SIGW to system wewnętrzny Wód Polskich. Odrębnego publicznego rejestru pozwoleń nie ma; resort odrzucił petycję o jego utworzenie, wskazując SIGW.
@@ -242,7 +242,7 @@ Uwaga: w mediach krążyła informacja o „206 mln euro z KPO na wodę w gospod
 ---
 
 ## 12. Punkty do weryfikacji
-1. Opłaty za zgłoszenie, pozwolenie i ocenę wodnoprawną (katalog opłat Wód Polskich).
+1. ~~Opłaty za zgłoszenie, pozwolenie i ocenę wodnoprawną~~ – zweryfikowane 21.11.2026 (M.P. 2025 poz. 717, M.P. 2026 poz. 430).
 2. Uprawnieni wnioskodawcy w NFOŚiGW „Adaptacja do zmian klimatu”.
 3. Kwalifikowalność zbiornika w ARiMR I.10.1.1 i I.10.4; terminy naborów.
 4. Granice powszechnego korzystania z wód przy poborze z cieku.

@@ -1,0 +1,58 @@
+Kontakt
+SMSR - System Monitoringu Suszy Rolniczej
+
+Komunikaty
+
+Mapy KBW
+
+Mapy zagro ż enia susz ą
+
+Tabele dla gmin
+Okresy raportowania wyników analizy zagro ż enia susz ą
+Okres
+dwumiesięczny
+Okres
+sześciodekadowy
+Raport
+na dzień
+Numer
+raportu Rośliny uwzględniane w raporcie
+kwiecień - maj
+21.III - 20.V 20.V 01
+Burak cukrowy, Drzewa owocowe, Krzewy owocowe, Rzepak i rzepik,
+Truskawki, Zboża jare, Zboża ozime, Ziemniak*1.IV - 31.V 31.V 02
+11.IV - 10.VI 10.VI 03
+maj - czerwiec
+21.IV - 20.VI 20.VI 04 Burak cukrowy, Chmiel, Drzewa owocowe, Krzewy owocowe, Kukurydza na
+kiszonkę, Kukurydza na ziarno, Rzepak i rzepik, Rośliny strączkowe, Truskawki,
+Tytoń, Warzywa gruntowe, Zboża jare, Zboża ozime, Ziemniak
+1.V - 30.VI 30.VI 05
+11.V - 10.VII 10.VII 06
+czerwiec - lipiec
+21.V - 20.VII 20.VII 07 Burak cukrowy, Chmiel, Drzewa owocowe, Krzewy owocowe, Kukurydza na
+kiszonkę, Kukurydza na ziarno, Rośliny strączkowe, Truskawki, Tytoń, Warzywa
+gruntowe, Zboża jare, Zboża ozime, Ziemniak
+1.VI - 31.VII 31.VII 08
+11.VI - 10.VIII 10.VIII 09
+lipiec - sierpień
+21.VI - 20.VIII 20.VIII 10 Burak cukrowy, Chmiel, Drzewa owocowe, Krzewy owocowe, Kukurydza na
+kiszonkę, Kukurydza na ziarno, Rośliny strączkowe, Tytoń, Warzywa gruntowe,
+Ziemniak
+1.VII - 31.VIII 31.VIII 11
+11.VII - 10.IX 10.IX 12
+sierpień - wrzesień
+21.VII - 20.IX 20.IX 13
+Burak cukrowy, Rzepak i rzepik, Ziemniak**
+1.VIII - 30.IX 30.IX 14
+* - Nie dotyczy okresu 01 i 02) 21.III - 20.V, 1.IV - 31.V
+** - Nie dotyczy okresu 14) 1.VIII - 30.IX
+Instytut Uprawy Nawożenia i Gleboznawstwa
+Państwowy Instytut Badawczy
+ul. Czartoryskich 8, 24-100 Puławy
+Zakład Biogospodarki i Agrometeorologii
+Zakład Gleboznawstwa i Analiz Środowiskowych
+W przypadku pytań dotyczących suszy proponujemy kontakt poprzez formularz zapytania, który należy wysłać mailem na adres susza@iung.pulawy.pl
+Pobierz formularz
+Opracowanie IUNG-PIB 2020 na zlecenie Misterstwa Rolnictwa i Rozwoju Wsi
+11/21/26, 1:42 PM SMSR - Okresy raportowania
+https://susza.iung.pulawy.pl/raporty/ 1/1

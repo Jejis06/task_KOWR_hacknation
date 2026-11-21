@@ -1,0 +1,31 @@
+SMSR - Kategorie glebowe
+Wyjaśnienia dotyczące kategorii gleb
+Zróżnicowanie przestrzenne pokrywy glebowej w Polsce według kategorii podatności gleb na suszę:
+Kategoria I  - Bardzo podatna na suszę(WOD < 127,5 mm), gatunki gleby: |
+piasek luźny - pl
+piasek luźny pylasty - plp
+piasek słabo gliniasty - ps
+piasek słabo gliniasty pylasty - psp |
+Kategoria II  - Podatna na suszę (WOD 127,5 - 169,9 mm), gatunki gleby: |
+piasek gliniasty lekki - pgl
+piasek gliniasty lekki pylasty - pglp
+piasek gliniasty mocny - pgm
+piasek gliniasty mocny pylasty - pgmp |
+Kategoria III  - Średnio podatna na suszę (WOD 170 - 202,5 mm), gatunki gleby: |
+glina lekka - gl
+glina lekka pylasta - glp
+pył gliniasty - płg
+pył zwykły - płz
+pył piaszczysty - płp |
+Kategoria IV  - Mało podatna na suszę(WOD > 202,5 mm), gatunki gleby: |
+glina średnia - gs
+glina średnia pylasta - gsp
+glina ciężka - gc
+glina ciężka pylasta - gcp
+pył ilasty - płi
+ił - i
+ił pylasty - ip |
+W celu określenia podatności gleb na suszę w systemie monitoringu suszy rolniczej wykorzystuje się ich pojemność wodną mierzoną ilością wody ogólnie dostępnej (WOD*) dla roślin, która jest obliczana jako różnica wilgotności objętościowej dla polowej pojemności wodnej i punktu trwałego więdnięcia w strefie korzeniowej.
+Kategorie podatności gleb na suszę obejmują kontury gleb o zbliżonych właściwościach retencyjnych i potencjalnej ilości (WOD) w profilu glebowym z uwzględnieniem typowego zróżnicowania poboru wody przez system korzeniowy wraz z głębokością. Podstawowym czynnikiem decydującym o przynależności gleb do danej kategorii glebowej jest skład granulometryczny i jego zróżnicowanie w profilu glebowym do głębokości 1,5 m.
+Kategorie podatności gleb na suszę określono dla gleb użytków rolnych wytworzonych z utworów mineralnych na podstawie informacji zawartej na mapie glebowo-rolniczej.
+*  Ślusarczyk E. 1979: Określenie retencji użytecznej gleb mineralnych dla prognozowania i projektowania nawodnień. Melioracje Rolne nr 3 (53).

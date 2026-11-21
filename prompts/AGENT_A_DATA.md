@@ -65,7 +65,7 @@ Jeden konektor = jeden plik = jeden commit i push.
 3. **`drought`**
    - EDO WMS GetFeatureInfo z parametrem `TIME` (CDI, SMA) dla `as_of` i historii.
    - Zbadaj SMSR IUNG (`susza.iung.pulawy.pl`, zapytania XHR mapy): gmina × uprawa × kategoria gleby. Jeśli nie ma API, opisz to w `docs/data_sources.md` i zwróć komunikat.
-   - `drought_years`: lata, w których `min_cwb_60d_mm` < próg. Progi KBW SMSR są w `data/knowledge/raw/smsr_podstawy_2012.txt`, jeśli plik już jest (sprawdź `manifest.json`). Dopisz je do `crops.yaml` → `smsr_cwb_thresholds_mm` i zgłoś to w AGENTS.md §14.
+   - `drought_years`: lata, w których `min_cwb_60d_mm` < próg. **Pełna tabela progów KBW SMSR** (14 grup upraw × kategorie gleby I–IV × 14 okresów sześciodekadowych, rozp. MRiRW z 11.04.2019) jest w `data/knowledge/raw/smsr_progi_www.txt`; metodyka: `smsr_podstawy_2012.txt`, kategorie gleb: `smsr_kategorie_www.txt`, okresy: `smsr_okresy_raportowania.txt`. Przenieś progi do `crops.yaml` → `smsr_cwb_thresholds_mm` (lub osobnego `data/knowledge/crops/smsr_thresholds.yaml`) i zgłoś to w AGENTS.md §14.
    - Jury prawdopodobnie porównuje wyniki z SMSR/EDO, więc to blok krytyczny.
 4. **`hydrology`**
    - ISOK: strefa powodziowa 0,2%, 1% lub 10% (GetFeatureInfo w kilku punktach działki).

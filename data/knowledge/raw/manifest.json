@@ -172,12 +172,16 @@
     "text_chars": 453967
   },
   "melioracje_a5_2022": {
-    "title": "Wody Polskie – Melioracje wodne (A5, 2022)",
-    "url": "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf",
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340371+00:00",
-    "note": "brak pliku – wrzuć raw/melioracje_a5_2022.pdf lub .docx"
+    "title": "Wody Polskie – Melioracje wodne (A5, 4.04.2022, kopia stopsuszy.pl)",
+    "url": "https://stopsuszy.pl/wp-content/uploads/2024/10/7_melioracje-wodne-A5-4-kwietnia-2022.pdf",
+    "manual": false,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:53:00.947199+00:00",
+    "ok": true,
+    "file": "melioracje_a5_2022.pdf",
+    "bytes": 767399,
+    "sha256": "94aa82bd17174ec1b058c7466b0509378901567244b02f69ddece848cfc9cb45",
+    "text_chars": 11408
   },
   "eu_rdw_32000L0060": {
     "title": "Ramowa Dyrektywa Wodna 2000/60/WE",
@@ -240,20 +244,15 @@
     "text_chars": 262638
   },
   "smsr_podstawy_2012": {
-    "title": "Doroszewski i in. (2012) Podstawy Systemu Monitoringu Suszy Rolniczej, IUNG-PIB (progi KBW per uprawa i kategoria gleby)",
-    "url": null,
+    "title": "Doroszewski i in. (2012) Podstawy systemu monitoringu suszy rolniczej (progi KBW, kategorie gleb)",
+    "url": "https://bibliotekanauki.pl/articles/338234.pdf",
     "manual": true,
-    "ok": false,
     "retrieved_at": "2026-11-21T12:17:59.340472+00:00",
-    "note": "brak pliku – wrzuć raw/smsr_podstawy_2012.pdf lub .docx"
-  },
-  "smsr_metodyka_www": {
-    "title": "SMSR IUNG – opis metodyki / kategorie gleb / lista upraw (strona susza.iung.pulawy.pl, zapis do PDF)",
-    "url": null,
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340491+00:00",
-    "note": "brak pliku – wrzuć raw/smsr_metodyka_www.pdf lub .docx"
+    "ok": true,
+    "file": "smsr_podstawy_2012.pdf",
+    "bytes": 671668,
+    "sha256": "bda1f6f13535423c523e8ae92361bd5ac01ad9c5a5967c058de29cb721ab58df",
+    "text_chars": 29385
   },
   "zylowska_kozyra_2025": {
     "title": "Żyłowska, Kozyra (2025) Zintegrowane monitorowanie suszy na potrzeby rolnictwa – przegląd systemów i wskaźników (SiR 74/10, bibliografia KOWR)",
@@ -268,68 +267,56 @@
     "text_chars": 29645
   },
   "fao56": {
-    "title": "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)",
-    "url": null,
+    "title": "FAO Irrigation and Drainage Paper 56 Rev. 1 (2025) Crop evapotranspiration – OPCJONALNE (potrzebne tabele są już w crops.yaml i science/et0.py)",
+    "url": "https://openknowledge.fao.org/server/api/core/bitstreams/adb9d711-428b-42da-a47f-db6f8b804848/content",
     "manual": true,
     "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340510+00:00",
+    "retrieved_at": "2026-11-21T12:52:47.278800+00:00",
     "note": "brak pliku – wrzuć raw/fao56.pdf lub .docx"
   },
   "cdr_eporadnik_2025": {
     "title": "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik",
-    "url": null,
+    "url": "https://woda.cdr.gov.pl/images/publikacje/Publikacje/Melioracje_retencja_wodna_e-poradnik_2025.pdf",
     "manual": true,
-    "ok": false,
     "retrieved_at": "2026-11-21T12:17:59.340528+00:00",
-    "note": "brak pliku – wrzuć raw/cdr_eporadnik_2025.pdf lub .docx"
-  },
-  "pak_dane_satelitarne_2024": {
-    "title": "Polska Agencja Kosmiczna (2024) Dane satelitarne dla administracji publicznej (rozdz. 6.3.3–6.3.4)",
-    "url": null,
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340545+00:00",
-    "note": "brak pliku – wrzuć raw/pak_dane_satelitarne_2024.pdf lub .docx"
+    "ok": true,
+    "file": "cdr_eporadnik_2025.pdf",
+    "bytes": 18640624,
+    "sha256": "15d8c188cd10e2541b6eb19cee922180c148a235bf066d642e6e3df6c2660ed9",
+    "text_chars": 667757
   },
   "nwrm_guide_2015": {
-    "title": "KE (2015) A Guide to Support the Selection, Design and Implementation of Natural Water Retention Measures",
-    "url": null,
+    "title": "KE (2015) A Guide to Support the Selection, Design and Implementation of NWRM",
+    "url": "https://www.nwrm.eu/sites/default/files/documents-docs/nwrm-guide-en.pdf",
     "manual": true,
-    "ok": false,
     "retrieved_at": "2026-11-21T12:17:59.340567+00:00",
-    "note": "brak pliku – wrzuć raw/nwrm_guide_2015.pdf lub .docx"
+    "ok": true,
+    "file": "nwrm_guide_2015.pdf",
+    "bytes": 38580239,
+    "sha256": "6064dc7c229e270503fee18577e5ff7f1a8741615f6e881f59cbcdcd0dd1d97f",
+    "text_chars": 63
   },
   "wzor_zgloszenie_wodnoprawne": {
-    "title": "Wzór zgłoszenia wodnoprawnego (gov.pl / Wody Polskie)",
-    "url": null,
+    "title": "Wzór zgłoszenia wodnoprawnego (gov.pl, PDF)",
+    "url": "https://www.gov.pl/attachment/31cc9cc2-6318-499a-adf9-040346fdf193",
     "manual": true,
-    "ok": false,
     "retrieved_at": "2026-11-21T12:17:59.340585+00:00",
-    "note": "brak pliku – wrzuć raw/wzor_zgloszenie_wodnoprawne.pdf lub .docx"
+    "ok": true,
+    "file": "wzor_zgloszenie_wodnoprawne.pdf",
+    "bytes": 183035,
+    "sha256": "fcb78ac2beaef32ab352c2548c5299311cfcbb88f4fc8d1f075c52fd8d5ec8f2",
+    "text_chars": 6571
   },
   "wzor_wniosek_pozwolenie": {
-    "title": "Wzór wniosku o pozwolenie wodnoprawne (gov.pl / biznes.gov.pl)",
-    "url": null,
+    "title": "Wzór wniosku o pozwolenie wodnoprawne (gov.pl, PDF)",
+    "url": "https://www.gov.pl/attachment/9b10c34a-922b-4911-b728-910736f466c9",
     "manual": true,
-    "ok": false,
     "retrieved_at": "2026-11-21T12:17:59.340603+00:00",
-    "note": "brak pliku – wrzuć raw/wzor_wniosek_pozwolenie.pdf lub .docx"
-  },
-  "katalog_oplat_wody_polskie": {
-    "title": "Wody Polskie – katalog/tabela opłat za zgłoszenie, pozwolenie, ocenę wodnoprawną",
-    "url": null,
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340621+00:00",
-    "note": "brak pliku – wrzuć raw/katalog_oplat_wody_polskie.pdf lub .docx"
-  },
-  "prawo_wodne_tj": {
-    "title": "Ustawa Prawo wodne – aktualny tekst jednolity (ISAP, PDF), z nowelizacją z 19.06.2026",
-    "url": null,
-    "manual": true,
-    "ok": false,
-    "retrieved_at": "2026-11-21T12:17:59.340638+00:00",
-    "note": "brak pliku – wrzuć raw/prawo_wodne_tj.pdf lub .docx"
+    "ok": true,
+    "file": "wzor_wniosek_pozwolenie.pdf",
+    "bytes": 131340,
+    "sha256": "ba4091a8f94d24352c2cb163746b1d3c6c92b5efa757805aeb15c57cb2d98fb6",
+    "text_chars": 13603
   },
   "iung_sir74_2_wawer_rolnictwo40": {
     "title": "Wawer – Potencjał Rolnictwa 4.0 i 5.0 w adaptacji gospodarki wodnej w rolnictwie (SiR 74/2)",
@@ -462,5 +449,178 @@
     "bytes": 1444949,
     "sha256": "0b8f6d129ba5830c0c17630fe14dca3f399e8475165473ed3c49440b9dfb10a1",
     "text_chars": 53859
+  },
+  "smsr_progi_www": {
+    "title": "SMSR IUNG – progi KBW per uprawa i kategoria gleby (strona)",
+    "url": "https://susza.iung.pulawy.pl/progi/",
+    "manual": false,
+    "ok": true,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:52:46.838110+00:00",
+    "kind": "html",
+    "text_chars": 6056
+  },
+  "smsr_kategorie_www": {
+    "title": "SMSR IUNG – kategorie gleb (strona)",
+    "url": "https://susza.iung.pulawy.pl/kategorie/",
+    "manual": false,
+    "ok": true,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:52:46.926715+00:00",
+    "kind": "html",
+    "text_chars": 1988
+  },
+  "smsr_progi_pdf": {
+    "title": "SMSR – Wartości progowe KBW (wydruk PDF strony)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:46.927032+00:00",
+    "ok": true,
+    "file": "smsr_progi_pdf.pdf",
+    "bytes": 537368,
+    "sha256": "5c35156ba902408f6bac5dc3e69c79f935bf006ece1705652df154b26256c6bc",
+    "text_chars": 5274
+  },
+  "smsr_kategorie_pdf": {
+    "title": "SMSR – Kategorie glebowe (wydruk PDF strony)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:47.048483+00:00",
+    "ok": true,
+    "file": "smsr_kategorie_pdf.pdf",
+    "bytes": 238258,
+    "sha256": "0e180c36e6f9b2a66502ca738cd66d0de447bb16aa3ee5fda50b0fb8ea7e50e7",
+    "text_chars": 2662
+  },
+  "smsr_okresy_raportowania": {
+    "title": "SMSR – Okresy raportowania (wydruk PDF strony)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:47.090664+00:00",
+    "ok": true,
+    "file": "smsr_okresy_raportowania.pdf",
+    "bytes": 220999,
+    "sha256": "2112a59fcb303c9cf4da9c026dc85a3397fe40d2cbfae6a9b92c544b28926339",
+    "text_chars": 2010
+  },
+  "smsr_mapa_kategorii": {
+    "title": "SMSR – Mapa kategorii glebowych (wydruk PDF strony)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:47.125036+00:00",
+    "ok": true,
+    "file": "smsr_mapa_kategorii.pdf",
+    "bytes": 1673028,
+    "sha256": "d0a521ea7499c83a7c09d3afc329d7de271fbe5d9a813cbf963dd0c5f894f82f",
+    "text_chars": 781
+  },
+  "smsr_system_www": {
+    "title": "SMSR IUNG – opis systemu (strona)",
+    "url": "https://susza.iung.pulawy.pl/system/",
+    "manual": false,
+    "ok": true,
+    "http": 200,
+    "retrieved_at": "2026-11-21T12:52:47.278734+00:00",
+    "kind": "html",
+    "text_chars": 3618
+  },
+  "polsa_dane_satelitarne_2020": {
+    "title": "POLSA (2020, wyd. I, red. Hejmanowska, Wężyk) Dane satelitarne dla administracji publicznej – rozdz. 6.3.3 s. 286, 6.3.4 s. 291 (wydania 2024 NIE MA)",
+    "url": "https://polsa.gov.pl/wp-content/themes/polsa/files/Podrecznik.pdf",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:51.533015+00:00",
+    "ok": true,
+    "file": "polsa_dane_satelitarne_2020.pdf",
+    "bytes": 64420464,
+    "sha256": "9632334608baabb93b3e6801526a1eb44b0a1bf1677cb076ea9b21e4b6b20845",
+    "text_chars": 1053979
+  },
+  "melioracje_a5_2025": {
+    "title": "Wody Polskie – Melioracje wodne w ustawie Prawo wodne (A5, wersja 11.03.2025)",
+    "url": "https://www.gov.pl/attachment/70311816-a2bc-47f3-8557-dfae4a220c51",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:52:58.881289+00:00",
+    "ok": true,
+    "file": "melioracje_a5_2025.pdf",
+    "bytes": 2342844,
+    "sha256": "1b1e0c98101e8fca422fb254c433117f55fc9e677bb331c4ad2dbfd2cade44bb",
+    "text_chars": 11328
+  },
+  "prawo_wodne_tj_2026": {
+    "title": "Prawo wodne – tekst jednolity Dz.U. 2026 poz. 1335 (stan na 14.09.2026)",
+    "url": "https://dziennikustaw.gov.pl/D2026000133501.pdf",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:01.122680+00:00",
+    "ok": true,
+    "file": "prawo_wodne_tj_2026.pdf",
+    "bytes": 4592440,
+    "sha256": "d690439a95f6518b7af45531b60f55937dfb089dcde11e4f2b0209aa2ed165a5",
+    "text_chars": 909475
+  },
+  "prawo_wodne_nowelizacja_2026_1358": {
+    "title": "Nowelizacja Prawa wodnego Dz.U. 2026 poz. 1358 (w życie 3.11.2026; nie ma jej w t.j. poz. 1335)",
+    "url": "https://dziennikustaw.gov.pl/D2026000135801.pdf",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:06.597139+00:00",
+    "ok": true,
+    "file": "prawo_wodne_nowelizacja_2026_1358.pdf",
+    "bytes": 190866,
+    "sha256": "e1d3c4db80116849292d21a76726daf003fe3eb0bc7020c9ba9c6d70832c296d",
+    "text_chars": 9702
+  },
+  "oplaty_wodnoprawne_2026": {
+    "title": "M.P. 2025 poz. 717 – stawki opłat za zgłoszenie/pozwolenie/ocenę od 1.01.2026",
+    "url": "https://monitorpolski.gov.pl/M2025000071701.pdf",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:06.664095+00:00",
+    "ok": true,
+    "file": "oplaty_wodnoprawne_2026.pdf",
+    "bytes": 155091,
+    "sha256": "9034eccd1c29d0e618ee80c4bef5a6f7aad7f5db54d338e43f4f72038de5a7ef",
+    "text_chars": 1327
+  },
+  "oplaty_wodnoprawne_2027": {
+    "title": "M.P. 2026 poz. 430 – stawki opłat od 1.01.2027",
+    "url": "https://monitorpolski.gov.pl/M2026000043001.pdf",
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:06.679363+00:00",
+    "ok": true,
+    "file": "oplaty_wodnoprawne_2027.pdf",
+    "bytes": 154520,
+    "sha256": "14fbbf35f6aaca6d31a8894427d8fb3f62f3f7020cadc559dcec933a2e711acd",
+    "text_chars": 1368
+  },
+  "katalog_oplat_strona_govpl": {
+    "title": "Wody Polskie – strona Katalog opłat (typy opłat i rachunki, BEZ kwot) – wydruk",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:06.690227+00:00",
+    "ok": true,
+    "file": "katalog_oplat_strona_govpl.pdf",
+    "bytes": 281178,
+    "sha256": "60301b76187d4da0f7c415f13beabfd4edf8ef9c63429d770d9d43772a6d0b2d",
+    "text_chars": 4137
+  },
+  "wzor_zgloszenie_wodnoprawne_docx": {
+    "title": "Wzór zgłoszenia wodnoprawnego (DOCX)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:06.872178+00:00",
+    "ok": true,
+    "file": "wzor_zgloszenie_wodnoprawne_docx.docx",
+    "bytes": 490122,
+    "sha256": "0fe24d124547c44f06fa1193ce5ff984f5a4f5ef755379cff96e98dcb6fc0cea",
+    "text_chars": 260960
+  },
+  "wzor_wniosek_pozwolenie_docx": {
+    "title": "Wzór wniosku o pozwolenie wodnoprawne (DOCX)",
+    "url": null,
+    "manual": true,
+    "retrieved_at": "2026-11-21T12:53:07.039249+00:00",
+    "ok": true,
+    "file": "wzor_wniosek_pozwolenie_docx.docx",
+    "bytes": 335583,
+    "sha256": "3ef7abdb17a1f1c9dccb1bb1abfd9e0142fc04a71428bfe26beaeaccb14a007c",
+    "text_chars": 198317
   }
 }

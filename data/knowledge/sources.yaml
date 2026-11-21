@@ -31,7 +31,6 @@ documents:
   - {id: iung_sir47_kus_woda, title: "Kuś – Gospodarowanie wodą w rolnictwie (SiR 47, cały zeszyt)", url: "https://iung.pl/wp-content/uploads/2009/10/zesz47.pdf"}
   - {id: iung_sir05_5_lopatka_susza, title: "Łopatka – Analiza warunków wodnych gleb i zagrożeń suszą (woj. podlaskie) (SiR 5/5)", url: "https://iung.pl/wp-content/uploads/2009/10/zeszyt05_5.pdf"}
   - {id: iung_sir71, title: "IUNG SiR 71(25) Gospodarka wodna w rolnictwie", url: "https://www.iung.pl/sir/SiR%2071(25)%20ISBN%20elektroniczny%20z%20ok%C5%82adk%C4%85.pdf"}
-  - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 2022)", manual: true, url: "https://wody.gov.pl/images/Melioracje/melioracje_wodne-A5-4_kwietnia_2022.pdf"}
   # Prawo UE (EUR-Lex, wersje PL) – CELEX z eu_law.yaml
   - {id: eu_rdw_32000L0060, title: "Ramowa Dyrektywa Wodna 2000/60/WE", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32000L0060"}
   - {id: eu_azotanowa_31991L0676, title: "Dyrektywa azotanowa 91/676/EWG", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:31991L0676"}
@@ -40,17 +39,33 @@ documents:
   - {id: eu_wpr_32021R2115, title: "Rozporządzenie 2021/2115 plany strategiczne WPR", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32021R2115"}
   - {id: eu_odbudowa_32024R1991, title: "Rozporządzenie 2024/1991 odbudowa zasobów przyrodniczych", url: "https://eur-lex.europa.eu/legal-content/PL/TXT/PDF/?uri=CELEX:32024R1991"}
 
-  # ── DO POBRANIA RĘCZNIE (brak stabilnego linku) – wrzuć jako data/knowledge/raw/<id>.pdf lub .docx, potem `make knowledge`
-  # Priorytet 1 – metodyka (jury porównuje z danymi referencyjnymi, prawdopodobnie SMSR):
-  - {id: smsr_podstawy_2012, manual: true, title: "Doroszewski i in. (2012) Podstawy Systemu Monitoringu Suszy Rolniczej, IUNG-PIB (progi KBW per uprawa i kategoria gleby)"}
-  - {id: smsr_metodyka_www, manual: true, title: "SMSR IUNG – opis metodyki / kategorie gleb / lista upraw (strona susza.iung.pulawy.pl, zapis do PDF)"}
-  - {id: fao56, manual: true, title: "FAO-56 Crop evapotranspiration (Allen i in.) – PDF (tabele Kc, długości faz, Zr, p)"}
-  # Priorytet 2 – materiały polecane przez ekspertów KOWR:
-  - {id: cdr_eporadnik_2025, manual: true, title: "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik"}
-  - {id: pak_dane_satelitarne_2024, manual: true, title: "Polska Agencja Kosmiczna (2024) Dane satelitarne dla administracji publicznej (rozdz. 6.3.3–6.3.4)"}
-  - {id: nwrm_guide_2015, manual: true, title: "KE (2015) A Guide to Support the Selection, Design and Implementation of Natural Water Retention Measures"}
-  # Priorytet 3 – formalności (weryfikacja opłat i wzorów):
-  - {id: wzor_zgloszenie_wodnoprawne, manual: true, title: "Wzór zgłoszenia wodnoprawnego (gov.pl / Wody Polskie)"}
-  - {id: wzor_wniosek_pozwolenie, manual: true, title: "Wzór wniosku o pozwolenie wodnoprawne (gov.pl / biznes.gov.pl)"}
-  - {id: katalog_oplat_wody_polskie, manual: true, title: "Wody Polskie – katalog/tabela opłat za zgłoszenie, pozwolenie, ocenę wodnoprawną"}
-  - {id: prawo_wodne_tj, manual: true, title: "Ustawa Prawo wodne – aktualny tekst jednolity (ISAP, PDF), z nowelizacją z 19.06.2026"}
+
+  # ── Uzupełnienia 21.11.2026 (adresy zweryfikowane przy pobraniu; patrz manifest.json)
+  # Metodyka suszy
+  - {id: smsr_podstawy_2012, manual: true, title: "Doroszewski i in. (2012) Podstawy systemu monitoringu suszy rolniczej (progi KBW, kategorie gleb)", url: "https://bibliotekanauki.pl/articles/338234.pdf"}
+  - {id: smsr_progi_www, html: true, title: "SMSR IUNG – progi KBW per uprawa i kategoria gleby (strona)", url: "https://susza.iung.pulawy.pl/progi/"}
+  - {id: smsr_kategorie_www, html: true, title: "SMSR IUNG – kategorie gleb (strona)", url: "https://susza.iung.pulawy.pl/kategorie/"}
+  - {id: smsr_progi_pdf, manual: true, title: "SMSR – Wartości progowe KBW (wydruk PDF strony)"}
+  - {id: smsr_kategorie_pdf, manual: true, title: "SMSR – Kategorie glebowe (wydruk PDF strony)"}
+  - {id: smsr_okresy_raportowania, manual: true, title: "SMSR – Okresy raportowania (wydruk PDF strony)"}
+  - {id: smsr_mapa_kategorii, manual: true, title: "SMSR – Mapa kategorii glebowych (wydruk PDF strony)"}
+  - {id: smsr_system_www, html: true, title: "SMSR IUNG – opis systemu (strona)", url: "https://susza.iung.pulawy.pl/system/"}
+  - {id: fao56, manual: true, title: "FAO Irrigation and Drainage Paper 56 Rev. 1 (2025) Crop evapotranspiration – OPCJONALNE (potrzebne tabele są już w crops.yaml i science/et0.py)", url: "https://openknowledge.fao.org/server/api/core/bitstreams/adb9d711-428b-42da-a47f-db6f8b804848/content"}
+  # Materiały polecane przez ekspertów KOWR
+  - {id: cdr_eporadnik_2025, manual: true, title: "CDR Brwinów (2025) Melioracje, retencja i gospodarka wodna w rolnictwie – e-poradnik", url: "https://woda.cdr.gov.pl/images/publikacje/Publikacje/Melioracje_retencja_wodna_e-poradnik_2025.pdf"}
+  - {id: polsa_dane_satelitarne_2020, manual: true, title: "POLSA (2020, wyd. I, red. Hejmanowska, Wężyk) Dane satelitarne dla administracji publicznej – rozdz. 6.3.3 s. 286, 6.3.4 s. 291 (wydania 2024 NIE MA)", url: "https://polsa.gov.pl/wp-content/themes/polsa/files/Podrecznik.pdf"}
+  - {id: nwrm_guide_2015, manual: true, title: "KE (2015) A Guide to Support the Selection, Design and Implementation of NWRM", url: "https://www.nwrm.eu/sites/default/files/documents-docs/nwrm-guide-en.pdf"}
+  # Melioracje
+  - {id: melioracje_a5_2025, manual: true, title: "Wody Polskie – Melioracje wodne w ustawie Prawo wodne (A5, wersja 11.03.2025)", url: "https://www.gov.pl/attachment/70311816-a2bc-47f3-8557-dfae4a220c51"}
+  - {id: melioracje_a5_2022, title: "Wody Polskie – Melioracje wodne (A5, 4.04.2022, kopia stopsuszy.pl)", url: "https://stopsuszy.pl/wp-content/uploads/2024/10/7_melioracje-wodne-A5-4-kwietnia-2022.pdf"}
+  # Prawo wodne i opłaty
+  - {id: prawo_wodne_tj_2026, manual: true, title: "Prawo wodne – tekst jednolity Dz.U. 2026 poz. 1335 (stan na 14.09.2026)", url: "https://dziennikustaw.gov.pl/D2026000133501.pdf"}
+  - {id: prawo_wodne_nowelizacja_2026_1358, manual: true, title: "Nowelizacja Prawa wodnego Dz.U. 2026 poz. 1358 (w życie 3.11.2026; nie ma jej w t.j. poz. 1335)", url: "https://dziennikustaw.gov.pl/D2026000135801.pdf"}
+  - {id: oplaty_wodnoprawne_2026, manual: true, title: "M.P. 2025 poz. 717 – stawki opłat za zgłoszenie/pozwolenie/ocenę od 1.01.2026", url: "https://monitorpolski.gov.pl/M2025000071701.pdf"}
+  - {id: oplaty_wodnoprawne_2027, manual: true, title: "M.P. 2026 poz. 430 – stawki opłat od 1.01.2027", url: "https://monitorpolski.gov.pl/M2026000043001.pdf"}
+  - {id: katalog_oplat_strona_govpl, manual: true, title: "Wody Polskie – strona Katalog opłat (typy opłat i rachunki, BEZ kwot) – wydruk"}
+  # Wzory wniosków
+  - {id: wzor_zgloszenie_wodnoprawne, manual: true, title: "Wzór zgłoszenia wodnoprawnego (gov.pl, PDF)", url: "https://www.gov.pl/attachment/31cc9cc2-6318-499a-adf9-040346fdf193"}
+  - {id: wzor_wniosek_pozwolenie, manual: true, title: "Wzór wniosku o pozwolenie wodnoprawne (gov.pl, PDF)", url: "https://www.gov.pl/attachment/9b10c34a-922b-4911-b728-910736f466c9"}
+  - {id: wzor_zgloszenie_wodnoprawne_docx, manual: true, title: "Wzór zgłoszenia wodnoprawnego (DOCX)"}
+  - {id: wzor_wniosek_pozwolenie_docx, manual: true, title: "Wzór wniosku o pozwolenie wodnoprawne (DOCX)"}

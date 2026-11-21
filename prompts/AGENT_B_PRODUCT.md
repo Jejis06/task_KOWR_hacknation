@@ -112,12 +112,12 @@ Bez uprawy: ogólny stan okresu wegetacji dla daty. Testy dla dat: styczeń, kwi
 ### 5. Baza wiedzy (`data/knowledge/`)
 
 1. Zweryfikuj wpisy `DO_WERYFIKACJI` na podstawie dokumentów w `data/knowledge/raw/*.txt` (`grep -ril`):
-   - opłaty za zgłoszenie (87 zł), pozwolenie (330,07 zł) i ocenę (868 zł);
+   - (opłaty są już zweryfikowane: 2026 → 132,33 / 330,07 / 1320,35 zł; 2027 → 137,09 / 341,95 / 1367,88 zł; pokaż w UI stawkę dla roku daty analizy);
    - kwalifikowalność zbiorników w I.10.1.1 i I.10.4;
    - terminy naborów (`arimr_harmonogram_2026.txt`).
 
    Zmieniaj status tylko z cytatem i źródłem w polu `sources`.
-2. Dokumenty z `manual: true` w `sources.yaml` wrzuca człowiek. Jeśli się pojawią (`manifest.json`, `ok: true`), wykorzystaj je do weryfikacji.
+2. Dostępne są też: wzory zgłoszenia i wniosku o pozwolenie (`raw/wzor_*.txt`, linkuj je w UI przy procedurach), Prawo wodne t.j. 2026 + nowelizacja poz. 1358, broszura o melioracjach 2025, e-poradnik CDR 2025, podręcznik POLSA 2020 (rozdz. 6.3.3 s. 286, 6.3.4 s. 291 – to wydanie 2020, nie 2024), NWRM 2015.
 3. Uzupełnij `crops.yaml`: pszenżyto ozime, jęczmień ozimy, owies; `smsr_group` zgodny z listą SMSR. Progi KBW SMSR wpisuje Agent A, nie nadpisuj ich.
 
 ## Definicja „zrobione”

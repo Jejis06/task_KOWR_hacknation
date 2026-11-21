@@ -58,6 +58,17 @@ def extract_text(path: Path) -> str:
     return ""
 
 
+def html_to_text(raw: bytes) -> str:
+    import html as _html
+    import re
+    t = raw.decode("utf-8", "replace")
+    t = re.sub(r"(?is)<(script|style|nav|footer|header)[^>]*>.*?</\1>", " ", t)
+    t = re.sub(r"(?i)<br\s*/?>|</(p|div|tr|li|h[1-6])>", "\n", t)
+    t = re.sub(r"(?i)</t[dh]>", " | ", t)
+    t = _html.unescape(re.sub(r"<[^>]+>", " ", t))
+    return "\n".join(ln.strip() for ln in t.splitlines() if ln.strip())
+
+
 def existing_file(doc_id: str) -> Path | None:
     return next((RAW / f"{doc_id}{ext}" for ext in EXTS if (RAW / f"{doc_id}{ext}").exists()), None)
 
@@ -81,6 +92,21 @@ def main(force: bool = False) -> None:
             have = existing_file(d["id"])
             txt_missing = not (RAW / f"{d['id']}.txt").exists()
             try:
+                if d.get("html"):
+                    if not txt_missing and not force:
+                        print(f"skip  {d['id']}")
+                        continue
+                    r = c.get(d["url"])
+                    if r.status_code == 200 and "html" in r.headers.get("content-type", ""):
+                        txt = html_to_text(r.content)
+                        (RAW / f"{d['id']}.txt").write_text(txt, encoding="utf-8")
+                        manifest[d["id"]] = base | {"ok": True, "http": 200, "retrieved_at": now(), "kind": "html",
+                                                    "text_chars": len(txt)}
+                        print(f"ok    {d['id']}  html  {len(txt)//1024} KB tekstu")
+                    else:
+                        manifest[d["id"]] = base | {"ok": False, "http": r.status_code, "retrieved_at": now()}
+                        print(f"FAIL  {d['id']}  {r.status_code}")
+                    continue
                 if have and (d.get("manual") or not force):
                     if txt_missing or force:
                         manifest[d["id"]] = finalize(d, have, base | {"retrieved_at": manifest.get(
@@ -109,6 +135,11 @@ def main(force: bool = False) -> None:
                 entry = base | {"ok": False, "error": str(e), "retrieved_at": now()}
                 print(f"FAIL  {d['id']}  {e}")
             manifest[d["id"]] = entry
+    ids = {d["id"] for d in docs}
+    for stale in [k for k in manifest if k not in ids]:  # usunięte z sources.yaml
+        manifest.pop(stale)
+        for ext in (*EXTS, ".txt"):
+            (RAW / f"{stale}{ext}").unlink(missing_ok=True)
     mpath.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
