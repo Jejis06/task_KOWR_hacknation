@@ -1,5 +1,5 @@
 meta:
-  title: Uprawy – okres wegetacji, terminy, potrzeby wodne (17 upraw)
+  title: Uprawy – okres wegetacji, terminy, potrzeby wodne (19 upraw)
   snapshot_date: 2026-11-21
   sources:
     - "FAO-56 (Allen i in.), Tab. 11 (długości faz), Tab. 12 (Kc), Tab. 22 (głębokość korzeni Zr, frakcja p)"
@@ -312,6 +312,42 @@ items:
     critical: ["opadanie czerwcowe zawiązków (VI)", "wzrost owoców (VII–VIII)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie, głębokie"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: ogorek
+    name_pl: Ogórek gruntowy
+    smsr_group: warzywa gruntowe
+    type: jara
+    sowing: "05-15..06-05"
+    min_soil_temp_sowing_c: 12
+    harvest: "07-10..09-15"
+    vegetation_days: [90, 120]
+    stages_start: "05-20"
+    stages: [20, 30, 40, 15]
+    kc: [0.6, 1.0, 0.75]
+    root_depth_m: 0.7
+    p: 0.5
+    critical: ["kwitnienie i zawiązywanie owoców (VII)", "owocowanie (VII–VIII)"]
+    drought_sensitivity: bardzo wysoka
+    soil_preference: "gleby próchniczne, ciepłe, zasobne w wodę; płytki system korzeniowy – zwykle wymaga nawadniania (kroplowego)"
+    smsr_cwb_thresholds_mm: null
+    status: SZACUNEK
+
+  - id: kapusta
+    name_pl: Kapusta głowiasta (późna)
+    smsr_group: warzywa gruntowe
+    type: jara
+    sowing: "05-01..06-10"
+    harvest: "09-15..11-10"
+    stages_start: "05-15"
+    stages: [40, 60, 50, 15]
+    kc: [0.7, 1.05, 0.95]
+    root_depth_m: 0.6
+    p: 0.45
+    critical: ["formowanie główek (VIII–IX)"]
+    drought_sensitivity: wysoka
+    soil_preference: "gleby żyzne, średnie i ciężkie, wilgotne; termin to sadzenie rozsady (siew rozsady IV)"
     smsr_cwb_thresholds_mm: null
     status: SZACUNEK
 
