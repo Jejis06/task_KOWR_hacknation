@@ -7,6 +7,7 @@ import type {
 import { ChartBox, COLORS } from "../Chart";
 import { Term } from "../Term";
 import { dateStr, num, signed } from "../../lib/format";
+import { emit, fmtDist } from "../../lib/events";
 
 // ───────────── susza ─────────────
 export function DroughtView({ d, asOf }: { d: DroughtHistory; asOf: string }) {
@@ -81,7 +82,29 @@ export function SoilView({ d }: { d: SoilInfo }) {
 }
 
 // ───────────── teren ─────────────
-const POS_ICON: Record<string, string> = { hilltop: "⛰️", upper_slope: "↗️", mid_slope: "↘️", flat: "➖", valley: "〰️", depression: "🕳️" };
+// Mała ilustracja przekroju terenu: brązowy grunt, żółty znacznik = działka, niebieskie strzałki/woda = gdzie płynie woda.
+const POS_SHAPE: Record<string, { ground: string; at: [number, number]; water?: string; arrows?: string }> = {
+  hilltop: { ground: "M0 46 C20 46 34 10 48 10 C62 10 76 46 96 46 L96 52 L0 52Z", at: [48, 10], arrows: "M40 18 l-8 10 M56 18 l8 10" },
+  upper_slope: { ground: "M0 48 C30 48 50 14 96 10 L96 52 L0 52Z", at: [76, 12], arrows: "M66 18 l-10 8" },
+  mid_slope: { ground: "M0 48 C30 48 50 14 96 10 L96 52 L0 52Z", at: [46, 30], arrows: "M38 36 l-10 6" },
+  flat: { ground: "M0 34 L96 34 L96 52 L0 52Z", at: [48, 34] },
+  valley: { ground: "M0 12 C30 14 38 44 48 44 C58 44 66 14 96 12 L96 52 L0 52Z", at: [48, 44], water: "M42 44 Q48 46 54 44", arrows: "M24 20 l8 10 M72 20 l-8 10" },
+  depression: { ground: "M0 26 L30 26 C38 26 40 42 48 42 C56 42 58 26 66 26 L96 26 L96 52 L0 52Z", at: [48, 37], water: "M38 35 C42 42 54 42 58 35Z", arrows: "M22 20 l8 4 M74 20 l-8 4" },
+};
+function TerrainIllustration({ pos }: { pos: string }) {
+  const sh = POS_SHAPE[pos];
+  if (!sh) return null;
+  const [x, y] = sh.at;
+  return (
+    <svg className="pos-illu" viewBox="0 0 96 52" aria-hidden>
+      <path d={sh.ground} fill="#c8b48a" stroke="#8a6d3b" strokeWidth="1.5" />
+      {sh.water && <path d={sh.water} fill="#3b82f6" stroke="#1d4ed8" strokeWidth="1.5" />}
+      {sh.arrows && <path d={sh.arrows} stroke="#2563eb" strokeWidth="2" strokeLinecap="round" fill="none" />}
+      <rect x={x - 9} y={y - 3} width="18" height="6" rx="1.5" fill="#d4a017" stroke="#7a5a00" strokeWidth="1" />
+      <path d={`M${x} ${y - 4} l0 -8`} stroke="#7a5a00" strokeWidth="1.5" /><circle cx={x} cy={y - 13} r="3" fill="#d4a017" stroke="#7a5a00" />
+    </svg>
+  );
+}
 const POS_TEXT: Record<string, string> = {
   hilltop: "Działka na wzniesieniu – woda szybko z niej spływa, gleba prędzej przesycha.",
   upper_slope: "Górna część stoku – woda spływa w dół, warto ją spowalniać.",
@@ -99,7 +122,7 @@ export function TerrainView({ d }: { d: TerrainInfo }) {
     <div className="view">
       {pos && (
         <div className="pos">
-          <span className="pos-icon" aria-hidden>{POS_ICON[pos] ?? "📍"}</span>
+          <TerrainIllustration pos={pos} />
           <div><b className="pos-label">{d.position_label_pl ?? pos}</b><p>{POS_TEXT[pos]}</p></div>
         </div>
       )}
@@ -123,7 +146,7 @@ export function TerrainView({ d }: { d: TerrainInfo }) {
 const FLOOD_TEXT: Record<string, string> = {
   "10%": "„raz na 10 lat” (10%)", "1%": "„raz na 100 lat” (1%)", "0.2%": "„raz na 500 lat” (0,2%)",
 };
-const KIND: Record<WaterKind, string> = { river: "rzeka", stream: "ciek / strumień", ditch: "rów melioracyjny", lake: "jezioro",
+export const KIND: Record<WaterKind, string> = { river: "rzeka", stream: "ciek / strumień", ditch: "rów melioracyjny", lake: "jezioro",
   pond: "staw / oczko", reservoir: "zbiornik", spring: "źródło", other: "inne" };
 
 export function HydrologyView({ d }: { d: HydrologyInfo }) {
@@ -142,14 +165,19 @@ export function HydrologyView({ d }: { d: HydrologyInfo }) {
         <p className="small">Teren w obszarze możliwych podtopień wodami gruntowymi (PIG-PIB) – woda gruntowa bywa tu płytko.</p>
       )}
       <h4>Wody w pobliżu</h4>
-      {d.nearest_water.length ? (
-        <div className="table-wrap"><table className="tbl"><thead><tr><th>Co</th><th>Nazwa</th><th>Odległość</th></tr></thead><tbody>
-          {[...d.nearest_water].sort((a, b) => a.distance_m - b.distance_m).map((w, i) => (
-            <tr key={i}><td>{KIND[w.kind] ?? w.kind}</td><td>{w.name ?? "bez nazwy"}</td>
-              <td>{w.distance_m >= 1000 ? num(w.distance_m / 1000, "km", 1) : num(w.distance_m, "m")}</td></tr>
+      {d.nearest_water.length ? (<>
+        <div className="table-wrap"><table className="tbl"><thead><tr><th>Co</th><th>Nazwa</th><th>Odległość</th><th></th></tr></thead><tbody>
+          {d.nearest_water.map((w, i) => ({ w, i })).sort((a, b) => a.w.distance_m - b.w.distance_m).map(({ w, i }) => (
+            <tr key={i} id={`water-${i}`} className={w.geometry ? "clickable" : ""} tabIndex={w.geometry ? 0 : undefined}
+              title={w.geometry ? "Pokaż na mapie" : "Brak geometrii – nie można pokazać na mapie"}
+              onClick={() => w.geometry && emit("water:focus", { index: i })}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && w.geometry && (e.preventDefault(), emit("water:focus", { index: i }))}>
+              <td>{KIND[w.kind] ?? w.kind}</td><td>{w.name ?? "bez nazwy"}</td><td>{fmtDist(w.distance_m)}</td>
+              <td className="small">{w.geometry ? "📍 mapa" : ""}</td></tr>
           ))}
         </tbody></table></div>
-      ) : <p className="muted">Nie znaleziono wód w promieniu analizy.</p>}
+        <p className="small muted">Kliknij wiersz, aby pokazać ciek lub zbiornik na mapie.</p>
+      </>) : <p className="muted">Nie znaleziono wód w promieniu analizy.</p>}
       <dl className="kv-grid">
         <dt>Woda gruntowa (pierwszy poziom, <Term k="MHP" />)</dt><dd>{d.groundwater_depth_m ?? "brak danych"}</dd>
         <dt><Term k="GZWP" /></dt><dd>{d.gzwp ?? "działka poza GZWP lub brak danych"}</dd>
@@ -243,6 +271,11 @@ export function ProtectedView({ d }: { d: ProtectedAreasInfo }) {
       {d.hits.length ? (
         <ul className="list">{d.hits.map((h, i) => <li key={i}><b>{h.kind}</b>{h.name ? ` – ${h.name}` : ""}{h.code ? ` (${h.code})` : ""}</li>)}</ul>
       ) : <p className="good-text">Działka nie leży na żadnym ze sprawdzonych obszarów chronionych.</p>}
+      {(d.nearby ?? []).length > 0 && (
+        <><h4>W pobliżu (do 1 km)</h4>
+          <ul className="list small">{d.nearby!.map((h, i) => <li key={i}><b>{h.kind}</b>{h.name ? ` – ${h.name}` : ""}{h.code ? ` (${h.code})` : ""}
+            {h.distance_m != null ? ` · ${fmtDist(h.distance_m)}` : ""}</li>)}</ul></>
+      )}
       {d.hits.some((h) => /natura/i.test(h.kind)) && <p className="small">Natura 2000 nie zakazuje inwestycji, ale zbiornik czy melioracje mogą wymagać uzgodnień z <Term k="RDOŚ" />.</p>}
       <p className="muted small">Sprawdzone warstwy: {d.checked_layers.join(", ") || "brak informacji"}.</p>
     </div>

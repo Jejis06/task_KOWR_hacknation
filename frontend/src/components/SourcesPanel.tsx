@@ -1,45 +1,40 @@
 // „Skąd te dane” – wymóg KOWR: daty, źródła, co na żywo, a co z kopii lokalnej, licencje, ograniczenia.
+// Wszystko domyślnie zwinięte: cały panel i każdy blok osobno (rozwijane przed drukiem – patrz ParcelPage).
 import type { BlockInfo, DataBlock } from "../api/types";
-import { dateStr, dateTimeStr, modeLabel, STATUS_LABEL } from "../lib/format";
+import { STATUS_LABEL } from "../lib/format";
+import { SourceList } from "./SourceList";
 
 export function SourcesPanel({ infos, blocks }: { infos: BlockInfo[]; blocks: Record<string, DataBlock | "loading"> }) {
   const rows = infos.map((i) => ({ info: i, b: blocks[i.key] })).filter((r) => r.b !== undefined);
   if (!rows.length) return null;
+  const nSources = rows.reduce((a, r) => a + (typeof r.b === "object" ? r.b.provenance.length : 0), 0);
   const limits = rows.flatMap((r) => (typeof r.b === "object" ? r.b.uncertainty.map((u) => ({ title: r.info.title, u })) : []));
   return (
-    <section className="sources-panel" id="zrodla">
-      <h2>Skąd te dane</h2>
-      <p className="small">Każdy wynik liczymy z danych pobranych dla tej działki. „Na żywo” = pobrane teraz ze źródła;
-        „pamięć podręczna” = pobrane wcześniej z tego samego źródła (do 30 dni dla dat historycznych);
-        „kopia lokalna” = treści przygotowane przez zespół (prawo, procedury, kalendarz upraw) z datą opracowania.</p>
-      <div className="table-wrap">
-        <table className="tbl sources-tbl">
-          <thead><tr><th>Blok</th><th>Stan</th><th>Źródło</th><th>Tryb</th><th>Dane z dnia</th><th>Licencja</th><th>Czas</th></tr></thead>
-          <tbody>
-            {rows.map(({ info, b }) => {
-              if (b === "loading") return <tr key={info.key}><td>{info.title}</td><td colSpan={6} className="muted">pobieram…</td></tr>;
-              const provs = b!.provenance.length ? b!.provenance : [null];
-              return provs.map((p, i) => (
-                <tr key={`${info.key}-${i}`}>
-                  {i === 0 && <td rowSpan={provs.length}>{info.title}</td>}
-                  {i === 0 && <td rowSpan={provs.length}><span className={`badge b-${b!.status}`}>{STATUS_LABEL[b!.status]}</span></td>}
-                  <td>{p ? (p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer noopener">{p.source_name}</a> : p.source_name) : "—"}</td>
-                  <td>{p ? modeLabel(p) : "—"}</td>
-                  <td>{p ? (p.data_as_of ? dateStr(p.data_as_of) : `pobrano ${dateTimeStr(p.retrieved_at)}`) : "—"}</td>
-                  <td>{p?.licence ?? "—"}</td>
-                  {i === 0 && <td rowSpan={provs.length}>{b!.elapsed_ms != null ? `${(b!.elapsed_ms / 1000).toFixed(1)} s` : "—"}</td>}
-                </tr>
-              ));
-            })}
-          </tbody>
-        </table>
-      </div>
+    <details className="sources-panel" id="zrodla">
+      <summary><h2>Skąd te dane</h2> <span className="muted small">({nSources} źródeł w {rows.length} blokach – kliknij, aby rozwinąć)</span></summary>
+      <p className="small">Każdy wynik liczymy z danych pobranych dla tej działki. Nazwa źródła prowadzi do strony zbioru danych;
+        „surowe dane dla tej działki” otwiera dokładnie to zapytanie, którym pobraliśmy dane (tam, gdzie źródło na to pozwala).
+        „Na żywo” = pobrane teraz; „pamięć podręczna” = pobrane wcześniej z tego samego źródła; „kopia lokalna” = treści
+        przygotowane przez zespół (prawo, procedury, kalendarz upraw) z datą opracowania.</p>
+      {rows.map(({ info, b }) => (
+        <details key={info.key} className="source-block">
+          <summary>
+            <b>{info.title}</b>{" "}
+            {b === "loading" ? <span className="muted">pobieram…</span> : <>
+              <span className={`badge b-${b!.status}`}>{STATUS_LABEL[b!.status]}</span>
+              <span className="muted small"> · {b!.provenance.length ? `${b!.provenance.length} źr.` : "bez źródła"}
+                {b!.elapsed_ms != null ? ` · ${(b!.elapsed_ms / 1000).toFixed(1)} s` : ""}</span>
+            </>}
+          </summary>
+          {typeof b === "object" && (b.provenance.length ? <SourceList items={b.provenance} /> : <p className="small muted">Brak danych ze źródła.</p>)}
+        </details>
+      ))}
       {limits.length > 0 && (
-        <>
-          <h3>Ograniczenia analizy</h3>
+        <details className="source-block">
+          <summary><b>Ograniczenia analizy</b> <span className="muted small">({limits.length})</span></summary>
           <ul className="small">{limits.map((l, i) => <li key={i}><b>{l.title}:</b> {l.u}</li>)}</ul>
-        </>
+        </details>
       )}
-    </section>
+    </details>
   );
 }

@@ -274,6 +274,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · koordynator · `Provenance` +`query_url` (dokładne zapytanie z danymi działki); `source_url` = tylko strony, które się otwierają (sprawdzone curl). `WeatherHistory` +`seasons_after_as_of` (tylko do porównania w UI, analiza nie używa). `PROV_VERSION` w `base.py` unieważnia cache.
 - 2026-11-21 · A · `WeatherHistory` +`station_check` (opcjonalne); `types.ts` `WeatherHistory.station_check?`.
 - 2026-11-21 · A · `types.ts` +`YieldRecord`, `YieldInfo` (bez zmian w models.py).
 - 2026-11-21 · A · `LandCoverInfo` +`cropland_share_pct`, `bdot_classes`; `types.ts` +`LandCoverInfo`.
@@ -300,6 +301,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · koordynator · UI po testach (fix/ui-feedback-2): zwijane źródła i niepewność, KBW+opad w jednej linii, spójne kolory wykresów (norma bursztyn, ET₀ fiolet), mapa pełnoekranowa nad UI, klikalne wody (tabela↔mapa), ilustracje terenu SVG, obszary chronione i prognoza w raporcie rolnika, sezony po dacie analizy, bez „Szczegółów technicznych”; poprawione martwe linki źródeł (PIG 403, NASA/PC/EDO bez parametrów, prywatne repo).
 - 2026-11-21 · B · fix/ui-feedback: blok `analysis` (raport nie blokuje już sekcji 2–5); teren – siatka NMT wyrównana do wspólnej kratki (spójne spływy u sąsiadów); ekran startowy (formularz + mapa, wyniki po „Sprawdź działkę”, klik mapy tylko wskazuje działkę); powiększanie kafelka mapy; ogórek i kapusta; KBW z paskami teraz/zwykle i zdaniem; linia normy na wykresie wyraźna; legenda czerwonych sezonów; komunikaty techniczne i ograniczenia prognozy schowane; strefa powodziowa bez czerwieni; źródła zwinięte; park narodowy/rezerwat – bez opcji budowy w prawie i analizie; front pobiera `legal_context`/`analysis` po blokach danych.
 - 2026-11-21 · koordynator · scalono `agent-a-data` + `agent-b-product` do `main`; konflikty: `types.ts` (jedna definicja typów A + typy B), `fixtures.ts` (mocki B + `realSamples` A), AGENTS.md.
 - 2026-11-21 · A · fix `drought`: parser SMSR mylił „Kategoria gleby IV” z „I” (cache SMSR v2); ruff --fix.

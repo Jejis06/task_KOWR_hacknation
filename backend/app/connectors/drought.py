@@ -258,7 +258,8 @@ class DroughtConnector(Connector):
         if smsr_ok:
             provs.append(self.prov(f"IUNG-PIB SMSR – zagrożenie suszą w gminie {info.commune_name or ''}".strip(),
                                    source_url=SMSR_URL.format(year=ctx.as_of.year, teryt=teryt), licence=LIC_SMSR,
-                                   notes=f"lata {years[0]}–{years[-1]}, kategoria gleby {roman}, grupa „{group}”"))
+                                   notes=(f"lata {years[0]}–{years[-1]}, kategoria gleby {roman}, grupa „{group}”. Link otwiera tabelę "
+                                          f"gminy za rok {ctx.as_of.year}; inne lata – zmień rok w adresie strony.")))
         elif teryt:
             msgs.append("SMSR: nie udało się pobrać tabel dla gminy.")
         else:
@@ -329,7 +330,7 @@ class DroughtConnector(Connector):
                     got = True
             if got:
                 provs.append(self.prov("Copernicus EDO – Combined Drought Indicator i anomalia wilgotności gleby",
-                                       source_url=EDO_WMS, licence=LIC_EDO,
+                                       source_url="https://drought.emergency.copernicus.eu/tumbo/edo/map/", licence=LIC_EDO,
                                        notes="CDI v4.1 (cdiad), SMA (smang); dekady; siatka ok. 5 km"))
                 unc.append("EDO to siatka europejska (ok. 5 km) – opisuje okolicę, nie pojedyncze pole. "
                            "W historii pokazujemy tylko daty, w których CDI wskazywał suszę (21.05, 1.07, 11.08).")

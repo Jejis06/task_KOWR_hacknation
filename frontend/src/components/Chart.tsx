@@ -11,7 +11,8 @@ Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', Roboto, sans
 Chart.defaults.color = "#3d4a40";
 
 export const COLORS = {
-  rain: "#2f6fb3", rainLight: "rgba(47,111,179,.35)", normal: "#9a6b00", et0: "#c2410c",
+  // norma = bursztyn (ta sama barwa w każdym wykresie), parowanie ET₀ = fiolet – odróżnia się od opadu i normy
+  rain: "#2f6fb3", rainLight: "rgba(47,111,179,.35)", normal: "#b45309", et0: "#7c3aed",
   green: "#0a7d32", red: "#b3261e", grey: "#8a948c",
 };
 

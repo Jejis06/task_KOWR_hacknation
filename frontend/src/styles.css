@@ -269,5 +269,41 @@ details.prov li, .sources, .sources-tbl td { overflow-wrap: anywhere; word-break
 .card, .report, .lhint, .rec { overflow-wrap: anywhere; }
 @media (max-width: 520px) { .kbw-scale { padding: 0; } .kbw-row { grid-template-columns: 48px 1fr 64px; } }
 details.prov { display: block; }
-.stats .stat.kbw { grid-column: 1 / -1; }
 .kbw-scale { padding-left: 64px; padding-right: 80px; gap: 8px; font-size: .75rem; }
+
+/* ── poprawki UI 2 (2026-11-21) ── */
+/* KBW i opad z 30 dni obok siebie, równej wysokości */
+.stats.weather-kpi { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
+.stats.weather-kpi .stat { margin: 0; display: flex; flex-direction: column; }
+.stats.weather-kpi .kbw-bars { margin-top: auto; }
+@media (max-width: 640px) { .stats.weather-kpi { grid-template-columns: minmax(0, 1fr); } }
+.kbw-fill.normal { background: #b45309; }
+.weather-kpi .kbw-scale { padding-left: 64px; padding-right: 80px; }
+/* sezony po dacie analizy */
+.row-after td { background: #f3f4f6; color: #4b5563; font-style: italic; }
+.tag-after { display: inline-block; margin-left: 6px; font-size: .7rem; font-style: normal; background: #e5e7eb; color: #374151; border-radius: 4px; padding: 0 5px; }
+/* ograniczenia i niepewność – zwijane */
+details.uncertainty { padding: 4px 10px; }
+details.uncertainty > summary { font-weight: 700; min-height: 28px; }
+/* źródła – zwijane na dwóch poziomach */
+details.sources-panel > summary { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+details.sources-panel > summary h2 { display: inline; margin: 0; font-size: 1.15rem; }
+details.source-block { border-top: 1px solid var(--border); padding: 2px 0; }
+details.source-block > summary { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.source-list { margin: 4px 0 8px; padding-left: 18px; display: grid; gap: 6px; font-size: .85rem; overflow-wrap: anywhere; }
+/* powiększona mapa nad całą stroną (kolumna .left ma własny kontekst warstw – position: sticky) */
+body.map-open .left { z-index: 3000; }
+body.map-open .map-wrap.expanded { z-index: 3000; }
+/* teren – ilustracja położenia */
+.pos-illu { width: 96px; height: 52px; flex: none; }
+/* wody – wiersze klikalne + podświetlenie */
+.tbl tr.clickable { cursor: pointer; } .tbl tr.clickable:hover td { background: #eef6ff; }
+.tbl tr.flash td { animation: flash 2.2s ease-out; }
+@keyframes flash { 0%, 40% { background: #fde68a; } 100% { background: transparent; } }
+.water-popup b { display: block; font-size: .95rem; } .water-popup button { margin-top: 6px; min-height: 30px; }
+/* obszary chronione – komunikat w raporcie */
+.callout-protected { border-left: 4px solid; border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
+.callout-protected.hit { background: var(--warn-bg); border-color: var(--warn); }
+.callout-protected.near { background: #eef6ff; border-color: #2f6fb3; }
+.callout-protected.none { background: #ecf7ef; border-color: #0a7d32; }
+.callout-protected ul { margin: 4px 0 0; padding-left: 18px; }

@@ -105,7 +105,7 @@ class LandCoverConnector(Connector):
             info.agricultural_share_pct = round(100 * sum(wc[k] for k in AGRI_WC) / tot, 1)
             info.cropland_share_pct = round(100 * wc[40] / tot, 1)
             info.source_used = "esa_worldcover_2021"
-            provs.append(self.prov("ESA WorldCover 10 m v200 (2021)", source_url=PC_STATS, licence=LIC_WC,
+            provs.append(self.prov("ESA WorldCover 10 m v200 (2021)", source_url="https://planetarycomputer.microsoft.com/dataset/esa-worldcover", licence=LIC_WC,
                                    notes=f"{tot} pikseli 10 m w granicach działki"))
             unc.append("ESA WorldCover to mapa z 2021 r. (klasyfikacja satelitarna, dokładność ok. 75–80%) – "
                        "obecne użytkowanie mogło się zmienić.")
@@ -116,7 +116,7 @@ class LandCoverConnector(Connector):
         else:
             info.bdot_classes = bd
             if bd:
-                provs.append(self.prov("BDOT10k – pokrycie terenu (kopia w usłudze PIG-PIB)", source_url=BDOT,
+                provs.append(self.prov("BDOT10k – pokrycie terenu (kopia w usłudze PIG-PIB)", source_url="https://www.geoportal.gov.pl/pl/dane/baza-danych-obiektow-topograficznych-bdot10k/",
                                        licence=LIC_BDOT, notes="udział = pole przecięcia z działką"))
                 unc.append("BDOT10k: aktualność danych głównie 2012–2015; klasa „uprawy rolne lub roślinność "
                            "trawiasta” nie rozróżnia gruntu ornego od łąki.")

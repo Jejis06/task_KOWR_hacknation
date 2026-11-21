@@ -37,6 +37,8 @@ CBDH = f"{PIG}/hydrogeologia/cbdh_otwory/MapServer"
 GZWP = f"{PIG}/hydrogeologia/gzwp/MapServer"
 JCWPD = f"{PIG}/hydrogeologia/jcwpd/MapServer"
 PODTOP = f"{PIG}/hydrogeologia/podtopienia/MapServer"
+# Katalogi usług ArcGIS PIG-PIB są publicznie wyłączone (HTTP 403) – w raporcie linkujemy przeglądarkę map PIG-PIB.
+PIG_VIEWER = "https://geologia.pgi.gov.pl/mapy/"
 LIC_ISOK = "Dane publiczne PGW Wody Polskie (ISOK) – bezpłatne ponowne wykorzystanie"
 LIC_PIG = "PIG-PIB – dane publiczne, bezpłatne do ponownego wykorzystania z podaniem źródła"
 LIC_BDOT = "BDOT10k (PZGiK) – bezpłatne; kopia udostępniana przez PIG-PIB"
@@ -259,7 +261,7 @@ class HydrologyConnector(Connector):
             msgs += fm
             ok_parts += 1
             provs.append(self.prov("ISOK / PGW Wody Polskie – mapy zagrożenia powodziowego (MZP)",
-                                   source_url=ISOK_WMS, licence=LIC_ISOK,
+                                   source_url="https://wody.isok.gov.pl/imap_kzgw/?gpmap=gpMZP", licence=LIC_ISOK,
                                    notes="warstwa NZ.Fluvial (cykl MZP 2022), scenariusze Q10%, Q1%, Q0,2%; GetMap z własnym SLD"))
             unc.append("Brak strefy na mapach zagrożenia powodziowego nie wyklucza lokalnych podtopień "
                        "(mapy obejmują tylko rzeki objęte MZP).")
@@ -268,7 +270,8 @@ class HydrologyConnector(Connector):
         else:
             info.nearest_water = t_water
             ok_parts += 1
-            provs.append(self.prov("BDOT10k – sieć wodna (kopia w usłudze PIG-PIB)", source_url=BDOT,
+            provs.append(self.prov("BDOT10k – sieć wodna (kopia w usłudze PIG-PIB)",
+                                   source_url="https://www.geoportal.gov.pl/pl/dane/baza-danych-obiektow-topograficznych-bdot10k/",
                                    licence=LIC_BDOT, notes=f"promień {WATER_RADIUS_M} m"))
             unc.append("Sieć rowów i cieków z BDOT10k (aktualność głównie 2012–2015) – rowy mogły zostać "
                        "zasypane lub wykopane później; nazwy cieków nie są dostępne w tej usłudze.")
@@ -277,7 +280,7 @@ class HydrologyConnector(Connector):
         else:
             info.nearest_boreholes = t_bore
             ok_parts += 1
-            provs.append(self.prov("PIG-PIB – Centralna Baza Danych Hydrogeologicznych (CBDH)", source_url=CBDH,
+            provs.append(self.prov("PIG-PIB – Centralna Baza Danych Hydrogeologicznych (CBDH)", source_url=PIG_VIEWER,
                                    licence=LIC_PIG, notes=f"promień {BORE_RADIUS_M} m"))
             unc.append("Dla otworów publiczna usługa podaje głębokość i typ, ale nie poziom wody ani "
                        "wydajność – te dane są w kartach otworów CBDH (geoportal PIG-PIB).")
@@ -288,7 +291,7 @@ class HydrologyConnector(Connector):
                 depth = a.get("Głębokość średnia [m]")
                 depth_txt = f", śr. głębokość ok. {depth} m" if depth not in (None, "", "0", "Null") else ""
                 info.gzwp = f"GZWP nr {a.get('Nr GZWP')} „{a.get('Nazwa GZWP')}” ({a.get('Typ ośrodka', '')}{depth_txt})"
-            provs.append(self.prov("PIG-PIB – Główne Zbiorniki Wód Podziemnych (GZWP)", source_url=GZWP,
+            provs.append(self.prov("PIG-PIB – Główne Zbiorniki Wód Podziemnych (GZWP)", source_url=PIG_VIEWER,
                                    licence=LIC_PIG))
         if not isinstance(t_jcwpd, Exception) and t_jcwpd:
             best = sorted(t_jcwpd, key=lambda r: 0 if r["layerId"] == 2 else 1)[0]["attributes"]
@@ -305,10 +308,10 @@ class HydrologyConnector(Connector):
             unc.append("Zarząd Wód Polskich ustalony orientacyjnie z regionu wodnego (DO_WERYFIKACJI) – "
                        "usługi Wód Polskich z granicami zarządów zlewni wymagają logowania (HTTP 401).")
             provs.append(self.prov("PIG-PIB – Jednolite Części Wód Podziemnych (JCWPd 2022–2027)",
-                                   source_url=JCWPD, licence=LIC_PIG))
+                                   source_url=PIG_VIEWER, licence=LIC_PIG))
         if not isinstance(t_podt, Exception):
             info.in_groundwater_flood_area = bool(t_podt)
-            provs.append(self.prov("PIG-PIB – obszary zagrożone podtopieniami", source_url=PODTOP, licence=LIC_PIG))
+            provs.append(self.prov("PIG-PIB – obszary zagrożone podtopieniami", source_url=PIG_VIEWER, licence=LIC_PIG))
         info.groundwater_depth_m = None
         unc.append("Głębokości do pierwszego poziomu wód podziemnych (Mapa Hydrogeologiczna Polski 1:50 000) nie "
                    "pokazujemy – usługa PIG-PIB wymaga tokena. Przed budową studni sprawdź kartę MHP lub "

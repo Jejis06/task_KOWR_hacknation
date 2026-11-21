@@ -104,6 +104,6 @@ class ProtectedAreasConnector(Connector):
                "oddziaływania inwestycji (np. stawu, studni)."]
         msgs = [f"Nie sprawdzono warstw: {', '.join(failed)}."] if failed else []
         status = BlockStatus.partial if failed else BlockStatus.ok
-        prov = self.prov("GDOŚ – Centralny Rejestr Form Ochrony Przyrody (WFS)", source_url=GDOS_WFS, licence=LIC,
+        prov = self.prov("GDOŚ – Centralny Rejestr Form Ochrony Przyrody (WFS)", source_url="https://geoserwis.gdos.gov.pl/mapy/", licence=LIC,
                          notes=f"{len(info.checked_layers)} warstw; przecięcie z geometrią działki")
         return self.block(status, info, provenance=[prov], uncertainty=unc, messages=msgs)
