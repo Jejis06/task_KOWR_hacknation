@@ -1,0 +1,115 @@
+meta:
+  title: Międzyplony i mulcz – gatunki, terminy siewu, dobór do uprawy i gleby
+  snapshot_date: 2026-11-21
+  sources:
+    - title: "CDR Brwinów (2025) – Melioracje, retencja i gospodarka wodna w rolnictwie, e-poradnik, rozdz. 3.2 „Zielona okrywa, poplony, międzyplony, wsiewki”"
+      url: "https://woda.cdr.gov.pl/images/publikacje/Publikacje/Melioracje_retencja_wodna_e-poradnik_2025.pdf"
+    - title: "Kuś J. – Gospodarowanie wodą w rolnictwie, IUNG-PIB, Studia i Raporty 47 (mulczowanie międzyplonami i resztkami pożniwnymi)"
+      url: "https://iung.pl/wp-content/uploads/2009/10/zesz47.pdf"
+    - title: "Allen i in. (1998) FAO-56, rozdz. 11 – okrycie gleby mulczem zmniejsza parowanie o ok. 5% na każde 10% okrycia"
+      url: "https://www.fao.org/4/x0490e/x0490e00.htm"
+  fields:
+    sow: "okno siewu MM-DD..MM-DD (orientacyjne; lokalnie ±1–2 tygodnie)"
+    type: "ściernisk = międzyplon ścierniskowy po wcześnie zbieranym plonie; ozimy = międzyplon ozimy po późnym zbiorze"
+    soils: "kategorie podatności gleby na suszę SMSR (1 = bardzo lekkie … 4 = ciężkie), na których gatunek sprawdza się najlepiej"
+    avoid_after: "uprawy główne, po których gatunku nie siejemy (wspólne choroby i szkodniki)"
+  early_harvest_until: "08-25"   # zbiór plonu głównego do tej daty → zdąży się międzyplon ścierniskowy
+  status_default: SZACUNEK
+
+items:
+  - id: facelia
+    name_pl: Facelia błękitna
+    type: ściernisk
+    sow: "07-20..08-25"
+    soils: [1, 2, 3]
+    avoid_after: []
+    why: "Szybko okrywa glebę, znosi suszę, nie jest spokrewniona z uprawami polowymi – pasuje przed każdą rośliną."
+    source: 0
+    status: OK
+
+  - id: gorczyca_biala
+    name_pl: Gorczyca biała
+    type: ściernisk
+    sow: "07-25..09-10"
+    soils: [2, 3, 4]
+    avoid_after: [rzepak_ozimy, kapusta]
+    why: "Bardzo szybki wzrost i dużo masy na mulcz; wybierz odmianę antymątwikową przed burakami. Nie po rzepaku i kapuście (wspólne choroby, np. kiła)."
+    source: 0
+    status: OK
+
+  - id: rzodkiew_oleista
+    name_pl: Rzodkiew oleista
+    type: ściernisk
+    sow: "07-25..09-05"
+    soils: [3, 4]
+    avoid_after: [rzepak_ozimy, kapusta]
+    why: "Głęboki korzeń palowy rozluźnia zbitą glebę – woda łatwiej wsiąka głębiej. Nie po rzepaku i kapuście."
+    source: 0
+    status: SZACUNEK
+
+  - id: lubin
+    name_pl: Łubin (żółty lub wąskolistny)
+    type: ściernisk
+    sow: "07-15..08-10"
+    soils: [1, 2]
+    avoid_after: [groch, soja]
+    why: "Na lekkich, kwaśnych glebach wiąże azot z powietrza i daje masę organiczną, która zwiększa zapas wody w glebie."
+    source: 0
+    status: SZACUNEK
+
+  - id: seradela
+    name_pl: Seradela
+    type: ściernisk
+    sow: "07-10..07-31"
+    soils: [1, 2]
+    avoid_after: [groch, soja]
+    why: "Roślina bobowata na piaski; najlepiej jako wsiewka w zboże wiosną lub zaraz po wczesnym zbiorze."
+    source: 0
+    status: SZACUNEK
+
+  - id: koniczyna_inkarnatka
+    name_pl: Koniczyna inkarnatka
+    type: ozimy
+    sow: "08-01..08-31"
+    soils: [2, 3, 4]
+    avoid_after: [groch, soja]
+    why: "Zimuje i okrywa glebę do wiosny, wiąże azot; wiosną jako nawóz zielony."
+    source: 0
+    status: OK
+
+  - id: zyto_ozime
+    name_pl: Żyto ozime (na międzyplon)
+    type: ozimy
+    sow: "09-10..10-15"
+    soils: [1, 2, 3, 4]
+    avoid_after: []
+    why: "Można siać najpóźniej – dobre po kukurydzy, burakach i ziemniakach; okrywa glebę całą zimę i znosi lekkie gleby."
+    source: 0
+    status: SZACUNEK
+
+  - id: zyto_wyka
+    name_pl: Mieszanka żyta z wyką kosmatą
+    type: ozimy
+    sow: "09-01..09-30"
+    soils: [1, 2, 3]
+    avoid_after: [groch, soja]
+    why: "Wyka dokłada azot, żyto okrywa glebę zimą; po wcześniejszym zbiorze daje więcej masy niż samo żyto."
+    source: 0
+    status: SZACUNEK
+
+mulch:
+  - id: resztki
+    name_pl: Resztki pożniwne (słoma, łęty)
+    when: "zaraz po zbiorze"
+    why: "Rozdrobnij i rozłóż równo na całym polu. Im większa część gleby okryta, tym mniej wody wyparowuje z wierzchniej warstwy."
+    source: 1
+  - id: miedzyplon_mulcz
+    name_pl: Międzyplon jako mulcz na zimę
+    when: "jesienią nie przyoruj, wiosną siej w mulcz"
+    why: "Zostaw międzyplon do wiosny, a potem rozdrobnij go i zasiej uprawę uproszczoną – gleba jest okryta przez całą zimę i wiosnę."
+    source: 0
+  - id: szybka_uprawa
+    name_pl: Płytka uprawa ścierniska
+    when: "w ciągu kilku dni po zbiorze"
+    why: "Jeśli słomę zbierasz z pola, szybko spulchnij wierzchnią warstwę – przerywa to parowanie z rozgrzanego ścierniska."
+    source: 1

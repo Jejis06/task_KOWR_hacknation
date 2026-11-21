@@ -1,3 +1,6 @@
+import httpx
+import pytest
+import respx
 from datetime import date, timedelta
 
 from app.connectors.uldk import _parse, looks_like_parcel_id
@@ -57,3 +60,37 @@ def test_knowledge_collections_load():
         for it in data["items"]:
             assert "id" in it, (name, it)
     assert loader.get_item("crops", "kukurydza_ziarno")["sowing"].startswith("04")
+
+
+@respx.mock
+async def test_uldk_rate_limit_redirect_is_503_not_500(monkeypatch):
+    """GUGiK przy limicie odsyła 302 na stronę zastępczą – ma być czytelny 503, nie wyjątek parsera geometrii."""
+    import asyncio
+
+    from fastapi import HTTPException
+
+    from app.api.routes.parcel import _resolve
+    from app.connectors.uldk import ULDK_URL
+
+    async def no_sleep(_):
+        return None
+    monkeypatch.setattr(asyncio, "sleep", no_sleep)
+    respx.get(url__startswith=ULDK_URL).mock(
+        return_value=httpx.Response(302, headers={"Location": "https://integracja01.gugik.gov.pl/resp/uldk.php"}))
+    with pytest.raises(HTTPException) as e:
+        await _resolve("999999_9.9999.999", None, None)
+    assert e.value.status_code == 503 and "ogranicza" in e.value.detail
+
+
+def test_uldk_parse_bogus_geometry():
+    from app.connectors.uldk import UldkLimited
+    with pytest.raises(UldkLimited):
+        _parse("0\n0101000020E6100000000000000080564000000000008056400101|302504_5.0019.52")
+
+
+def test_tile_bbox_3857_world_and_quadrant():
+    from app.api.routes.tiles import tile_bbox_3857
+    w = tile_bbox_3857(0, 0, 0)
+    assert abs(w[0] + 20037508.34) < 1 and abs(w[3] - 20037508.34) < 1
+    q = tile_bbox_3857(1, 1, 0)          # prawa górna ćwiartka
+    assert abs(q[0]) < 1e-6 and abs(q[1]) < 1e-6

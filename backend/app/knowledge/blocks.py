@@ -25,11 +25,15 @@ ROMAN = {"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5, "VI": 6, "VII": 7, "VIII": 
          "XI": 11, "XII": 12}
 FAO_STAGE_NAMES = ["faza początkowa", "rozwój roślin", "pełnia wzrostu", "dojrzewanie"]
 WINDOW_RE = re.compile(r"^(\d{2})-(\d{2})\.\.(\d{2})-(\d{2})$")
-ROMAN_RANGE_RE = re.compile(r"\(([IVX]+)(?:\s*[–-]\s*([IVX]+))?\)")
+MONTH_ABBR = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
+MONTH_NUM = {**ROMAN, **{a: i + 1 for i, a in enumerate(MONTH_ABBR)}}
+ROMAN_RANGE_RE = re.compile(r"\(([IVX]+|[a-ząćęłńóśźż]{3})(?:\s*[–-]\s*([IVX]+|[a-ząćęłńóśźż]{3}))?\)")
 
 
 # ───────────────────────────── pomocnicze ─────────────────────────────
-def _knowledge_prov(collection_label: str, snapshot: Any, notes: str | None = None) -> Provenance:
+def _knowledge_prov(source_name: str, snapshot: Any, notes: str | None = None, url: str | None = None,
+                    licence: str | None = None) -> Provenance:
+    """Źródło wiedzy podane wprost: tytuł dokumentu publicznego + link (bez nazw plików aplikacji)."""
     from app.connectors.base import now_utc
     snap = snapshot if isinstance(snapshot, date) else None
     if isinstance(snapshot, str):
@@ -37,9 +41,19 @@ def _knowledge_prov(collection_label: str, snapshot: Any, notes: str | None = No
             snap = date.fromisoformat(snapshot)
         except ValueError:
             snap = None
-    return Provenance(source_name=f"Lokalna baza wiedzy: {collection_label}", retrieved_at=now_utc(),
-                      mode="local_snapshot", snapshot_date=snap,
-                      licence="treści własne zespołu na podstawie źródeł publicznych (lista w `sources`)", notes=notes)
+    return Provenance(source_name=source_name, source_url=url, retrieved_at=now_utc(), mode="local_snapshot",
+                      snapshot_date=snap, licence=licence or "dokument publiczny – cytowany z podaniem źródła", notes=notes)
+
+
+def doc_prov(doc_id: str, snapshot: Any, notes: str | None = None, fallback_title: str | None = None,
+             url: str | None = None) -> Provenance:
+    """Provenance z dokumentu z listy źródeł (tytuł i adres zweryfikowane przy pobraniu)."""
+    d = loader.documents().get(doc_id, {})
+    return _knowledge_prov(d.get("title") or fallback_title or doc_id, snapshot, notes=notes, url=url or d.get("url"))
+
+
+FAO56_URL = "https://www.fao.org/4/x0490e/x0490e00.htm"
+ISAP_PRAWO_WODNE = "https://isap.sejm.gov.pl/isap.nsf/DocDetails.xsp?id=WDU20260001335"
 
 
 def _md(year: int, mmdd: str) -> date:
@@ -62,13 +76,13 @@ def parse_window(text: Any, year: int) -> tuple[date, date] | None:
 
 
 def roman_months(text: str) -> set[int]:
-    """„kwitnienie (V–VI)” → {5, 6}."""
+    """„kwitnienie (maj–cze)” → {5, 6}; akceptuje też stary zapis rzymski „(V–VI)”."""
     out: set[int] = set()
     for a, b in ROMAN_RANGE_RE.findall(text):
-        if a not in ROMAN:
+        if a not in MONTH_NUM:
             continue
-        start = ROMAN[a]
-        end = ROMAN.get(b, start) if b else start
+        start = MONTH_NUM[a]
+        end = MONTH_NUM.get(b, start) if b else start
         m = start
         while True:
             out.add(m)
@@ -167,7 +181,7 @@ def _winter_rules(as_of: date) -> list[str]:
     for r in rules:
         if r.startswith("Siew jesienny") and m in (9, 10):
             out.append(r)
-        elif r.startswith("XI–II") and m in (11, 12, 1, 2):
+        elif r.startswith("Lis–lut") and m in (11, 12, 1, 2):
             out.append(r)
     return out
 
@@ -188,12 +202,12 @@ def crop_calendar(as_of: date, crop: str | None) -> tuple[BlockStatus, CropCalen
             current_stage="okres wegetacji" if in_season else "poza okresem wegetacji",
             warnings=warnings, suggested_crops_now=_sowing_suggestions(as_of),
         )
-        uncertainty.append(f"Okres wegetacji przyjęto orientacyjnie (IV–X). {meta.get('growing_season_pl', '')}")
+        uncertainty.append(f"Okres wegetacji przyjęto orientacyjnie (kwi–paź). {meta.get('growing_season_pl', '')}")
         return BlockStatus.ok, info, uncertainty, []
 
     item = loader.get_item("crops", crop)
     if item is None:
-        return BlockStatus.no_data, None, [], [f"Nieznana uprawa „{crop}” – brak w bazie wiedzy (crops.yaml)."]
+        return BlockStatus.no_data, None, [], [f"Nieznana uprawa „{crop}” – brak jej w katalogu upraw aplikacji."]
 
     stages, start, end = _season(item, as_of)
     in_season = start <= as_of <= end
@@ -255,14 +269,17 @@ class CropCalendarConnector(Connector):
     key = "crop_calendar"; title = "Kalendarz uprawy i okres wegetacji"; category = "knowledge"
     uses_crop = True
     live_ttl_s = 24 * 3600
-    cache_version = 2
+    cache_version = 3   # 3: miesiące skrótami, źródła z linkami
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         status, info, unc, msgs = crop_calendar(ctx.as_of, ctx.crop)
         meta = loader.meta("crops")
-        prov = _knowledge_prov("kalendarz upraw (crops.yaml)", meta.get("snapshot_date"),
-                               notes="; ".join(meta.get("sources", [])))
-        return self.block(status, data=info, provenance=[prov], uncertainty=unc, messages=msgs)
+        snap = meta.get("snapshot_date")
+        prov = [_knowledge_prov("FAO-56 Crop evapotranspiration (Allen i in.) – długości faz, Kc, głębokość korzeni",
+                                snap, url=FAO56_URL, notes="Tab. 11, 12, 22, 24; klimat umiarkowany"),
+                doc_prov("smsr_progi_www", snap, notes="grupy upraw i okresy krytyczne monitorowane przez SMSR IUNG-PIB"),
+                doc_prov("cdr_eporadnik_2025", snap, notes="terminy siewu i zbioru typowe dla Polski (±2 tygodnie)")]
+        return self.block(status, data=info, provenance=prov, uncertainty=unc, messages=msgs)
 
 
 def _block_data(blk: DataBlock[Any] | BaseException) -> dict[str, Any] | None:
@@ -301,7 +318,7 @@ def legal_hints(ctx: AnalysisContext, hydro: dict | None, prot: dict | None,
     def src(*ids: str) -> list[str]:
         out: list[str] = []
         for i in ids:
-            out += rules.get(i, {}).get("sources", [])
+            out += [u for u in (loader.public_source(x) for x in rules.get(i, {}).get("sources", [])) if u]
         return list(dict.fromkeys(out))
 
     year = ctx.as_of.year
@@ -499,7 +516,7 @@ class LegalContextConnector(Connector):
     key = "legal_context"; title = "Pozwolenia, procedury i dofinansowania"; category = "knowledge"
     uses_crop = True
     live_ttl_s = 6 * 3600
-    cache_version = 2
+    cache_version = 3   # 3: źródła z linkami zamiast nazw plików
     depends_on: ClassVar[tuple[str, ...]] = ("hydrology", "protected_areas", "terrain")
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
@@ -534,11 +551,15 @@ class LegalContextConnector(Connector):
             uncertainty.append("Reguły policzono bez części faktów o działce: " + ", ".join(missing) +
                                ". Tych warunków nie sprawdziliśmy.")
         meta = loader.meta("legal_pl")
-        prov = [_knowledge_prov("Prawo wodne – reguły (prawo_wodne.yaml)", meta.get("snapshot_date"),
-                                notes=meta.get("basis")),
-                _knowledge_prov("procedury i opłaty (procedures.yaml)", loader.meta("procedures").get("snapshot_date"),
-                                notes=loader.meta("procedures").get("legal_text")),
-                _knowledge_prov("dofinansowania (programs.yaml)", loader.meta("funding").get("snapshot_date"))]
+        snap = meta.get("snapshot_date")
+        prov = [_knowledge_prov("Ustawa Prawo wodne (t.j. Dz.U. 2026 poz. 1335, z nowelizacją Dz.U. 2026 poz. 1358)", snap,
+                                url=ISAP_PRAWO_WODNE, notes=meta.get("basis")),
+                doc_prov("qa_zgoda_wodnoprawna", snap, notes="zgłoszenie i pozwolenie wodnoprawne krok po kroku"),
+                _knowledge_prov("Obwieszczenie Ministra Infrastruktury – stawki opłat za zgody wodnoprawne (M.P.)",
+                                loader.meta("procedures").get("snapshot_date"), url="https://monitorpolski.gov.pl/M2025000071701.pdf"),
+                doc_prov("arimr_harmonogram_2026", loader.meta("funding").get("snapshot_date"), notes="terminy naborów"),
+                doc_prov("podr_i104", loader.meta("funding").get("snapshot_date"),
+                         notes="interwencja I.10.4 – systemy retencji wody")]
         info = LegalContextInfo(hints=hints, funding_ids=funding, disclaimer=meta.get("disclaimer"),
                                 facts_checked=facts_checked)
         status = BlockStatus.ok if not missing else BlockStatus.partial

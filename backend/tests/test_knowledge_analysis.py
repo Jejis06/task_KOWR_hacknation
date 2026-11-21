@@ -139,3 +139,42 @@ def test_kbw_ndmi_field_check():
     assert analyse_all(c, d).assessment.field_check["case"] == "confirmed"
     d["weather_history"] = {**d["weather_history"], "cwb_60d_mm": -60, "cwb_60d_normal_mm": -60}
     assert analyse_all(c, d).assessment.field_check["case"] == "local_problem"
+
+
+def test_cover_crops_and_mulch_have_species_and_dates_not_paperwork():
+    """Międzyplon: gatunki dobrane do uprawy (bez kapustnych po rzepaku, bez ścierniskowych po kukurydzy) i okno siewu."""
+    c = ctx(crop="rzepak_ozimy")
+    recs = {r.measure_id: r for r in analyse_all(c, dry_data(c)).recommendations}
+    mp = recs["miedzyplony"]
+    names = [o.name for o in mp.sowing]
+    assert mp.sowing and not any("Gorczyca" in n or "Rzodkiew" in n for n in names)
+    assert all(o.when.startswith("siew ") and o.source_url for o in mp.sowing)
+    assert not mp.legal_ids and not mp.funding
+    assert recs["resztki_mulcz"].sowing
+    c = ctx(crop="kukurydza_ziarno")
+    mp = next(r for r in analyse_all(c, dry_data(c)).recommendations if r.measure_id == "miedzyplony")
+    assert mp.sowing and all("ozimy" in o.when for o in mp.sowing)
+
+
+def test_months_are_abbreviations_not_roman():
+    import re
+    c = ctx()
+    r = analyse_all(c, dry_data(c))
+    texts = [x.when or "" for x in r.recommendations] + [e.text for x in r.recommendations for e in x.evidence]
+    assert not any(re.search(r"\b(II|III|IV|V|VI|VII|VIII|IX|X|XI|XII)–", t) for t in texts)
+    _, cal_info, _, _ = crop_calendar(date(2026, 5, 20), "pszenica_ozima")
+    assert any("maj" in p for p in cal_info.critical_water_periods)
+
+
+def test_weir_marked_on_ditch():
+    c = ctx()
+    d = dry_data(c)
+    d["hydrology"]["nearest_water"][0]["geometry"] = {"type": "LineString", "coordinates": [[17.19, 52.21], [17.19, 52.23]]}
+    z = next(r for r in analyse_all(c, d).recommendations if r.measure_id == "zastawka_row")
+    assert z.where_geojson and z.where_geojson["geometry"]["type"] == "Point"
+
+
+def test_provenance_cites_documents_not_code():
+    from app.knowledge.blocks import doc_prov
+    p = doc_prov("cdr_eporadnik_2025", "2026-11-21")
+    assert p.source_url and p.source_url.startswith("https://") and ".py" not in p.source_name and ".yaml" not in p.source_name

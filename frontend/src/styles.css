@@ -1603,3 +1603,68 @@
 .chart-legend i.danger { background: var(--danger); }
 .data-table tr.after td { color: var(--muted-foreground); font-style: italic; background: var(--muted); }
 .text-warning { color: var(--warning); }
+
+/* tabela sezonów – układ arkusza (kolumny liczb wyrównane do prawej, siatka) */
+.sheet-wrap { overflow-x: auto; margin-top: 8px; border: 1px solid var(--border); border-radius: 6px; }
+.sheet-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+.sheet-table th, .sheet-table td { border: 1px solid var(--border); padding: 7px 10px; white-space: nowrap; }
+.sheet-table thead th { background: var(--muted); font-size: 11px; font-weight: 650; color: var(--foreground);
+  text-align: left; vertical-align: bottom; white-space: normal; }
+.sheet-table thead th.num { text-align: right; }
+.sheet-table tbody th, .sheet-table tfoot th { text-align: left; font-weight: 650; background: var(--card); }
+.sheet-table td.num { text-align: right; }
+.sheet-table td.strong { font-weight: 700; }
+.sheet-table td.neg { color: var(--danger); }
+.sheet-table td.pos { color: var(--water); }
+.sheet-table tr.dry td, .sheet-table tr.dry th { background: var(--danger-soft); }
+.sheet-table tr.partial td, .sheet-table tr.partial th { font-style: italic; color: var(--muted-foreground); }
+.sheet-table tfoot th, .sheet-table tfoot td { background: var(--muted); border-top: 2px solid var(--foreground); }
+.legend-note { font-size: 11px; color: var(--muted-foreground); margin-top: 8px; line-height: 1.5; }
+.swatch-dry { display: inline-block; width: 12px; height: 12px; vertical-align: -2px; border-radius: 2px;
+  background: var(--danger-soft); border: 1px solid var(--danger); }
+
+/* międzyplon / mulcz – co i kiedy */
+.sowing-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.sowing-list li { display: grid; gap: 2px; padding: 8px 10px; border-left: 3px solid var(--primary); background: var(--muted); border-radius: 0 5px 5px 0; }
+.sowing-when { font-weight: 650; color: var(--primary); font-size: 12px; }
+.sowing-src { font-size: 11px; color: var(--muted-foreground); text-decoration: underline; }
+
+/* miarka bilansu wody – skala w mm z linią zera */
+.water-gauge { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: 18px; }
+.water-gauge svg { overflow: visible; }
+.wg-frame { fill: var(--water-soft); stroke: var(--border); }
+.wg-tick { stroke: var(--muted-foreground); stroke-width: 1; }
+.wg-zero { stroke: var(--foreground); stroke-width: 1.6; }
+.wg-tick-lbl, .wg-unit { font-size: 9px; fill: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.wg-bar.cur.neg { fill: var(--danger); }
+.wg-bar.cur.pos { fill: var(--water); }
+.wg-bar.norm { fill: none; stroke: var(--warning); stroke-width: 2; stroke-dasharray: 4 3; }
+.wg-val { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wg-val.cur { fill: var(--foreground); }
+.wg-val.norm { fill: var(--warning); }
+.wg-lbl { font-size: 10px; fill: var(--muted-foreground); }
+
+/* mapa: woda (niebieskie) osobno od proponowanych działań (pinezki) */
+.legend-sample.exit { height: 0; border: 0; border-top: 4px solid #1e3a8a; background: none; border-radius: 2px; }
+.legend-pin { width: 13px; height: 13px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--warning);
+  border: 1.5px solid #fff; box-shadow: 0 0 0 1px var(--warning); }
+.rec-pin-wrap { background: none; border: 0; }
+.rec-pin { position: absolute; left: 0; bottom: 0; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;
+  padding: 4px 8px 4px 5px; border-radius: 15px; background: var(--warning); color: #fff; font: 600 11px/1 system-ui, sans-serif;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 0.35); border: 2px solid #fff; transform: translateY(-6px); }
+.rec-pin::after { content: ""; position: absolute; left: 10px; bottom: -8px; border: 6px solid transparent;
+  border-top-color: var(--warning); border-bottom: 0; }
+.rec-pin svg { flex: none; }
+.rec-pin.well { background: #0e7490; }
+.rec-pin.well::after { border-top-color: #0e7490; }
+.rec-pin.buffer { background: var(--primary); }
+.rec-pin.buffer::after { border-top-color: var(--primary); }
+.rec-pin.icon-only { padding: 4px; }
+
+/* ekran startowy: tylko formularz, wyśrodkowany; mapa i raport po „Sprawdź działkę” */
+.workspace.landing { grid-template-columns: minmax(0, 520px); justify-content: center; padding-bottom: 48px; }
+.workspace.landing .field-column { position: static; }
+.workspace.landing .form-section { border-radius: 10px; padding: 28px; box-shadow: 0 8px 30px rgb(0 0 0 / 0.06); }
+.page:has(.workspace.landing) .intro { justify-content: center; text-align: center; padding-top: 56px; }
+.picked-popup { display: grid; gap: 3px; min-width: 190px; }
+.picked-popup small { color: var(--muted-foreground); font-size: 10px; }

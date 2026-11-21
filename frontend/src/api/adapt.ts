@@ -71,6 +71,62 @@ function weatherHistory(d: any, asOf: string): DataPayload {
 
 }
 
+const MON_ABBR = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"];
+const MON_FULL = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień",
+  "październik", "listopad", "grudzień"];
+export type SeasonWindow = { start: string; end: string; crossYear: boolean; label: string; crop: string | null };
+export type SeasonRow = {
+  year: number; precip: number | null; et0: number | null; cwb: number | null; drySpell: number | null;
+  days: number; partial: boolean; dry: boolean;
+};
+
+/** Okno sezonu: okres wegetacji wybranej uprawy (z kalendarza uprawy) albo domyślnie marzec–wrzesień. */
+export function seasonWindow(cal: any): SeasonWindow {
+  const stages = (cal?.stages ?? []) as { start: string; end: string }[];
+  if (cal?.crop && stages.length) {
+    const s = stages[0]!.start.slice(5, 10), e = stages[stages.length - 1]!.end.slice(5, 10);
+    const crossYear = stages[0]!.start.slice(0, 4) !== stages[stages.length - 1]!.end.slice(0, 4);
+    const label = `${Number(s.slice(3))} ${MON_ABBR[Number(s.slice(0, 2)) - 1]} – ${Number(e.slice(3))} ${MON_ABBR[Number(e.slice(0, 2)) - 1]}`;
+    return { start: s, end: e, crossYear, label: `okres wegetacji: ${cal.crop_name_pl} (${label}${crossYear ? " następnego roku" : ""})`, crop: cal.crop_name_pl };
+  }
+  return { start: "03-01", end: "09-30", crossYear: false, label: `${MON_FULL[2]} – ${MON_FULL[8]} (nie wybrano uprawy)`, crop: null };
+}
+
+/** Sezony z dziennej serii meteo w oknie `w` – rok = rok końca sezonu; sezon bieżący liczony do daty analizy. */
+export function seasonRows(weather: any, w: SeasonWindow, asOf: string): SeasonRow[] {
+  const daily = weather?.daily;
+  if (!daily?.dates?.length) return [];
+  const first = daily.dates[0] as string, last = daily.dates[daily.dates.length - 1] as string;
+  const endYear = Number(asOf.slice(0, 4));
+  const rows: SeasonRow[] = [];
+  for (let y = w.crossYear ? endYear + 1 : endYear; y >= endYear - 10; y--) {
+    const from = `${w.crossYear ? y - 1 : y}-${w.start}`, to = `${y}-${w.end}`;
+    if (from > last) continue;                       // sezon jeszcze się nie zaczął
+    if (from < first) break;                         // brak pełnych danych na początku sezonu
+    let p = 0, e = 0, n = 0, run = 0, best = 0, pn = 0, en = 0;
+    daily.dates.forEach((d: string, i: number) => {
+      if (d < from || d > to) return;
+      n++;
+      const pr = daily.precip_mm[i], et = daily.et0_mm[i];
+      if (pr != null) { p += pr; pn++; }
+      if (et != null) { e += et; en++; }
+      run = pr != null && pr < 1 ? run + 1 : 0;
+      best = Math.max(best, run);
+    });
+    if (!n) continue;
+    rows.push({ year: y, precip: pn ? Math.round(p) : null, et0: en ? Math.round(e) : null,
+      cwb: pn && en ? Math.round(p - e) : null, drySpell: best, days: n, partial: to > last, dry: false });
+  }
+  const full = rows.filter((r) => !r.partial && r.cwb != null).map((r) => r.cwb as number);
+  if (full.length > 1) {
+    const mean = full.reduce((a, b) => a + b, 0) / full.length;
+    const sd = Math.sqrt(full.reduce((a, b) => a + (b - mean) ** 2, 0) / full.length);
+    const limit = Math.max(30, 0.5 * sd);
+    rows.forEach((r) => { r.dry = !r.partial && r.cwb != null && r.cwb < mean - limit; });
+  }
+  return rows;
+}
+
 function forecast(d: any): DataPayload {
   const p = (d.precip_mm ?? []).map((v: any) => v ?? 0) as number[];
   const e = (d.et0_mm ?? []).map((v: any) => v ?? 0) as number[];

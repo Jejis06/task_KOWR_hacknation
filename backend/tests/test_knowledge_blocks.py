@@ -77,7 +77,7 @@ def test_calendar_without_crop():
     status, i = cal(date(2026, 7, 1), None)
     assert status == BlockStatus.ok and i.crop == "" and i.in_season_on_as_of is True
     status, i = cal(date(2026, 12, 1), None)
-    assert i.in_season_on_as_of is False and any("XI–II" in w for w in i.warnings)
+    assert i.in_season_on_as_of is False and any(w.startswith("Lis–lut") for w in i.warnings)
 
 
 def test_calendar_unknown_crop():

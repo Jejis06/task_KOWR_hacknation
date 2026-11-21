@@ -21,6 +21,7 @@ COLLECTIONS = {
     "procedures": "procedures/procedures.yaml",
     "funding": "funding/programs.yaml",
     "measures": "procedures/retention_measures.yaml",
+    "cover_crops": "crops/cover_crops.yaml",
 }
 
 
@@ -43,3 +44,23 @@ def get_item(collection: str, item_id: str) -> dict[str, Any] | None:
 
 def meta(collection: str) -> dict[str, Any]:
     return load(collection).get("meta", {})
+
+
+@lru_cache
+def documents() -> dict[str, dict[str, Any]]:
+    """Dokumenty źródłowe (tytuł + adres) z data/knowledge/sources.yaml, po id."""
+    path: Path = settings.knowledge_dir / "sources.yaml"
+    with path.open(encoding="utf-8") as f:
+        docs = (yaml.safe_load(f) or {}).get("documents") or []
+    return {d["id"]: d for d in docs if isinstance(d, dict) and d.get("id")}
+
+
+def public_source(ref: str) -> str | None:
+    """Odwołanie ze źródeł w YAML → adres publiczny. Ścieżki lokalnych kopii (`data/knowledge/raw/<id>.txt`) zamieniamy
+    na adres oryginału z sources.yaml; odwołań do plików bez publicznego odpowiednika nie pokazujemy użytkownikowi."""
+    ref = str(ref).strip()
+    if ref.startswith(("http://", "https://")):
+        return ref
+    stem = Path(ref.split()[0]).stem
+    doc = documents().get(stem)
+    return doc.get("url") if doc and doc.get("url") else None
