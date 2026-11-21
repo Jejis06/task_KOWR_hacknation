@@ -117,7 +117,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) | `WeatherHistory` | `connectors/weather.py` |
 | `weather_forecast` | A | ✅ | Open-Meteo Forecast (tylko gdy data ≈ dziś) | `WeatherForecast` | `connectors/weather.py` |
 | `drought` | A | ⬜ | SMSR IUNG (gmina, uprawa, gleba) + EDO WMS (CDI/SMA, TIME) + lata suszy z KBW | `DroughtHistory` | `stubs.py` |
-| `soil` | A | ⬜ | Mapa glebowo-rolnicza WMS + podatność gleb na suszę WMS (IUNG) → SoilGrids | `SoilInfo` | `stubs.py` |
+| `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
 | `terrain` | A | ⬜ | NMT GUGiK 1 m WCS → spadek, TPI (górka/dołek), zagłębienia, linie spływu, TWI | `TerrainInfo` | `stubs.py` |
 | `hydrology` | A | ⬜ | MPHP/BDOT10k cieki, ISOK strefy powodziowe, PIG CBDH otwory, MHP, GZWP | `HydrologyInfo` | `stubs.py` |
 | `vegetation` | A | ⬜ | Sentinel-2 L2A, Earth Search STAC (bez konta), NDVI/NDMI, 10 lat | `VegetationInfo` | `stubs.py` |
@@ -140,6 +140,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - PIG CBDH WFS `https://cbdgmapa.pgi.gov.pl/arcgis/services/hydrogeologia/cbdh_otwory/MapServer/WFSServer` ✅ · GDOŚ `https://sdi.gdos.gov.pl/wms` ✅
 - ESA WorldCover COG na S3 ✅ · działki parquet `https://opendata.geoportal.gov.pl/InneDane/latest_exports/eziudp_wfs/PARQUET/0_dzialki.parquet` ✅
 - MPHP `wody.isok.gov.pl/gpservices/KZGW/MPHP10_Cieki/...` ❌ 401: szukać innego URL albo użyć BDOT10k.
+- IUNG GeoServer `https://sgeo.iung.pl/geoserver/wms` warstwa `Susza:katgl_landuse2024` (kategorie gleb SMSR, GetFeatureInfo JSON) ✅
 - `susza.iung.pulawy.pl` ✅ (HTML; oficjalnego API brak, endpointy XHR trzeba zbadać).
 
 ## 5. Zasady wspólne (obowiązkowe)
@@ -258,6 +259,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `SoilInfo` +`drought_category`, `drought_category_shares_pct`, `agri_complex_code`, `agri_complex_shares_pct`, `texture_profile`, `samples` (opcjonalne); `types.ts` +`SoilInfo`.
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
 
 ## 14. Prośby między zespołami
@@ -269,6 +271,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.
 - 2026-11-21 · baza wiedzy: dokumenty pobrane ręcznie (SMSR, Prawo wodne t.j. 2026, M.P. ze stawkami, wzory, CDR, POLSA 2020, NWRM); opłaty w procedures.yaml zweryfikowane (2026/2027); fetch_knowledge: strony HTML + czyszczenie usuniętych wpisów.
 - 2026-11-21 · baza wiedzy: +12 publikacji IUNG-PIB SiR (monitoring suszy, KBW, retencja glebowa, erozja, satelity) → `data/knowledge/raw/iung_sir*.txt`, `zylowska_kozyra_2025.txt`.
 - 2026-11-21 · fetch_knowledge: obsługa DOCX i plików wrzucanych ręcznie (`manual: true`); 12 dokumentów do pobrania ręcznie dopisanych do sources.yaml.

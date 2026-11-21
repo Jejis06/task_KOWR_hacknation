@@ -9,19 +9,6 @@ from __future__ import annotations
 from app.connectors.base import StubConnector
 
 
-class SoilConnector(StubConnector):
-    """Gleba → SoilInfo.
-    1) IUNG/GUGiK mapa glebowo-rolnicza – WMS GetFeatureInfo:
-       https://mapy.geoportal.gov.pl/wss/service/pub/guest/MapaGlebowoRolnicza/MapServer/WMSServer
-       (kompleks przydatności, typ gleby, uziarnienie; luki np. większość podkarpackiego).
-    2) Podatność gleb na suszę (IUNG, moduł „Rolnictwo” geoportalu) – WMS GetFeatureInfo; kategorie 1–4 = SMSR.
-    3) Fallback ISRIC SoilGrids v2 REST: https://rest.isric.org/soilgrids/v2.0/properties/query
-       (clay/sand/silt/soc, 250 m, CC BY 4.0) → TAW z pedotransferu (np. Saxton & Rawls 2006) [SZACUNEK].
-    4) Klasy bonitacyjne: EGiB (powiatowe WMS / KIEG) – opcjonalnie.
-    Pułapka: GetFeatureInfo w EPSG:2180, oś XY; próbkuj kilka punktów wewnątrz działki, nie tylko centroid.
-    """
-    key = "soil"; title = "Gleba"; category = "soil"; live_ttl_s = 30 * 24 * 3600
-
 
 class TerrainConnector(StubConnector):
     """Rzeźba terenu → TerrainInfo (górka / stok / dołek, spadek, zagłębienia, linie spływu, TWI).

@@ -7,8 +7,9 @@ from __future__ import annotations
 
 from app.connectors.base import Connector
 from app.connectors.stubs import (DroughtConnector, HydrologyConnector, LandCoverConnector,
-                                  ProtectedAreasConnector, SoilConnector, TerrainConnector,
+                                  ProtectedAreasConnector, TerrainConnector,
                                   VegetationConnector, YieldsConnector)
+from app.connectors.soil import SoilConnector
 from app.connectors.weather import WeatherForecastConnector, WeatherHistoryConnector
 from app.knowledge.blocks import CropCalendarConnector, LegalContextConnector
 

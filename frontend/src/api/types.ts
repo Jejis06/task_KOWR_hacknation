@@ -74,3 +74,17 @@ export interface CropItem {
   id: string; name_pl: string; type: string; sowing: string | null; harvest: string | null;
   drought_sensitivity?: string; critical?: string[];
 }
+
+// ── payloady bloków zespołu DATA (A) – dodawane addytywnie ──
+export interface SoilInfo {
+  agri_complex: string | null; soil_type: string | null; texture_class: string | null;
+  drought_susceptibility: string | null; bonitation_classes: string[];
+  clay_pct: number | null; sand_pct: number | null; silt_pct: number | null; soc_g_kg: number | null;
+  awc_mm: number | null; source_used: string | null;
+  drought_category?: number | null;                       // SMSR 1–4
+  drought_category_shares_pct?: Record<string, number>;
+  agri_complex_code?: string | null;
+  agri_complex_shares_pct?: Record<string, number>;
+  texture_profile?: string[];
+  samples?: Record<string, unknown>[];
+}

@@ -151,6 +151,13 @@ class SoilInfo(BaseModel):
     soc_g_kg: float | None = None      # węgiel organiczny
     awc_mm: float | None = None        # zapas wody dostępnej (TAW) dla 1 m profilu – szacunek
     source_used: str | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    drought_category: int | None = None                 # kategoria podatności na suszę SMSR 1–4 (dominująca)
+    drought_category_shares_pct: dict[str, float] = Field(default_factory=dict)  # "1".."4","organiczne",…
+    agri_complex_code: str | None = None                # kod kompleksu, np. "4", "2z"
+    agri_complex_shares_pct: dict[str, float] = Field(default_factory=dict)
+    texture_profile: list[str] = Field(default_factory=list)  # gatunki gleby od wierzchu w głąb (np. pgm/gl)
+    samples: list[dict] = Field(default_factory=list)    # wyniki z punktów próbkowania (lon, lat, kategoria…)
 
 
 class TerrainInfo(BaseModel):
