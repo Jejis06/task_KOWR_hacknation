@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 import respx
 
-from app.connectors.terrain import NMT_POINTS, TerrainConnector, grid_spec, parse_heights
+from app.connectors.terrain import NMT_POINTS, TerrainConnector, grid_spec, parse_heights, snapped_grid
 from app.science import terrain as T
 from tests.conftest import make_ctx
 
@@ -49,6 +49,15 @@ def test_parse_heights_and_grid_spec():
     assert parse_heights("1 2 85.2,1 3 ,1 4 -9999") == [85.2, None, None]
     cell, nr, nc = grid_spec((0, 0, 1000, 1000))
     assert nr * nc <= 7_500 and cell >= 5
+
+
+def test_neighbouring_parcels_share_grid():
+    """Sąsiednie działki: ten sam krok i węzły siatki w części wspólnej (spójne zagłębienia i spływy)."""
+    a, ca, _, _ = snapped_grid((380_013.4, 482_101.7, 380_640.2, 482_733.9))
+    b, cb, _, _ = snapped_grid((380_233.1, 482_090.2, 380_871.8, 482_741.3))
+    assert ca == cb
+    for v in (*a, *b):
+        assert abs(v / ca - round(v / ca)) < 1e-9
 
 
 @respx.mock
