@@ -259,6 +259,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 ## 13. Dziennik zmian kontraktu
 
 - 2026-11-21 · init · pierwsza wersja `contracts/models.py` i `types.ts` (wszystkie payloady bloków z §4).
+- 2026-11-21 · B · addytywnie: `LegalHint` += `title`, `group` (none/notification/permit/depends), `legal_ids`, `fee_pln`, `fee_year`, `facts_used`, `unchecked`, `caution`; `LegalContextInfo` += `disclaimer`, `facts_checked`. `types.ts`: dopisane TS-lustra wszystkich payloadów bloków (WeatherForecast … LegalContextInfo).
 
 ## 14. Prośby między zespołami
 

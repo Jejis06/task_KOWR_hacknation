@@ -13,7 +13,8 @@ items:
     when: "Siew po zbiorze plonu głównego (VII–VIII), pozostawienie na zimę lub do wiosny"
     effect: "Zwiększa materię organiczną i infiltrację, chroni przed parowaniem i erozją."
     legal: brak
-    funding: [ekoschematy WPR]
+    funding: []
+    funding_note: "ekoschematy WPR (np. „Rolnictwo węglowe” – międzyplony) – szczegóły w aktualnym naborze ARiMR"
     status: OK
 
   - id: resztki_mulcz

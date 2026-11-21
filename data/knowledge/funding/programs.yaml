@@ -32,7 +32,7 @@ items:
     scope: "M.in. systemy retencji wody (np. zbiorniki na wodę opadową); rolnik do 65%, grupa do 80%"
     call: DO_WERYFIKACJI (terminy naborów)
     for_farmer: true
-    measures: [zbiornik_opadowy, oczko_wodne]
+    measures: [oczko_zbiornik]
     status: DO_WERYFIKACJI
     sources: [https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf]
 

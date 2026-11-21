@@ -262,11 +262,23 @@ class LegalHint(BaseModel):
     procedure_id: str | None = None    # → data/knowledge/procedures/*.yaml
     status: Literal["OK", "DO_WERYFIKACJI", "SZACUNEK"] = "OK"
     sources: list[str] = Field(default_factory=list)
+    # ↓ addytywnie 2026-11-21 (B): grupowanie kart w UI i fakty o działce
+    title: str | None = None           # nazwa dla rolnika, np. „Staw lub zbiornik do 5000 m²”
+    group: Literal["none", "notification", "permit", "depends"] | None = None  # bez formalności / zgłoszenie / pozwolenie / zależy
+    legal_ids: list[str] = Field(default_factory=list)   # → data/knowledge/legal_pl/prawo_wodne.yaml
+    fee_pln: float | None = None       # opłata administracyjna dla roku daty analizy
+    fee_year: int | None = None
+    facts_used: list[str] = Field(default_factory=list)  # fakty o działce wykorzystane w regule
+    unchecked: list[str] = Field(default_factory=list)   # czego nie udało się sprawdzić (blok bez danych)
+    caution: str | None = None         # ostrzeżenie (np. strefa powodziowa, Natura 2000)
 
 
 class LegalContextInfo(BaseModel):
     hints: list[LegalHint] = Field(default_factory=list)
     funding_ids: list[str] = Field(default_factory=list)  # → data/knowledge/funding/programs.yaml
+    # ↓ addytywnie 2026-11-21 (B)
+    disclaimer: str | None = None
+    facts_checked: dict[str, str] = Field(default_factory=dict)  # blok → status (ok / brak danych / niezaimplementowany)
 
 
 # ───────────────────────────── odpowiedzi API ─────────────────────────────
