@@ -1,0 +1,479 @@
+{
+ "source": "IMGW-PIB danepubliczne.imgw.pl (api/data/meteo + archiwum dobowe synop)",
+ "built": "2026-11-21",
+ "year_listing": 2025,
+ "stations": [
+  {
+   "file_code": "100",
+   "station_code": "354150100",
+   "name": "Kołobrzeg-Dźwirzyno",
+   "lon": 15.388889,
+   "lat": 54.158333,
+   "elevation_m": 4.0
+  },
+  {
+   "file_code": "105",
+   "station_code": "354160105",
+   "name": "Koszalin",
+   "lon": 16.155278,
+   "lat": 54.204444,
+   "elevation_m": 33.0
+  },
+  {
+   "file_code": "115",
+   "station_code": "354160115",
+   "name": "Ustka",
+   "lon": 16.854167,
+   "lat": 54.588333,
+   "elevation_m": 3.0
+  },
+  {
+   "file_code": "120",
+   "station_code": "354170120",
+   "name": "Łeba",
+   "lon": 17.534722,
+   "lat": 54.753611,
+   "elevation_m": 1.0
+  },
+  {
+   "file_code": "125",
+   "station_code": "354170125",
+   "name": "Lębork",
+   "lon": 17.756944,
+   "lat": 54.553056,
+   "elevation_m": 39.0
+  },
+  {
+   "file_code": "135",
+   "station_code": "354180135",
+   "name": "Hel",
+   "lon": 18.811944,
+   "lat": 54.603611,
+   "elevation_m": 1.0
+  },
+  {
+   "file_code": "155",
+   "station_code": "354180155",
+   "name": "Gdańsk-Świbno",
+   "lon": 18.934444,
+   "lat": 54.333611,
+   "elevation_m": 7.0
+  },
+  {
+   "file_code": "160",
+   "station_code": "354190160",
+   "name": "Elbląg-Milejewo",
+   "lon": 19.543611,
+   "lat": 54.223333,
+   "elevation_m": 189.0
+  },
+  {
+   "file_code": "185",
+   "station_code": "354210185",
+   "name": "Kętrzyn",
+   "lon": 21.366667,
+   "lat": 54.067222,
+   "elevation_m": 107.0
+  },
+  {
+   "file_code": "195",
+   "station_code": "354220195",
+   "name": "Suwałki",
+   "lon": 22.948889,
+   "lat": 54.130833,
+   "elevation_m": 184.0
+  },
+  {
+   "file_code": "200",
+   "station_code": "353140200",
+   "name": "Świnoujście",
+   "lon": 14.242222,
+   "lat": 53.923333,
+   "elevation_m": 4.0
+  },
+  {
+   "file_code": "205",
+   "station_code": "353140205",
+   "name": "Szczecin",
+   "lon": 14.622778,
+   "lat": 53.395278,
+   "elevation_m": 1.0
+  },
+  {
+   "file_code": "210",
+   "station_code": "353150210",
+   "name": "Resko-Smólsko",
+   "lon": 15.393333,
+   "lat": 53.763611,
+   "elevation_m": 52.0
+  },
+  {
+   "file_code": "230",
+   "station_code": "353160230",
+   "name": "Piła",
+   "lon": 16.747222,
+   "lat": 53.130556,
+   "elevation_m": 72.0
+  },
+  {
+   "file_code": "235",
+   "station_code": "353170235",
+   "name": "Chojnice",
+   "lon": 17.5325,
+   "lat": 53.715278,
+   "elevation_m": 164.0
+  },
+  {
+   "file_code": "250",
+   "station_code": "353180250",
+   "name": "Toruń",
+   "lon": 18.595556,
+   "lat": 53.041944,
+   "elevation_m": 69.0
+  },
+  {
+   "file_code": "270",
+   "station_code": "353200270",
+   "name": "Mława",
+   "lon": 20.361111,
+   "lat": 53.104167,
+   "elevation_m": 147.0
+  },
+  {
+   "file_code": "272",
+   "station_code": "353200272",
+   "name": "Olsztyn",
+   "lon": 20.421389,
+   "lat": 53.768611,
+   "elevation_m": 133.0
+  },
+  {
+   "file_code": "280",
+   "station_code": "353210280",
+   "name": "Mikołajki",
+   "lon": 21.589722,
+   "lat": 53.789167,
+   "elevation_m": 127.0
+  },
+  {
+   "file_code": "295",
+   "station_code": "353230295",
+   "name": "Białystok",
+   "lon": 23.162222,
+   "lat": 53.107222,
+   "elevation_m": 148.0
+  },
+  {
+   "file_code": "300",
+   "station_code": "352150300",
+   "name": "Gorzów Wielkopolski",
+   "lon": 15.277222,
+   "lat": 52.741111,
+   "elevation_m": 71.0
+  },
+  {
+   "file_code": "310",
+   "station_code": "352140310",
+   "name": "Słubice",
+   "lon": 14.619722,
+   "lat": 52.348611,
+   "elevation_m": 53.0
+  },
+  {
+   "file_code": "330",
+   "station_code": "352160330",
+   "name": "Poznań-Ławica",
+   "lon": 16.834722,
+   "lat": 52.416667,
+   "elevation_m": 88.0
+  },
+  {
+   "file_code": "345",
+   "station_code": "352180345",
+   "name": "Koło-Radoszewice",
+   "lon": 18.706111,
+   "lat": 52.361944,
+   "elevation_m": 109.0
+  },
+  {
+   "file_code": "360",
+   "station_code": "352190360",
+   "name": "Płock",
+   "lon": 19.725833,
+   "lat": 52.588333,
+   "elevation_m": 106.0
+  },
+  {
+   "file_code": "375",
+   "station_code": "352200375",
+   "name": "Warszawa-Okęcie",
+   "lon": 20.961111,
+   "lat": 52.162778,
+   "elevation_m": 106.0
+  },
+  {
+   "file_code": "385",
+   "station_code": "352220385",
+   "name": "Siedlce",
+   "lon": 22.244722,
+   "lat": 52.181111,
+   "elevation_m": 152.0
+  },
+  {
+   "file_code": "399",
+   "station_code": "352230399",
+   "name": "Terespol",
+   "lon": 23.621944,
+   "lat": 52.078611,
+   "elevation_m": 133.0
+  },
+  {
+   "file_code": "400",
+   "station_code": "351150400",
+   "name": "Zielona Góra",
+   "lon": 15.524722,
+   "lat": 51.93,
+   "elevation_m": 192.0
+  },
+  {
+   "file_code": "415",
+   "station_code": "351160415",
+   "name": "Legnica",
+   "lon": 16.207778,
+   "lat": 51.1925,
+   "elevation_m": 123.0
+  },
+  {
+   "file_code": "418",
+   "station_code": "351160418",
+   "name": "Leszno",
+   "lon": 16.534722,
+   "lat": 51.835556,
+   "elevation_m": 91.0
+  },
+  {
+   "file_code": "424",
+   "station_code": "351160424",
+   "name": "Wrocław-Strachowice",
+   "lon": 16.9,
+   "lat": 51.103333,
+   "elevation_m": 120.0
+  },
+  {
+   "file_code": "435",
+   "station_code": "351180435",
+   "name": "Kalisz",
+   "lon": 18.080833,
+   "lat": 51.781111,
+   "elevation_m": 137.0
+  },
+  {
+   "file_code": "455",
+   "station_code": "351180455",
+   "name": "Wieluń",
+   "lon": 18.556667,
+   "lat": 51.210278,
+   "elevation_m": 199.0
+  },
+  {
+   "file_code": "465",
+   "station_code": "351190465",
+   "name": "Łódź-Lublinek",
+   "lon": 19.387222,
+   "lat": 51.718333,
+   "elevation_m": 174.0
+  },
+  {
+   "file_code": "469",
+   "station_code": "351190469",
+   "name": "Sulejów",
+   "lon": 19.866389,
+   "lat": 51.353333,
+   "elevation_m": 188.0
+  },
+  {
+   "file_code": "488",
+   "station_code": "351210488",
+   "name": "Kozienice",
+   "lon": 21.543611,
+   "lat": 51.564722,
+   "elevation_m": 123.0
+  },
+  {
+   "file_code": "495",
+   "station_code": "351220495",
+   "name": "Lublin-Radawiec",
+   "lon": 22.393056,
+   "lat": 51.216667,
+   "elevation_m": 238.0
+  },
+  {
+   "file_code": "497",
+   "station_code": "351230497",
+   "name": "Włodawa",
+   "lon": 23.529444,
+   "lat": 51.553333,
+   "elevation_m": 177.0
+  },
+  {
+   "file_code": "500",
+   "station_code": "350150500",
+   "name": "Jelenia Góra",
+   "lon": 15.788889,
+   "lat": 50.900278,
+   "elevation_m": 342.0
+  },
+  {
+   "file_code": "510",
+   "station_code": "350150510",
+   "name": "Śnieżka",
+   "lon": 15.739722,
+   "lat": 50.736389,
+   "elevation_m": 1603.0
+  },
+  {
+   "file_code": "520",
+   "station_code": "350160520",
+   "name": "Kłodzko",
+   "lon": 16.614167,
+   "lat": 50.436944,
+   "elevation_m": 356.0
+  },
+  {
+   "file_code": "530",
+   "station_code": "350170530",
+   "name": "Opole",
+   "lon": 17.968889,
+   "lat": 50.626944,
+   "elevation_m": 163.0
+  },
+  {
+   "file_code": "540",
+   "station_code": "350180540",
+   "name": "Racibórz",
+   "lon": 18.190833,
+   "lat": 50.061111,
+   "elevation_m": 206.0
+  },
+  {
+   "file_code": "550",
+   "station_code": "350190550",
+   "name": "Częstochowa",
+   "lon": 19.091667,
+   "lat": 50.811944,
+   "elevation_m": 293.0
+  },
+  {
+   "file_code": "560",
+   "station_code": "350190560",
+   "name": "Katowice-Muchowiec",
+   "lon": 19.032778,
+   "lat": 50.240556,
+   "elevation_m": 278.0
+  },
+  {
+   "file_code": "566",
+   "station_code": "350190566",
+   "name": "Kraków-Balice",
+   "lon": 19.795,
+   "lat": 50.077778,
+   "elevation_m": 236.0
+  },
+  {
+   "file_code": "570",
+   "station_code": "350200570",
+   "name": "Kielce-Suków",
+   "lon": 20.692222,
+   "lat": 50.810556,
+   "elevation_m": 260.0
+  },
+  {
+   "file_code": "575",
+   "station_code": "350200575",
+   "name": "Tarnów",
+   "lon": 20.941944,
+   "lat": 50.025556,
+   "elevation_m": 210.0
+  },
+  {
+   "file_code": "580",
+   "station_code": "350220580",
+   "name": "Rzeszów-Jasionka",
+   "lon": 22.042222,
+   "lat": 50.110833,
+   "elevation_m": 206.0
+  },
+  {
+   "file_code": "585",
+   "station_code": "350210585",
+   "name": "Sandomierz",
+   "lon": 21.715833,
+   "lat": 50.696667,
+   "elevation_m": 217.0
+  },
+  {
+   "file_code": "595",
+   "station_code": "350230595",
+   "name": "Zamość",
+   "lon": 23.205556,
+   "lat": 50.698333,
+   "elevation_m": 223.0
+  },
+  {
+   "file_code": "600",
+   "station_code": "349190600",
+   "name": "Bielsko-Biała",
+   "lon": 19.002222,
+   "lat": 49.806667,
+   "elevation_m": 396.0
+  },
+  {
+   "file_code": "625",
+   "station_code": "349190625",
+   "name": "Zakopane",
+   "lon": 19.960278,
+   "lat": 49.293889,
+   "elevation_m": 852.0
+  },
+  {
+   "file_code": "628",
+   "station_code": "349200628",
+   "name": "Hala Gąsienicowa",
+   "lon": 20.005833,
+   "lat": 49.243889,
+   "elevation_m": 1523.0
+  },
+  {
+   "file_code": "650",
+   "station_code": "349190650",
+   "name": "Kasprowy Wierch",
+   "lon": 19.981944,
+   "lat": 49.2325,
+   "elevation_m": 1990.0
+  },
+  {
+   "file_code": "660",
+   "station_code": "349200660",
+   "name": "Nowy Sącz",
+   "lon": 20.688611,
+   "lat": 49.627222,
+   "elevation_m": 292.0
+  },
+  {
+   "file_code": "670",
+   "station_code": "349210670",
+   "name": "Krosno",
+   "lon": 21.769167,
+   "lat": 49.706667,
+   "elevation_m": 330.0
+  },
+  {
+   "file_code": "690",
+   "station_code": "349220690",
+   "name": "Lesko",
+   "lon": 22.341667,
+   "lat": 49.466389,
+   "elevation_m": 420.0
+  }
+ ]
+}

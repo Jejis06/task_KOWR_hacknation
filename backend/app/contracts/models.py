@@ -114,6 +114,10 @@ class WeatherHistory(BaseModel):
     last_30d_precip_normal_mm: float | None = None
     cwb_60d_mm: float | None = None    # KBW z 60 dni do as_of
     cwb_60d_normal_mm: float | None = None
+    # ── dodane 2026-11-21 (A, addytywnie) ──
+    # walidacja opadu najbliższą stacją synoptyczną IMGW: {station, distance_km, season_bias_pct,
+    # station_last_30d_precip_mm, mean_abs_season_diff_mm, seasons_apr_sep: [{year, reanalysis_mm, station_mm}]}
+    station_check: dict | None = None
 
 
 class WeatherForecast(BaseModel):

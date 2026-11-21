@@ -114,7 +114,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | key | Zespół | Status | Źródło (główne → zapasowe) | Model danych | Plik |
 |---|---|---|---|---|---|
 | *(resolver)* | A | ✅ | GUGiK ULDK (GetParcelByIdOrNr / GetParcelByXY) | `ParcelRef` | `connectors/uldk.py` |
-| `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) | `WeatherHistory` | `connectors/weather.py` |
+| `weather_history` | A | ✅ | Open-Meteo Archive (ERA5) → **NASA POWER** (ET0 liczone u nas FAO-56 PM) + walidacja opadu najbliższą stacją synoptyczną IMGW (`station_check`) | `WeatherHistory` | `connectors/weather.py`, `connectors/imgw.py` |
 | `weather_forecast` | A | ✅ | Open-Meteo Forecast (tylko gdy data ≈ dziś) | `WeatherForecast` | `connectors/weather.py` |
 | `drought` | A | ✅ | SMSR IUNG tabele gmin `/wykazy/{rok},{TERYT}/` (2020+) + KBW działki wg progów rozp. MRiRW (10 lat) + EDO CDI/SMA (kolor piksela GetMap, TIME) | `DroughtHistory` | `connectors/drought.py`, `science/smsr.py` |
 | `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
@@ -132,6 +132,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - ULDK `https://uldk.gugik.gov.pl/`. Pierwsza linia odpowiedzi: GetParcelByXY → `0` = OK; GetParcelByIdOrNr → liczba wyników; `-1 …` = błąd.
 - **Open-Meteo archive: HTTP 429 „Daily API request limit exceeded”.** Na hackathonie wszyscy dzielą jedno IP, dlatego zawsze potrzebny jest fallback.
 - NASA POWER `https://power.larc.nasa.gov/api/temporal/daily/point` (community=AG; Rs w MJ/m²/d) ✅
+- IMGW archiwum dobowe synop `https://danepubliczne.imgw.pl/data/dane_pomiarowo_obserwacyjne/dane_meteorologiczne/dobowe/synop/{rok}/{rok}_{kod3}_s.zip` ✅ (rok bieżący: `{rok}_{mm}_s.zip`; max 3 równoległe pobrania, inaczej serwer dławi); współrzędne stacji z `api/data/meteo` → `data/imgw/synop_stations.json` (`scripts/build_imgw_stations.py`)
 - Earth Search `https://earth-search.aws.element84.com/v1` ✅ STAC, ale COG z S3 us-west-2 ~21 KB/s na łączu hackathonu (kafel 1,5 MB = 70 s) → **Planetary Computer** `https://planetarycomputer.microsoft.com/api/{stac/v1/search,data/v1/item/statistics}` ✅ ~0,5 s/scenę · rasterio 1.5.2 (GDAL 3.12) nie dekoduje kafli COG S2 (TIFFReadEncodedTile) – 1.4.3 tak · IMGW `https://danepubliczne.imgw.pl/api/data/synop` ✅ (API nie podaje współrzędnych stacji)
 - GUS BDL `https://bdl.stat.gov.pl/api/v1` ✅ · SoilGrids `https://rest.isric.org/soilgrids/v2.0/properties/query` ✅
 - NMT WCS `https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF` ⚠️ GetCapabilities OK, GetCoverage wisi (>60 s) → używamy `https://services.gugik.gov.pl/nmt/?request=GetHByPointList` (POST, ≤1000 pkt/żądanie) ✅
@@ -250,6 +251,7 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | GDOŚ (CRFOP), PGW Wody Polskie (ISOK MZP) | dane publiczne, z podaniem źródła |
 | SoilGrids, ESA WorldCover | CC BY 4.0 |
 | GUS BDL | otwarte dane |
+| IMGW-PIB (dane dobowe synop) | dane publiczne, wymagane podanie źródła IMGW-PIB |
 | OSM | ODbL (podkład mapy) |
 
 ## 12. README dla jury: 9 obowiązkowych punktów (pkt 4.2 zadania)
@@ -268,6 +270,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `WeatherHistory` +`station_check` (opcjonalne); `types.ts` `WeatherHistory.station_check?`.
 - 2026-11-21 · A · `types.ts` +`YieldRecord`, `YieldInfo` (bez zmian w models.py).
 - 2026-11-21 · A · `LandCoverInfo` +`cropland_share_pct`, `bdot_classes`; `types.ts` +`LandCoverInfo`.
 - 2026-11-21 · A · `types.ts` +`VegetationObs`, `VegetationInfo` (bez zmian w models.py).
@@ -286,6 +289,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `weather_history`: walidacja opadu stacją IMGW (katalog 59 stacji synop w `data/imgw/`); NASA POWER zawyża opad IV–IX o ~8–21% vs stacje.
 - 2026-11-21 · A · `yields` ✅ (GUS BDL województwo/Polska + indeks NDVI); `stubs.py` usunięty – wszystkie bloki A zaimplementowane.
 - 2026-11-21 · A · `land_cover` ✅: WorldCover przez PC (0,4–1 s), BDOT10k jako uzupełnienie.
 - 2026-11-21 · A · `vegetation` ✅: Planetary Computer (statystyki serwerowe), 10 lat w ~5 s z pustym cache; Earth Search COG za wolne na łączu hackathonu.

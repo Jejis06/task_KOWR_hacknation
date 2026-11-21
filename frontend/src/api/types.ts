@@ -68,6 +68,9 @@ export interface WeatherHistory {
   monthly_climatology: MonthlyClimate[]; seasons: SeasonSummary[];
   last_30d_precip_mm: number | null; last_30d_precip_normal_mm: number | null;
   cwb_60d_mm: number | null; cwb_60d_normal_mm: number | null;
+  station_check?: { station: string; station_code: string; distance_km: number; season_bias_pct: number | null;
+    station_last_30d_precip_mm: number | null; mean_abs_season_diff_mm: number | null;
+    seasons_apr_sep: { year: number; reanalysis_mm: number; station_mm: number }[] } | null;
 }
 
 export interface CropItem {
