@@ -231,7 +231,7 @@ class SoilConnector(Connector):
                 unc.append("Kategorii podatności na suszę nie wyznaczono dla tej działki (wg IUNG to nie jest "
                            "grunt rolny na glebie mineralnej) – progi suszy SMSR mogą nie mieć zastosowania.")
             provs.append(self.prov("IUNG-PIB – Mapa kategorii podatności gleb na suszę (SMSR)",
-                                   source_url=f"{IUNG_WMS}?layers={IUNG_LAYER}", licence=LIC_IUNG,
+                                   source_url="https://susza.iung.pulawy.pl/kategorie/", licence=LIC_IUNG,
                                    notes=f"GetFeatureInfo w {len(pts)} punktach działki"))
         if cx_vals:
             cx_dom = Counter(cx_vals).most_common(1)[0][0]
@@ -246,7 +246,7 @@ class SoilConnector(Connector):
             if prof:
                 info.texture_profile = list(prof[0][0])
                 info.texture_class = " na ".join(_texture_label(t) for t in prof[0][0][:2])
-            provs.append(self.prov("GUGiK – Mapa glebowo-rolnicza 1:5000 (IUNG)", source_url=MGR_WMS,
+            provs.append(self.prov("GUGiK – Mapa glebowo-rolnicza 1:5000 (IUNG)", source_url=f"{MGR_WMS}?SERVICE=WMS&REQUEST=GetCapabilities",
                                    licence=LIC_GUGIK, notes="warstwa KONTURY_GLEBOWE"))
             if not cat_vals and info.texture_profile:
                 tc = [TEXTURE.get(t, (None, None))[1] for t in info.texture_profile[:3]]
@@ -270,7 +270,7 @@ class SoilConnector(Connector):
                     awc_from_sg = True
                     unc.append("Zapas wody dostępnej (TAW) policzony z SoilGrids (250 m) wzorem Saxtona i Rawlsa "
                                "(2006) – SZACUNEK, może odbiegać od gleby na Twoim polu.")
-                provs.append(self.prov("ISRIC SoilGrids v2.0 (250 m)", source_url=SOILGRIDS, licence=LIC_SG,
+                provs.append(self.prov("ISRIC SoilGrids v2.0 (250 m)", source_url="https://soilgrids.org/", licence=LIC_SG,
                                        notes="średnie 0–30 cm; model globalny"))
         except RateLimited:
             messages.append("SoilGrids: limit zapytań (429).")

@@ -39,7 +39,6 @@ def _knowledge_prov(collection_label: str, snapshot: Any, notes: str | None = No
             snap = None
     return Provenance(source_name=f"Lokalna baza wiedzy: {collection_label}", retrieved_at=now_utc(),
                       mode="local_snapshot", snapshot_date=snap,
-                      source_url="https://github.com/Jejis06/task_KOWR_hacknation/tree/main/data/knowledge",
                       licence="treści własne zespołu na podstawie źródeł publicznych (lista w `sources`)", notes=notes)
 
 

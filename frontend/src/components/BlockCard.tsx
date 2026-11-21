@@ -3,17 +3,14 @@ import type {
   BlockInfo, CropCalendarInfo, DataBlock, DroughtHistory, HydrologyInfo, LandCoverInfo, LegalContextInfo,
   ProtectedAreasInfo, SoilInfo, TerrainInfo, VegetationInfo, WeatherForecast, WeatherHistory, YieldInfo,
 } from "../api/types";
-import { dateStr, dateTimeStr, modeLabel, STATUS_LABEL } from "../lib/format";
+import { dateStr, STATUS_LABEL } from "../lib/format";
+import { SourceList } from "./SourceList";
 import { ForecastView, WeatherView } from "./blocks/WeatherView";
 import {
   DroughtView, HydrologyView, LandCoverView, ProtectedView, SoilView, TerrainView, VegetationView, YieldsView,
 } from "./blocks/EnvViews";
 import { CalendarView } from "./blocks/CalendarView";
 import { LegalView } from "./blocks/LegalView";
-
-const CATEGORY_LABEL: Record<string, string> = {
-  meteo: "pogoda", satellite: "satelita", soil: "gleba", hydro: "woda", spatial: "teren", knowledge: "wiedza", derived: "statystyka",
-};
 
 // Prognoza: ograniczenia są w panelu „Skąd te dane” – na karcie tylko zaśmiecały widok.
 const HIDE_UNCERTAINTY = new Set(["weather_forecast"]);
@@ -27,7 +24,7 @@ const EMPTY_TEXT: Record<string, string> = {
   error: "Nie udało się pobrać danych ze źródła. Pozostałe bloki działają – spróbuj ponownie później.",
 };
 
-/** Dedykowany widok bloku; nieznany blok → tylko JSON w „Szczegółach”. */
+/** Dedykowany widok bloku. */
 function View({ b, asOf }: { b: DataBlock; asOf: string }) {
   const d = b.data as never;
   switch (b.key) {
@@ -54,7 +51,6 @@ export function BlockCard({ info, block, asOf, wide }: { info: BlockInfo; block?
     <article className={`card status-${status}${wide ? " wide" : ""}`} id={`blk-${info.key}`} aria-busy={status === "loading"}>
       <header>
         <div>
-          <span className="cat">{CATEGORY_LABEL[info.category] ?? info.category}</span>
           <h3>{info.title}</h3>
         </div>
         {status !== "idle" && <span className={`badge b-${status}`}>{STATUS_LABEL[status] ?? status}</span>}
@@ -65,10 +61,13 @@ export function BlockCard({ info, block, asOf, wide }: { info: BlockInfo; block?
 
       {b && b.data != null && <ErrorBoundaryView b={b} asOf={asOf} />}
       {b && b.data == null && <p className="empty">{EMPTY_TEXT[b.status] ?? "Brak danych."}</p>}
+      {b && b.status === "error" && b.messages[0] && <p className="small muted">Powód: {b.messages[0]}</p>}
 
       {b && b.uncertainty.length > 0 && !HIDE_UNCERTAINTY.has(b.key) && (
-        <div className="uncertainty"><b>Ograniczenia i niepewność:</b>
-          <ul>{b.uncertainty.map((u, i) => <li key={i}>{u}</li>)}</ul></div>
+        <details className="uncertainty">
+          <summary>Ograniczenia i niepewność ({b.uncertainty.length})</summary>
+          <ul>{b.uncertainty.map((u, i) => <li key={i}>{u}</li>)}</ul>
+        </details>
       )}
       {b && b.provenance.length > 0 && (
         <details className="prov">
@@ -76,24 +75,7 @@ export function BlockCard({ info, block, asOf, wide }: { info: BlockInfo; block?
             Źródło: {shortName(b.provenance[0].source_name)}{b.provenance.length > 1 ? ` (+${b.provenance.length - 1})` : ""}
             {" · "}{b.provenance[0].data_as_of ? `dane do ${dateStr(b.provenance[0].data_as_of)}` : `pobrano ${dateStr(b.provenance[0].retrieved_at)}`}
           </summary>
-          <ul>
-            {b.provenance.map((p, i) => (
-              <li key={i}>
-                {p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer noopener">{p.source_name}</a> : p.source_name}
-                {" · "}{modeLabel(p)}
-                {" · "}{p.data_as_of ? `dane do ${dateStr(p.data_as_of)}` : `pobrano ${dateTimeStr(p.retrieved_at)}`}
-                {p.licence ? ` · licencja: ${p.licence}` : ""}
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
-      {b && (b.data != null || b.messages.length > 0) && (
-        <details className="raw no-print">
-          <summary>Szczegóły techniczne</summary>
-          {b.messages.length > 0 && <ul className="messages">{b.messages.map((m, i) => <li key={i}>{m}</li>)}</ul>}
-          {b.data != null && <pre>{JSON.stringify(b.data, null, 1).slice(0, 20000)}</pre>}
-          {b.elapsed_ms != null && <p className="small muted">Czas pobrania: {(b.elapsed_ms / 1000).toFixed(1)} s</p>}
+          <SourceList items={b.provenance} />
         </details>
       )}
     </article>
@@ -105,7 +87,7 @@ class Boundary extends Component<{ children: ReactNode }, { err: string | null }
   state = { err: null as string | null };
   static getDerivedStateFromError(e: Error) { return { err: e.message }; }
   render() {
-    return this.state.err ? <p className="empty">Nie udało się wyświetlić tego bloku ({this.state.err}). Dane są w „Szczegółach”.</p> : this.props.children;
+    return this.state.err ? <p className="empty">Nie udało się wyświetlić tego bloku ({this.state.err}).</p> : this.props.children;
   }
 }
 function ErrorBoundaryView({ b, asOf }: { b: DataBlock; asOf: string }) {

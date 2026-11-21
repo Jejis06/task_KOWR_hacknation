@@ -29,8 +29,18 @@ log = logging.getLogger(__name__)
 Category = Literal["meteo", "satellite", "soil", "hydro", "spatial", "knowledge", "derived"]
 
 
+def query_url(url: str, params: dict | None = None) -> str:
+    """Pełny URL zapytania GET (tak jak wysyła go httpx) – do `Provenance.query_url`."""
+    import httpx
+    return str(httpx.URL(url, params={k: str(v) for k, v in (params or {}).items()}))
+
+
 def now_utc() -> datetime:
     return datetime.now(UTC)
+
+
+# podbij, gdy zmienia się format/treść provenance we wszystkich konektorach (unieważnia cały cache)
+PROV_VERSION = 2
 
 
 class Connector(ABC):
@@ -55,7 +65,7 @@ class Connector(ABC):
         return Provenance(source_name=source_name, retrieved_at=now_utc(), **kw)
 
     def _cache_key(self, ctx: AnalysisContext) -> str:
-        return make_key(self.key, v=self.cache_version, parcel=ctx.parcel.id, as_of=ctx.as_of.isoformat(),
+        return make_key(self.key, v=self.cache_version, pv=PROV_VERSION, parcel=ctx.parcel.id, as_of=ctx.as_of.isoformat(),
                         crop=ctx.crop if self.uses_crop else None)
 
     async def run(self, ctx: AnalysisContext, use_cache: bool = True) -> DataBlock[Any]:

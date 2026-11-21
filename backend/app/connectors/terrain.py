@@ -208,7 +208,7 @@ class TerrainConnector(Connector):
         z = await fetch_grid(bounds, cell, nrows, ncols)
         if np.isnan(z).mean() > 0.5:
             return self.block(BlockStatus.no_data, messages=["NMT nie zwrócił wysokości dla tego obszaru."],
-                              provenance=[self.prov("GUGiK NMT", source_url=NMT_POINTS, licence=LIC)])
+                              provenance=[self.prov("GUGiK NMT", source_url="https://www.geoportal.gov.pl/pl/dane/numeryczny-model-terenu-nmt/", licence=LIC)])
         a = await asyncio.to_thread(analyse, z, cell, (bounds[0], bounds[3]), parcel)
         info = TerrainInfo(**{k: v for k, v in a.items() if not k.startswith("_")},
                            depressions_geojson=_fc(a["_dep"]), flow_lines_geojson=_fc(a["_flow"]),
@@ -226,6 +226,6 @@ class TerrainConnector(Connector):
             status = BlockStatus.partial
             unc.append(f"Brak wysokości dla {a['_nan_share']:.0%} punktów – uzupełniono interpolacją.")
         prov = self.prov("GUGiK – Numeryczny Model Terenu (NMT, ALS), usługa GetHByPointList",
-                         source_url=NMT_POINTS, licence=LIC,
+                         source_url="https://www.geoportal.gov.pl/pl/dane/numeryczny-model-terenu-nmt/", licence=LIC,
                          notes=f"siatka {nrows}×{ncols}, krok {cell:.0f} m, bufor {settings.analysis_buffer_m:.0f} m")
         return self.block(status, info, provenance=[prov], uncertainty=unc)

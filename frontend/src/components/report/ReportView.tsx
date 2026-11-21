@@ -4,8 +4,10 @@
 // rekomendacji bez uprzedniego rozpoznania warunków działki”).
 import type {
   AnalysisResult, BlockInfo, Cause, CropCalendarInfo, DataBlock, DroughtHistory, Evidence, HydrologyInfo, LegalContextInfo,
-  LegalHint, ParcelRef, Recommendation, RiskLevel, SoilInfo, VegetationInfo, WeatherHistory,
+  LegalHint, ParcelRef, ProtectedAreasInfo, Recommendation, RiskLevel, SoilInfo, VegetationInfo, WeatherForecast, WeatherHistory,
 } from "../../api/types";
+import { ForecastView } from "../blocks/WeatherView";
+import { fmtDist } from "../../lib/events";
 import { Fragment } from "react";
 import { useKnowledge } from "../../api/knowledge";
 import { dateStr, dateTimeStr, MONTHS_SHORT, num, signed, STATUS_LABEL } from "../../lib/format";
@@ -68,6 +70,33 @@ function KeyIndicators({ blocks }: { blocks: Blocks }) {
   if (hyd) rows.push(["Strefa powodziowa", hyd.in_flood_zone ? `tak (${hyd.in_flood_zone})` : hyd.flood_zone_checked ? "poza strefą" : "nie sprawdzono"]);
   if (!rows.length) return <p className="muted">Dane wciąż się pobierają albo są niedostępne.</p>;
   return <dl className="kv-grid">{rows.map(([k, v]) => <Fragment key={k}><dt>{k}</dt><dd>{v}</dd></Fragment>)}</dl>;
+}
+
+/** Komunikat dla rolnika: czy działka leży na obszarze chronionym (GDOŚ). */
+function ProtectedNotice({ b }: { b: DataBlock | "loading" | undefined }) {
+  if (b === undefined) return null;
+  if (b === "loading") return <p className="small muted no-print">Sprawdzam obszary chronione…</p>;
+  const d = data<ProtectedAreasInfo>(b);
+  if (!d) return <div className="callout-protected near"><b>Obszary chronione: nie udało się sprawdzić</b> – zapytaj w gminie lub RDOŚ przed budową stawu czy studni.</div>;
+  const near = d.nearby ?? [];
+  const label = (h: { kind: string; name?: string | null }) => `${h.kind}${h.name ? ` „${h.name}”` : ""}`;
+  if (d.hits.length) return (
+    <div className="callout-protected hit" role="alert">
+      <b>⚠ Działka leży na obszarze chronionym</b>
+      <ul>{d.hits.map((h, i) => <li key={i}>{label(h)}{h.code ? ` (${h.code})` : ""}</li>)}</ul>
+      <p className="small">Uprawa jest dozwolona, ale staw, zbiornik, rowy czy studnia mogą wymagać uzgodnień z Regionalną Dyrekcją
+        Ochrony Środowiska (<Term k="RDOŚ" />) lub decyzji środowiskowej – sprawdź przed rozpoczęciem prac.</p>
+    </div>
+  );
+  if (near.length) return (
+    <div className="callout-protected near">
+      <b>Działka nie leży na obszarze chronionym</b>, ale w pobliżu jest:
+      <ul>{near.slice(0, 4).map((h, i) => <li key={i}>{label(h)}{h.distance_m != null ? ` – ${fmtDist(h.distance_m)}` : ""}</li>)}</ul>
+      <p className="small">Większe inwestycje wodne blisko takich obszarów mogą wymagać oceny oddziaływania – zapytaj w RDOŚ.</p>
+    </div>
+  );
+  return <div className="callout-protected none"><b>✓ Działka nie leży na obszarze chronionym</b>
+    <span className="small"> (sprawdzono: {d.checked_layers.length} rodzajów form ochrony przyrody, GDOŚ).</span></div>;
 }
 
 function Gate({ short }: { short?: boolean }) {
@@ -139,6 +168,8 @@ export function ReportView(props: {
         {loading > 0 && <p className="no-print warn-text" aria-live="polite">Raport się kompletuje – czekam na {loading} bloków danych…</p>}
       </header>
 
+      <ProtectedNotice b={blocks.protected_areas} />
+
       {/* 1. OCENA */}
       <section className="rsec">
         <h3><span className="step">1</span> Ocena sytuacji wodnej</h3>
@@ -172,6 +203,21 @@ export function ReportView(props: {
             <KeyIndicators blocks={blocks} />
           </>
         )}
+      </section>
+
+      {/* PROGNOZA – także dla rolnika */}
+      <section className="rsec">
+        <h3>Prognoza pogody na 16 dni</h3>
+        {(() => {
+          const fb = blocks.weather_forecast;
+          if (fb === undefined) return null;
+          if (fb === "loading") return <p className="muted">Pobieram prognozę…</p>;
+          const f = data<WeatherForecast>(fb);
+          if (f) return <ForecastView d={f} />;
+          return <p className="muted">{fb.status === "not_applicable"
+            ? `Prognoza dotyczy tylko dzisiejszej daty – dla analizy na ${dateStr(asOf)} nie jest pokazywana.`
+            : "Prognoza jest teraz niedostępna."}</p>;
+        })()}
       </section>
 
       {/* 2. PRZYCZYNY */}

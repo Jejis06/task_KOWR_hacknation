@@ -37,6 +37,10 @@ class Provenance(BaseModel):
     snapshot_date: date | None = None  # dla local_snapshot: data pobrania pliku
     data_as_of: date | None = None     # najnowsza data, której dotyczą dane (np. ostatni dzień opadu)
     notes: str | None = None
+    # ── dodane 2026-11-21 (koordynator, addytywnie) ──
+    # source_url = strona źródła, która NA PEWNO się otwiera (opis zbioru / przeglądarka mapowa);
+    # query_url = dokładne zapytanie, którym pobraliśmy dane dla tej działki (otwiera surowe dane), jeśli to prosty GET
+    query_url: str | None = None
 
 
 class DataBlock(BaseModel, Generic[T]):
@@ -118,6 +122,8 @@ class WeatherHistory(BaseModel):
     # walidacja opadu najbliższą stacją synoptyczną IMGW: {station, distance_km, season_bias_pct,
     # station_last_30d_precip_mm, mean_abs_season_diff_mm, seasons_apr_sep: [{year, reanalysis_mm, station_mm}]}
     station_check: dict | None = None
+    # sezony IV–IX po dacie analizy (do dziś) – TYLKO do porównania w UI, analiza ich nie używa (koordynator, 2026-11-21)
+    seasons_after_as_of: list[SeasonSummary] = Field(default_factory=list)
 
 
 class WeatherForecast(BaseModel):

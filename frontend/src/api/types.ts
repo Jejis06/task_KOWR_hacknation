@@ -16,6 +16,7 @@ export interface Provenance {
   snapshot_date?: string | null;
   data_as_of?: string | null;
   notes?: string | null;
+  query_url?: string | null;   // dokładne zapytanie z danymi tej działki (surowe dane)
 }
 
 export interface DataBlock<T = unknown> {
@@ -71,6 +72,7 @@ export interface WeatherHistory {
   station_check?: { station: string; station_code: string; distance_km: number; season_bias_pct: number | null;
     station_last_30d_precip_mm: number | null; mean_abs_season_diff_mm: number | null;
     seasons_apr_sep: { year: number; reanalysis_mm: number; station_mm: number }[] } | null;
+  seasons_after_as_of?: SeasonSummary[];   // sezony po dacie analizy – tylko do porównania
 }
 
 export interface CropItem {

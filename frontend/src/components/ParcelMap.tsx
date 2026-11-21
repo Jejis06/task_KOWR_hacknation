@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import type { HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
+import { KIND } from "./blocks/EnvViews";
+import { emit, fmtDist, on } from "../lib/events";
 
 export interface MapOverlays {
   terrain?: TerrainInfo | null; hydrology?: HydrologyInfo | null;
@@ -17,6 +19,7 @@ export function ParcelMap(props: {
   const parcelLayer = useRef<L.GeoJSON | null>(null);
   const overlayGroup = useRef<L.LayerGroup | null>(null);
   const control = useRef<L.Control.Layers | null>(null);
+  const waterLayers = useRef<Map<number, L.GeoJSON>>(new Map());
   const onPick = useRef(props.onPick);
   onPick.current = props.onPick;
 
@@ -63,16 +66,43 @@ export function ParcelMap(props: {
       L.geoJSON(t.flow_lines_geojson as never, { style: { color: "#0ea5e9", weight: 2.5, dashArray: "6 4" } })
         .bindTooltip("Linia spływu wody").addTo(g);
     }
-    for (const w of props.overlays?.hydrology?.nearest_water ?? []) {
-      if (!w.geometry) continue;
-      L.geoJSON(w.geometry as never, { style: { color: w.kind === "ditch" ? "#0891b2" : "#1e40af", weight: 3 } })
-        .bindTooltip(`${w.name ?? w.kind} – ${Math.round(w.distance_m)} m`).addTo(g);
-    }
+    waterLayers.current.clear();
+    (props.overlays?.hydrology?.nearest_water ?? []).forEach((w, i) => {
+      if (!w.geometry) return;
+      const kind = KIND[w.kind] ?? w.kind;
+      const color = w.kind === "ditch" ? "#0891b2" : "#1e40af";
+      const popup = document.createElement("div");
+      popup.className = "water-popup";
+      popup.innerHTML = `<b></b><span></span><br/><button type="button" class="btn-secondary">Więcej danych o wodach →</button>`;
+      popup.querySelector("b")!.textContent = w.name ?? kind;
+      popup.querySelector("span")!.textContent = `${w.name && w.name !== kind ? `${kind} · ` : ""}${fmtDist(w.distance_m)} od działki`;
+      popup.querySelector("button")!.addEventListener("click", () => { setExpanded(false); emit("water:details", { index: i }); });
+      const layer = L.geoJSON(w.geometry as never, {
+        style: { color, weight: 4, fillColor: "#60a5fa", fillOpacity: 0.35 },
+        // szerszy, niewidoczny obrys ułatwia trafienie w cienką linię rowu palcem/myszką
+        onEachFeature: (_f, l) => { if (l instanceof L.Polyline && !(l instanceof L.Polygon)) L.polyline(l.getLatLngs() as L.LatLngExpression[], { weight: 16, opacity: 0 }).on("click", (e) => { L.DomEvent.stopPropagation(e.originalEvent); layer.openPopup(e.latlng); }).addTo(g); },
+      }).bindTooltip(`${w.name ?? kind} – ${fmtDist(w.distance_m)} (kliknij)`).bindPopup(popup)
+        .on("click", (e) => L.DomEvent.stopPropagation((e as L.LeafletMouseEvent).originalEvent)).addTo(g);
+      waterLayers.current.set(i, layer);
+    });
     for (const p of props.overlays?.places ?? []) {
       L.geoJSON(p.geojson as never, { style: { color: "#c2410c", weight: 3, fillColor: "#fb923c", fillOpacity: 0.45 } })
         .bindTooltip(`Rekomendacja: ${p.title}`).addTo(g);
     }
   }, [props.overlays?.terrain, props.overlays?.hydrology, props.overlays?.places]);
+
+  // klik w wiersz tabeli „Wody w pobliżu” → pokaż ten ciek/zbiornik na mapie
+  useEffect(() => on("water:focus", ({ index }) => {
+    const m = map.current, layer = waterLayers.current.get(index);
+    if (!m || !layer) return;
+    el.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    const b = layer.getBounds();
+    if (props.parcel) { const [x1, y1, x2, y2] = props.parcel.bbox; b.extend([[y1, x1], [y2, x2]]); }
+    m.fitBounds(b, { padding: [30, 30], maxZoom: 17 });
+    layer.setStyle({ weight: 7, color: "#f59e0b" });
+    setTimeout(() => layer.setStyle({ weight: 4, color: "#1e40af" }), 2500);
+    layer.openPopup(layer.getBounds().getCenter());
+  }), [props.parcel]);
 
   // powiększenie całego kafelka (nie zoom): po zmianie rozmiaru Leaflet musi przeliczyć wymiary
   useEffect(() => {

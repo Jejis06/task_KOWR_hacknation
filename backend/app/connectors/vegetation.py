@@ -239,7 +239,7 @@ class VegetationConnector(Connector):
                        "siewu, zbiór albo inna uprawa niż w poprzednich latach.")
         newest = max([s.date for s in series] + ([info.latest.date] if info.latest else []), default=None)
         prov = self.prov("Copernicus Sentinel-2 L2A (ESA) – Microsoft Planetary Computer (STAC + Data API)",
-                         source_url=PC_STATS, licence=LIC.format(year=as_of.year), data_as_of=newest,
+                         source_url="https://planetarycomputer.microsoft.com/dataset/sentinel-2-l2a", licence=LIC.format(year=as_of.year), data_as_of=newest,
                          notes=f"{len(series)} scen w serii (≤1/miesiąc IV–X); statystyki liczone dla granic działki")
         if not series and not info.latest:
             return self.block(BlockStatus.no_data if in_season else BlockStatus.not_applicable, info,

@@ -9,6 +9,7 @@ import { BlockCard } from "../components/BlockCard";
 import { SourcesPanel } from "../components/SourcesPanel";
 import { ReportView } from "../components/report/ReportView";
 import { dateStr, dateTimeStr, todayIso } from "../lib/format";
+import { on } from "../lib/events";
 
 type BlockState = Record<string, DataBlock | "loading">;
 const WIDE = new Set(["weather_history", "legal_context"]);
@@ -39,6 +40,17 @@ export function ParcelPage() {
     window.addEventListener("beforeprint", open);
     return () => window.removeEventListener("beforeprint", open);
   }, []);
+
+  // „Więcej danych” z dymka zbiornika na mapie → widok analityka, przewiń i podświetl wiersz w karcie „Wody”
+  useEffect(() => on("water:details", ({ index }) => {
+    setView("data");
+    setTimeout(() => {
+      const row = document.getElementById(`water-${index}`);
+      if (!row) return;
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      row.classList.remove("flash"); void row.offsetWidth; row.classList.add("flash");
+    }, 120);
+  }), []);
 
   async function analyse(where: Query) {
     const token = ++run.current;

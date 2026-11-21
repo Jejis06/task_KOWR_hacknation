@@ -14,7 +14,7 @@ from typing import Any
 
 from app.config import settings
 from app.connectors import imgw
-from app.connectors.base import Connector
+from app.connectors.base import Connector, query_url
 from app.contracts.models import (
     AnalysisContext,
     BlockStatus,
@@ -34,28 +34,32 @@ NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
 
 def history_range(as_of: date, years: int) -> tuple[date, date]:
     end = min(as_of, date.today() - timedelta(days=1))
-    start = date(end.year - years, end.month, 1)
+    # od 1 stycznia: dzięki temu tabela sezonów IV–IX ma pełne 10 sezonów przed rokiem analizy
+    start = date(end.year - years, 1, 1)
     return start, end
 
 
 async def _open_meteo(lat: float, lon: float, start: date, end: date) -> tuple[DailySeries, dict]:
-    r = await get_with_retry(OPEN_METEO_ARCHIVE, params={
+    params = {
         "latitude": lat, "longitude": lon, "start_date": start.isoformat(), "end_date": end.isoformat(),
         "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration",
-        "timezone": "Europe/Warsaw"}, timeout_s=10)
+        "timezone": "Europe/Warsaw"}
+    r = await get_with_retry(OPEN_METEO_ARCHIVE, params=params, timeout_s=10)
     j = r.json()
     d = j["daily"]
     s = DailySeries(dates=[date.fromisoformat(x) for x in d["time"]], precip_mm=d["precipitation_sum"],
                     tmax_c=d["temperature_2m_max"], tmin_c=d["temperature_2m_min"],
                     et0_mm=d["et0_fao_evapotranspiration"])
-    return s, {"provider": "open-meteo-era5", "elevation": j.get("elevation")}
+    return s, {"provider": "open-meteo-era5", "elevation": j.get("elevation"),
+               "query_url": query_url(OPEN_METEO_ARCHIVE, params)}
 
 
 async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[DailySeries, dict]:
-    r = await get_with_retry(NASA_POWER, params={
+    params = {
         "parameters": "PRECTOTCORR,T2M_MAX,T2M_MIN,RH2M,WS2M,ALLSKY_SFC_SW_DWN", "community": "AG",
         "longitude": lon, "latitude": lat, "start": start.strftime("%Y%m%d"), "end": end.strftime("%Y%m%d"),
-        "format": "JSON"}, timeout_s=15)
+        "format": "JSON"}
+    r = await get_with_retry(NASA_POWER, params=params, timeout_s=15)
     j = r.json()
     prm = j["properties"]["parameter"]
     elev = (j.get("geometry", {}).get("coordinates") or [None, None, 100])[2] or 100
@@ -70,7 +74,7 @@ async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[D
              if None not in (tx, tn, rh, u2, rs) else None)
         dates.append(dd); P.append(p); TX.append(tx); TN.append(tn); E.append(e)
     return DailySeries(dates=dates, precip_mm=P, tmax_c=TX, tmin_c=TN, et0_mm=E), \
-        {"provider": "nasa-power", "elevation": elev}
+        {"provider": "nasa-power", "elevation": elev, "query_url": query_url(NASA_POWER, params)}
 
 
 async def _imgw_check(lat: float, lon: float, start: date, series: DailySeries) -> dict | None:
@@ -92,7 +96,7 @@ class WeatherHistoryConnector(Connector):
     category = "meteo"
     live_ttl_s = 6 * 3600
     timeout_s = 20
-    cache_version = 2
+    cache_version = 4
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         lon, lat = ctx.parcel.centroid
@@ -100,14 +104,21 @@ class WeatherHistoryConnector(Connector):
         messages: list[str] = []
         series = meta = None
         provs = []
-        for name, fn, url, lic in (
+        used_fn = None
+        for name, fn, page, lic in (
             ("Open-Meteo Historical Weather API (ERA5/ERA5-Land, ECMWF Copernicus)", _open_meteo,
-             OPEN_METEO_ARCHIVE, "CC BY 4.0 (dane), API darmowe do użytku niekomercyjnego"),
-            ("NASA POWER (MERRA-2)", _nasa_power, NASA_POWER, "Domena publiczna (NASA)"),
+             "https://open-meteo.com/en/docs/historical-weather-api", "CC BY 4.0 (dane), API darmowe do użytku niekomercyjnego"),
+            ("NASA POWER (MERRA-2)", _nasa_power, "https://power.larc.nasa.gov/data-access-viewer/", "Domena publiczna (NASA)"),
         ):
             try:
                 series, meta = await fn(lat, lon, start, end)
-                provs.append(self.prov(name, source_url=url, licence=lic, data_as_of=series.dates[-1]))
+                note = ("Link „surowe dane” otwiera dokładnie to zapytanie (dane dobowe dla środka działki). "
+                        "Sumy miesięczne, sezonowe, KBW i normy liczymy z tych danych sami.")
+                if fn is _nasa_power:
+                    note += " ET₀ nie pochodzi z NASA – liczymy je metodą FAO-56 Penman-Monteith z temperatury, wilgotności, wiatru i promieniowania."
+                provs.append(self.prov(name, source_url=page, query_url=meta.get("query_url"), licence=lic,
+                                       data_as_of=series.dates[-1], notes=note))
+                used_fn = fn
                 break
             except RateLimited:
                 messages.append(f"{name}: limit zapytań (429) – przełączono na źródło zapasowe.")
@@ -131,15 +142,30 @@ class WeatherHistoryConnector(Connector):
         )
         unc = [f"Dane z reanalizy ({grid}), nie z pomiaru na działce – lokalne burze mogą być pominięte.",
                "Norma = średnia z dostępnych lat w oknie 10-letnim, nie klimatologia 30-letnia."]
-        # walidacja: najbliższa stacja synoptyczna IMGW (opad mierzony)
-        try:
-            data.station_check = await asyncio.wait_for(_imgw_check(lat, lon, start, series), timeout=6)
-        except Exception as e:  # noqa: BLE001
-            messages.append(f"IMGW (walidacja opadu): {type(e).__name__}.")
+        # walidacja: najbliższa stacja synoptyczna IMGW + (dla dat historycznych) sezony po dacie analizy
+        async def _after() -> list:
+            yesterday = date.today() - timedelta(days=1)
+            if used_fn is None or end.year >= yesterday.year or yesterday < date(end.year, 9, 30):
+                return []
+            s2, _ = await used_fn(lat, lon, date(end.year, 4, 1), yesterday)
+            have = {x.year for x in data.seasons}
+            return [x for x in season_summaries(s2) if x.year not in have]
+        chk, after = await asyncio.gather(asyncio.wait_for(_imgw_check(lat, lon, start, series), timeout=6),
+                                          asyncio.wait_for(_after(), timeout=10), return_exceptions=True)
+        if isinstance(chk, Exception):
+            messages.append(f"IMGW (walidacja opadu): {type(chk).__name__}.")
+        else:
+            data.station_check = chk
+        if isinstance(after, Exception):
+            messages.append(f"Sezony po dacie analizy: {type(after).__name__}.")
+        elif after:
+            data.seasons_after_as_of = after
+            unc.append(f"Sezony {after[0].year}–{after[-1].year} są PO dacie analizy – pokazane tylko do porównania, "
+                       "nie wchodzą do oceny sytuacji na wybrany dzień.")
         if data.station_check:
             sc = data.station_check
             provs.append(self.prov(f"IMGW-PIB – dane dobowe stacji synoptycznej {sc['station']}",
-                                   source_url=imgw.BASE, licence=imgw.LIC,
+                                   source_url=f"{imgw.BASE}/", licence=imgw.LIC,
                                    notes=f"{sc['distance_km']} km od działki; walidacja opadu reanalizy"))
             if sc.get("season_bias_pct") is not None and abs(sc["season_bias_pct"]) >= 15:
                 unc.append(f"Opad z reanalizy różni się od pomiarów stacji IMGW {sc['station']} "
@@ -163,14 +189,15 @@ class WeatherForecastConnector(Connector):
             return self.block(BlockStatus.not_applicable,
                               messages=["Analiza historyczna – prognoza nie dotyczy wybranej daty."])
         lon, lat = ctx.parcel.centroid
-        r = await get_with_retry(OPEN_METEO_FORECAST, params={
-            "latitude": lat, "longitude": lon, "forecast_days": 16, "timezone": "Europe/Warsaw",
-            "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration"})
+        params = {"latitude": lat, "longitude": lon, "forecast_days": 16, "timezone": "Europe/Warsaw",
+                  "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration"}
+        r = await get_with_retry(OPEN_METEO_FORECAST, params=params)
         d = r.json()["daily"]
         data = WeatherForecast(provider="open-meteo", dates=[date.fromisoformat(x) for x in d["time"]],
                                precip_mm=d["precipitation_sum"], et0_mm=d["et0_fao_evapotranspiration"],
                                tmax_c=d["temperature_2m_max"], tmin_c=d["temperature_2m_min"])
         return self.block(BlockStatus.ok, data,
-                          provenance=[self.prov("Open-Meteo Forecast API", source_url=OPEN_METEO_FORECAST,
+                          provenance=[self.prov("Open-Meteo Forecast API", source_url="https://open-meteo.com/en/docs",
+                                                query_url=query_url(OPEN_METEO_FORECAST, params),
                                                 licence="CC BY 4.0")],
                           uncertainty=["Prognoza powyżej 5–7 dni ma niską sprawdzalność opadów."])

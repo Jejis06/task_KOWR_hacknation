@@ -100,7 +100,7 @@ class YieldsConnector(Connector):
                                                      unit_name=unit.get("name", "").capitalize()))
         if info.official:
             provs.append(self.prov("GUS – Bank Danych Lokalnych (plony z 1 ha, ogółem)",
-                                   source_url=BDL.format(var=var), licence=LIC,
+                                   source_url=f"https://bdl.stat.gov.pl/bdl/dane/podgrup/zmienna/{var}", licence=LIC,
                                    data_as_of=None, notes=f"zmienna {var}: {gus_name}; dt/ha → t/ha"))
         info.official.sort(key=lambda r: (r.level, r.year))
         if not isinstance(veg, Exception) and veg.data:
