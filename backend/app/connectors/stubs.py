@@ -12,18 +12,6 @@ from app.connectors.base import StubConnector
 
 
 
-class VegetationConnector(StubConnector):
-    """Sentinel-2 → VegetationInfo (NDVI/NDMI, 10 lat, bez konta).
-    STAC Earth Search: https://earth-search.aws.element84.com/v1  (kolekcja sentinel-2-l2a, COG na S3).
-    Czytaj tylko okno działki z COG (HTTP range, rasterio/rio-tiler) – pasma B04, B08, B11, SCL.
-    Maska chmur SCL (klasy 4,5 = ok). Seria: ≤1 czysta scena / miesiąc / rok w IV–X (budżet czasu!).
-    latest = najnowsza czysta scena ≤ as_of (podaj latest_age_days); baseline = mediana NDVI z ±15 dni DOY z 10 lat.
-    Poza sezonem (XI–III) → status not_applicable dla `latest`, ale zwróć serię historyczną.
-    Licencja: Copernicus Sentinel data – darmowe, wymagane przypisanie.
-    """
-    key = "vegetation"; title = "Stan roślinności (satelita)"; category = "satellite"; live_ttl_s = 24 * 3600
-    uses_crop = False
-
 
 
 class YieldsConnector(StubConnector):

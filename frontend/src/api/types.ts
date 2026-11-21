@@ -122,3 +122,8 @@ export interface DroughtHistory {
   periods?: { year: number; period: number; start: string; end: string; drought: boolean; source: "smsr" | "computed";
               kbw_mm?: number; threshold_mm?: number; commune_area_share_pct?: number | null }[];
 }
+export interface VegetationObs { date: string; ndvi: number | null; ndmi?: number | null; cloud_pct?: number | null; scene_id?: string | null }
+export interface VegetationInfo {
+  latest: VegetationObs | null; latest_age_days: number | null; series: VegetationObs[];
+  baseline_same_doy: number | null; anomaly: number | null; in_growing_season: boolean | null;
+}
