@@ -130,17 +130,18 @@ def pick_monthly(items: list[dict], months: range = range(4, 11)) -> list[dict]:
     return [best[k] for k in sorted(best)]
 
 
-def baseline_same_doy(series: list[VegetationObs], ref: date, window_days: int = 20) -> float | None:
+def baseline_same_doy(series: list[VegetationObs], ref: date, window_days: int = 20,
+                      attr: str = "ndvi") -> float | None:
     vals = []
     for o in series:
-        if o.date.year == ref.year or o.ndvi is None:
+        if o.date.year == ref.year or getattr(o, attr) is None:
             continue
         try:
             same = o.date.replace(year=ref.year)
         except ValueError:
             continue
         if abs((same - ref).days) <= window_days:
-            vals.append(o.ndvi)
+            vals.append(getattr(o, attr))
     return round(statistics.median(vals), 3) if len(vals) >= 2 else None
 
 
@@ -150,7 +151,7 @@ class VegetationConnector(Connector):
     category = "satellite"
     live_ttl_s = 12 * 3600
     timeout_s = 22
-    cache_version = 3
+    cache_version = 4   # 4: NDMI w serii + anomalia NDMI
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         feature = {"type": "Feature", "properties": {}, "geometry": ctx.parcel.geometry.model_dump()}
@@ -188,13 +189,14 @@ class VegetationConnector(Connector):
             latest_obs = next((o for o in obs if o and o.get("ndvi") is not None and o["clear_frac"] >= 0.6), None)
 
         monthly = pick_monthly(season_items)
-        tasks = [asyncio.ensure_future(scene_obs(it, pid, feature, False)) for it in monthly]
+        # NDMI liczony w TYM SAMYM zapytaniu co NDVI (jedno wyrażenie) – bez dodatkowego czasu na serię
+        tasks = [asyncio.ensure_future(scene_obs(it, pid, feature, True)) for it in monthly]
         remaining = max(2.0, SERIES_BUDGET_S - (time.perf_counter() - t0))
         done, pending = (await asyncio.wait(tasks, timeout=remaining)) if tasks else (set(), set())
         series = []
         for t in tasks:
             if t in done and (o := t.result()) and o.get("ndvi") is not None and o["clear_frac"] >= 0.7:
-                series.append(VegetationObs(date=date.fromisoformat(o["date"]), ndvi=o["ndvi"],
+                series.append(VegetationObs(date=date.fromisoformat(o["date"]), ndvi=o["ndvi"], ndmi=o.get("ndmi"),
                                             cloud_pct=o.get("cloud"), scene_id=o["id"]))
         series.sort(key=lambda s: s.date)
 
@@ -209,6 +211,9 @@ class VegetationConnector(Connector):
                 info.baseline_same_doy = baseline_same_doy(series, lo.date)
                 if info.baseline_same_doy is not None:
                     info.anomaly = round(lo.ndvi - info.baseline_same_doy, 3)
+                info.ndmi_baseline_same_doy = baseline_same_doy(series, lo.date, attr="ndmi")
+                if info.ndmi_baseline_same_doy is not None and lo.ndmi is not None:
+                    info.ndmi_anomaly = round(lo.ndmi - info.ndmi_baseline_same_doy, 3)
             else:
                 info.latest = lo  # informacyjnie; poza sezonem bez porównania z normą
                 info.latest_age_days = (as_of - lo.date).days

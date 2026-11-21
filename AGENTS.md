@@ -13,12 +13,14 @@
   i rekomendacje (retencja → agrotechnika → nawadnianie) w raporcie PDF.
 - **Faza teraz (F1): DANE.** Każdy blok danych o działce pobierany na żywo, szybko (< 30 s łącznie),
   z jawnym statusem, źródłem, datą i niepewnością. Prosty UI pokazujący wszystko.
-- **Stos:** backend Python 3.11+ / FastAPI / httpx (async) / diskcache; frontend Vite + React 18 + TS + czysty Leaflet
+- **Stos:** backend Python 3.11+ / FastAPI / httpx (async) / diskcache; frontend (v2, z Lovable, przerobiony na zwykłą SPA)
+  Vite + React 19 + TS + Tailwind 4 + shadcn/ui (Radix) + Recharts + czysty Leaflet
   (NIE react-leaflet – licencja Hippocratic 2.1 nie jest OSI i koliduje z przeniesieniem praw na KOWR).
 - **Dwóch agentów** (każdy na własnej gałęzi; do `main` scala wyłącznie koordynator):
   - **A = DATA**, prompt `prompts/AGENT_A_DATA.md`: konektory źródeł danych, nauka, cache, wydajność;
   - **B = PRODUCT**, prompt `prompts/AGENT_B_PRODUCT.md`: UI, lokalna baza wiedzy (prawo, procedury, dofinansowania, uprawy), bloki wiedzy.
-  - Granica między nimi: **kontrakt** `backend/app/contracts/models.py` ↔ `frontend/src/api/types.ts`.
+  - Granica między nimi: **kontrakt** `backend/app/contracts/models.py` ↔ `frontend/src/api/client.ts` (typy)
+    + `frontend/src/api/adapt.ts` (tłumaczy surowe bloki na format prezentacji; surowe dane w `data.raw`).
 
 ## 1. Uruchomienie
 
@@ -93,7 +95,7 @@ data/cache/              cache dyskowy (gitignored)
 | Ścieżka | Właściciel | Opis |
 |---|---|---|
 | `backend/app/contracts/models.py` | **wspólny** (§6) | kontrakt Pydantic: DataBlock, ParcelRef, payloady bloków |
-| `frontend/src/api/types.ts` | **wspólny** (§6) | lustro kontraktu w TS |
+| `frontend/src/api/client.ts`, `adapt.ts` | **wspólny** (§6) | typy kontraktu w TS + adapter blok → widok; `mocks.ts` = tryb demo |
 | `backend/app/connectors/**` (bez `knowledge`) | A | konektory danych |
 | `backend/app/connectors/registry.py` | A (B może dodać swoje bloki) | rejestr bloków |
 | `backend/app/science/**`, `core/**`, `services/**` | A | obliczenia, infrastruktura, orkiestrator |
@@ -122,7 +124,6 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
 | `vegetation` | A | ✅ | Sentinel-2 L2A – Microsoft Planetary Computer: STAC + Data API `item/statistics` (NDVI/NDMI liczone na serwerze dla granic działki, maska SCL, korekta BOA); ≤1 scena/mies. IV–X × 10 lat, cache na stałe | `VegetationInfo` | `connectors/vegetation.py` |
 | `land_cover` | A | ✅ | ESA WorldCover 2021 (Planetary Computer, histogram kategorialny dla działki) + BDOT10k (PIG, gdy pokrywa ≥80% działki – kopia niekompletna) | `LandCoverInfo` | `connectors/land_cover.py` |
-| `yields` | A | ✅ | GUS BDL plony z 1 ha (**tylko województwo + Polska** – powiatów w BDL brak) + indeks szczytowego NDVI działki (z `vegetation`) | `YieldInfo` | `connectors/yields.py` |
 | `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ✅ | `crops.yaml` + data analizy: kampania (ozime od siewu jesienią, jare/wieloletnie w roku), fazy FAO-56 z datami i Kc, aktualna faza, okres krytyczny (miesiące z „(V–VI)”), `sowing_ok_now`, ostrzeżenia siewu, `suggested_crops_now`; bez uprawy – ogólny okres wegetacji | `CropCalendarInfo` | `blocks.py` (`crop_calendar()` – czysta funkcja) |
 | `legal_context` | B | 🟡 | reguły (nie LLM) z `legal_pl` + `procedures` + `funding`, 8 tematów (staw, oczko, zastawka, studnia ≤30 m, studnia głębinowa, nawadnianie z cieku / ze studni, istniejący zbiornik/rów); opłata wg roku daty analizy; limit 5 m³/d w mm dla powierzchni działki; fakty z hydrology / protected_areas / terrain przez `run_block` – bloki A są już ✅; po scaleniu profil na żywo: wszystkie 12 bloków `ok` (9,3 s) | `LegalContextInfo` | `blocks.py` (`legal_hints()`) |
@@ -240,7 +241,7 @@ Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_c
 | React, react-dom | MIT | frontend |
 | Leaflet | BSD-2 | frontend |
 | Vite, TypeScript | MIT, Apache-2.0 | frontend |
-| Chart.js 4.4.4 (+ @kurkle/color) | MIT | frontend (wykresy opadów, prognozy, NDVI, plonów) |
+| Recharts, Radix UI / shadcn, lucide-react, Tailwind 4, sonner, vaul, cmdk, zod… | MIT / ISC / Apache-2.0 | frontend v2 (sprawdzone 21.11.2026 skryptem po node_modules – brak GPL/Hippocratic) |
 
 | Dane | Licencja / warunki |
 |---|---|
@@ -274,6 +275,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · koordynator · usunięty blok `yields` (za mało wiarygodnych danych: GUS tylko województwo). `VegetationInfo` +`ndmi_baseline_same_doy`, `ndmi_anomaly` (NDMI w serii 10 lat). `TerrainInfo` +`runoff_exits_geojson`; zagłębienia +`catchment_ha`. `WeatherHistory` +`kc_climate {u2_ms, rh_min_pct}`. `WaterAssessment` +`field_check` (KBW × NDMI). `IrrigationAdvice` + pola bilansu FAO-56 (`depletion_mm`, `taw_mm`, `raw_mm`, `ks`, `days_to_stress`, `stress_date`, `season_et_ratio`, `yield_loss_pct`, `soil_water[]`). `AnalysisResult` +`water_balance`.
 - 2026-11-21 · koordynator · `Provenance` +`query_url` (dokładne zapytanie z danymi działki); `source_url` = tylko strony, które się otwierają (sprawdzone curl). `WeatherHistory` +`seasons_after_as_of` (tylko do porównania w UI, analiza nie używa). `PROV_VERSION` w `base.py` unieważnia cache.
 - 2026-11-21 · A · `WeatherHistory` +`station_check` (opcjonalne); `types.ts` `WeatherHistory.station_check?`.
 - 2026-11-21 · A · `types.ts` +`YieldRecord`, `YieldInfo` (bez zmian w models.py).
@@ -301,6 +303,9 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · koordynator · frontend v2 (Lovable → SPA Vite, bez TanStack Start/Lovable): adapter bloków, mapa z prawdziwymi warstwami (zagłębienia, spływ, miejsca odpływu, wody, rekomendacje), obracane karty „Skąd to wiemy?”, kalendarz uprawy w raporcie, bilans m³, wykres wody w glebie FAO-56, KBW×NDMI; centrowanie małej mapy po kliknięciu wody; kafle WMS 512 px (4× mniej zapytań).
+- 2026-11-21 · koordynator · `terrain`: GUGiK NMT przy limicie/przeciążeniu odsyła 302 na `integracja01…/resp/nmt.php` (megabajty śmieci → ValueError) – wykrywamy przekierowanie, przerywamy i bierzemy Copernicus DEM GLO-30 (Planetary Computer), status `partial`.
+- 2026-11-21 · koordynator · `science/fao56.py` (równ. 62, 81–88, 90, tab. 22, reguła mulczu) + nawadnianie z dobowego bilansu wody w strefie korzeni; Ky w `crops.yaml` (tab. 24, DO_WERYFIKACJI); rekomendacje 1 (bilans m³), 2 (zlewnia zagłębienia D8), 4 (pas buforowy w miejscach odpływu z pola); KBW × NDMI w ocenie; „nie wystąpiła w żadnym sezonie”.
 - 2026-11-21 · koordynator · UI po testach (fix/ui-feedback-2): zwijane źródła i niepewność, KBW+opad w jednej linii, spójne kolory wykresów (norma bursztyn, ET₀ fiolet), mapa pełnoekranowa nad UI, klikalne wody (tabela↔mapa), ilustracje terenu SVG, obszary chronione i prognoza w raporcie rolnika, sezony po dacie analizy, bez „Szczegółów technicznych”; poprawione martwe linki źródeł (PIG 403, NASA/PC/EDO bez parametrów, prywatne repo).
 - 2026-11-21 · B · fix/ui-feedback: blok `analysis` (raport nie blokuje już sekcji 2–5); teren – siatka NMT wyrównana do wspólnej kratki (spójne spływy u sąsiadów); ekran startowy (formularz + mapa, wyniki po „Sprawdź działkę”, klik mapy tylko wskazuje działkę); powiększanie kafelka mapy; ogórek i kapusta; KBW z paskami teraz/zwykle i zdaniem; linia normy na wykresie wyraźna; legenda czerwonych sezonów; komunikaty techniczne i ograniczenia prognozy schowane; strefa powodziowa bez czerwieni; źródła zwinięte; park narodowy/rezerwat – bez opcji budowy w prawie i analizie; front pobiera `legal_context`/`analysis` po blokach danych.
 - 2026-11-21 · koordynator · scalono `agent-a-data` + `agent-b-product` do `main`; konflikty: `types.ts` (jedna definicja typów A + typy B), `fixtures.ts` (mocki B + `realSamples` A), AGENTS.md.

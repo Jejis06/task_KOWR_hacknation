@@ -2,7 +2,7 @@ meta:
   title: Uprawy – okres wegetacji, terminy, potrzeby wodne (19 upraw)
   snapshot_date: 2026-11-21
   sources:
-    - "FAO-56 (Allen i in.), Tab. 11 (długości faz), Tab. 12 (Kc), Tab. 22 (głębokość korzeni Zr, frakcja p)"
+    - "FAO-56 (Allen i in.), Tab. 11 (długości faz), Tab. 12 (Kc), Tab. 22 (głębokość korzeni Zr, frakcja p), Tab. 24 (Ky)"
     - "SMSR IUNG-PIB – grupy upraw monitorowane (Doroszewski i in. 2012); S2MUR rozszerza do 25 pozycji"
     - "Terminy siewu/zbioru: typowe dla Polski (COBORU, IUNG, CDR) – [SZACUNEK], różnice regionalne ±2 tyg."
   fields:
@@ -12,6 +12,7 @@ meta:
     kc: "Kc ini / mid / end (FAO-56, klimat umiarkowany)"
     root_depth_m: "Zr max [m]"
     p: "dopuszczalne wyczerpanie wody dostępnej (bez stresu)"
+    ky: "sezonowy współczynnik reakcji plonu na niedobór wody (FAO-56 równ. 90, tab. 24 za FAO-33); brak → Ky = 1 (zalecenie FAO-56)"
     critical: "okresy krytyczne niedoboru wody"
     smsr_cwb_thresholds_mm: "progi KBW suszy SMSR per kategoria gleby 1–4 – DO UZUPEŁNIENIA z Doroszewski i in. 2012"
   smsr_groups: [zboża ozime, zboża jare, kukurydza na ziarno, kukurydza na kiszonkę, rzepak i rzepik, ziemniak, burak cukrowy,
@@ -32,6 +33,7 @@ items:
     kc: [0.4, 1.15, 0.3]
     root_depth_m: 1.5
     p: 0.55
+    ky: 1.05   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["strzelanie w źdźbło – kłoszenie (V–VI)", "kwitnienie i nalewanie ziarna (VI)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie i ciężkie, kompleksy pszenne (1–2, 4); słabo na piaskach"
@@ -49,6 +51,7 @@ items:
     kc: [0.3, 1.15, 0.3]
     root_depth_m: 1.2
     p: 0.55
+    ky: 1.15   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["strzelanie w źdźbło – kłoszenie (V–VI)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie, zasobne"
@@ -153,6 +156,7 @@ items:
     kc: [0.3, 1.2, 0.35]
     root_depth_m: 1.2
     p: 0.55
+    ky: 1.25   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["wiechowanie i kwitnienie (VII) – najbardziej krytyczne", "nalewanie ziarna (VIII)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie, ciepłe; wrażliwa na przymrozki (siew dopiero po ustąpieniu)"
@@ -172,6 +176,7 @@ items:
     kc: [0.3, 1.15, 0.5]
     root_depth_m: 1.2
     p: 0.55
+    ky: 1.25   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["wiechowanie i kwitnienie (VII)"]
     drought_sensitivity: wysoka
     soil_preference: "jak kukurydza na ziarno"
@@ -206,6 +211,7 @@ items:
     kc: [0.5, 1.15, 0.75]
     root_depth_m: 0.5
     p: 0.35
+    ky: 1.1   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["zawiązywanie i przyrost bulw (VI–VII)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby lekkie i średnie, przewiewne; płytki system korzeniowy – częsty kandydat do nawadniania"
@@ -223,6 +229,7 @@ items:
     kc: [0.35, 1.2, 0.7]
     root_depth_m: 1.0
     p: 0.55
+    ky: 1.0   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["wschody (IV–V)", "intensywny przyrost korzeni (VII–VIII)"]
     drought_sensitivity: średnia
     soil_preference: "gleby żyzne, średnie i ciężkie, kompleksy pszenne"
@@ -241,6 +248,7 @@ items:
     kc: [0.4, 1.15, 0.5]
     root_depth_m: 1.0
     p: 0.5
+    ky: 0.85   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["kwitnienie i zawiązywanie strąków (VII)"]
     drought_sensitivity: średnia
     soil_preference: "gleby średnie, ciepłe stanowiska"
@@ -258,6 +266,7 @@ items:
     kc: [0.5, 1.15, 0.3]
     root_depth_m: 0.8
     p: 0.4
+    ky: 1.15   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["kwitnienie (V–VI)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby średnie"
@@ -345,6 +354,7 @@ items:
     kc: [0.7, 1.05, 0.95]
     root_depth_m: 0.6
     p: 0.45
+    ky: 0.95   # FAO-56 tab. 24 (za FAO-33), sezonowe – DO_WERYFIKACJI z tabelą
     critical: ["formowanie główek (VIII–IX)"]
     drought_sensitivity: wysoka
     soil_preference: "gleby żyzne, średnie i ciężkie, wilgotne; termin to sadzenie rozsady (siew rozsady IV)"

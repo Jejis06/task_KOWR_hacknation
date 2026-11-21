@@ -14,7 +14,6 @@ from app.connectors.soil import SoilConnector
 from app.connectors.terrain import TerrainConnector
 from app.connectors.vegetation import VegetationConnector
 from app.connectors.weather import WeatherForecastConnector, WeatherHistoryConnector
-from app.connectors.yields import YieldsConnector
 from app.knowledge.analysis import AnalysisConnector
 from app.knowledge.blocks import CropCalendarConnector, LegalContextConnector
 
@@ -27,7 +26,6 @@ BLOCKS: dict[str, Connector] = {c.key: c for c in [
     HydrologyConnector(),
     VegetationConnector(),
     LandCoverConnector(),
-    YieldsConnector(),
     ProtectedAreasConnector(),
     CropCalendarConnector(),
     LegalContextConnector(),

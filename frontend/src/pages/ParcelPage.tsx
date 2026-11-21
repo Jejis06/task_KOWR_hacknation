@@ -1,195 +1,622 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { api, USE_MOCKS, type Query } from "../api/client";
-import type { AnalysisResult, BlockInfo, CropItem, DataBlock, HydrologyInfo, ParcelRef, TerrainInfo } from "../api/types";
-import { emptyKnowledge, KnowledgeContext, type Knowledge } from "../api/knowledge";
-import { type FormState, SearchForm } from "../components/SearchForm";
-import { ParcelMap } from "../components/ParcelMap";
-import { ParcelHeader } from "../components/ParcelHeader";
-import { BlockCard } from "../components/BlockCard";
-import { SourcesPanel } from "../components/SourcesPanel";
-import { ReportView } from "../components/report/ReportView";
-import { dateStr, dateTimeStr, todayIso } from "../lib/format";
-import { on } from "../lib/events";
-
-type BlockState = Record<string, DataBlock | "loading">;
-const WIDE = new Set(["weather_history", "legal_context"]);
-// Bloki liczone z innych bloków – pobieramy je po blokach danych (trafiają w cache zamiast dublować zapytania do źródeł).
-const SECOND_PHASE = new Set(["legal_context", "analysis"]);
-
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import {
+  ArrowRight,
+  Check,
+  Download,
+  Droplets,
+  FileText,
+  Leaf,
+  LockKeyhole,
+  MapPin,
+  Printer,
+  ShieldCheck,
+  Sprout,
+  X,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  api,
+  blockDefinitions,
+  dateBounds,
+  DEMO_ID,
+  USE_MOCKS,
+  validDate,
+  type Crop,
+  type DataBlock,
+  type ParcelRef,
+} from "@/api/client";
+import Report from "@/components/water/Report";
+import Analyst from "@/components/water/Analyst";
+import { formatDate, SourceLine, Term } from "@/components/water/shared";
+const ParcelMap = lazy(() => import("@/components/water/ParcelMap"));
+const today = new Date().toISOString().slice(0, 10);
+const sampleDate = USE_MOCKS ? "2026-07-15" : today;
+function Brand() {
+  return (
+    <div className="brand">
+      <svg className="brand-symbol" viewBox="0 0 40 48" fill="none" aria-hidden="true">
+        <path d="M20 3C14 12 4 23 4 31a16 16 0 0 0 32 0C36 23 26 12 20 3Z" fill="var(--primary)" />
+        <path d="M12 34c2-12 10-16 19-16-1 10-7 17-19 16Z" fill="var(--secondary)" />
+        <path
+          d="m12 38 13-14"
+          stroke="var(--primary-foreground)"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+        />
+      </svg>
+      <div>
+        <div className="brand-name">Zatrzymaj wodę</div>
+        <div className="brand-caption">Dobra woda. Dobra ziemia.</div>
+      </div>
+    </div>
+  );
+}
 export function ParcelPage() {
-  const [blocksInfo, setBlocksInfo] = useState<BlockInfo[]>([]);
-  const [crops, setCrops] = useState<CropItem[]>([]);
-  const [knowledge, setKnowledge] = useState<Knowledge>(emptyKnowledge);
-  const [form, setForm] = useState<FormState>({ id: "", date: todayIso(), crop: "" });
-  const [parcel, setParcel] = useState<ParcelRef | null>(null);
-  const [analysed, setAnalysed] = useState<{ date: string; crop: string; at: string } | null>(null);
-  const [blocks, setBlocks] = useState<BlockState>({});
-  const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-  const [elapsed, setElapsed] = useState<number | null>(null);
-  const [view, setView] = useState<"report" | "data">("report");
-  const [picked, setPicked] = useState<ParcelRef | null>(null);   // działka wskazana na mapie (przed analizą)
-  const run = useRef(0);
-
+  const [id, setId] = useState(USE_MOCKS ? DEMO_ID : "");
+  const [date, setDate] = useState(sampleDate);
+  const [crop, setCrop] = useState(USE_MOCKS ? "wheat" : "");
+  const [crops, setCrops] = useState<Crop[]>([]);
+  const [selected, setSelected] = useState<ParcelRef | null>(null);
+  const [context, setContext] = useState<{ date: string; crop: string; parcel: ParcelRef | null }>({ date: sampleDate, crop: "", parcel: null });
+  const [blocks, setBlocks] = useState<Record<string, DataBlock>>({});
+  const [tab, setTab] = useState<"report" | "data">("report");
+  const [loading, setLoading] = useState(false);
+  const [count, setCount] = useState(0);
+  const [total, setTotal] = useState(13);
+  const [error, setError] = useState("");
+  const [selectionMessage, setSelectionMessage] = useState("");
+  const [fullscreen, setFullscreen] = useState(false);
+  const [highlight, setHighlight] = useState<{ id: string; n: number } | null>(null);
+  const [help, setHelp] = useState(false);
+  const [focusBlock, setFocusBlock] = useState<string | null>(null);
+  const controller = useRef<AbortController | null>(null);
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const idInput = useRef<HTMLInputElement>(null);
+  const bounds = dateBounds();
   useEffect(() => {
-    api.blocks().then(setBlocksInfo).catch((e) => setError(`Nie mogę pobrać listy danych: ${e.message ?? e}`));
-    api.crops().then(setCrops).catch(() => setCrops([]));
-    api.knowledge().then(setKnowledge).catch(() => setKnowledge(emptyKnowledge));
-    // zamknięte <details> nie drukują treści – przed drukiem rozwijamy procedury i listy (bez surowego JSON)
-    const open = () => document.querySelectorAll<HTMLDetailsElement>("details:not(.raw)").forEach((d) => { d.open = true; });
-    window.addEventListener("beforeprint", open);
-    return () => window.removeEventListener("beforeprint", open);
+    const ctrl = new AbortController();
+    api
+      .crops(ctrl.signal)
+      .then(setCrops)
+      .catch(() => setCrops([]));
+    return () => {
+      ctrl.abort();
+      controller.current?.abort();
+    };
   }, []);
-
-  // „Więcej danych” z dymka zbiornika na mapie → widok analityka, przewiń i podświetl wiersz w karcie „Wody”
-  useEffect(() => on("water:details", ({ index }) => {
-    setView("data");
-    setTimeout(() => {
-      const row = document.getElementById(`water-${index}`);
-      if (!row) return;
-      row.scrollIntoView({ behavior: "smooth", block: "center" });
-      row.classList.remove("flash"); void row.offsetWidth; row.classList.add("flash");
-    }, 120);
-  }), []);
-
-  async function analyse(where: Query) {
-    const token = ++run.current;
-    const { date, crop } = form;
-    setError(null); setBusy(true); setBlocks({}); setElapsed(null);
-    const t0 = performance.now();
+  useEffect(() => {
+    if (!fullscreen) return;
+    const before = document.activeElement;
+    const oldOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const container = mapContainer.current;
+    container?.querySelector<HTMLButtonElement>("button")?.focus();
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setFullscreen(false);
+        return;
+      }
+      if (e.key === "Tab" && container) {
+        const items = Array.from(
+          container.querySelectorAll<HTMLElement>('button,a[href],input,[tabindex="0"]'),
+        ).filter((el) => el.getClientRects().length > 0);
+        const first = items[0],
+          last = items.at(-1);
+        if (e.shiftKey && document.activeElement === first && last) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last && first) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+    document.addEventListener("keydown", key);
+    return () => {
+      document.body.style.overflow = oldOverflow;
+      document.removeEventListener("keydown", key);
+      if (before instanceof HTMLElement) before.focus();
+    };
+  }, [fullscreen]);
+  useEffect(() => {
+    if (tab === "data" && focusBlock) {
+      const t = setTimeout(
+        () =>
+          document
+            .getElementById(`block-${focusBlock}`)
+            ?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        150,
+      );
+      return () => clearTimeout(t);
+    }
+    return undefined;
+  }, [tab, focusBlock]);
+  async function analyze(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    if (!validDate(date)) {
+      setError(
+        "Wybierz dzień od " + formatDate(bounds.min) + " do " + formatDate(bounds.max) + ".",
+      );
+      return;
+    }
+    controller.current?.abort();
+    const ctrl = new AbortController();
+    controller.current = ctrl;
+    setLoading(true);
+    setCount(0);
+    setBlocks({});
+    setTab("report");
+    setHighlight(null);
     try {
-      const p = await api.resolve(where);
-      if (token !== run.current) return;
-      setParcel(p);
-      setForm((f) => ({ ...f, id: p.id }));
-      setAnalysed({ date, crop, at: new Date().toISOString() });
-      const query: Query = { id: p.id, date, crop: crop || undefined };
-      setBlocks(Object.fromEntries(blocksInfo.map((b) => [b.key, "loading" as const])));
-      // bloki danych równolegle (render progresywny), potem bloki pochodne (prawo, analiza)
-      const load = (list: BlockInfo[]) => Promise.all(list.map((b) =>
-        api.block(b.key, query)
-          .then((blk) => token === run.current && setBlocks((s) => ({ ...s, [b.key]: blk })))
-          .catch((e) => token === run.current && setBlocks((s) => ({
-            ...s, [b.key]: { key: b.key, title: b.title, status: "error", data: null, provenance: [], uncertainty: [],
-              messages: [e instanceof Error ? e.message : String(e)] },
-          }))),
-      ));
-      await load(blocksInfo.filter((b) => !SECOND_PHASE.has(b.key)));
-      if (token === run.current) await load(blocksInfo.filter((b) => SECOND_PHASE.has(b.key)));
-      if (token === run.current) setElapsed((performance.now() - t0) / 1000);
-    } catch (e) {
-      if (token !== run.current) return;
-      const msg = e instanceof Error ? e.message : String(e);
-      setError(/nie znaleziono/i.test(msg)
-        ? `${msg} Sprawdź numer (wzór: 302504_5.0024.7) albo kliknij działkę na mapie.`
-        : msg);
+      const p = await api.resolve({ id: id.trim() }, ctrl.signal);
+      const definitions = await api.blocks(ctrl.signal);
+      if (ctrl.signal.aborted) return;
+      setSelected(p);
+      setContext({ date, crop, parcel: p });
+      setTotal(definitions.length);
+      await Promise.all(
+        definitions.map(async (def) => {
+          let block: DataBlock;
+          try {
+            block = def.implemented
+              ? await api.block(def.key, p.id, date, crop, ctrl.signal)
+              : {
+                  key: def.key,
+                  title: def.title,
+                  status: "not_implemented",
+                  data: {},
+                  provenance: [],
+                  uncertainty: [],
+                  messages: ["Ten rodzaj danych jest w przygotowaniu."],
+                  elapsed_ms: 0,
+                };
+          } catch (err) {
+            if (ctrl.signal.aborted) return;
+            block = {
+              key: def.key,
+              title: def.title,
+              status: "error",
+              data: {},
+              provenance: [],
+              uncertainty: [],
+              messages: [err instanceof Error ? err.message : "Nie udało się pobrać danych."],
+              elapsed_ms: 0,
+            };
+          }
+          if (ctrl.signal.aborted) return;
+          setBlocks((prev) => ({ ...prev, [def.key]: block }));
+          setCount((prev) => prev + 1);
+        }),
+      );
+    } catch (err) {
+      if (!ctrl.signal.aborted)
+        setError(err instanceof Error ? err.message : "Nie udało się sprawdzić działki.");
     } finally {
-      if (token === run.current) setBusy(false);
+      if (!ctrl.signal.aborted) setLoading(false);
     }
   }
-
-  /** Kliknięcie mapy na ekranie startowym: tylko wskazanie działki (obrys + numer), analiza po przycisku. */
-  async function pick(lon: number, lat: number) {
-    if (busy) return;
-    setError(null);
+  async function selectMap(lon: number, lat: number) {
     try {
       const p = await api.resolve({ lon, lat });
-      setPicked(p);
-      setForm((f) => ({ ...f, id: p.id }));
-    } catch (e) {
-      setError(e instanceof Error ? `${e.message} Przybliż mapę i kliknij środek pola.` : String(e));
+      setId(p.id);
+      if (p.id !== selected?.id) setSelected(p);
+      setSelectionMessage(
+        `Wybrano działkę ${p.parcel_number}. ${USE_MOCKS ? "W trybie demonstracyjnym mapa wybiera przykładową działkę." : "Kliknij „Sprawdź działkę”."}`,
+      );
+      setError("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Nie udało się wybrać działki.");
     }
   }
-
-  const ready = Object.values(blocks).filter((b) => b !== "loading").length;
-  const total = Object.keys(blocks).length;
-  const asOf = analysed?.date ?? form.date;
-  const overlays = useMemo(() => ({
-    terrain: (typeof blocks.terrain === "object" ? blocks.terrain.data : null) as TerrainInfo | null,
-    hydrology: (typeof blocks.hydrology === "object" ? blocks.hydrology.data : null) as HydrologyInfo | null,
-    places: ((typeof blocks.analysis === "object" ? (blocks.analysis.data as AnalysisResult | null)?.recommendations : null) ?? [])
-      .filter((r) => r.where_geojson).map((r) => ({ title: r.title, geojson: r.where_geojson! })),
-  }), [blocks.terrain, blocks.hydrology, blocks.analysis]);
-  const dataInfos = blocksInfo.filter((b) => b.key !== "analysis");
-
-  function downloadJson() {
-    if (!parcel || !analysed) return;
-    const payload = { parcel, analysis_date: analysed.date, crop: analysed.crop || null, generated_at: analysed.at, blocks };
-    const url = URL.createObjectURL(new Blob([JSON.stringify(payload, null, 1)], { type: "application/json" }));
-    const a = document.createElement("a");
-    a.href = url; a.download = `raport_${parcel.id.replace(/[^\w.-]/g, "_")}_${analysed.date}.json`; a.click();
+  /** Pokaż obiekt na mapie: wycentruj go na małej mapie obok (bez otwierania pełnego ekranu). */
+  function showMap(feature: string) {
+    setHighlight((h) => ({ id: feature, n: (h?.n ?? 0) + 1 }));
+  }
+  function showData(key: string) {
+    setFullscreen(false);
+    setTab("data");
+    setFocusBlock(key);
+  }
+  function exportJson() {
+    const content = {
+      demo: USE_MOCKS,
+      parcel: context.parcel,
+      date: context.date,
+      crop: context.crop,
+      blocks: Object.values(blocks),
+    };
+    const blob = new Blob([JSON.stringify(content, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `zatrzymaj-wode-${(context.parcel?.id ?? "dzialka").replace(/[^\w.-]/g, "_")}-${context.date}.json`;
+    link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
-  const cropName = crops.find((c) => c.id === analysed?.crop)?.name_pl;
-
+  function printReport() {
+    const details = Array.from(document.querySelectorAll("details"));
+    const states = details.map((d) => d.open);
+    details.forEach((d) => {
+      d.open = true;
+    });
+    const restore = () => {
+      details.forEach((d, i) => {
+        d.open = states[i] ?? false;
+      });
+      window.removeEventListener("afterprint", restore);
+    };
+    window.addEventListener("afterprint", restore);
+    window.print();
+  }
   return (
-    <KnowledgeContext.Provider value={knowledge}>
-      <div className={analysed ? "parcel-page" : "parcel-page landing"}>
-        {USE_MOCKS && <div className="mock-banner no-print">Tryb demonstracyjny: dane przykładowe (MOCK), nie z prawdziwych źródeł.</div>}
-
-        {parcel && analysed && view === "data" && (
-          <header className="print-header print-only">
-            <h1>Dane o działce {parcel.id}</h1>
-            <p>{[parcel.region_name, parcel.commune, parcel.county, parcel.voivodeship].filter(Boolean).join(", ")} ·
-              powierzchnia {parcel.area_ha.toFixed(2)} ha</p>
-            <p>Data analizy: <b>{dateStr(analysed.date)}</b> · uprawa: <b>{cropName ?? "nie wybrano"}</b> ·
-              wygenerowano: {dateTimeStr(analysed.at)}</p>
-          </header>
-        )}
-
-        <section className="left">
-          <SearchForm crops={crops} busy={busy} value={form} onChange={setForm}
-            onSubmit={() => analyse({ id: form.id.trim() })} />
-          {error && <div className="error" role="alert">{error}</div>}
-          {!analysed && (
-            <p className="landing-intro no-print">Wpisz numer działki albo kliknij swoje pole na mapie, wybierz datę i uprawę,
-              a potem naciśnij <b>„Sprawdź działkę”</b>. Dostaniesz ocenę sytuacji wodnej, jej przyczyny i co możesz zrobić –
-              z podaniem źródeł i dat. Nie zbieramy danych osobowych.</p>
-          )}
-          <ParcelMap parcel={picked && picked.id !== parcel?.id ? picked : parcel} overlays={picked && picked.id !== parcel?.id ? {} : overlays}
-            expandable={!!(picked || parcel)} onPick={pick} />
-          {picked && picked.id !== parcel?.id && (
-            <p className="picked no-print" role="status">Wybrano działkę <b>{picked.id}</b> ({picked.region_name}, {picked.commune}) –
-              naciśnij „Sprawdź działkę”.</p>
-          )}
-          {parcel && analysed && <ParcelHeader parcel={parcel} />}
-        </section>
-
-        {analysed && <section className="right">
-          {total > 0 && (
-            <div className="progress no-print" aria-live="polite">
-              <span>{ready < total ? `Pobieram dane: ${ready} z ${total}…` : `Gotowe: ${total} bloków${elapsed ? ` w ${elapsed.toFixed(1)} s` : ""}`}</span>
-              <span className="progress-track"><span className="progress-fill" style={{ width: `${(ready / Math.max(1, total)) * 100}%` }} /></span>
-              <button type="button" className="btn-secondary" disabled={ready < total} onClick={() => window.print()}>
-                🖨 {view === "report" ? "Drukuj raport / zapisz PDF" : "Drukuj dane / zapisz PDF"}</button>
-              <button type="button" className="btn-secondary" disabled={ready < total} onClick={downloadJson}>⬇ Zapisz dane (JSON)</button>
+    <>
+      <header className="site-header">
+        <div className="header-inner">
+          <Brand />
+          <nav className="header-nav" aria-label="Nawigacja główna">
+            <Button
+              variant="ghost"
+              className="active"
+              onClick={() => {
+                idInput.current?.focus();
+                idInput.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              Moja działka
+            </Button>
+            <Button variant="ghost" onClick={() => setHelp(true)}>
+              O raporcie
+            </Button>
+            <span className="privacy">
+              <LockKeyhole size={13} />
+              Bez logowania. Bez danych osobowych.
+            </span>
+          </nav>
+        </div>
+      </header>
+      <main className="page">
+        <div className="intro">
+          <div>
+            <div className="eyebrow">
+              <Sprout size={14} />Z myślą o Twoim polu
             </div>
+            <h1>
+              Sprawdź wodę. <span>Zadbaj o swoje pole.</span>
+            </h1>
+            <p>Dowiedz się, co dzieje się z wodą i jak zatrzymać ją na swojej ziemi.</p>
+          </div>
+          {USE_MOCKS && (
+            <span className="demo-badge">
+              <span className="status-dot" />
+              Wersja demonstracyjna
+            </span>
           )}
-          {parcel && analysed && (
-            <div className="tabs no-print" role="tablist" aria-label="Widok wyników">
-              <button role="tab" aria-selected={view === "report"} className={view === "report" ? "tab on" : "tab"} onClick={() => setView("report")}>📋 Raport</button>
-              <button role="tab" aria-selected={view === "data"} className={view === "data" ? "tab on" : "tab"} onClick={() => setView("data")}>📊 Wszystkie dane</button>
-            </div>
-          )}
-          {parcel && analysed && view === "report" && (
-            <ReportView parcel={parcel} asOf={analysed.date} cropName={cropName} generatedAt={analysed.at} infos={blocksInfo} blocks={blocks} />
-          )}
-          {view === "data" && (
-            <>
-              <div className="cards">
-                {dataInfos.map((b) => (
-                  <BlockCard key={b.key} info={b} block={blocks[b.key]} asOf={asOf} wide={WIDE.has(b.key)} />
-                ))}
+        </div>
+        <div className="workspace">
+          <aside className="field-column" aria-label="Wybór działki">
+            <form className="form-section" onSubmit={analyze}>
+              <h2 className="section-title">
+                <MapPin />
+                Twoja działka
+              </h2>
+              <label className="form-label" htmlFor="parcel-id">
+                Numer działki
+              </label>
+              <input
+                ref={idInput}
+                id="parcel-id"
+                name="parcel"
+                className="parcel-input"
+                value={id}
+                onChange={(e) => {
+                  setId(e.target.value);
+                  setError("");
+                }}
+                required
+                aria-describedby="parcel-hint"
+                autoComplete="off"
+                spellCheck={false}
+              />
+              <div id="parcel-hint" className="form-hint">
+                Np. {DEMO_ID} · lub wybierz pole na mapie
               </div>
-              <SourcesPanel infos={dataInfos} blocks={blocks} />
-            </>
-          )}
-          {parcel && view === "data" && (
-            <p className="print-only small">Prototyp HackNation 2026 (KOWR). Informacja orientacyjna – nie zastępuje porady eksperta ani decyzji organów.
-              Dane: GUGiK, IMGW-PIB, IUNG-PIB, Copernicus, Wody Polskie, PIG-PIB, GUS, Open-Meteo/ERA5, NASA POWER.</p>
-          )}
-        </section>}
-      </div>
-    </KnowledgeContext.Provider>
+              <div className="form-row">
+                <div>
+                  <label className="form-label" htmlFor="report-date">
+                    Dzień oceny
+                  </label>
+                  <input
+                    type="date"
+                    id="report-date"
+                    value={date}
+                    min={bounds.min}
+                    max={bounds.max}
+                    onChange={(e) => setDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="form-label" htmlFor="crop">
+                    Co uprawiasz? <Term name="Wybór uprawy" />
+                  </label>
+                  <select id="crop" value={crop} onChange={(e) => setCrop(e.target.value)}>
+                    <option value="">Bez wyboru uprawy</option>
+                    {crops.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.name_pl}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <Button type="submit" className="analyze-button" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Droplets className="animate-pulse" />
+                    Pobieram dane…
+                  </>
+                ) : (
+                  <>
+                    <Droplets />
+                    Sprawdź działkę
+                    <ArrowRight className="ml-auto" />
+                  </>
+                )}
+              </Button>
+              <div className="form-footer">
+                <ShieldCheck size={12} />
+                Bez logowania i zapisywania Twoich danych
+              </div>
+              {error && (
+                <div className="error-notice" role="alert">
+                  {error}
+                  {USE_MOCKS && (
+                    <Button
+                      type="button"
+                      variant="link"
+                      className="mt-1 h-auto p-0 text-xs"
+                      onClick={() => {
+                        setId(DEMO_ID);
+                        setError("");
+                      }}
+                    >
+                      Użyj przykładowej działki
+                    </Button>
+                  )}
+                </div>
+              )}
+            </form>
+            <div
+              ref={mapContainer}
+              className={fullscreen ? "map-fullscreen" : ""}
+              role={fullscreen ? "dialog" : undefined}
+              aria-modal={fullscreen ? true : undefined}
+              aria-label={fullscreen ? "Powiększona mapa działki" : undefined}
+            >
+              {fullscreen && (
+                <div className="fullscreen-title">
+                  <div>
+                    <strong>{selected ? `Działka ${selected.parcel_number ?? selected.id}` : "Mapa"}</strong>
+                    <span className="ml-3 text-xs text-muted-foreground">
+                      {USE_MOCKS ? "Lokalizacje demonstracyjne" : ""}
+                    </span>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Zamknij powiększoną mapę"
+                    onClick={() => setFullscreen(false)}
+                  >
+                    <X />
+                  </Button>
+                </div>
+              )}
+              <Suspense fallback={<div className="map-shell skeleton" aria-label="Wczytywanie mapy" />}>
+                  <ParcelMap
+                    parcel={selected}
+                    blocks={blocks}
+                    showAnalysis={!!context.parcel && selected?.id === context.parcel.id}
+                    onSelect={selectMap}
+                    highlight={highlight}
+                    onMore={showData}
+                    fullscreen={fullscreen}
+                    onFullscreen={() => setFullscreen((v) => !v)}
+                  />
+              </Suspense>
+            </div>
+            {selected && <div className="parcel-details">
+              <div className="parcel-details-top">
+                <strong>Działka {selected.parcel_number ?? selected.id}</strong>
+                <span className="area-label">{selected.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha</span>
+              </div>
+              <div className="parcel-location">
+                {selected.region_name ? `Obręb ${selected.region_name} · ` : ""}gmina {selected.commune} · {selected.county}
+              </div>
+              <div className="source-line">
+                {USE_MOCKS
+                  ? "Przykładowa działka · obliczenia własne"
+                  : "Granice: GUGiK ULDK (ewidencja gruntów)"}{" "}
+                · {context.parcel?.id === selected.id ? `analiza na ${formatDate(context.date)}` : "nie sprawdzono jeszcze"}
+              </div>
+            </div>}
+            <div className="field-note">
+              <Leaf size={20} />
+              <div>
+                <strong className="text-foreground font-medium">Każda kropla ma znaczenie.</strong>
+                <br />
+                Najpierw zatrzymujemy wodę na polu.
+                <br />
+                Nawadnianie rozważamy na końcu.
+              </div>
+            </div>
+            <div className="sr-only" role="status" aria-live="polite">
+              {selectionMessage}
+            </div>
+          </aside>
+          <div className="report-column">
+            <div className="report-toolbar">
+              <div
+                className="report-tabs"
+                role="tablist"
+                aria-label="Widok raportu"
+                onKeyDown={(e) => {
+                  if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                    e.preventDefault();
+                    const next = tab === "report" ? "data" : "report";
+                    setTab(next);
+                    document.getElementById(next === "report" ? "report-tab" : "data-tab")?.focus();
+                  }
+                }}
+              >
+                <Button
+                  variant="ghost"
+                  className="report-tab"
+                  id="report-tab"
+                  role="tab"
+                  aria-selected={tab === "report"}
+                  aria-controls="report-content"
+                  tabIndex={tab === "report" ? 0 : -1}
+                  onClick={() => setTab("report")}
+                >
+                  <FileText />
+                  Raport
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="report-tab"
+                  id="data-tab"
+                  role="tab"
+                  aria-selected={tab === "data"}
+                  aria-controls="data-content"
+                  tabIndex={tab === "data" ? 0 : -1}
+                  onClick={() => {
+                    setTab("data");
+                    setFocusBlock(null);
+                  }}
+                >
+                  Wszystkie dane
+                </Button>
+              </div>
+              <div className="export-actions">
+                <Button
+                  variant="ghost"
+                  className="export-button"
+                  disabled={!Object.keys(blocks).length || loading}
+                  aria-label="Drukuj raport lub zapisz PDF"
+                  title="Drukuj lub zapisz PDF"
+                  onClick={printReport}
+                >
+                  <Printer />
+                  <span className="export-label">Drukuj</span>
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="export-button"
+                  disabled={!Object.keys(blocks).length || loading}
+                  aria-label="Pobierz dane JSON"
+                  title="Pobierz dane JSON"
+                  onClick={exportJson}
+                >
+                  <Download />
+                  <span className="export-label">Dane</span>
+                </Button>
+              </div>
+            </div>
+            {USE_MOCKS && (
+              <div className="source-line mb-3">
+                Przykładowy raport · {formatDate(context.date)} ·{" "}
+                {crops.find((c) => c.id === context.crop)?.name_pl ??
+                  (context.crop ? "Pszenica ozima" : "Bez wyboru uprawy")}
+              </div>
+            )}
+            {loading && (
+              <div className="loading-progress" role="status" aria-live="polite">
+                Pobieram dane: {count} z {total}…
+                <div
+                  className="loading-track"
+                  role="progressbar"
+                  aria-label="Postęp pobierania danych"
+                  aria-valuenow={count}
+                  aria-valuemin={0}
+                  aria-valuemax={total}
+                >
+                  <div
+                    className="loading-fill"
+                    style={{ width: `${total ? (count / total) * 100 : 0}%` }}
+                  />
+                </div>
+              </div>
+            )}
+            {tab === "report" ? (
+              <Report
+                blocks={blocks}
+                date={context.date}
+                onMap={showMap}
+                onData={showData}
+                loading={loading}
+              />
+            ) : (
+              <Analyst blocks={blocks} onMap={showMap} loading={loading} date={context.date} />
+            )}
+          </div>
+        </div>
+        <footer className="site-footer">
+          <span className="footer-brand">
+            <Droplets size={14} />
+            Zatrzymaj wodę
+          </span>
+          <span>Dla rolników. Dla ziemi. Dla przyszłości.</span>
+          <span>
+            <LockKeyhole size={11} className="inline mr-1" />
+            Nie zbieramy danych osobowych
+          </span>
+        </footer>
+      </main>
+      <Dialog open={help} onOpenChange={setHelp}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Woda na polu, krok po kroku</DialogTitle>
+            <DialogDescription>
+              „Zatrzymaj wodę” pomaga zrozumieć niedobór wody i wybrać kolejność działań.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="help-content">
+            <p>
+              <strong>Najpierw pole.</strong> Podaj numer działki, dzień oceny i uprawę. Możesz też
+              wskazać pole na mapie.
+            </p>
+            <p>
+              <strong>Potem czytelna ocena.</strong> Raport łączy pogodę, glebę i teren. Zalecenia
+              zaczynają się od zatrzymania wody, potem poprawy gleby i dopiero na końcu nawadniania.
+            </p>
+            <p>
+              <strong>Bez udawania pewności.</strong> Każdy zestaw danych ma źródło, datę i
+              ograniczenia. Wersja demonstracyjna korzysta z wymyślonych wartości, nie z pomiarów
+              Twojego pola.
+            </p>
+            <p>
+              <strong>Bez konta i śledzenia.</strong> Nie zapisujemy Twoich wyborów. Podkłady mapy
+              ładują się z Geoportalu i OpenStreetMap.
+            </p>
+            <p>
+              Raport możesz wydrukować lub zapisać jako PDF w oknie drukowania. Przycisk ze strzałką
+              pobiera komplet danych.
+            </p>
+          </div>
+          <Button onClick={() => setHelp(false)}>
+            <Check />
+            Rozumiem
+          </Button>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }

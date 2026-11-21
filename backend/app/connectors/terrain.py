@@ -9,6 +9,7 @@ Obliczenia: `science/terrain.py` (numpy/scipy).
 from __future__ import annotations
 
 import asyncio
+import logging
 import math
 from typing import Any
 
@@ -21,13 +22,15 @@ from app.config import settings
 from app.connectors.base import Connector
 from app.contracts.models import AnalysisContext, BlockStatus, DataBlock, TerrainInfo
 from app.core.geo import to_2180, to_4326
-from app.core.http import post_with_retry
+from app.core.http import get_client, get_with_retry
 from app.science import terrain as T
 
+log = logging.getLogger(__name__)
 NMT_POINTS = "https://services.gugik.gov.pl/nmt/"
 LIC = "Dane PZGiK – bezpłatne, dowolny cel (art. 40a Prawa geodezyjnego i kartograficznego)"
 MAX_POINTS = 7_000
 CHUNK = 1_000  # usługa zwraca wysokości tylko dla ~1000 pierwszych punktów żądania
+NMT_PARALLEL = 3  # więcej równoległych zapytań → usługa zaczyna zwracać niepełne odpowiedzi
 
 
 # Krok siatki tylko z ustalonych poziomów, a początek siatki przyciągnięty do wielokrotności kroku
@@ -77,17 +80,90 @@ async def fetch_grid(bounds: tuple[float, float, float, float], cell: float, nro
     pts = [(maxy - r * cell, minx + c * cell) for r in range(nrows) for c in range(ncols)]
     chunks = [pts[i:i + CHUNK] for i in range(0, len(pts), CHUNK)]
 
-    async def one(ch: list[tuple[float, float]]) -> list[float | None]:
+    sem = asyncio.Semaphore(NMT_PARALLEL)
+
+    blocked = asyncio.Event()
+
+    async def ask(ch: list[tuple[float, float]]) -> list[float | None] | None:
+        if blocked.is_set():
+            return None
         body = ",".join(f"{n:.0f} {e:.0f}" for n, e in ch)
-        r = await post_with_retry(NMT_POINTS, data={"request": "GetHByPointList", "list": body}, timeout_s=9)
+        try:
+            async with sem:
+                # bez podążania za przekierowaniem: przy przeciążeniu / limicie z jednego IP GUGiK odsyła 302 na
+                # integracja01…/resp/nmt.php, która zwraca megabajty binarnych śmieci (stąd „oczekiwano 1000, otrzymano 1”)
+                r = await get_client().post(NMT_POINTS, data={"request": "GetHByPointList", "list": body},
+                                            timeout=8, follow_redirects=False)
+        except Exception:  # noqa: BLE001 – błąd sieci: spróbujemy mniejszą paczką
+            return None
+        if r.status_code in (301, 302, 303, 307, 429) or r.status_code >= 500:
+            blocked.set()          # usługa odmawia – nie męczymy jej dalej, przechodzimy na DEM zapasowy
+            return None
         vals = parse_heights(r.text)
-        if len(vals) != len(ch):
-            raise ValueError(f"NMT: oczekiwano {len(ch)} wysokości, otrzymano {len(vals)}")
-        return vals
+        return vals if len(vals) == len(ch) else None
+
+    async def one(ch: list[tuple[float, float]], depth: int = 0) -> list[float | None]:
+        # Usługa przy obciążeniu zwraca czasem 1 wartość/komunikat zamiast listy (ValueError „oczekiwano 1000,
+        # otrzymano 1”). Ponawiamy z przerwą, a potem dzielimy paczkę na pół; co się nie uda → NaN (status partial).
+        for attempt in range(2):
+            vals = await ask(ch)
+            if vals is not None:
+                return vals
+            await asyncio.sleep(0.4 * (attempt + 1))
+        if blocked.is_set():
+            return [None] * len(ch)
+        if depth < 2 and len(ch) > 50:
+            half = len(ch) // 2
+            a, b = await asyncio.gather(one(ch[:half], depth + 1), one(ch[half:], depth + 1))
+            return a + b
+        return [None] * len(ch)
 
     res = await asyncio.gather(*(one(ch) for ch in chunks))
     flat = [np.nan if v is None else v for part in res for v in part]
     return np.array(flat, dtype=float).reshape(nrows, ncols)
+
+
+COPDEM_STAC = "https://planetarycomputer.microsoft.com/api/stac/v1/search"
+COPDEM_SAS = "https://planetarycomputer.microsoft.com/api/sas/v1/token/cop-dem-glo-30"
+LIC_COPDEM = "Copernicus DEM GLO-30 © DLR e.V. 2010–2014 i Airbus 2014–2018, licencja Copernicus (bezpłatnie, z podaniem źródła)"
+
+
+async def fetch_grid_copdem(bounds: tuple[float, float, float, float], cell: float, nrows: int,
+                            ncols: int) -> np.ndarray:
+    """Zapasowy DEM: Copernicus GLO-30 (30 m, DSM) z Planetary Computer, próbkowany w punktach naszej siatki."""
+    import rasterio
+    from shapely.geometry import box
+    minx, miny, maxx, maxy = bounds
+    bb = to_4326(box(minx, miny, maxx, maxy)).bounds
+    r = await get_client().post(COPDEM_STAC, json={"collections": ["cop-dem-glo-30"], "bbox": list(bb), "limit": 4},
+                                timeout=8)
+    r.raise_for_status()
+    feats = r.json().get("features") or []
+    if not feats:
+        raise RuntimeError("Copernicus DEM: brak kafla dla obszaru")
+    token = (await get_with_retry(COPDEM_SAS, timeout_s=6)).json()["token"]
+    hrefs = [f"{f['assets']['data']['href']}?{token}" for f in feats]
+    ys = [maxy - rr * cell for rr in range(nrows)]
+    xs = [minx + cc * cell for cc in range(ncols)]
+    from shapely import points as _points
+    pts = to_4326(_points([(x, y) for y in ys for x in xs]))
+    coords = [(p.x, p.y) for p in pts]
+
+    def _sample() -> np.ndarray:
+        out = np.full(len(coords), np.nan)
+        with rasterio.Env(GDAL_DISABLE_READDIR_ON_OPEN="EMPTY_DIR", GDAL_HTTP_TIMEOUT="10"):
+            for href in hrefs:
+                with rasterio.open(href) as ds:
+                    l, b, rgt, t = ds.bounds
+                    idx = [i for i, (x, y) in enumerate(coords) if np.isnan(out[i]) and l <= x <= rgt and b <= y <= t]
+                    if not idx:
+                        continue
+                    for i, v in zip(idx, ds.sample([coords[i] for i in idx])):
+                        val = float(v[0])
+                        out[i] = val if -100 < val < 3000 else np.nan
+        return out.reshape(nrows, ncols)
+
+    return await asyncio.to_thread(_sample)
 
 
 def _mask_to_polys(mask: np.ndarray, transform: Any) -> list:
@@ -139,6 +215,9 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
         dep_feats.append({"geom": geom, "props": {
             "area_m2": round(float(m.sum() * cell ** 2)), "max_depth_m": round(float(depth[m].max()), 2),
             "volume_m3": round(float(depth[m].sum() * cell ** 2)),
+            # zlewnia zagłębienia: największa akumulacja D8 w jego obrębie (na powierzchni wypełnionej woda
+            # z całej zlewni przechodzi przez zagłębienie) – z jakiej powierzchni spływa tu woda
+            "catchment_ha": round(float(acc[m].max() * cell ** 2 / 1e4), 2),
             "touches_parcel": bool(geom.intersects(parcel_2180))}})
     near = parcel_2180.buffer(EDGE_MARGIN_M)
     dep_feats = [f for f in dep_feats if f["geom"].intersects(near)]
@@ -173,6 +252,8 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
         flow_feats.sort(key=lambda f: (-int(f["props"]["crosses_parcel"]), -f["props"]["catchment_ha"]))
         flow_feats = flow_feats[:40]
 
+    exits = _runoff_exits(fd, acc, inside, xs, ys, cell, parcel_2180)
+
     zin = z[inside]
     t_in = float(tpi_r[inside].mean())
     dep_share = float((in_dep & inside).sum() / inside.sum())
@@ -184,9 +265,48 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
         "slope_max_deg": round(float(np.percentile(slope_in, 98)), 1),
         "aspect_dominant": T.dominant_aspect(aspect, slope, inside), "position": pos,
         "position_label_pl": label, "tpi_m": round(t_in, 2), "twi_mean": round(float(twi[inside].mean()), 1),
-        "_dep": dep_feats, "_flow": flow_feats, "_dep_share": dep_share, "_nan_share": nan_share,
+        "_dep": dep_feats, "_flow": flow_feats, "_exits": exits, "_dep_share": dep_share, "_nan_share": nan_share,
         "_cells_in": int(inside.sum()),
     }
+
+
+def _runoff_exits(fd: np.ndarray, acc: np.ndarray, inside: np.ndarray, xs: np.ndarray, ys: np.ndarray,
+                  cell: float, parcel_2180: Any) -> list[dict]:
+    """Odcinki granicy działki, przez które spływ powierzchniowy (D8) opuszcza pole.
+
+    Komórka wyjścia = komórka w działce ze zlewnią ≥ 0,2 ha, której sąsiad „w dół” (D8) leży poza działką.
+    Wokół punktu wyjścia bierzemy odcinek granicy ±max(20 m, krok siatki); sąsiednie odcinki łączymy.
+    To tu pas buforowy / zadrzewienie zatrzyma najwięcej wody i gleby (zamiast „na całej granicy pola”).
+    """
+    from shapely.geometry import Point
+    from shapely.ops import substring
+    geom = max(parcel_2180.geoms, key=lambda g: g.area) if hasattr(parcel_2180, "geoms") else parcel_2180
+    ring = LineString(geom.exterior.coords)
+    thr = max(4, int(2_000 / cell ** 2))
+    half = max(20.0, cell)
+    pieces: list[tuple[Any, float]] = []
+    nrows, ncols = fd.shape
+    for r, c in zip(*np.where(inside & (acc >= thr))):
+        k = fd[r, c]
+        if k < 0:
+            continue
+        dr, dc = T.NB[k]
+        r2, c2 = r + dr, c + dc
+        if not (0 <= r2 < nrows and 0 <= c2 < ncols) or inside[r2, c2]:
+            continue
+        p = Point((xs[c] + xs[c2]) / 2, (ys[r] + ys[r2]) / 2)
+        d = ring.project(p)
+        seg = substring(ring, max(0.0, d - half), min(ring.length, d + half))
+        pieces.append((seg, float(acc[r, c] * cell ** 2 / 1e4)))
+    if not pieces:
+        return []
+    out = []
+    merged = linemerge(unary_union([s for s, _ in pieces]))
+    for ln in (list(merged.geoms) if hasattr(merged, "geoms") else [merged]):
+        ha = max(a for s, a in pieces if s.distance(ln) < 1.0)
+        out.append({"geom": ln, "props": {"catchment_ha": round(ha, 2), "length_m": round(ln.length)}})
+    out.sort(key=lambda f: -f["props"]["catchment_ha"])
+    return out[:8]
 
 
 def _fc(feats: list[dict]) -> dict:
@@ -199,19 +319,27 @@ class TerrainConnector(Connector):
     title = "Ukształtowanie terenu"
     category = "spatial"
     live_ttl_s = 30 * 24 * 3600
-    timeout_s = 15
-    cache_version = 3   # 3: siatka wyrównana do wspólnej kratki + filtr brzegu okna
+    timeout_s = 20
+    cache_version = 4   # 4: odporne pobieranie NMT; 3: siatka wyrównana do wspólnej kratki + filtr brzegu okna
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         parcel = to_2180(shape(ctx.parcel.geometry.model_dump()))
         bounds, cell, nrows, ncols = snapped_grid(parcel.buffer(settings.analysis_buffer_m).bounds)
         z = await fetch_grid(bounds, cell, nrows, ncols)
+        dem_src = "nmt"
+        if np.isnan(z).mean() > 0.5:
+            try:
+                z = await fetch_grid_copdem(bounds, cell, nrows, ncols)
+                dem_src = "copdem"
+            except Exception as e:  # noqa: BLE001
+                log.warning("Copernicus DEM fallback failed: %s", e)
         if np.isnan(z).mean() > 0.5:
             return self.block(BlockStatus.no_data, messages=["NMT nie zwrócił wysokości dla tego obszaru."],
                               provenance=[self.prov("GUGiK NMT", source_url="https://www.geoportal.gov.pl/pl/dane/numeryczny-model-terenu-nmt/", licence=LIC)])
         a = await asyncio.to_thread(analyse, z, cell, (bounds[0], bounds[3]), parcel)
         info = TerrainInfo(**{k: v for k, v in a.items() if not k.startswith("_")},
                            depressions_geojson=_fc(a["_dep"]), flow_lines_geojson=_fc(a["_flow"]),
+                           runoff_exits_geojson=_fc(a["_exits"]),
                            dem_resolution_m=cell)
         n_dep = sum(1 for f in a["_dep"] if f["props"]["touches_parcel"])
         n_flow = sum(1 for f in a["_flow"] if f["props"]["crosses_parcel"])
@@ -225,7 +353,15 @@ class TerrainConnector(Connector):
         if a["_nan_share"] > 0.05:
             status = BlockStatus.partial
             unc.append(f"Brak wysokości dla {a['_nan_share']:.0%} punktów – uzupełniono interpolacją.")
-        prov = self.prov("GUGiK – Numeryczny Model Terenu (NMT, ALS), usługa GetHByPointList",
-                         source_url="https://www.geoportal.gov.pl/pl/dane/numeryczny-model-terenu-nmt/", licence=LIC,
-                         notes=f"siatka {nrows}×{ncols}, krok {cell:.0f} m, bufor {settings.analysis_buffer_m:.0f} m")
+        if dem_src == "copdem":
+            prov = self.prov("Copernicus DEM GLO-30 (ESA) – Microsoft Planetary Computer (zapasowo)",
+                             source_url="https://planetarycomputer.microsoft.com/dataset/cop-dem-glo-30", licence=LIC_COPDEM,
+                             notes=f"NMT GUGiK odmówił (przeciążenie / limit zapytań) – użyto DEM 30 m; siatka {nrows}×{ncols}")
+            status = BlockStatus.partial
+            unc.insert(0, "Usługa wysokości GUGiK była niedostępna – użyto zapasowego modelu Copernicus DEM (30 m, model "
+                          "powierzchni z zabudową i lasem). Zagłębienia mniejsze niż ok. 1 ha i spadki mogą być niedokładne.")
+        else:
+            prov = self.prov("GUGiK – Numeryczny Model Terenu (NMT, ALS), usługa GetHByPointList",
+                             source_url="https://www.geoportal.gov.pl/pl/dane/numeryczny-model-terenu-nmt/", licence=LIC,
+                             notes=f"siatka {nrows}×{ncols}, krok {cell:.0f} m, bufor {settings.analysis_buffer_m:.0f} m")
         return self.block(status, info, provenance=[prov], uncertainty=unc)

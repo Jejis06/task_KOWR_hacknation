@@ -9,6 +9,7 @@ Dane NIE sięgają za as_of (brak „podglądania przyszłości” przy analizie
 from __future__ import annotations
 
 import asyncio
+import math
 from datetime import date, timedelta
 from typing import Any
 
@@ -32,6 +33,16 @@ OPEN_METEO_FORECAST = "https://api.open-meteo.com/v1/forecast"
 NASA_POWER = "https://power.larc.nasa.gov/api/temporal/daily/point"
 
 
+def _es(t: float) -> float:
+    return 0.6108 * math.exp(17.27 * t / (t + 237.3))
+
+
+def _summer_mean(dates: list[date], vals: list[float | None]) -> float | None:
+    """Średnia z VI–VIII (faza pełni wzrostu większości upraw) – do korekty Kc mid (FAO-56 równ. 62)."""
+    xs = [v for d, v in zip(dates, vals) if v is not None and 6 <= d.month <= 8]
+    return round(sum(xs) / len(xs), 2) if xs else None
+
+
 def history_range(as_of: date, years: int) -> tuple[date, date]:
     end = min(as_of, date.today() - timedelta(days=1))
     # od 1 stycznia: dzięki temu tabela sezonów IV–IX ma pełne 10 sezonów przed rokiem analizy
@@ -42,15 +53,19 @@ def history_range(as_of: date, years: int) -> tuple[date, date]:
 async def _open_meteo(lat: float, lon: float, start: date, end: date) -> tuple[DailySeries, dict]:
     params = {
         "latitude": lat, "longitude": lon, "start_date": start.isoformat(), "end_date": end.isoformat(),
-        "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration",
-        "timezone": "Europe/Warsaw"}
+        "daily": "precipitation_sum,temperature_2m_max,temperature_2m_min,et0_fao_evapotranspiration,"
+                 "wind_speed_10m_mean,relative_humidity_2m_min",
+        "wind_speed_unit": "ms", "timezone": "Europe/Warsaw"}
     r = await get_with_retry(OPEN_METEO_ARCHIVE, params=params, timeout_s=10)
     j = r.json()
     d = j["daily"]
     s = DailySeries(dates=[date.fromisoformat(x) for x in d["time"]], precip_mm=d["precipitation_sum"],
                     tmax_c=d["temperature_2m_max"], tmin_c=d["temperature_2m_min"],
                     et0_mm=d["et0_fao_evapotranspiration"])
-    return s, {"provider": "open-meteo-era5", "elevation": j.get("elevation"),
+    # u10 → u2 (FAO-56 równ. 47): u2 = u10 · 4,87 / ln(67,8·10 − 5,42)
+    u2 = [None if v is None else v * 4.87 / math.log(67.8 * 10 - 5.42) for v in d.get("wind_speed_10m_mean") or []]
+    clim = {"u2_ms": _summer_mean(s.dates, u2), "rh_min_pct": _summer_mean(s.dates, d.get("relative_humidity_2m_min") or [])}
+    return s, {"provider": "open-meteo-era5", "elevation": j.get("elevation"), "kc_climate": clim,
                "query_url": query_url(OPEN_METEO_ARCHIVE, params)}
 
 
@@ -65,16 +80,19 @@ async def _nasa_power(lat: float, lon: float, start: date, end: date) -> tuple[D
     elev = (j.get("geometry", {}).get("coordinates") or [None, None, 100])[2] or 100
     fill = j.get("header", {}).get("fill_value", -999)
     clean = lambda v: None if v is None or v == fill or v <= -998 else float(v)
-    dates, P, TX, TN, E = [], [], [], [], []
+    dates, P, TX, TN, E, U2, RHMIN = [], [], [], [], [], [], []
     for k in sorted(prm["PRECTOTCORR"].keys()):
         dd = date(int(k[:4]), int(k[4:6]), int(k[6:]))
         p, tx, tn = clean(prm["PRECTOTCORR"][k]), clean(prm["T2M_MAX"][k]), clean(prm["T2M_MIN"][k])
         rh, u2, rs = clean(prm["RH2M"][k]), clean(prm["WS2M"][k]), clean(prm["ALLSKY_SFC_SW_DWN"][k])
         e = (round(et0_penman_monteith(dd, lat, elev, tx, tn, rh, u2, rs), 2)
              if None not in (tx, tn, rh, u2, rs) else None)
-        dates.append(dd); P.append(p); TX.append(tx); TN.append(tn); E.append(e)
+        dates.append(dd); P.append(p); TX.append(tx); TN.append(tn); E.append(e); U2.append(u2)
+        # RHmin z RH średniej: ea = RH/100 · (e°(Tmax)+e°(Tmin))/2, RHmin = 100·ea/e°(Tmax) (FAO-56 równ. 17–19)
+        RHMIN.append(None if None in (rh, tx, tn) else 100 * (rh / 100 * (_es(tx) + _es(tn)) / 2) / _es(tx))
     return DailySeries(dates=dates, precip_mm=P, tmax_c=TX, tmin_c=TN, et0_mm=E), \
-        {"provider": "nasa-power", "elevation": elev, "query_url": query_url(NASA_POWER, params)}
+        {"provider": "nasa-power", "elevation": elev, "query_url": query_url(NASA_POWER, params),
+         "kc_climate": {"u2_ms": _summer_mean(dates, U2), "rh_min_pct": _summer_mean(dates, RHMIN)}}
 
 
 async def _imgw_check(lat: float, lon: float, start: date, series: DailySeries) -> dict | None:
@@ -96,7 +114,7 @@ class WeatherHistoryConnector(Connector):
     category = "meteo"
     live_ttl_s = 6 * 3600
     timeout_s = 20
-    cache_version = 4
+    cache_version = 5
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
         lon, lat = ctx.parcel.centroid
@@ -139,6 +157,7 @@ class WeatherHistoryConnector(Connector):
             last_30d_precip_mm=last30, last_30d_precip_normal_mm=last30n,
             cwb_60d_mm=round(p60 - e60, 1) if p60 is not None and e60 is not None else None,
             cwb_60d_normal_mm=round(p60n - e60n, 1) if p60n is not None and e60n is not None else None,
+            kc_climate=meta.get("kc_climate"),
         )
         unc = [f"Dane z reanalizy ({grid}), nie z pomiaru na działce – lokalne burze mogą być pominięte.",
                "Norma = średnia z dostępnych lat w oknie 10-letnim, nie klimatologia 30-letnia."]
