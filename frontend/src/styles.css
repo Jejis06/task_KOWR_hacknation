@@ -1629,20 +1629,7 @@
 .sowing-when { font-weight: 650; color: var(--primary); font-size: 12px; }
 .sowing-src { font-size: 11px; color: var(--muted-foreground); text-decoration: underline; }
 
-/* miarka bilansu wody – skala w mm z linią zera */
-.water-gauge { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: 18px; }
-.water-gauge svg { overflow: visible; }
-.wg-frame { fill: var(--water-soft); stroke: var(--border); }
-.wg-tick { stroke: var(--muted-foreground); stroke-width: 1; }
-.wg-zero { stroke: var(--foreground); stroke-width: 1.6; }
-.wg-tick-lbl, .wg-unit { font-size: 9px; fill: var(--muted-foreground); font-variant-numeric: tabular-nums; }
-.wg-bar.cur.neg { fill: var(--danger); }
-.wg-bar.cur.pos { fill: var(--water); }
-.wg-bar.norm { fill: none; stroke: var(--warning); stroke-width: 2; stroke-dasharray: 4 3; }
-.wg-val { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.wg-val.cur { fill: var(--foreground); }
-.wg-val.norm { fill: var(--warning); }
-.wg-lbl { font-size: 10px; fill: var(--muted-foreground); }
+
 
 /* mapa: woda (niebieskie) osobno od proponowanych działań (pinezki) */
 .legend-sample.exit { height: 0; border: 0; border-top: 4px solid #1e3a8a; background: none; border-radius: 2px; }
@@ -1681,3 +1668,35 @@
 .map-gesture-hint { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center;
   background: rgb(0 0 0 / 0.45); color: #fff; font-size: 15px; font-weight: 600; text-align: center; padding: 24px;
   pointer-events: none; }
+
+/* miarka bilansu wody: skala w mm, linia zera, czytelne etykiety; skaluje się z kolumną */
+.verdict-main { grid-template-columns: minmax(0, 1fr) 210px; }
+.water-gauge { margin: 0; display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.water-gauge svg { width: 100%; height: auto; overflow: visible; display: block; }
+.wg-frame { fill: var(--water-soft); stroke: var(--border); }
+.wg-tick { stroke: var(--muted-foreground); stroke-width: 1; }
+.wg-zero { stroke: var(--foreground); stroke-width: 2; }
+.wg-tick-lbl, .wg-unit { font-size: 11px; fill: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.wg-bar.cur.neg { fill: var(--danger); }
+.wg-bar.cur.pos { fill: var(--water); }
+.wg-bar.norm { fill: color-mix(in oklch, var(--warning) 12%, transparent); stroke: var(--warning); stroke-width: 2; stroke-dasharray: 5 4; }
+.wg-val { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wg-val.cur { fill: var(--foreground); }
+.wg-val.norm { fill: var(--warning); }
+.wg-lbl { font-size: 12px; font-weight: 600; fill: var(--muted-foreground); }
+.water-gauge .gauge-caption { position: static; display: grid; gap: 1px; text-align: center; font-size: 11px; color: var(--muted-foreground); }
+.water-gauge .gauge-caption small { font-size: 10px; }
+@media (max-width: 560px) {
+  .verdict-main { grid-template-columns: minmax(0, 1fr); }
+  .water-gauge { max-width: 240px; margin: 4px auto 0; }
+  .timeline { grid-template-columns: repeat(5, 1fr); }
+  .month-ribbon { grid-template-columns: repeat(6, 1fr); }
+  .year-tile, .month-tile { font-size: 11px; }
+}
+
+/* obracana karta: niewidoczna strona nie zajmuje miejsca (wcześniej długie „dowody” robiły pustą dziurę pod kartą) */
+.flip:not(.is-flipped) .flip-back, .flip.is-flipped .flip-front { position: absolute; inset: 0 0 auto 0; }
+.flip-inner { position: relative; }
+@media print {
+  .flip:not(.is-flipped) .flip-back, .flip.is-flipped .flip-front { position: static; }
+}

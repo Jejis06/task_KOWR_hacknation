@@ -162,44 +162,47 @@ function WaterGauge({ cur, norm }: { cur: number | null; norm: number | null }) 
   const vals = [cur ?? 0, norm ?? 0, 0];
   const rawMin = Math.min(...vals), rawMax = Math.max(...vals);
   const span = Math.max(40, rawMax - rawMin);
-  const step = [10, 20, 25, 50, 100].find((s) => span / s <= 6) ?? 100;
-  const lo = Math.floor((rawMin - span * 0.08) / step) * step, hi = Math.ceil((rawMax + span * 0.08) / step) * step;
-  const H = 160, top = 18, W = 150, axisX = 38;
+  const step = [10, 20, 25, 50, 100].find((s) => span / s <= 5) ?? 100;
+  const lo = Math.floor((rawMin - span * 0.1) / step) * step, hi = Math.ceil((rawMax + span * 0.1) / step) * step;
+  // współrzędne w jednostkach viewBox; SVG skaluje się do szerokości kolumny, tekst rośnie razem z nim
+  const W = 200, H = 170, top = 22, axisX = 44, barW = 46;
   const y = (v: number) => top + ((hi - v) / (hi - lo)) * H;
   const ticks: number[] = [];
   for (let t = lo; t <= hi; t += step) ticks.push(t);
+  const fmt = (v: number) => `${v > 0 ? "+" : v < 0 ? "−" : ""}${Math.abs(Math.round(v))}`;
   const bar = (v: number | null, x: number, cls: string, label: string) => {
     if (v == null) return null;
     const y0 = y(0), y1 = y(v);
     return (
       <g>
-        <rect x={x} y={Math.min(y0, y1)} width={26} height={Math.max(1.5, Math.abs(y1 - y0))} rx={2}
+        <rect x={x} y={Math.min(y0, y1)} width={barW} height={Math.max(2, Math.abs(y1 - y0))} rx={3}
           className={`wg-bar ${cls} ${v < 0 ? "neg" : "pos"}`} />
-        <text x={x + 13} y={v < 0 ? y1 + 13 : y1 - 5} textAnchor="middle" className={`wg-val ${cls}`}>
-          {v > 0 ? "+" : v < 0 ? "−" : ""}{Math.abs(Math.round(v))}
+        <text x={x + barW / 2} y={v < 0 ? Math.min(y1 + 17, top + H + 2) : y1 - 6} textAnchor="middle" className={`wg-val ${cls}`}>
+          {fmt(v)}
         </text>
-        <text x={x + 13} y={top + H + 16} textAnchor="middle" className="wg-lbl">{label}</text>
+        <text x={x + barW / 2} y={top + H + 20} textAnchor="middle" className="wg-lbl">{label}</text>
       </g>
     );
   };
   return (
-    <div className="water-gauge" role="img" aria-label={`Bilans wody z 60 dni: teraz ${smm(cur)}, zwykle ${smm(norm)}. Zero oznacza opad równy parowaniu.`}>
-      <svg viewBox={`0 0 ${W} ${top + H + 24}`} width={W} height={top + H + 24}>
-        <rect x={axisX} y={top} width={W - axisX - 6} height={H} className="wg-frame" />
+    <figure className="water-gauge" role="img" aria-label={`Bilans wody z 60 dni: teraz ${smm(cur)}, zwykle ${smm(norm)}. Zero oznacza opad równy parowaniu.`}>
+      <svg viewBox={`0 0 ${W} ${top + H + 28}`} preserveAspectRatio="xMidYMid meet">
+        <text x={axisX - 8} y={12} textAnchor="end" className="wg-unit">mm</text>
+        <rect x={axisX} y={top} width={W - axisX - 4} height={H} rx={4} className="wg-frame" />
         {ticks.map((t) => (
           <g key={t}>
-            <line x1={axisX - 5} x2={t === 0 ? W - 6 : axisX} y1={y(t)} y2={y(t)} className={t === 0 ? "wg-zero" : "wg-tick"} />
-            <text x={axisX - 8} y={y(t) + 3.5} textAnchor="end" className="wg-tick-lbl">{t > 0 ? `+${t}` : t}</text>
+            <line x1={axisX - 5} x2={t === 0 ? W - 4 : axisX} y1={y(t)} y2={y(t)} className={t === 0 ? "wg-zero" : "wg-tick"} />
+            <text x={axisX - 9} y={y(t) + 4} textAnchor="end" className="wg-tick-lbl">{fmt(t)}</text>
           </g>
         ))}
-        {bar(cur, axisX + 14, "cur", "teraz")}
-        {bar(norm, axisX + 62, "norm", "zwykle")}
-        <text x={axisX - 8} y={9} textAnchor="end" className="wg-unit">mm</text>
+        {bar(cur, axisX + 22, "cur", "teraz")}
+        {bar(norm, axisX + 22 + barW + 18, "norm", "zwykle")}
       </svg>
-      <div className="gauge-caption">
-        Bilans wody z 60 dni <Term name="KBW" /> · 0 = opad równy parowaniu
-      </div>
-    </div>
+      <figcaption className="gauge-caption">
+        <span>Bilans wody z 60 dni <Term name="KBW" /></span>
+        <small>0 = opad równy parowaniu</small>
+      </figcaption>
+    </figure>
   );
 }
 
