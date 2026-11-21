@@ -118,7 +118,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `weather_forecast` | A | ✅ | Open-Meteo Forecast (tylko gdy data ≈ dziś) | `WeatherForecast` | `connectors/weather.py` |
 | `drought` | A | ⬜ | SMSR IUNG (gmina, uprawa, gleba) + EDO WMS (CDI/SMA, TIME) + lata suszy z KBW | `DroughtHistory` | `stubs.py` |
 | `soil` | A | ✅ | IUNG „Kategorie podatności gleb na suszę” (GeoServer WMS) + Mapa glebowo-rolnicza WMS → SoilGrids (TAW Saxton–Rawls) | `SoilInfo` | `connectors/soil.py` |
-| `terrain` | A | ⬜ | NMT GUGiK 1 m WCS → spadek, TPI (górka/dołek), zagłębienia, linie spływu, TWI | `TerrainInfo` | `stubs.py` |
+| `terrain` | A | ✅ | NMT GUGiK (usługa GetHByPointList, siatka 8–20 m, bbox+300 m; WCS wisi) → spadek, TPI, Priority-Flood, D8, TWI | `TerrainInfo` | `connectors/terrain.py`, `science/terrain.py` |
 | `hydrology` | A | ⬜ | MPHP/BDOT10k cieki, ISOK strefy powodziowe, PIG CBDH otwory, MHP, GZWP | `HydrologyInfo` | `stubs.py` |
 | `vegetation` | A | ⬜ | Sentinel-2 L2A, Earth Search STAC (bez konta), NDVI/NDMI, 10 lat | `VegetationInfo` | `stubs.py` |
 | `land_cover` | A | ⬜ | ESA WorldCover 10 m COG → BDOT10k/EGiB | `LandCoverInfo` | `stubs.py` |
@@ -134,7 +134,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 - NASA POWER `https://power.larc.nasa.gov/api/temporal/daily/point` (community=AG; Rs w MJ/m²/d) ✅
 - Earth Search `https://earth-search.aws.element84.com/v1` ✅ · IMGW `https://danepubliczne.imgw.pl/api/data/synop` ✅ (API nie podaje współrzędnych stacji)
 - GUS BDL `https://bdl.stat.gov.pl/api/v1` ✅ · SoilGrids `https://rest.isric.org/soilgrids/v2.0/properties/query` ✅
-- NMT WCS `https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF` ✅
+- NMT WCS `https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF` ⚠️ GetCapabilities OK, GetCoverage wisi (>60 s) → używamy `https://services.gugik.gov.pl/nmt/?request=GetHByPointList` (POST, ≤1000 pkt/żądanie) ✅
 - Mapa glebowa WMS `https://mapy.geoportal.gov.pl/wss/service/pub/guest/MapaGlebowoRolnicza/MapServer/WMSServer` ✅
 - EDO WMS `https://drought.emergency.copernicus.eu/api/wms` ✅ · ISOK `https://wody.isok.gov.pl/wss/INSPIRE/INSPIRE_NZ_HY_MZPMRP_WMS` ✅
 - PIG CBDH WFS `https://cbdgmapa.pgi.gov.pl/arcgis/services/hydrogeologia/cbdh_otwory/MapServer/WFSServer` ✅ · GDOŚ `https://sdi.gdos.gov.pl/wms` ✅
@@ -226,6 +226,8 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 | shapely | BSD-3 | backend |
 | pyproj | MIT | backend |
 | numpy | BSD-3 | backend |
+| scipy | BSD-3 | backend (terrain) |
+| rasterio (+ GDAL w kole binarnym: MIT/X) | BSD-3 | backend (terrain, vegetation, land_cover) |
 | diskcache | Apache-2.0 | backend |
 | PyYAML | MIT | backend |
 | pypdf (skrypt) | BSD-3 | scripts |
@@ -271,6 +273,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `terrain` ✅: NMT przez GetHByPointList (paczki po 1000 pkt równolegle), Priority-Flood/D8/TPI/TWI w numpy; zagłębienia i linie spływu jako GeoJSON; 2,3–4 s/działkę.
 - 2026-11-21 · A · `soil` ✅: kategoria SMSR 1–4 z rastra IUNG `Susza:katgl_landuse2024` + kompleks/typ/gatunki z MGR w 5 punktach działki, SoilGrids jako uzupełnienie/fallback; `core/ogc.py`, `geo.sample_points_2180`.
 - 2026-11-21 · baza wiedzy: dokumenty pobrane ręcznie (SMSR, Prawo wodne t.j. 2026, M.P. ze stawkami, wzory, CDR, POLSA 2020, NWRM); opłaty w procedures.yaml zweryfikowane (2026/2027); fetch_knowledge: strony HTML + czyszczenie usuniętych wpisów.
 - 2026-11-21 · baza wiedzy: +12 publikacji IUNG-PIB SiR (monitoring suszy, KBW, retencja glebowa, erozja, satelity) → `data/knowledge/raw/iung_sir*.txt`, `zylowska_kozyra_2025.txt`.

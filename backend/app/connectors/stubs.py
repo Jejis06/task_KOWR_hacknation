@@ -10,17 +10,6 @@ from app.connectors.base import StubConnector
 
 
 
-class TerrainConnector(StubConnector):
-    """Rzeźba terenu → TerrainInfo (górka / stok / dołek, spadek, zagłębienia, linie spływu, TWI).
-    NMT GUGiK 1 m przez WCS (GeoTIFF, EPSG:2180), bbox = działka + bufor settings.analysis_buffer_m:
-       https://mapy.geoportal.gov.pl/wss/service/PZGIK/NMT/GRID1/WCS/DigitalTerrainModelFormatTIFF
-    Obliczenia (numpy/scipy, bez GPL): slope/aspect, TPI (różnica do średniej w promieniu ~100–300 m),
-    wypełnianie zagłębień (Priority-Flood), D8 flow accumulation, TWI = ln(a / tan β).
-    Dla dużych działek resampling do 2–5 m (budżet < 5 s). Pułapka: limit rozmiaru WCS – kafelkuj.
-    Licencja: PZGiK – bezpłatnie, dowolny cel.
-    """
-    key = "terrain"; title = "Ukształtowanie terenu"; category = "spatial"; live_ttl_s = 30 * 24 * 3600
-
 
 class HydrologyConnector(StubConnector):
     """Hydrologia → HydrologyInfo.

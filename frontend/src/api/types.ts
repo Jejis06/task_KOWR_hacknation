@@ -88,3 +88,13 @@ export interface SoilInfo {
   texture_profile?: string[];
   samples?: Record<string, unknown>[];
 }
+export interface TerrainInfo {
+  elevation_mean_m: number | null; elevation_min_m: number | null; elevation_max_m: number | null;
+  slope_mean_deg: number | null; slope_max_deg: number | null; aspect_dominant: string | null;
+  position: "hilltop" | "upper_slope" | "mid_slope" | "flat" | "valley" | "depression" | null;
+  position_label_pl: string | null; tpi_m: number | null; twi_mean: number | null;
+  // FeatureCollection (EPSG:4326); properties: zagłębienia {area_m2, max_depth_m, volume_m3, touches_parcel},
+  // linie spływu {length_m, catchment_ha, crosses_parcel}
+  depressions_geojson: Record<string, unknown> | null; flow_lines_geojson: Record<string, unknown> | null;
+  dem_resolution_m: number | null;
+}

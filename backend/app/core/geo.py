@@ -7,7 +7,8 @@ from pyproj import Transformer
 from shapely import wkt
 from shapely.geometry import Point, mapping, shape
 from shapely.geometry.base import BaseGeometry
-from shapely.ops import transform
+import numpy as np
+import shapely
 
 
 @lru_cache
@@ -15,12 +16,17 @@ def _tf(src: int, dst: int) -> Transformer:
     return Transformer.from_crs(src, dst, always_xy=True)
 
 
+def _reproject(geom: BaseGeometry, src: int, dst: int) -> BaseGeometry:
+    tf = _tf(src, dst)
+    return shapely.transform(geom, lambda c: np.column_stack(tf.transform(c[:, 0], c[:, 1])))
+
+
 def to_2180(geom: BaseGeometry) -> BaseGeometry:
-    return transform(_tf(4326, 2180).transform, geom)
+    return _reproject(geom, 4326, 2180)
 
 
 def to_4326(geom: BaseGeometry) -> BaseGeometry:
-    return transform(_tf(2180, 4326).transform, geom)
+    return _reproject(geom, 2180, 4326)
 
 
 def parse_wkt(text: str) -> BaseGeometry:
