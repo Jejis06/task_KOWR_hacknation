@@ -36,7 +36,7 @@ CDI_CLASSES = {(240, 228, 66): "obserwacja (Watch)", (230, 159, 0): "ostrzeżeni
 SMA_LEGEND = [((33, 102, 172), "≥ 2 (bardzo wilgotno)", 2.0), ((103, 169, 207), "1,5 – 2 (wilgotno)", 1.75),
               ((209, 229, 240), "1 – 1,5 (lekko wilgotno)", 1.25), ((255, 255, 255), "−1 – 1 (norma)", 0.0),
               ((254, 224, 182), "−1,5 – −1 (lekko sucho)", -1.25), ((241, 163, 64), "−2 – −1,5 (sucho)", -1.75),
-              ((179, 88, 6), "≤ −2 (bardzo sucho)", -2.0)]
+              ((179, 88, 6), "≤ −2 (bardzo sucho)", -2.0), ((200, 200, 200), "brak danych", None)]
 
 
 def commune_teryt(teryt_unit: str | None) -> str | None:
@@ -135,7 +135,7 @@ def sma_value(rgba: tuple[int, int, int, int] | None) -> tuple[str, float] | Non
     if rgba is None or rgba[3] == 0:
         return None
     best = min(SMA_LEGEND, key=lambda c: sum((x - y) ** 2 for x, y in zip(c[0], rgba[:3])))
-    if sum((x - y) ** 2 for x, y in zip(best[0], rgba[:3])) > 3000:
+    if best[2] is None or sum((x - y) ** 2 for x, y in zip(best[0], rgba[:3])) > 1500:
         return None  # kolor „brak danych” (szary) albo nieznany
     return best[1], best[2]
 
