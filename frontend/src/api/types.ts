@@ -131,3 +131,5 @@ export interface LandCoverInfo {
   classes: Record<string, number>; agricultural_share_pct: number | null; source_used: string | null;
   cropland_share_pct?: number | null; bdot_classes?: Record<string, number>;
 }
+export interface YieldRecord { year: number; crop: string; yield_t_ha: number | null; level: "powiat" | "voivodeship" | "country" | "parcel_proxy"; unit_name?: string | null }
+export interface YieldInfo { official: YieldRecord[]; parcel_productivity_index: { year: number; peak_ndvi: number; rel_index: number }[]; note: string | null }

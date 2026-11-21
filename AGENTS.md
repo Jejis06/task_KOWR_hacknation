@@ -122,7 +122,7 @@ Pliki: `stubs.py` = `connectors/stubs.py` (w docstringach są endpointy i wskaz�
 | `hydrology` | A | ✅ | ISOK MZP (GetMap + własny SLD), BDOT10k (ArcGIS PIG) cieki/rowy/wody 1 km, CBDH otwory 3 km, GZWP, JCWPd→region wodny/RZGW, podtopienia; MHP ❌ (token) | `HydrologyInfo` | `connectors/hydrology.py` |
 | `vegetation` | A | ✅ | Sentinel-2 L2A – Microsoft Planetary Computer: STAC + Data API `item/statistics` (NDVI/NDMI liczone na serwerze dla granic działki, maska SCL, korekta BOA); ≤1 scena/mies. IV–X × 10 lat, cache na stałe | `VegetationInfo` | `connectors/vegetation.py` |
 | `land_cover` | A | ✅ | ESA WorldCover 2021 (Planetary Computer, histogram kategorialny dla działki) + BDOT10k (PIG, gdy pokrywa ≥80% działki – kopia niekompletna) | `LandCoverInfo` | `connectors/land_cover.py` |
-| `yields` | A | ⬜ | GUS BDL (powiat/województwo) + proxy NDVI per działka | `YieldInfo` | `stubs.py` |
+| `yields` | A | ✅ | GUS BDL plony z 1 ha (**tylko województwo + Polska** – powiatów w BDL brak) + indeks szczytowego NDVI działki (z `vegetation`) | `YieldInfo` | `connectors/yields.py` |
 | `protected_areas` | A | ✅ | GDOŚ WFS (10 warstw: N2000 OSO/SOO, PN, rezerwaty, PK, OChK, ZPK, użytki ekol., pomniki, Ramsar) – INTERSECTS + DWITHIN 1 km | `ProtectedAreasInfo` | `connectors/protected_areas.py` |
 | `crop_calendar` | B | ⬜ | `crops.yaml` + data analizy (okres wegetacji, fazy Kc, ostrzeżenia siewu) | `CropCalendarInfo` | `blocks.py` |
 | `legal_context` | B | ⬜ | `legal_pl`, `procedures`, `measures`, `funding` + fakty z hydrology, protected_areas, terrain | `LegalContextInfo` | `blocks.py` |
@@ -217,7 +217,7 @@ Szukanie: `grep -ril "zgłoszenie" data/knowledge/raw/*.txt`. API: `/api/knowled
 - Mapa glebowa ma luki (np. podkarpackie). Wtedy fallback na SoilGrids z oznaczeniem `SZACUNEK`.
 - Usługi WMS/WFS w EPSG:2180 mają oś X/Y zależną od wersji (WMS 1.3.0). Testować na znanym punkcie.
 - NASA POWER ma siatkę ~50 km: to zawsze trzeba pokazać w `uncertainty`.
-- Plonów per pole nie ma w danych publicznych. Pokazujemy GUS (powiat) + proxy NDVI i mówimy to wprost.
+- Plonów per pole nie ma w danych publicznych, a GUS BDL ma plony tylko dla województw i kraju (nie powiatów). Pokazujemy GUS (województwo + Polska) + proxy NDVI i mówimy to wprost.
 
 ## 11. Zależności i licencje (aktualizuj przy każdej nowej)
 
@@ -268,6 +268,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 13. Dziennik zmian kontraktu
 
+- 2026-11-21 · A · `types.ts` +`YieldRecord`, `YieldInfo` (bez zmian w models.py).
 - 2026-11-21 · A · `LandCoverInfo` +`cropland_share_pct`, `bdot_classes`; `types.ts` +`LandCoverInfo`.
 - 2026-11-21 · A · `types.ts` +`VegetationObs`, `VegetationInfo` (bez zmian w models.py).
 - 2026-11-21 · A · `DroughtHistory` +`drought_years_smsr`, `drought_years_computed`, `crop_group`, `soil_category`, `commune_teryt`, `commune_name`, `periods`; `types.ts` +`DroughtIndex`, `DroughtHistory`.
@@ -285,6 +286,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-21 · A · `yields` ✅ (GUS BDL województwo/Polska + indeks NDVI); `stubs.py` usunięty – wszystkie bloki A zaimplementowane.
 - 2026-11-21 · A · `land_cover` ✅: WorldCover przez PC (0,4–1 s), BDOT10k jako uzupełnienie.
 - 2026-11-21 · A · `vegetation` ✅: Planetary Computer (statystyki serwerowe), 10 lat w ~5 s z pustym cache; Earth Search COG za wolne na łączu hackathonu.
 - 2026-11-21 · A · `drought` ✅: SMSR gmina (2020+) + KBW działki wg progów SMSR + EDO CDI/SMA; progi w `smsr_thresholds.yaml`; ~9 s z pustym cache (w tym weather_history).
