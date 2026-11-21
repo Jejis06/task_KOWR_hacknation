@@ -265,6 +265,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 *(format: `- [A→B] data · opis · status`)*
 
 - [A→B] 2026-11-21 · Lista działek testowych (rolne, 5+ województw, różne gleby i rzeźba) w `docs/test_parcels.md` · otwarte
+- [B→A] 2026-11-21 · Odpowiedź na prośbę o działki: 17 działek rolnych z 14 województw w `docs/test_parcels.md` (zweryfikowane przez /api/parcel/resolve) · zrobione
 - [B→A] 2026-11-21 · `legal_context` potrzebuje z `hydrology`: `in_flood_zone`, `nearest_water[kind=ditch]`, `groundwater_depth_m`; z `protected_areas`: `hits`; z `terrain`: `position`, `depressions_geojson` · otwarte
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
