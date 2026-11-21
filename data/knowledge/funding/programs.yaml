@@ -1,6 +1,7 @@
 meta:
   title: Finansowanie inwestycji wodnych w gospodarstwie
   snapshot_date: 2026-11-21
+  verified: "2026-11-21 (B): I.10.4 – zbiorniki kwalifikowane (PODR); terminy naborów z harmonogramu ARiMR 2026; I.10.1.1 – kwalifikowalność zbiornika nadal niepotwierdzona"
   key_facts:
     - "Większość dotacji ARiMR/PS WPR to refundacja: nabór → wniosek online (punkty, ranking) → umowa → realizacja z własnych środków → wniosek o płatność → zwrot → okres związania celem."
     - "Inwestycje trwale związane z nieruchomością – tylko na gruntach własnych wnioskodawcy (lub w użytkowaniu wieczystym)."
@@ -11,30 +12,48 @@ items:
     name: Kredyt z gwarancją FGR Plus (I.10.1.2, BGK)
     applicant: rolnik, przez bank
     scope: "Gwarancja do 80% kredytu; dopłata 60% raty odsetkowej do 24 mies.; oprocentowanie ≤6%"
-    call: nabór ciągły
+    product_name: "Gwarancja Agromax (BGK) – m.in. na „budowy infrastruktury” w gospodarstwie"
+    call: "nabór ciągły (od 1 marca 2024; przez bank kredytujący, ARiMR nie prowadzi naboru)"
+    call_status: OK
+    call_quote: "„I.10.1.2 Inwestycje w gospodarstwach rolnych zwiększające konkurencyjność (Instrumenty finansowe) … 1 marca 2024 nabór ciągły” – harmonogram ARiMR 2026"
     for_farmer: true
     status: OK
-    sources: [https://www.gov.pl/web/rolnictwo/fundusz-gwarancji-rolnych-plus]
+    sources:
+      - https://www.gov.pl/web/rolnictwo/fundusz-gwarancji-rolnych-plus
+      - data/knowledge/raw/arimr_harmonogram_2026.txt
+      - data/knowledge/raw/fgr_plus.txt
 
   - id: arimr_i1011
     name: ARiMR I.10.1.1 – inwestycje zwiększające konkurencyjność
     applicant: rolnik
     scope: "65% kosztów kwalifikowanych (rolnik ≤40 lat lub gospodarstwo ekologiczne), 45% pozostali"
-    call: nabory okresowe
+    call: "nabory okresowe; w harmonogramie ARiMR na 2026 r. (stan po 22.06.2026) brak naboru I.10.1.1 – sprawdź harmonogram na 2027"
+    call_status: OK
+    call_quote: "Harmonogram 2026 wymienia tylko I.10.1.2 (instrumenty finansowe, nabór ciągły); „Harmonogram nie uwzględnia naborów wniosków, które zostały zakończone do 22 czerwca 2026 r.”"
     for_farmer: true
     status: DO_WERYFIKACJI
-    open_question: "Czy zbiornik retencyjny jest kosztem kwalifikowanym."
-    sources: [https://www.gov.pl/web/arimr/i1011-inwestycje-w-gospodarstwach-rolnych-zwiekszajace-konkurencyjnosc-dotacje]
+    open_question: "Czy zbiornik retencyjny jest kosztem kwalifikowanym – brak potwierdzenia w dokumentach w data/knowledge/raw (sprawdzić regulamin naboru)."
+    sources:
+      - https://www.gov.pl/web/arimr/i1011-inwestycje-w-gospodarstwach-rolnych-zwiekszajace-konkurencyjnosc-dotacje
+      - data/knowledge/raw/arimr_harmonogram_2026.txt
 
   - id: arimr_i104
     name: I.10.4 – inwestycje przyczyniające się do ochrony środowiska i klimatu
     applicant: rolnik lub grupa rolników (min. 3)
-    scope: "M.in. systemy retencji wody (np. zbiorniki na wodę opadową); rolnik do 65%, grupa do 80%"
-    call: DO_WERYFIKACJI (terminy naborów)
+    scope: "M.in. systemy retencji wody (zbiorniki na wodę opadową), odzysk wody, maszyny do uprawy bezorkowej i siewu bezpośredniego, mulczery; rolnik do 65%, grupa do 80%"
+    conditions: "działalność rolnicza, prawo do gruntu pod inwestycją, gospodarstwo do 300 ha, min. 6 punktów w ocenie wniosku"
+    eligibility_quote: "„Systemy retencji wody – np. zbiorniki wodne do magazynowania wody opadowej” – PODR, ulotka I.10.4 (12.2025)"
+    eligibility_status: OK
+    call: "w harmonogramie ARiMR na 2026 r. (stan po 22.06.2026) brak naboru I.10.4 – kolejny nabór do potwierdzenia w ARiMR"
+    call_status: DO_WERYFIKACJI
+    rate_status: DO_WERYFIKACJI
     for_farmer: true
     measures: [oczko_zbiornik]
-    status: DO_WERYFIKACJI
-    sources: [https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf]
+    status: OK
+    sources:
+      - https://podr.pl/wp-content/uploads/2025/12/Ulotka_Dofinansowanie_na_poprawe_gospodarowania_woda.pdf
+      - data/knowledge/raw/podr_i104.txt
+      - data/knowledge/raw/arimr_harmonogram_2026.txt
 
   - id: ekoschemat_tuz
     name: Ekoschemat „Retencjonowanie wody na trwałych użytkach zielonych”
@@ -61,10 +80,11 @@ items:
     name: Grupy Operacyjne EPI (I.13.5)
     applicant: "konsorcjum: min. 1 rolnik + min. 1 inny partner"
     scope: "Etap 1: wsparcie przygotowawcze do 50 000 zł; etap 2: realizacja operacji (pilotaż)"
-    call: "W obecnej WPR nabory się kończą (przygotowawcze 15.01–16.02.2026; realizacja: jeden nabór w 2026); prawdopodobnie wróci w WPR od 2028"
+    call: "W obecnej WPR nabory się kończą: przygotowawcze 15.01–16.02.2026; realizacja operacji (I.13.5.2) 1.10–2.11.2026 (harmonogram ARiMR 2026); prawdopodobnie wróci w WPR od 2028"
+    call_status: OK
     for_farmer: true
     status: OK
-    sources: [https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791]
+    sources: [https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791, data/knowledge/raw/arimr_harmonogram_2026.txt]
 
   - id: nfosigw_adaptacja
     name: NFOŚiGW „Adaptacja do zmian klimatu”

@@ -18,7 +18,8 @@ function Sources({ urls }: { urls: string[] }) {
   if (!urls.length) return null;
   return (
     <p className="small sources">Źródła: {urls.map((u, i) => (
-      <span key={u}>{i > 0 && ", "}{/^https?:/.test(u) ? <a href={u} target="_blank" rel="noreferrer noopener">{new URL(u).hostname}</a> : u}</span>
+      <span key={u}>{i > 0 && ", "}{/^https?:/.test(u) ? <a href={u} target="_blank" rel="noreferrer noopener">{new URL(u).hostname}</a>
+        : <span title={u}>{u.replace(/^data\/knowledge\/raw\//, "dokument: ").replace(/\.txt$/, "")}</span>}</span>
     ))}</p>
   );
 }
@@ -89,7 +90,9 @@ export function LegalView({ d, asOf }: { d: LegalContextInfo; asOf: string }) {
                 <li key={id}>
                   <b>{f?.name ?? id}</b> {f && <KStatus s={f.status} />}
                   {f?.scope && <div>{f.scope}</div>}
-                  {f?.call && <div className="small">Nabór: {f.call}</div>}
+                  {f?.conditions && <div className="small">Warunki: {f.conditions}</div>}
+                  {f?.eligibility_quote && <div className="small muted">Potwierdzenie: {f.eligibility_quote}</div>}
+                  {f?.call && <div className="small">Nabór: {f.call} {f.call_status && f.call_status !== "OK" && <KStatus s={f.call_status} />}</div>}
                   {f?.open_question && <div className="small warn-text">Do sprawdzenia: {f.open_question}</div>}
                   <Sources urls={f?.sources ?? []} />
                 </li>

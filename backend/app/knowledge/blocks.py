@@ -346,8 +346,10 @@ def legal_hints(ctx: AnalysisContext, hydro: dict | None, prot: dict | None,
     # 1. staw / zbiornik
     fee, fy = fee_for("zgloszenie_wodnoprawne", year)
     why = ("Staw do 5000 m² i do 3 m głębokości, napełniany tylko wodą z opadów, roztopów lub gruntową, "
-           "oddziałujący tylko na Twój grunt – wystarczy zgłoszenie wodnoprawne (organ ma 30 dni na sprzeciw). "
-           "Większy albo zasilany z rzeki/rowu – pozwolenie wodnoprawne. Kilka stawów na jednym gruncie się sumuje.")
+           "oddziałujący tylko na Twój grunt (albo na grunt sąsiada za jego wcześniejszą pisemną zgodą) – wystarczy "
+           "zgłoszenie wodnoprawne, organ ma 30 dni na sprzeciw (art. 394 ust. 1 pkt 9 Prawa wodnego). "
+           "Większy albo zasilany z rzeki/rowu – pozwolenie wodnoprawne. Staw głęboki na 3 m i więcej wymaga też "
+           "decyzji środowiskowej (wójt/burmistrz). Kilka stawów na jednym gruncie się sumuje.")
     facts, caution, group = [], None, "notification"
     if flood:
         caution = (f"Działka leży w strefie zagrożenia powodziowego (scenariusz {flood}) – budowa zbiornika jest tam "

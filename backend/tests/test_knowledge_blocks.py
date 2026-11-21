@@ -166,5 +166,12 @@ def test_yaml_references_are_consistent():
     for h in legal_hints(ctx(), None, None, None):
         assert h.procedure_id is None or h.procedure_id in procedures
         assert all(lid in legal for lid in h.legal_ids)
+    smsr = set(loader.meta("crops")["smsr_groups"])
     for c in loader.items("crops"):
-        assert c.get("smsr_group"), c["id"]
+        g = c.get("smsr_group") or ""
+        assert g in smsr or g.startswith("nie dotyczy"), (c["id"], g)
+
+
+def test_new_crops_present():
+    ids = {c["id"] for c in loader.items("crops")}
+    assert {"pszenzyto_ozime", "jeczmien_ozimy", "owies"} <= ids

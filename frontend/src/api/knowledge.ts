@@ -12,6 +12,7 @@ export interface Procedure {
 export interface FundingProgram {
   id: string; name: string; applicant?: string; scope?: string; call?: string; for_farmer?: boolean;
   status: KnowledgeStatus; open_question?: string; sources?: string[]; call_status?: KnowledgeStatus;
+  conditions?: string; eligibility_quote?: string;
 }
 export interface LegalRule { id: string; title: string; rule: string; status: KnowledgeStatus; sources?: string[] }
 export interface EuAct { id: string; short: string; act: string; celex?: string; relevance?: string; farmer_impact?: string; status: KnowledgeStatus }

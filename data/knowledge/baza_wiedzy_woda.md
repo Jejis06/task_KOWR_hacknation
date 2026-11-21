@@ -244,7 +244,8 @@ Uwaga: w mediach krążyła informacja o „206 mln euro z KPO na wodę w gospod
 ## 12. Punkty do weryfikacji
 1. ~~Opłaty za zgłoszenie, pozwolenie i ocenę wodnoprawną~~ – zweryfikowane 21.11.2026 (M.P. 2025 poz. 717, M.P. 2026 poz. 430).
 2. Uprawnieni wnioskodawcy w NFOŚiGW „Adaptacja do zmian klimatu”.
-3. Kwalifikowalność zbiornika w ARiMR I.10.1.1 i I.10.4; terminy naborów.
+3. Kwalifikowalność zbiornika w ARiMR I.10.1.1 i I.10.4; terminy naborów. **Częściowo rozstrzygnięte 21.11.2026:** I.10.4 – zbiorniki na wodę opadową kwalifikowane (PODR, ulotka 12.2025: „Systemy retencji wody – np. zbiorniki wodne do magazynowania wody opadowej”; warunki: do 300 ha, min. 6 pkt); w harmonogramie ARiMR 2026 (stan po 22.06.2026) brak naborów I.10.1.1 i I.10.4; FGR Plus (I.10.1.2) – nabór ciągły; EPI realizacja operacji 1.10–2.11.2026. Nadal otwarte: zbiornik w I.10.1.1.
+8. **Rozstrzygnięte 21.11.2026:** próg stawu na zgłoszenie = 5000 m² i 3 m (art. 394 ust. 1 pkt 9 Prawa wodnego, t.j. Dz.U. 2026 poz. 1335); broszura gov.pl „Inwestycje w nawadnianie” podaje nieaktualne 1000 m². Decyzja środowiskowa (wójt/burmistrz) m.in. dla stawów ≥3 m głębokości, studni ≥100 m, poboru ≥10 m³/h, melioracji ≥5 ha.
 4. Granice powszechnego korzystania z wód przy poborze z cieku.
 5. Publiczny dostęp do S2MUR (geoserwis, API).
 6. Zakres i termin udostępnienia ewidencji melioracji Wód Polskich.

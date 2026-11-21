@@ -4,8 +4,8 @@ meta:
   organs: "KZGW → RZGW → Zarząd Zlewni (ZZ) → Nadzór Wodny (NW)"
   disclaimer: "Informacja orientacyjna. Opłaty: stawki z obwieszczenia Ministra Infrastruktury w M.P. na dany rok (strona Katalog opłat Wód Polskich podaje tylko rachunki, nie kwoty). Wzory: raw/wzor_*.txt i karty usług gov.pl."
   forms:
-    zgloszenie: data/knowledge/raw/wzor_zgloszenie_wodnoprawne.txt
-    pozwolenie: data/knowledge/raw/wzor_wniosek_pozwolenie.txt
+    zgloszenie: data/knowledge/raw/wzor_zgloszenie_wodnoprawne_docx.txt
+    pozwolenie: data/knowledge/raw/wzor_wniosek_pozwolenie_docx.txt
   legal_text: "Prawo wodne t.j. Dz.U. 2026 poz. 1335 + nowelizacja Dz.U. 2026 poz. 1358 (w życie 3.11.2026)"
 
 items:
@@ -23,6 +23,9 @@ items:
       - "Zgłoszenie wygasa po 3 latach od zgłoszonego terminu rozpoczęcia robót."
       - Po wykonaniu urządzenia – zgłoszenie do SIGW (zmiany danych w ciągu 30 dni).
     deadlines: {organ_objection_days: 30, bip_publication_days: 7, validity_years: 3}
+    form_url: https://www.gov.pl/attachment/31cc9cc2-6318-499a-adf9-040346fdf193
+    form_title: "Wzór zgłoszenia wodnoprawnego (gov.pl, PDF)"
+    form_text: data/knowledge/raw/wzor_zgloszenie_wodnoprawne_docx.txt
     fee_pln: 132.33
     fees:
       "2026": 132.33   # M.P. 2025 poz. 717
@@ -49,6 +52,9 @@ items:
       - dokumentacja hydrogeologiczna (jeśli wymagana)
       - dowód opłaty; przy pełnomocniku – pełnomocnictwo z opłatą skarbową
     notes: "Jeden wniosek może obejmować kilka pozwoleń – opłata się mnoży."
+    form_url: https://www.gov.pl/attachment/9b10c34a-922b-4911-b728-910736f466c9
+    form_title: "Wzór wniosku o pozwolenie wodnoprawne (gov.pl, PDF)"
+    form_text: data/knowledge/raw/wzor_wniosek_pozwolenie_docx.txt
     fee_pln: 330.07
     fees:
       "2026": 330.07   # M.P. 2025 poz. 717
@@ -74,7 +80,7 @@ items:
       - Operat wodnoprawny → pozwolenie wodnoprawne na pobór (usługa wodna).
       - Opłaty za pobór wód podziemnych (0,068 zł/m³; nawadnianie – bez opłaty stałej).
     status: OK
-    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d, data/knowledge/raw/nawadnianie_kolejnosc_zgod.txt]
 
   - id: legalizacja_urzadzenia
     title: Legalizacja urządzenia wodnego (w tym studni – abolicja do 31.12.2027)
@@ -104,6 +110,8 @@ items:
   - id: decyzja_srodowiskowa
     title: Decyzja o środowiskowych uwarunkowaniach
     organ: Wójt/burmistrz (uzgodnienia RDOŚ, Wody Polskie, sanepid)
-    when: "Gdy przedsięwzięcie jest na liście mogących znacząco oddziaływać na środowisko (np. duże zbiorniki, melioracje na dużej powierzchni, inwestycje na Natura 2000)."
-    status: DO_WERYFIKACJI
-    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d]
+    when: "Gdy przedsięwzięcie jest na liście mogących znacząco oddziaływać na środowisko (rozp. RM z 10.09.2019, Dz.U. 2019 poz. 1839). Dla nawadniania m.in.: studnia ≥100 m, pobór wód podziemnych ≥10 m³/h, melioracje ≥5 ha lub na obszarach chronionych, zbiorniki ≥0,5 ha na gruntach nieornych w formach ochrony przyrody, stawy głębokie ≥3 m. Zawsze PRZED pozwoleniem wodnoprawnym i budowlanym."
+    attachments: ["karta informacyjna przedsięwzięcia (albo raport OOŚ, jeśli organ nałoży obowiązek oceny)"]
+    quote: "„W przypadku wszystkich przedsięwzięć nawodnieniowych w gospodarstwie rolnym organem właściwym do wydania decyzji o środowiskowych uwarunkowaniach jest wójt, burmistrz lub prezydent miasta.”"
+    status: OK
+    sources: [https://www.gov.pl/attachment/a9a2b555-9c77-4bc1-992b-487ef6614b4d, data/knowledge/raw/nawadnianie_kolejnosc_zgod.txt]
