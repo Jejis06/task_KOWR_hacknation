@@ -1,8 +1,12 @@
+// Zwykła aplikacja Vite (SPA) – build to statyczne pliki, które może serwować FastAPI pod „/”.
+// Dev: /api → backend FastAPI na :8000 (bez CORS w przeglądarce).
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import path from "node:path";
 
-// Dev: /api → backend FastAPI na :8000 (bez CORS w przeglądarce)
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
+  resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
   server: { port: 5173, proxy: { "/api": "http://127.0.0.1:8000" } },
 });

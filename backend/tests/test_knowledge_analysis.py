@@ -14,6 +14,13 @@ def ctx(d=date(2026, 7, 10), crop="kukurydza_ziarno"):
     return AnalysisContext(parcel=PARCEL, as_of=d, crop=crop)
 
 
+def _dry_daily(as_of: date) -> dict:
+    """Suchy sezon: od 1 kwietnia opad 2 mm co 6 dni, ET0 4 mm/d."""
+    days = [date.fromordinal(o) for o in range(date(as_of.year, 4, 1).toordinal(), as_of.toordinal() + 1)]
+    return {"dates": [d.isoformat() for d in days], "precip_mm": [2.0 if i % 6 == 0 else 0.0 for i in range(len(days))],
+            "et0_mm": [4.0] * len(days)}
+
+
 def dry_data(c: AnalysisContext) -> dict:
     _, cal, _, _ = crop_calendar(c.as_of, c.crop)
     dep = {"type": "Feature", "properties": {"area_m2": 2400, "max_depth_m": 0.6, "volume_m3": 700, "touches_parcel": True},
@@ -23,7 +30,7 @@ def dry_data(c: AnalysisContext) -> dict:
                             "seasons": [{"year": y, "cwb_apr_sep_mm": v, "longest_dry_spell_days": 15}
                                         for y, v in zip(range(2017, 2027), [-300, -420, -380, -250, -310, -520, -400, -280, -350, -450])],
                             "monthly_climatology": [{"month": m, "cwb_mean_mm": -10 * m} for m in range(1, 13)],
-                            "daily": {"dates": [], "precip_mm": [], "et0_mm": []}},
+                            "daily": _dry_daily(c.as_of)},
         "weather_forecast": {"dates": [f"2026-07-{d:02d}" for d in range(10, 26)], "precip_mm": [0] * 16, "et0_mm": [4.5] * 16},
         "drought": {"current": [{"source": "computed", "class_label": "susza – KBW −180 mm poniżej progu −150 mm"}],
                     "drought_years": [2018, 2019, 2022, 2023, 2026],
@@ -53,7 +60,12 @@ def test_dry_summer_full_chain():
     assert "zastawka_row" in ids and "oczko_zbiornik" in ids and "uprawa_w_poprzek_stoku" in ids
     oczko = next(x for x in r.recommendations if x.measure_id == "oczko_zbiornik")
     assert oczko.where_geojson and "staw_zgloszenie" in oczko.legal_ids
-    assert r.irrigation.recommended == "yes" and 10 <= r.irrigation.dose_mm <= 30
+    irr = r.irrigation
+    assert irr.recommended == "yes" and 10 <= irr.dose_mm <= 35
+    assert irr.depletion_mm > irr.raw_mm and irr.ks < 1 and irr.soil_water   # FAO-56 rozdz. 8: stres wodny
+    assert irr.yield_loss_pct and irr.yield_loss_pct > 0                     # równ. 90 z Ky kukurydzy
+    assert r.water_balance and r.water_balance["season_deficit_m3"] > 0
+    assert "nie wystąpiła" not in a.historical_summary
     # odwołania do bazy wiedzy istnieją
     measures = {m["id"] for m in loader.items("measures")}
     assert all(x.measure_id in measures for x in r.recommendations)
@@ -110,3 +122,20 @@ def test_drought_years_window_is_ten_seasons():
     a = analyse_all(c, d).assessment
     assert a.drought_years == [2019]
     assert any("1 z 10" in e.text for e in a.evidence)
+
+
+def test_zero_drought_seasons_wording():
+    c = ctx()
+    d = dry_data(c)
+    d["drought"] = {"current": [], "drought_years": [], "periods": []}
+    a = analyse_all(c, d).assessment
+    assert "nie wystąpiła tu w żadnym sezonie" in a.historical_summary
+
+
+def test_kbw_ndmi_field_check():
+    c = ctx()
+    d = dry_data(c)
+    d["vegetation"] = {"anomaly": -0.12, "ndmi_anomaly": -0.09, "in_growing_season": True}
+    assert analyse_all(c, d).assessment.field_check["case"] == "confirmed"
+    d["weather_history"] = {**d["weather_history"], "cwb_60d_mm": -60, "cwb_60d_normal_mm": -60}
+    assert analyse_all(c, d).assessment.field_check["case"] == "local_problem"

@@ -124,6 +124,8 @@ class WeatherHistory(BaseModel):
     station_check: dict | None = None
     # sezony IV–IX po dacie analizy (do dziś) – TYLKO do porównania w UI, analiza ich nie używa (koordynator, 2026-11-21)
     seasons_after_as_of: list[SeasonSummary] = Field(default_factory=list)
+    # średni wiatr na 2 m i min. wilgotność w VI–VIII (10 lat) – do korekty Kc mid, FAO-56 równ. 62
+    kc_climate: dict | None = None
 
 
 class WeatherForecast(BaseModel):
@@ -192,6 +194,9 @@ class TerrainInfo(BaseModel):
     depressions_geojson: dict | None = None     # zagłębienia bezodpływowe (FeatureCollection)
     flow_lines_geojson: dict | None = None      # główne linie spływu
     dem_resolution_m: float | None = None
+    # ── 2026-11-21 (koordynator) ── odcinki granicy działki, przez które spływ (D8) wypływa z pola
+    # FeatureCollection LineString (EPSG:4326), properties {catchment_ha, length_m}; zagłębienia mają też {catchment_ha}
+    runoff_exits_geojson: dict | None = None
 
 
 class WaterFeature(BaseModel):
@@ -232,6 +237,9 @@ class VegetationInfo(BaseModel):
     baseline_same_doy: float | None = None      # typowe NDVI dla tego dnia roku (10 lat)
     anomaly: float | None = None                # latest - baseline
     in_growing_season: bool | None = None
+    # ── 2026-11-21 (koordynator) ── NDMI (wilgotność liści, B08/B11) liczony w tej samej serii co NDVI
+    ndmi_baseline_same_doy: float | None = None
+    ndmi_anomaly: float | None = None
 
 
 class YieldRecord(BaseModel):
@@ -339,6 +347,8 @@ class WaterAssessment(BaseModel):
     critical_months: list[int] = Field(default_factory=list)   # 1..12 – kiedy ryzyko największe
     confidence: Literal["low", "medium", "high"] | None = None
     evidence: list[Evidence] = Field(default_factory=list)
+    # KBW (pogoda, ~10 km) × NDMI (pomiar z pola, 20 m): {kbw: dry|normal, ndmi: low|normal, case, label_pl, text}
+    field_check: dict | None = None
 
 
 class Cause(BaseModel):
@@ -371,6 +381,16 @@ class IrrigationAdvice(BaseModel):
     horizon_days: int | None = None
     timing: str | None = None          # „w ciągu 3 dni, rano lub wieczorem”
     evidence: list[Evidence] = Field(default_factory=list)
+    # ── 2026-11-21 (koordynator) ── dobowy bilans wody w strefie korzeni FAO-56 (rozdz. 8, równ. 80–90)
+    depletion_mm: float | None = None  # Dr na dzień analizy
+    taw_mm: float | None = None        # całkowita woda dostępna w strefie korzeni (równ. 82)
+    raw_mm: float | None = None        # woda łatwo dostępna = p·TAW (równ. 83)
+    ks: float | None = None            # współczynnik stresu wodnego (równ. 84)
+    days_to_stress: int | None = None  # za ile dni Dr przekroczy RAW (z prognozy)
+    stress_date: str | None = None
+    season_et_ratio: float | None = None   # ETc adj / ETc od początku sezonu
+    yield_loss_pct: float | None = None    # 1 − Ya/Ym = Ky (1 − ETa/ETc) (równ. 90, Ky z tab. 24)
+    soil_water: list[dict] = Field(default_factory=list)  # [{date, dr_mm, raw_mm, taw_mm, forecast}] do wykresu
 
 
 class AnalysisResult(BaseModel):
@@ -381,6 +401,8 @@ class AnalysisResult(BaseModel):
     limitations: list[str] = Field(default_factory=list)   # czynniki nieuwzględnione, dokładność danych
     method: list[str] = Field(default_factory=list)        # krótki opis metody (FAO-56, progi SMSR…)
     missing_blocks: list[str] = Field(default_factory=list)  # bloki bez danych, pominięte w analizie
+    # bilans ilościowy działki: deficyt [mm → m³] vs pojemność i zlewnia zagłębienia (koordynator, 2026-11-21)
+    water_balance: dict | None = None
 
 # ───────────────────────────── odpowiedzi API ─────────────────────────────
 class ParcelProfile(BaseModel):
