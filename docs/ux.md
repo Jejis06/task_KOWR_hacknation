@@ -21,7 +21,6 @@ Użytkownik: rolnik bez wiedzy GIS, często na telefonie w polu. Kryteria KOWR: 
   ramce „Ograniczenia i niepewność” w każdej karcie i zbiorczo w panelu „Skąd te dane”.
 - **Bez żargonu:** skróty (KBW, NDVI, ET₀, Kc, TUZ, SMSR, NMT, TWI, GZWP, ISOK, RDOŚ…) jako `<Term>` – dymek po najechaniu, fokusie lub dotknięciu.
   Kategorie SMSR gleby opisane słowami („kat. I – gleby bardzo lekkie: bardzo podatne na suszę”), położenie terenu ikoną i zdaniem.
-- **Plony:** zawsze z dopiskiem „średnie plony GUS – powiat, nie Twoje pole”.
 - **Prawo:** karty pogrupowane „bez formalności / wymaga zgłoszenia / wymaga pozwolenia / zależy od sytuacji”; przy każdej: status wiedzy
   (potwierdzone / do weryfikacji / szacunek), fakty o działce (📍), czego nie sprawdzono, opłata na rok daty analizy, procedura krok po kroku,
   oficjalny wzór wniosku (gov.pl) i źródła. Zawsze disclaimer; nigdy „na pewno nie potrzebujesz zgody”.

@@ -22,7 +22,6 @@ const STATUS: Record<string, string> = {
 };
 function DataChart({ block }: { block: DataBlock }) {
   const vegetation = block.key === "vegetation";
-  const yields = false;
   const drought = block.key === "drought";
   const forecast = block.key === "weather_forecast";
   const data = block.data.series ?? [];
@@ -32,7 +31,7 @@ function DataChart({ block }: { block: DataBlock }) {
       <div
         className="chart-box"
         role="img"
-        aria-label={`${block.title}: wykres ${vegetation ? "wskaźnika zieloności" : yields ? "plonów w tonach na hektar" : "opadów i parowania w milimetrach"}. Dokładne wartości w tabeli poniżej.`}
+        aria-label={`${block.title}: wykres ${vegetation ? "wskaźnika zieloności" : "opadów i parowania w milimetrach"}. Dokładne wartości w tabeli poniżej.`}
       >
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} margin={{ top: 10, right: 8, bottom: 0, left: -25 }}>
@@ -63,18 +62,6 @@ function DataChart({ block }: { block: DataBlock }) {
                 <Line type="monotone" dataKey="value2" name="Woda w liściach (NDMI)" stroke="var(--water)" strokeWidth={2}
                   strokeDasharray="5 3" dot={false} isAnimationActive={false} connectNulls />
               </>
-            ) : yields ? (
-              <Bar
-                dataKey="value"
-                name="Plon (t/ha)"
-                fill="var(--primary)"
-                radius={[3, 3, 0, 0]}
-                isAnimationActive={false}
-              >
-                {data.map((r, ri) => (
-                  <Cell key={`${r.label}-${ri}`} fill={r.value < 5 ? "var(--danger)" : "var(--primary)"} />
-                ))}
-              </Bar>
             ) : (
               <>
                 <Bar
@@ -152,9 +139,9 @@ function DataChart({ block }: { block: DataBlock }) {
               <tr>
                 <th scope="col">{forecast ? "Dzień prognozy" : "Okres"}</th>
                 <th scope="col">
-                  {vegetation ? "Zieloność" : yields ? "Plon (t/ha)" : "Deszcz (mm)"}
+                  {vegetation ? "Zieloność" : "Deszcz (mm)"}
                 </th>
-                {!vegetation && !yields && (
+                {!vegetation && (
                   <th scope="col">{forecast ? "Parowanie (mm)" : "Zwykle (mm)"}</th>
                 )}
               </tr>
@@ -163,8 +150,8 @@ function DataChart({ block }: { block: DataBlock }) {
               {data.map((r, ri) => (
                 <tr key={`${r.label}-${ri}`}>
                   <td>{r.label}</td>
-                  <td>{vegetation || yields ? r.value : r.rain}</td>
-                  {!vegetation && !yields && <td>{forecast ? r.evaporation : r.normal}</td>}
+                  <td>{vegetation ? r.value : r.rain}</td>
+                  {!vegetation && <td>{forecast ? r.evaporation : r.normal}</td>}
                 </tr>
               ))}
             </tbody>

@@ -103,7 +103,9 @@ Każdy konektor dopisuje sekcję w formacie:
 - BDOT10k (PIG) warstwy 28–30, 44–53: przecięcie poligonów z działką; kopia niekompletna (np. brak warstwy 49 dla
   pow. średzkiego) → używamy tylko gdy pokrywa ≥ 80% działki.
 
-## yields – GUS BDL
+## yields – GUS BDL (usunięte z aplikacji 22.11.2026)
+> GUS BDL ma plony tylko dla województw i Polski, nie dla działki – blok usunięty; notatka zostaje jako materiał na przyszłość.
+
 - `https://bdl.stat.gov.pl/api/v1/data/by-variable/{id}?unit-level=2|0&year=…` – plony z 1 ha „ogółem” (dt/ha):
   4332 pszenica, 4338 żyto, 4344 jęczmień, 4350 owies, 4356 pszenżyto, 4314 zboża ogółem, 4368 ziemniaki, 4374 buraki cukrowe,
   4380 rzepak i rzepik, 4386 łąki trwałe, 47752 kukurydza na ziarno, 47749 kukurydza na zielonkę, 47769 soja,

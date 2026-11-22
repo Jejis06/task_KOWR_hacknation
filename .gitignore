@@ -16,3 +16,4 @@ data/knowledge/raw/*.docx
 # lokalne
 .env
 .DS_Store
+*.tsbuildinfo
