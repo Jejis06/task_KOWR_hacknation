@@ -784,7 +784,8 @@ export function ParcelPage() {
             )}
           </div>}
         </div>
-        {context.parcel && tab === "report" && started && (
+        {/* czat w obu widokach (rolnik i analityk) – ten sam komponent, więc rozmowa zostaje po przełączeniu zakładki */}
+        {context.parcel && started && (
           <ParcelChat
             parcelId={context.parcel.id}
             date={context.date}
