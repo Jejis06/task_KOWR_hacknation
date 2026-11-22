@@ -257,7 +257,6 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
             id={`block-${def.key}`}
             key={def.key}
             className={`data-card data-acc ${def.key === "legal_context" ? "legal-highlight" : ""}`}
-            open={def.key === "legal_context" ? true : undefined}
           >
             <summary className="data-acc-summary">
               {def.key === "legal_context" && <span className="legal-icon" aria-hidden="true"><Scale /></span>}

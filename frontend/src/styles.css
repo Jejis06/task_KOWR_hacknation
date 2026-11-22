@@ -2295,7 +2295,7 @@ details[open] > summary .acc-chevron { transform: rotate(180deg); }
 .data-acc[open] .data-acc-teaser { color: var(--foreground); }
 .data-acc-body { padding: 0 18px 18px; border-top: 1px solid var(--border); padding-top: 14px; }
 
-/* kafelek prawny – wyraźny: akcent, ikona, nadtytuł, zawsze na górze i domyślnie otwarty */
+/* kafelek prawny – wyraźny: akcent, ikona, nadtytuł, zawsze na górze, na starcie zwinięty */
 .data-acc.legal-highlight {
   border: 2px solid var(--water); background: color-mix(in oklch, var(--water) 5%, var(--card));
   box-shadow: 0 6px 24px -12px var(--water);
