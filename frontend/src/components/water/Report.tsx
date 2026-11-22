@@ -19,7 +19,7 @@ import { canShowAdvice, doseToVolume, USE_MOCKS, type DataBlock, type Irrigation
 import { smm } from "@/api/adapt";
 import { FormalityBadge, FundingList, LegalDetails, LegalPlan, PondCalculator } from "./LegalPlan";
 import { AskAgroLegal } from "./AskAgroLegal";
-import { CropCalendarView, FlipCard, formatDate, LandscapeIllustration, SourceLine, Sources, Term } from "./shared";
+import { CropCalendarView, FlipCard, formatDate, SourceLine, Sources, Term } from "./shared";
 type Props = {
   blocks: Record<string, DataBlock>;
   date: string;
@@ -54,10 +54,12 @@ function Panel({ n, icon, title, teaser, open, children }: {
 }
 function Measure({
   recommendation: r,
+  index,
   blocks,
   onMap,
 }: {
   recommendation: Recommendation;
+  index: number;
   blocks: Record<string, DataBlock>;
   onMap: (id: string) => void;
 }) {
@@ -66,38 +68,37 @@ function Measure({
     legal_ids?: string[]; caution?: string | null;
   }[];
   const hint = hints.find((h) => (h.legal_ids ?? []).some((id) => r.legal_ids.includes(id)));
+  const agro = r.group === "agrotechnika";
+  const hasMore = agro ? !!(r.sowing?.length || r.when || r.funding?.length) : true;
   return (
-    <FlipCard items={r.evidence} blocks={blocks} label="Skąd to wiemy?">
-    <article className="recommendation">
-      <LandscapeIllustration kind={ILLU[r.measure_id] ?? (r.group === "agrotechnika" ? "soil" : r.group === "nawadnianie" ? "irrigation" : "terrain")} />
-      <div>
-        <h3>{r.title}</h3>
-        <p>{r.why}</p>
-        <div className="recommendation-tags">
+    <FlipCard items={r.evidence} blocks={blocks} label="Skąd to wiemy?" className="boxed">
+      <article className="rec-simple">
+        <div className="rec-head">
+          <span className="rec-num" aria-hidden="true">{index}</span>
+          <h3>{r.title}</h3>
+        </div>
+        <p className="rec-why">{r.why}</p>
+        <div className="rec-tags">
           <FormalityBadge r={r} />
           <span className="priority-tag">
-            {r.priority === 1
-              ? "Zacznij od tego"
-              : r.group === "agrotechnika"
-                ? "Dobre dla gleby"
-                : "Warto rozważyć"}
+            {r.priority === 1 ? "Zacznij od tego" : agro ? "Dobre dla gleby" : "Warto rozważyć"}
           </span>
           {r.where_geojson && (
-            <Button
-              variant="link"
-              className="location-link"
-              onClick={() => onMap(`rec-${r.measure_id}`)}
-            >
+            <Button variant="outline" size="sm" className="rec-map-btn" onClick={() => onMap(`rec-${r.measure_id}`)}>
               <MapPin />
               Pokaż na mapie
             </Button>
           )}
         </div>
-        {r.group === "agrotechnika" ? (
-          !r.sowing?.length && !r.when && !r.funding?.length ? null : <details className="details-box" open={!!r.sowing?.length}>
-            <summary>{r.measure_id === "miedzyplony" ? "Co i kiedy siać" : r.sowing?.length ? "Co i kiedy zrobić" : "Kiedy"}</summary>
+        {hasMore && (
+          <details className="details-box rec-more" open={agro && !!r.sowing?.length}>
+            <summary>
+              {agro
+                ? r.measure_id === "miedzyplony" ? "Co i kiedy siać" : r.sowing?.length ? "Co i kiedy zrobić" : "Kiedy"
+                : "Kiedy, formalności i wsparcie"}
+            </summary>
             <div className="details-content">
-              {r.sowing?.length ? (
+              {agro && r.sowing?.length ? (
                 <ul className="sowing-list">
                   {r.sowing.map((o) => (
                     <li key={o.name}>
@@ -115,43 +116,28 @@ function Measure({
               ) : (
                 <p><strong>Kiedy:</strong> {r.when ?? "w dogodnym terminie agrotechnicznym"}</p>
               )}
+              {!agro && (r.formality_label ? <LegalDetails r={r} /> : (
+                <p className="mt-2">
+                  <strong>Formalności:</strong> {hint ? `${hint.requirement} – ${hint.title ?? hint.topic}` : "Bez formalności wodnych."}
+                </p>
+              ))}
+              {!agro && r.legal_ids.length > 0 && <p><Term name="Pozwolenie wodnoprawne" /></p>}
+              {!agro && hint?.caution && <p className="text-warning">⚠ {hint.caution}</p>}
               {r.funding?.length ? <FundingList funding={r.funding} /> : null}
               {r.measure_id === "miedzyplony" && (
-                <p className="text-xs text-muted-foreground mt-2">
+                <p className="text-muted-foreground mt-2">
                   Gatunki dobrane do uprawy głównej (termin zbioru, wspólne choroby) i gleby. Terminy orientacyjne – lokalnie ±1–2 tygodnie.
                 </p>
               )}
+              {!agro && <SourceLine block={blocks["legal_context"]} />}
             </div>
           </details>
-        ) : (
-        <details className="details-box">
-          <summary>Kiedy, formalności i wsparcie</summary>
-          <div className="details-content">
-            <p>
-              <strong>Kiedy:</strong> {r.when}
-            </p>
-            {r.formality_label ? <LegalDetails r={r} /> : (
-              <p className="mt-2">
-                <strong>Formalności:</strong> {hint ? `${hint.requirement} – ${hint.title ?? hint.topic}` : "Bez formalności wodnych."}
-              </p>
-            )}
-            {r.legal_ids.length > 0 && <p><Term name="Pozwolenie wodnoprawne" /></p>}
-            {hint?.caution && <p className="text-warning">⚠ {hint.caution}</p>}
-            <FundingList funding={r.funding} />
-            <SourceLine block={blocks["legal_context"]} />
-          </div>
-        </details>
         )}
-      </div>
-    </article>
+      </article>
     </FlipCard>
   );
 }
 
-const ILLU: Record<string, "pond" | "weir" | "soil" | "irrigation" | "terrain"> = {
-  oczko_zbiornik: "pond", mokradlo: "pond", zastawka_row: "weir", pas_buforowy: "terrain", uprawa_w_poprzek_stoku: "terrain",
-  miedzyplony: "soil", resztki_mulcz: "soil", materia_organiczna: "soil", uprawa_uproszczona: "soil",
-};
 const MON = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"];
 /** [5,6,7,9] → „maj–lip, wrz” */
 function monthsText(ms: number[]): string {
@@ -453,29 +439,35 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
         </Panel>
         <Panel n={2} title="Dlaczego brakuje wody?"
           teaser={topCause ? <>Najważniejsza przyczyna: {topCause.label_pl.toLowerCase()} (~{topCause.share}%)</> : "Brak danych o przyczynach"}>
-        {data?.causes?.map((cause, i) => (
-          <FlipCard key={cause.key} items={cause.evidence} blocks={blocks} label="Skąd to wiemy?">
-          <div className="cause-row">
-            <div className="cause-label">
-              <span>
-                {i === 0 ? <CloudRain /> : i === 1 ? <Leaf /> : <Waves />}
-                {cause.label_pl}
-              </span>
-              <span className="percent">{cause.share}%</span>
-            </div>
-            <div className="cause-bar" role="img" aria-label={`${cause.label_pl}: około ${cause.share} procent`}>
-              <div className="cause-fill" style={{ width: `${cause.share}%` }} />
-            </div>
-            <p className="cause-expl">{cause.explanation}</p>
-          </div>
-          </FlipCard>
-        ))}
+        <p className="panel-lead">Dlaczego na tym polu brakuje wody – od najważniejszej przyczyny. Procent to udział w niedoborze.</p>
+        <ol className="cause-list">
+          {data?.causes?.map((cause, i) => (
+            <li key={cause.key}>
+              <FlipCard items={cause.evidence} blocks={blocks} label="Skąd to wiemy?" className="boxed">
+                <div className="cause-card">
+                  <div className="cause-card-pct" aria-hidden="true">{cause.share}<small>%</small></div>
+                  <div className="cause-card-body">
+                    <h3>
+                      {i === 0 ? <CloudRain aria-hidden="true" /> : i === 1 ? <Leaf aria-hidden="true" /> : <Waves aria-hidden="true" />}
+                      {cause.label_pl}
+                      <span className="sr-only"> – około {cause.share}%</span>
+                    </h3>
+                    <p>{cause.explanation}</p>
+                    <div className="cause-bar" aria-hidden="true">
+                      <div className="cause-fill" style={{ width: `${cause.share}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </FlipCard>
+            </li>
+          ))}
+        </ol>
         </Panel>
         <Panel n={3} title="Co zrobić, żeby zatrzymać wodę?"
           teaser={recs[0] ? <>Zacznij od: {recs[0].title.charAt(0).toLowerCase()}{recs[0].title.slice(1)}</> : "Brak zaleceń"}>
         <div className="recommendation-list">
-          {recs.map((r) => (
-            <Measure key={r.measure_id} recommendation={r} blocks={blocks} onMap={onMap} />
+          {recs.map((r, i) => (
+            <Measure key={r.measure_id} index={i + 1} recommendation={r} blocks={blocks} onMap={onMap} />
           ))}
         </div>
         {data?.water_balance && (
@@ -494,43 +486,55 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
         </Panel>
         {irrigation && (
           <Panel n={5} title="Czy podlewać?" teaser={<>{irrLabel}{irrigation.dose_mm != null ? ` · dawka ${irrigation.dose_mm} mm` : ""}</>}>
-          <FlipCard items={irrigation.evidence} blocks={blocks} label="Skąd to wiemy?">
-          <div className="irrigation-panel">
-            <h3>
-              <Eye size={20} />
-              {irrigation.recommended === "monitor"
-                ? "Obserwuj, zanim zaczniesz"
-                : irrigation.recommended === "yes"
-                  ? "Rozważ nawadnianie"
-                  : irrigation.recommended === "no"
-                    ? "Teraz nie nawadniaj"
-                    : "Brak oceny nawadniania"}
-            </h3>
-            <p>{irrigation.summary}</p>
-            {irrigation.dose_mm != null && (
-              <p className="irrigation-dose">Dawka: <strong>{irrigation.dose_mm} mm</strong> = {doseToVolume(irrigation.dose_mm)} m³ na hektar
-                {irrigation.timing ? ` · ${irrigation.timing}` : ""}</p>
+          <FlipCard items={irrigation.evidence} blocks={blocks} label="Skąd to wiemy?" className="boxed">
+          <div className={`irr-card irr-${irrigation.recommended ?? "none"}`}>
+            <div className="irr-verdict">
+              <span className="irr-icon" aria-hidden="true">
+                {irrigation.recommended === "yes" ? <Droplets /> : irrigation.recommended === "no" ? <Check /> : <Eye />}
+              </span>
+              <div>
+                <span className="irr-kicker">Nasza ocena na {formatDate(date)}</span>
+                <h3>{irrLabel}</h3>
+              </div>
+            </div>
+            {irrigation.summary && <p className="irr-summary">{irrigation.summary}</p>}
+            <div className="irr-stats">
+              {irrigation.dose_mm != null && (
+                <div>
+                  <span>Dawka, jeśli podlewasz</span>
+                  <strong>{irrigation.dose_mm} mm</strong>
+                  <small>= {doseToVolume(irrigation.dose_mm)} m³ wody na hektar</small>
+                </div>
+              )}
+              {irrigation.depletion_mm != null && (
+                <div>
+                  <span>Ubyło wody z gleby</span>
+                  <strong>{nf(irrigation.depletion_mm)} mm</strong>
+                  <small>z {nf(irrigation.taw_mm)} mm, które roślina może pobrać</small>
+                </div>
+              )}
+              {irrigation.depletion_mm != null && (
+                <div>
+                  <span>Do stresu wodnego</span>
+                  <strong>{irrigation.days_to_stress != null ? `${irrigation.days_to_stress} ${irrigation.days_to_stress === 1 ? "dzień" : "dni"}` : "brak"}</strong>
+                  <small>{irrigation.stress_date ? `około ${formatDate(irrigation.stress_date)}` : "w prognozie nie przewidujemy"}</small>
+                </div>
+              )}
+              {irrigation.yield_loss_pct != null && irrigation.yield_loss_pct >= 1 && (
+                <div>
+                  <span>Możliwy spadek plonu</span>
+                  <strong>~{nf(irrigation.yield_loss_pct)}%</strong>
+                  <small>przez niedobór wody od początku sezonu</small>
+                </div>
+              )}
+            </div>
+            {irrigation.timing && (
+              <p className="irr-timing"><strong>Kiedy:</strong> {irrigation.timing}</p>
             )}
-            {irrigation.depletion_mm != null && (
+            {(irrigation.soil_water?.length ?? 0) >= 3 && (
               <details className="details-box">
-                <summary>Pokaż wodę w glebie</summary>
+                <summary>Wykres: woda w glebie z 60 dni i prognoza</summary>
                 <div className="details-content">
-                  <div className="irrigation-values">
-                    <div>
-                      <strong>{nf(irrigation.depletion_mm)} mm</strong>
-                      <span>Ubyło wody z gleby (z {nf(irrigation.taw_mm)} mm dostępnych)</span>
-                    </div>
-                    <div>
-                      <strong>{irrigation.days_to_stress != null ? `${irrigation.days_to_stress} dni` : "—"}</strong>
-                      <span>{irrigation.stress_date ? `Do stresu wodnego (${formatDate(irrigation.stress_date)})` : "Stresu w horyzoncie nie przewidujemy"}</span>
-                    </div>
-                    {irrigation.yield_loss_pct != null && irrigation.yield_loss_pct >= 1 && (
-                      <div>
-                        <strong>~{nf(irrigation.yield_loss_pct)}%</strong>
-                        <span>Szacowany spadek plonu przez niedobór wody od początku sezonu</span>
-                      </div>
-                    )}
-                  </div>
                   <SoilWaterChart irr={irrigation} />
                 </div>
               </details>

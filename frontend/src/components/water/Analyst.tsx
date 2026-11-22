@@ -9,7 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { MapPin } from "lucide-react";
+import { ChevronDown, ChevronsDownUp, ChevronsUpDown, MapPin, Scale } from "lucide-react";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { blockDefinitions, canShowAdvice, type DataBlock } from "@/api/client";
 import { seasonRows, seasonWindow } from "@/api/adapt";
@@ -225,10 +226,24 @@ function SeasonTable({ weather, cal, date }: { weather: DataBlock; cal: DataBloc
   );
 }
 
+/** Formalności (prawo wodne) na górze – dla nas najważniejsze; reszta w kolejności bloków. */
+const ORDER = [...blockDefinitions].sort((a, b) => Number(b.key === "legal_context") - Number(a.key === "legal_context"));
+
 export default function Analyst({ blocks, onMap, loading, date }: Props) {
+  const root = useRef<HTMLDivElement>(null);
+  const setAll = (open: boolean) =>
+    root.current?.querySelectorAll<HTMLDetailsElement>("details.data-acc").forEach((d) => { d.open = open; });
   return (
-    <div className="analyst-grid" id="data-content" role="tabpanel" aria-labelledby="data-tab">
-      {blockDefinitions.map((def) => {
+    <div id="data-content" role="tabpanel" aria-labelledby="data-tab" ref={root}>
+    <div className="analyst-toolbar">
+      <p>Kliknij kafelek, żeby zobaczyć szczegóły, wykresy i źródła.</p>
+      <div>
+        <Button variant="ghost" size="sm" onClick={() => setAll(true)}><ChevronsUpDown />Rozwiń wszystkie</Button>
+        <Button variant="ghost" size="sm" onClick={() => setAll(false)}><ChevronsDownUp />Zwiń wszystkie</Button>
+      </div>
+    </div>
+    <div className="analyst-grid">
+      {ORDER.map((def) => {
         const b = blocks[def.key];
         if (!b)
           return loading ? (
@@ -236,16 +251,25 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
           ) : null;
         if (def.key === "analysis" && !canShowAdvice(b)) return null;
         return (
-          <article
+          <details
             id={`block-${def.key}`}
             key={def.key}
-            className={`data-card ${def.key === "weather_history" || def.key === "legal_context" ? "wide" : ""}`}
+            className={`data-card data-acc ${def.key === "legal_context" ? "legal-highlight" : ""}`}
+            open={def.key === "legal_context" ? true : undefined}
           >
-            <div className="data-card-title">
-              <h2>{b.title}</h2>
-              <span className={`status-tag ${b.status === "ok" ? "" : "partial"}`}>{STATUS[b.status] ?? b.status}</span>
-            </div>
-            <p>{b.data.summary ?? b.data.assessment?.current_summary ?? b.messages.join(" ")}</p>
+            <summary className="data-acc-summary">
+              {def.key === "legal_context" && <span className="legal-icon" aria-hidden="true"><Scale /></span>}
+              <span className="data-acc-text">
+                {def.key === "legal_context" && <span className="legal-kicker">Prawo wodne · ważne przed każdą budową</span>}
+                <span className="data-acc-head">
+                  <h2>{b.title}</h2>
+                  <span className={`status-tag ${b.status === "ok" ? "" : "partial"}`}>{STATUS[b.status] ?? b.status}</span>
+                </span>
+                <span className="data-acc-teaser">{b.data.summary ?? b.data.assessment?.current_summary ?? b.messages.join(" ")}</span>
+              </span>
+              <ChevronDown size={22} aria-hidden="true" className="acc-chevron" />
+            </summary>
+            <div className="data-acc-body">
             {b.data.metrics && (
               <div className="metrics">
                 {b.data.metrics.map((m) => (
@@ -326,9 +350,11 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                 </div>
               ))}
             <Sources block={b} />
-          </article>
+            </div>
+          </details>
         );
       })}
+    </div>
     </div>
   );
 }

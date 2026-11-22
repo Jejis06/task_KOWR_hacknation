@@ -2248,3 +2248,111 @@ details[open] > summary .acc-chevron { transform: rotate(180deg); }
 @media screen and (min-width: 801px) {
   .workspace:not(.landing) .field-column .form-row { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ───────────── ekran startowy: nagłówek wyśrodkowany w jednej kolumnie (plakietka demo pod tytułem) ───────────── */
+.page:has(.workspace.landing) .intro { flex-direction: column; gap: 12px; }
+.page:has(.workspace.landing) .intro .eyebrow { justify-content: center; }
+
+/* ───────────── raport: proste karty (przyczyny, działania, nawadnianie) ───────────── */
+/* karta = przednia strona FlipCard, więc „Skąd to wiemy?” jest wewnątrz ramki */
+.flip.boxed { margin: 0; }
+.flip.boxed > .flip-inner > .flip-front {
+  border: 1px solid var(--border); border-radius: 10px; background: var(--card); padding: 18px 20px;
+}
+.flip.boxed > .flip-inner > .flip-front > .source-chip { margin-top: 14px; font-size: 0.85rem; }
+.panel-lead { font-size: 1rem; color: var(--muted-foreground); margin: 0 0 14px; }
+
+/* punkt 2 – przyczyny */
+.cause-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.cause-card { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 18px; align-items: start; }
+.cause-card-pct { font-size: 2.4rem; font-weight: 750; line-height: 1; color: var(--earth); font-variant-numeric: tabular-nums; }
+.cause-card-pct small { font-size: 1.1rem; font-weight: 650; margin-left: 2px; }
+.cause-card-body h3 { display: flex; align-items: center; gap: 8px; font-size: 1.15rem; font-weight: 700; line-height: 1.35; margin: 0; }
+.cause-card-body h3 svg { width: 20px; height: 20px; color: var(--muted-foreground); flex: none; }
+.cause-card-body p { font-size: 1rem; line-height: 1.5; color: var(--foreground); margin: 6px 0 12px; }
+.cause-card .cause-bar { height: 10px; border-radius: 5px; }
+.cause-list li:nth-child(2) .cause-fill { background: var(--earth); }
+.cause-list li:nth-child(3) .cause-fill { background: var(--water); }
+
+/* punkt 3 – działania */
+.recommendation-list { gap: 12px; }
+.rec-head { display: flex; align-items: flex-start; gap: 12px; }
+.rec-num {
+  flex: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--primary); color: var(--primary-foreground); font-weight: 700; font-size: 1rem;
+}
+.rec-head h3 { font-size: 1.2rem; font-weight: 700; line-height: 1.35; margin: 3px 0 0; }
+.rec-why { font-size: 1.02rem; line-height: 1.55; color: var(--foreground); margin: 10px 0 12px 44px; }
+.rec-tags { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-left: 44px; }
+.rec-tags .formality-badge, .rec-tags .priority-tag { font-size: 0.85rem; padding: 5px 10px; border-radius: 6px; }
+.rec-map-btn { height: 34px; font-size: 0.9rem; color: var(--water); border-color: color-mix(in oklch, var(--water) 45%, transparent); }
+.rec-more { margin: 12px 0 0 44px; font-size: 0.98rem; }
+.rec-more summary { font-size: 0.98rem; font-weight: 600; color: var(--foreground); }
+.rec-more .details-content, .rec-more .details-content p, .rec-more .sowing-list { font-size: 0.95rem; line-height: 1.5; }
+
+/* punkt 5 – czy podlewać */
+.irr-card { --irr: var(--warning); --irr-soft: var(--warning-soft); }
+.irr-card.irr-yes { --irr: var(--water); --irr-soft: var(--water-soft); }
+.irr-card.irr-no { --irr: var(--primary); --irr-soft: var(--secondary); }
+.irr-verdict { display: flex; align-items: center; gap: 14px; }
+.irr-icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: var(--irr-soft); color: var(--irr); }
+.irr-icon svg { width: 26px; height: 26px; }
+.irr-kicker { display: block; font-size: 0.85rem; color: var(--muted-foreground); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+.irr-verdict h3 { font-size: 1.45rem; font-weight: 750; line-height: 1.2; color: var(--irr); margin: 2px 0 0; }
+.irr-summary { font-size: 1.05rem; line-height: 1.55; margin: 14px 0 0; }
+.irr-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-top: 16px; }
+.irr-stats:empty { display: none; }
+.irr-stats > div { border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; background: var(--background); display: grid; gap: 2px; }
+.irr-stats span { font-size: 0.9rem; color: var(--muted-foreground); font-weight: 600; }
+.irr-stats strong { font-size: 1.6rem; font-weight: 750; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.irr-stats small { font-size: 0.85rem; color: var(--muted-foreground); }
+.irr-timing { font-size: 1rem; margin: 14px 0 0; padding: 10px 14px; border-left: 4px solid var(--irr); background: var(--irr-soft); border-radius: 0 8px 8px 0; }
+.irr-card .details-box { margin-top: 10px; }
+.irr-card .details-box summary { font-size: 0.98rem; font-weight: 600; color: var(--foreground); }
+@media (max-width: 560px) {
+  .cause-card { grid-template-columns: 1fr; gap: 6px; }
+  .rec-why, .rec-tags, .rec-more { margin-left: 0; }
+}
+@media print {
+  .flip.boxed > .flip-inner > .flip-front { break-inside: avoid; padding: 10px 12px; }
+}
+
+/* ───────────── widok analityka: rozwijane kafelki (natywne <details>), formalności na górze ───────────── */
+.analyst-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin: 14px 0 10px; }
+.analyst-toolbar p { font-size: 0.95rem; color: var(--muted-foreground); margin: 0; }
+.analyst-toolbar > div { display: flex; gap: 4px; }
+.analyst-grid:has(.data-acc) { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.data-card.data-acc { padding: 0; border-radius: 10px; }
+.data-acc[open] { box-shadow: 0 4px 18px rgb(0 0 0 / 0.06); }
+.data-acc-summary {
+  list-style: none; display: grid; grid-template-columns: minmax(0, 1fr) 24px; align-items: center; gap: 12px;
+  padding: 14px 18px; min-height: 56px; cursor: pointer; border-radius: 10px;
+}
+.data-acc-summary::-webkit-details-marker { display: none; }
+.data-acc-summary:hover { background: color-mix(in oklch, var(--muted) 55%, transparent); }
+.data-acc-summary:focus-visible { outline: 3px solid var(--ring, var(--primary)); outline-offset: 2px; }
+.data-acc-text { display: grid; gap: 3px; min-width: 0; }
+.data-acc-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.data-acc-head h2 { font-size: 1.1rem; font-weight: 700; margin: 0; }
+.data-acc-head .status-tag { font-size: 0.75rem; padding: 2px 8px; }
+.data-acc-teaser { font-size: 0.95rem; color: var(--muted-foreground); line-height: 1.45; }
+.data-acc[open] .data-acc-teaser { color: var(--foreground); }
+.data-acc-body { padding: 0 18px 18px; border-top: 1px solid var(--border); padding-top: 14px; }
+
+/* kafelek prawny – wyraźny: akcent, ikona, nadtytuł, zawsze na górze i domyślnie otwarty */
+.data-acc.legal-highlight {
+  border: 2px solid var(--water); background: color-mix(in oklch, var(--water) 5%, var(--card));
+  box-shadow: 0 6px 24px -12px var(--water);
+}
+.legal-highlight > .data-acc-summary { grid-template-columns: 48px minmax(0, 1fr) 24px; padding: 18px 20px; }
+.legal-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: var(--water); color: #fff; }
+.legal-icon svg { width: 26px; height: 26px; }
+.legal-kicker { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--water); }
+.legal-highlight .data-acc-head h2 { font-size: 1.3rem; }
+.legal-highlight .data-acc-body { border-top-color: color-mix(in oklch, var(--water) 35%, transparent); }
+.legal-highlight .data-table { font-size: 0.95rem; }
+@media print {
+  .analyst-toolbar { display: none; }
+  .data-acc .acc-chevron { display: none; }
+  .data-acc { break-inside: auto; }
+}

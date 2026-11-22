@@ -141,7 +141,8 @@ function drought(d: any, asOf: string): DataPayload {
     summary: n === 0 ? "W ostatnich 10 sezonach nie było suszy rolniczej na tej działce (wg progów SMSR)."
       : `Susza rolnicza w ${n} z 10 ostatnich sezonów.`,
     rows: [
-      ...(d.current ?? []).map((c: any) => ({ label: `${c.source}${c.level === "commune" ? " (gmina)" : c.level === "pixel" ? " (okolica ~5 km)" : " (działka)"}`,
+      // bez wierszy EDO (CDI, SMA): siatka ~5 km myliła rolników przy ocenie pojedynczego pola – zostają SMSR i KBW działki
+      ...(d.current ?? []).filter((c: any) => !String(c.source ?? "").startsWith("EDO")).map((c: any) => ({ label: `${c.source === "computed" ? "KBW – obliczenia własne" : c.source}${c.level === "commune" ? " (gmina)" : c.level === "pixel" ? " (okolica ~5 km)" : " (działka)"}`,
         value: String(c.class_label ?? c.value ?? "brak oceny"), detail: `stan na ${dstr(c.date)}` })),
       ...years.slice().reverse().map((y) => ({ label: String(y), value: dry.has(y) ? "susza" : "bez suszy",
         detail: (d.drought_years_smsr ?? []).includes(y) ? "SMSR IUNG – gmina" : (d.drought_years_computed ?? []).includes(y) ? "KBW działki wg progów SMSR" : "", dry: dry.has(y) })),

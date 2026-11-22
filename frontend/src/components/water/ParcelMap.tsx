@@ -92,6 +92,8 @@ export default function ParcelMap({
   const features = useRef<Record<string, L.Layer>>({});
   const callbacks = useRef({ onSelect, onMore, onAnalyze, onLasso });
   callbacks.current = { onSelect, onMore, onAnalyze, onLasso };
+  /** true, dopóki widok to start (cała Polska) – wtedy po zmianie rozmiaru kontenera mapa wraca na środek */
+  const autoView = useRef(true);
   /** „auto”: mapa OSM dla widoku kraju/regionu (mało kafelków, wspólny cache), zdjęcie lotnicze od przybliżenia 13 */
   const [base, setBase] = useState<"auto" | "ortho" | "osm">("auto");
   const [zoom, setZoom] = useState(6);
@@ -119,19 +121,42 @@ export default function ParcelMap({
     };
     m.on("click", click);
     m.on("zoomend", () => setZoom(m.getZoom()));
+    // Leaflet liczy widok z rozmiaru kontenera w chwili startu; gdy układ strony dopasowuje się chwilę później
+    // (czcionki, Suspense, przejście z ekranu startowego), mapa była przesunięta i trzeba ją było ręcznie poprawiać.
+    // Obserwujemy rozmiar kontenera; dopóki użytkownik nie ruszył mapy, utrzymujemy wyśrodkowaną Polskę.
+    let touched = false;
+    const mark = () => { touched = true; };
+    m.on("dragstart", mark);
+    m.getContainer().addEventListener("wheel", mark, { passive: true });
+    const POLAND: L.LatLngBoundsExpression = [[49.0, 14.1], [54.85, 24.15]];
+    const recenter = () => {
+      m.invalidateSize();
+      if (!touched && autoView.current) m.fitBounds(POLAND, { animate: false, padding: [8, 8] });
+    };
+    const ro = new ResizeObserver(() => recenter());
+    ro.observe(host.current);
+    const t0 = setTimeout(recenter, 0);
+    const done = () => recenter();
+    window.addEventListener("load", done);
+    void document.fonts?.ready.then(done);
     return () => {
+      ro.disconnect();
+      clearTimeout(t0);
+      window.removeEventListener("load", done);
       m.remove();
       map.current = null;
     };
   }, []);
   // wynik wyszukiwania adresu → przeleć w to miejsce
   useEffect(() => {
+    if (flyTo) autoView.current = false;
     if (flyTo) map.current?.flyTo([flyTo.lat, flyTo.lon], flyTo.zoom, { duration: 0.8 });
   }, [flyTo]);
   // nowa działka → dopasuj widok (mapa zostaje ta sama, bez przeładowania podkładu)
   useEffect(() => {
     const m = map.current;
     if (!m || !parcel) return;
+    autoView.current = false;
     m.fitBounds([[parcel.bbox[1], parcel.bbox[0]], [parcel.bbox[3], parcel.bbox[2]]], { padding: [42, 65], maxZoom: 17 });
   }, [parcel?.id]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -341,7 +366,9 @@ export default function ParcelMap({
     const m = map.current;
     const f = highlight ? features.current[highlight.id] : null;
     if (!m || !f) return;
-    host.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    // „Pokaż na mapie” otwiera mapę na pełnym ekranie – kontener ma już nowy rozmiar, Leaflet jeszcze nie
+    m.invalidateSize({ pan: false });
+    if (!fullscreen) host.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
     if (f instanceof L.Marker || f instanceof L.CircleMarker) {
       m.setView(f.getLatLng(), Math.max(m.getZoom(), 16));
     } else if (f instanceof L.FeatureGroup) {
@@ -355,7 +382,7 @@ export default function ParcelMap({
       }
     }
     setTimeout(() => (f as L.Layer & { openPopup?: () => void }).openPopup?.(), 650);
-  }, [highlight, parcel, visible, blocks]);
+  }, [highlight, parcel, visible, blocks]); // eslint-disable-line react-hooks/exhaustive-deps
   // Gesty: mapa nie „łapie” przewijania strony. Kółko działa po kliknięciu/naciśnięciu mapy (do wyjechania kursorem) albo z Ctrl;
   // na telefonie jeden palec przewija stronę, a mapę przesuwa się i przybliża dwoma palcami. Pełny ekran = pełna kontrola.
   useEffect(() => {
@@ -458,6 +485,7 @@ export default function ParcelMap({
     setLocMsg("Szukam Twojej okolicy…");
     navigator.geolocation.getCurrentPosition(
       (pos) => {
+        autoView.current = false;
         map.current?.flyTo([pos.coords.latitude, pos.coords.longitude], 14, { duration: 0.8 });
         setLocMsg(null);
       },

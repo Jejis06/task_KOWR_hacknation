@@ -82,7 +82,7 @@ function resolutionOf(block: DataBlock): string | null {
     case "weather_history": return r.grid_resolution_note ?? null;
     case "terrain": return r.dem_resolution_m != null ? `siatka ${Math.round(r.dem_resolution_m)} m` : null;
     case "vegetation": return "Sentinel-2: 10 m (zieloność), 20 m (woda w liściach)";
-    case "drought": return "gmina (SMSR) · punkt działki (KBW) · ok. 5 km (EDO)";
+    case "drought": return "gmina (SMSR) · punkt działki (KBW)";
     case "hydrology": return "BDOT10k, skala 1:10 000";
     default: return null;
   }

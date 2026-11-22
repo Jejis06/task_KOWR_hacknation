@@ -182,10 +182,11 @@ export function ParcelPage() {
   useEffect(() => {
     if (tab === "data" && focusBlock) {
       const t = setTimeout(
-        () =>
-          document
-            .getElementById(`block-${focusBlock}`)
-            ?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        () => {
+          const el = document.getElementById(`block-${focusBlock}`);
+          if (el instanceof HTMLDetailsElement) el.open = true;   // kafelki analityka są zwijane
+          el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        },
         150,
       );
       return () => clearTimeout(t);
@@ -359,7 +360,9 @@ export function ParcelPage() {
     }
   }
   /** Pokaż obiekt na mapie: wycentruj go na małej mapie obok (bez otwierania pełnego ekranu). */
+  /** „Pokaż na mapie” (raport, tabela analityka): mapa na pełnym ekranie i wycentrowany obiekt */
   function showMap(feature: string) {
+    setFullscreen(true);
     setHighlight((h) => ({ id: feature, n: (h?.n ?? 0) + 1 }));
   }
   function showData(key: string) {
