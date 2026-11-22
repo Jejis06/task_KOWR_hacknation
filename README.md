@@ -14,7 +14,7 @@ lub pozwolenie, ile to kosztuje i skąd wziąć dofinansowanie.
 | Osoba | Zakres |
 |---|---|
 | **Ignacy Buczek** | backend: API (FastAPI), konektory danych (ULDK, pogoda, susza, gleba, teren, wody, satelita, pokrycie terenu, ochrona przyrody), analiza regułowa (ocena → przyczyny → rekomendacje → nawadnianie FAO-56), baza wiedzy (prawo wodne, opłaty, dotacje, uprawy), cache i obsługa limitów źródeł, testy, wdrożenie (Docker, serwer) |
-| **Mateusz Portka** | frontend: interfejs rolnika i widok analityka (React), mapa z miejscami na wodę i zaznaczaniem działek, raport w rozwijanych tematach, wykresy, wydruk i PDF, dostępność (lupa, wysoki kontrast), asystent AI w interfejsie (podpowiedzi i czat) |
+| **Mateusz Portka** | frontend: interfejs rolnika i widok analityka (React), mapa z miejscami na wodę i zaznaczaniem działek, raport w rozwijanych tematach, wykresy, wydruk i PDF, dostępność (lupa, wysoki kontrast), asystent AI w interfejsie (podpowiedzi i czat); research: źródła danych, przepisy prawa wodnego, dotacje i literatura naukowa do bazy wiedzy |
 
 Wspólnie: koncepcja rozwiązania, dobór źródeł danych, testy na działkach z całej Polski, dokumentacja.
 
