@@ -264,6 +264,8 @@ Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_c
 
 ## 12. README dla jury: 9 obowiązkowych punktów (pkt 4.2 zadania)
 
+Zrobione w `README.md` (22.11.2026). Przy zmianach aktualizuj README.
+
 1. Instrukcja uruchomienia.
 2. Funkcjonalności.
 3. Architektura.
@@ -310,6 +312,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-22 · zgłoszenie · README przepisany pod pkt 4.1 i 4.2 zadania (9 punktów + skalowanie, koszty, bezpieczeństwo, AI); `docs/zgloszenie/` – teksty do formularza HackTribe, lista kontrolna, uwagi do prezentacji, 2 raporty PDF z produkcji; teren: `_merged_lines` zamiast `linemerge` na pojedynczej linii (działka 061408_4.0006.828 dawała błąd bloku) + test.
 - 2026-11-22 · UI · czat „Zapytaj o swoją działkę” także w widoku analityka (ten sam komponent – rozmowa zostaje po przełączeniu zakładki).
 - 2026-11-22 · UI · układ dwóch kolumn: strona po analizie jest zablokowana (nie przewija się w górę) – kolumny `position: relative` zamiast `static` (absolutne `.sr-only` w raporcie wydłużały dokument), `top: auto` (resztka po sticky), `overflow: hidden` na html w tym układzie.
 - 2026-11-22 · UI · uwagi zespołu: wyraźniejsza informacja o parku narodowym / obszarze chronionym (większa, z obramowaniem), żółty obrys sprawdzanej działki (z ciemną obwódką), raport bez podtytułów pod tytułami tematów (kroki 1–5), w tematach po kroku 5 dawny podtytuł jako tytuł treści po rozwinięciu, duży wykres prognozy pogody (wspólny `ForecastChart` w raporcie i u analityka), szersza lewa kolumna (400 px), żeby zmieściły się wszystkie przyciski mapy, motto „Zachowaj kroplę dla siebie na dłużej”.
