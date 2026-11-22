@@ -7,33 +7,42 @@ meta:
 
 items:
   - id: miedzyplony
+    formality: none
     name: Międzyplony / poplony
     group: agrotechnika
     addresses: [gleba_niska_retencja, odplyw_powierzchniowy]
     when: "Siew po zbiorze plonu głównego (lip–sie), pozostawienie na zimę lub do wiosny"
     effect: "Zwiększa materię organiczną i infiltrację, chroni przed parowaniem i erozją."
     legal: brak
-    funding: []
+    funding: [ekoschemat_weglowe]
     funding_note: "ekoschematy WPR (np. „Rolnictwo węglowe” – międzyplony) – szczegóły w aktualnym naborze ARiMR"
     status: OK
 
   - id: resztki_mulcz
+    formality: none
     name: Pozostawianie resztek pożniwnych / mulcz
     group: agrotechnika
     addresses: [gleba_niska_retencja]
     effect: "Ogranicza parowanie z powierzchni gleby, poprawia strukturę."
     legal: brak
     status: OK
+    funding: [ekoschemat_weglowe]
+
 
   - id: uprawa_uproszczona
+    formality: none
     name: Uprawa uproszczona / bezorkowa
     group: agrotechnika
     addresses: [gleba_niska_retencja, odplyw_powierzchniowy]
     effect: "Mniej przesychania wierzchniej warstwy, lepsza struktura i retencja."
     legal: brak
     status: OK
+    funding: [ekoschemat_weglowe]
+
 
   - id: materia_organiczna
+    formality: none
+    formality_note: "Przestrzegaj terminów i dawek nawozów naturalnych z Programu działań azotanowych."
     name: Zwiększanie materii organicznej (obornik, kompost)
     group: agrotechnika
     addresses: [gleba_niska_retencja]
@@ -42,6 +51,7 @@ items:
     status: OK
 
   - id: uprawa_w_poprzek_stoku
+    formality: none
     name: Uprawa w poprzek stoku
     group: agrotechnika
     addresses: [odplyw_powierzchniowy]
@@ -51,6 +61,8 @@ items:
     status: OK
 
   - id: zastawka_row
+    formality: none
+    formality_note: "Zatrzymanie wody w istniejącym rowie – bez zgłoszenia. Nowa zastawka lub przebudowa rowu – zgłoszenie albo pozwolenie wodnoprawne. Rów przez cudze działki – zgoda sąsiadów lub spółki wodnej."
     name: Zastawka / piętrzenie na rowie melioracyjnym
     group: retencja_krajobrazowa
     addresses: [odplyw_powierzchniowy, opady_deficyt]
@@ -61,6 +73,8 @@ items:
     status: OK
 
   - id: oczko_zbiornik
+    formality: notification
+    formality_note: "Do 5000 m² i 3 m głębokości, zasilany opadami lub wodą gruntową – zgłoszenie wodnoprawne (30 dni na sprzeciw). Większy lub zasilany z cieku – pozwolenie. Szczelne oczko do 50 m² – bez formalności."
     name: Oczko wodne / mały zbiornik retencyjny w zagłębieniu
     group: retencja_krajobrazowa
     addresses: [odplyw_powierzchniowy, opady_deficyt]
@@ -72,6 +86,8 @@ items:
     status: OK
 
   - id: pas_buforowy
+    formality: none
+    formality_note: "Nasadzenia na własnym gruncie rolnym zwykle bez formalności; sprawdź miejscowy plan zagospodarowania."
     name: Pas buforowy / zadrzewienie śródpolne
     group: retencja_krajobrazowa
     addresses: [odplyw_powierzchniowy]
@@ -80,6 +96,8 @@ items:
     status: OK
 
   - id: mokradlo
+    formality: depends
+    formality_note: "Podniesienie wody bez budowy urządzeń – bez formalności; budowa zastawki lub grobli – zgłoszenie albo pozwolenie wodnoprawne."
     name: Ochrona / odtworzenie mokradła, podniesienie poziomu wody na TUZ
     group: retencja_krajobrazowa
     addresses: [opady_deficyt]
@@ -89,6 +107,8 @@ items:
     status: OK
 
   - id: nawadnianie_kroplowe
+    formality: permit
+    formality_note: "Nawadnianie upraw to szczególne korzystanie z wód – pozwolenie wodnoprawne. Wyjątek: pobór do 5 m³/dobę (średnio w roku) ze studni do 30 m na potrzeby własne gospodarstwa."
     name: Nawadnianie (kropelkowe / deszczownia) – ostatni krok
     group: nawadnianie
     addresses: [uprawa_wrazliwa, opady_deficyt]

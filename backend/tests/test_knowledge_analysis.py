@@ -149,7 +149,9 @@ def test_cover_crops_and_mulch_have_species_and_dates_not_paperwork():
     names = [o.name for o in mp.sowing]
     assert mp.sowing and not any("Gorczyca" in n or "Rzodkiew" in n for n in names)
     assert all(o.when.startswith("siew ") and o.source_url for o in mp.sowing)
-    assert not mp.legal_ids and not mp.funding
+    # AgroLegal: międzyplon bez formalności, ale z realnymi pieniędzmi (ekoschemat, co roku we wniosku obszarowym)
+    assert not mp.legal_ids and mp.formality == "none"
+    assert [f.call_kind for f in mp.funding] == ["annual"]
     assert recs["resztki_mulcz"].sowing
     c = ctx(crop="kukurydza_ziarno")
     mp = next(r for r in analyse_all(c, dry_data(c)).recommendations if r.measure_id == "miedzyplony")
@@ -211,3 +213,49 @@ def test_merge_parcels_union_and_stable_id():
                   [17.22, 52.23], [17.21, 52.22]]]), centroid=(17.215, 52.225), bbox=(17.21, 52.22, 17.22, 52.23), area_ha=2.0)
     m1, m2 = merge_parcels([a, b]), merge_parcels([b, a])
     assert m1.id == m2.id == "302504_5.0024.7+302504_5.0024.8" and abs(m1.area_ha - 16.47) < 1e-6
+
+
+def test_agrolegal_formality_badges_and_fees():
+    """Każda rekomendacja ma plakietkę formalności; zgłoszenie/pozwolenie niesie opłatę z roku analizy i urząd."""
+    c = ctx()
+    r = analyse_all(c, dry_data(c))
+    assert r.recommendations and all(x.formality_label for x in r.recommendations)
+    for x in r.recommendations:
+        if x.formality in ("notification", "permit"):
+            assert x.fee_pln and x.office and x.wait
+        if x.group == "agrotechnika":
+            assert x.formality == "none"
+    for x in r.recommendations:
+        for f in x.funding:
+            assert f.call_label  # nigdy nie obiecujemy pieniędzy bez statusu naboru
+
+
+def test_large_depression_gets_capped_pond_on_notification():
+    """Zagłębienie > 5000 m²: oczko do 5000 m² (zgłoszenie), objętość proporcjonalnie mniejsza – nie pozwolenie."""
+    from app.contracts.models import AnalysisResult, Recommendation
+    from app.knowledge.analysis import pond_economics
+
+    c = ctx()
+    rec = Recommendation(measure_id="oczko_zbiornik", group="retencja_krajobrazowa", title="Oczko", why="x",
+                         formality="notification", fee_pln=132.33)
+    res = AnalysisResult(recommendations=[rec], water_balance={
+        "depression_volume_m3": 6000, "depression_area_m2": 12000, "depression_inflow_m3": 9000, "season_deficit_m3": 5000})
+    pond_economics(c, res)
+    p = res.water_balance["pond"]
+    assert rec.formality == "notification" and p["capped"] and not p["needs_permit"]
+    assert p["area_m2"] == 5000 and p["volume_m3"] == 2500 and p["depression_area_m2"] == 12000
+    assert "5000 m²" in rec.formality_note and p["covers_season_pct"] == 50.0
+
+
+def test_meadow_rule_respects_chosen_crop():
+    """WorldCover zimą bierze pole orne za trawę – przy wybranej uprawie polowej nie proponujemy ekoschematu TUZ."""
+    c = ctx(crop="kukurydza_ziarno")
+    d = dry_data(c)
+    d["land_cover"] = {"classes": {"Trawy": 0.9, "Uprawy": 0.1}}
+    d["terrain"]["position"] = "valley"
+    assert "mokradlo" not in [x.measure_id for x in analyse_all(c, d).recommendations]
+    c2 = ctx(crop="tuz")
+    d2 = dry_data(c2)
+    d2["land_cover"] = {"classes": {"Trawy": 0.9}}
+    d2["terrain"]["position"] = "valley"
+    assert "mokradlo" in [x.measure_id for x in analyse_all(c2, d2).recommendations]

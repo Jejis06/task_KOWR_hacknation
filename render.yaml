@@ -9,3 +9,5 @@ services:
     envVars:
       - key: WODA_CACHE_DIR
         value: /var/cache/woda
+      - key: OPENAI_API_KEY   # „Wytłumacz mi prosto” i czat; bez klucza aplikacja działa na szablonach
+        sync: false

@@ -15,13 +15,20 @@ import { CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer,
 import { Button } from "@/components/ui/button";
 import { canShowAdvice, doseToVolume, USE_MOCKS, type DataBlock, type Irrigation, type Recommendation, type WaterBalance } from "@/api/client";
 import { smm } from "@/api/adapt";
+import { FormalityBadge, FundingList, LegalDetails, LegalPlan, PondCalculator } from "./LegalPlan";
+import { SimpleExplain } from "./SimpleExplain";
 import { CropCalendarView, FlipCard, formatDate, LandscapeIllustration, SourceLine, Sources, Term } from "./shared";
 type Props = {
   blocks: Record<string, DataBlock>;
   date: string;
+  /** Numer działki – do karty „Wytłumacz mi prosto” */
+  parcelId?: string;
+  crop?: string;
   onMap: (id: string) => void;
   onData: (key: string) => void;
   loading: boolean;
+  /** AgroLegal: otwiera wypełnione zgłoszenie wodnoprawne dla działania */
+  onPrepare?: (r: Recommendation) => void;
 };
 const months = ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"];
 function StoryHeading({ number, title, extra }: { number: number; title: string; extra?: string }) {
@@ -55,6 +62,7 @@ function Measure({
         <h3>{r.title}</h3>
         <p>{r.why}</p>
         <div className="recommendation-tags">
+          <FormalityBadge r={r} />
           <span className="priority-tag">
             {r.priority === 1
               ? "Zacznij od tego"
@@ -74,7 +82,7 @@ function Measure({
           )}
         </div>
         {r.group === "agrotechnika" ? (
-          !r.sowing?.length && !r.when ? null : <details className="details-box" open={!!r.sowing?.length}>
+          !r.sowing?.length && !r.when && !r.funding?.length ? null : <details className="details-box" open={!!r.sowing?.length}>
             <summary>{r.measure_id === "miedzyplony" ? "Co i kiedy siać" : r.sowing?.length ? "Co i kiedy zrobić" : "Kiedy"}</summary>
             <div className="details-content">
               {r.sowing?.length ? (
@@ -95,6 +103,7 @@ function Measure({
               ) : (
                 <p><strong>Kiedy:</strong> {r.when ?? "w dogodnym terminie agrotechnicznym"}</p>
               )}
+              {r.funding?.length ? <FundingList funding={r.funding} /> : null}
               {r.measure_id === "miedzyplony" && (
                 <p className="text-xs text-muted-foreground mt-2">
                   Gatunki dobrane do uprawy głównej (termin zbioru, wspólne choroby) i gleby. Terminy orientacyjne – lokalnie ±1–2 tygodnie.
@@ -109,34 +118,14 @@ function Measure({
             <p>
               <strong>Kiedy:</strong> {r.when}
             </p>
-            <p className="mt-2">
-              <strong>Formalności:</strong>{" "}
-              {hint
-                ? `${hint.requirement} – ${hint.title ?? hint.topic}`
-                : !r.legal_ids.length
-                  ? "Bez formalności wodnych."
-                  : "Przed pracami sprawdź, czy potrzebne jest zgłoszenie lub pozwolenie wodnoprawne."}{" "}
-              {r.legal_ids.length > 0 && <Term name="Pozwolenie wodnoprawne" />}
-            </p>
-            {hint?.fee_pln != null && <p>Opłata urzędowa: {hint.fee_pln.toLocaleString("pl-PL", { minimumFractionDigits: 2 })} zł (stawka {hint.fee_year}).</p>}
+            {r.formality_label ? <LegalDetails r={r} /> : (
+              <p className="mt-2">
+                <strong>Formalności:</strong> {hint ? `${hint.requirement} – ${hint.title ?? hint.topic}` : "Bez formalności wodnych."}
+              </p>
+            )}
+            {r.legal_ids.length > 0 && <p><Term name="Pozwolenie wodnoprawne" /></p>}
             {hint?.caution && <p className="text-warning">⚠ {hint.caution}</p>}
-            <p className="mt-2">
-              <strong>Wsparcie:</strong>{" "}
-              {r.funding?.length ? (
-                <>
-                  Możliwe programy (sprawdź aktualne nabory):{" "}
-                  {r.funding.map((f, i) => (
-                    <span key={f.name}>
-                      {i > 0 && "; "}
-                      {f.url ? <a href={f.url} target="_blank" rel="noreferrer" className="underline">{f.name}</a> : f.name}
-                    </span>
-                  ))}
-                  .
-                </>
-              ) : (
-                "Brak przypisanego programu dofinansowania."
-              )}
-            </p>
+            <FundingList funding={r.funding} />
             <SourceLine block={blocks["legal_context"]} />
           </div>
         </details>
@@ -282,7 +271,7 @@ function SoilWaterChart({ irr }: { irr: Irrigation }) {
     </>
   );
 }
-export default function Report({ blocks, date, onMap, onData, loading }: Props) {
+export default function Report({ blocks, date, parcelId, crop, onMap, onData, loading, onPrepare }: Props) {
   const analysis = blocks["analysis"];
   const a = analysis?.data.assessment;
   const drought = blocks["drought"];
@@ -323,6 +312,7 @@ export default function Report({ blocks, date, onMap, onData, loading }: Props) 
   const deficit = data?.water_balance?.season_deficit_m3;
   return (
     <div id="report-content" role="tabpanel" aria-labelledby="report-tab">
+      {parcelId && <SimpleExplain parcelId={parcelId} date={date} crop={crop} />}
       {protectedHit && (
         <div className="protected-notice">
           <ShieldCheck size={15} />
@@ -461,10 +451,12 @@ export default function Report({ blocks, date, onMap, onData, loading }: Props) 
             <summary>Ile wody brakuje i ile zmieści zbiornik?</summary>
             <div className="details-content">
               <WaterBalancePanel wb={data.water_balance} onMap={onMap} />
+              {data.water_balance.pond && <PondCalculator pond={data.water_balance.pond} />}
             </div>
           </details>
         )}
       </section>
+      <LegalPlan recs={recs} onPrepare={onPrepare} />
       {irrigation && (
         <section className="story-section">
           <StoryHeading number={4} title="Czy nawadniać?" extra="Dopiero po zatrzymaniu wody" />

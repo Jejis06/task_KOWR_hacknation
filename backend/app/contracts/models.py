@@ -73,6 +73,7 @@ class ParcelRef(BaseModel):
     centroid: tuple[float, float]      # (lon, lat)
     bbox: tuple[float, float, float, float]  # (minlon, minlat, maxlon, maxlat)
     area_ha: float
+    approximate: bool = False          # True = GUGiK niedostępny; analizujemy ~1 ha wokół punktu z mapy
 
 
 class AnalysisContext(BaseModel):
@@ -359,6 +360,14 @@ class FundingRef(BaseModel):
     """2026-11-21 (B): nazwa programu i link – żeby UI nie pokazywał wewnętrznych identyfikatorów."""
     name: str
     url: str | None = None
+    # AgroLegal (2026-11-22): status naboru, żeby nie obiecywać pieniędzy, których dziś nie ma
+    call_kind: Literal["continuous", "annual", "open", "closed", "unknown"] = "unknown"
+    call_label: str | None = None      # „nabór ciągły”, „brak naboru w 2026 – czekaj na kolejny”…
+    call: str | None = None            # szczegóły terminu z katalogu
+    scope: str | None = None           # co finansuje, ile
+
+
+Formality = Literal["none", "notification", "permit", "depends"]
 
 
 class Recommendation(BaseModel):
@@ -375,6 +384,13 @@ class Recommendation(BaseModel):
     evidence: list[Evidence] = Field(default_factory=list)
     sowing: list[SowingOption] = Field(default_factory=list)   # 2026-11-21 (B): międzyplon/mulcz – gatunki i terminy
     funding: list[FundingRef] = Field(default_factory=list)    # 2026-11-21 (B): programy z funding_ids po nazwie
+    # AgroLegal (2026-11-22): czy wolno i ile to kosztuje urzędowo – plakietka na karcie i sekcja „Twój plan”
+    formality: Formality = "none"
+    formality_label: str | None = None  # „Bez formalności”, „Zgłoszenie wodnoprawne”…
+    formality_note: str | None = None   # warunki i wyjątki z Prawa wodnego
+    fee_pln: float | None = None        # opłata za zgłoszenie/pozwolenie w roku daty analizy
+    office: str | None = None           # gdzie złożyć
+    wait: str | None = None             # ile się czeka
 
 
 class IrrigationAdvice(BaseModel):

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from datetime import date
 from typing import Any
 
@@ -8,7 +9,14 @@ from pydantic import BaseModel
 
 from app.config import settings
 from app.connectors.registry import BLOCKS
-from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy, resolve_many
+from app.connectors.uldk import (
+    ParcelNotFound,
+    UldkLimited,
+    approximate_from_point,
+    resolve_by_id,
+    resolve_by_xy,
+    resolve_many,
+)
 from app.contracts.models import AnalysisContext, BlockInfo, DataBlock, ParcelProfile, ParcelRef
 from app.services.profile import build_profile, run_block
 
@@ -25,7 +33,13 @@ def _validate_date(as_of: date | None) -> date:
     return d
 
 
+_POINT_ID = re.compile(r"^punkt\s+(-?\d+(?:\.\d+)?),\s*(-?\d+(?:\.\d+)?)$")
+
+
 async def _resolve(id: str | None, lon: float | None, lat: float | None) -> ParcelRef:
+    # identyfikator zapasowy „punkt LAT, LON” (GUGiK niedostępny przy kliknięciu na mapie) → znów punkt
+    if id and (m := _POINT_ID.match(id.strip())):
+        id, lat, lon = None, float(m.group(1)), float(m.group(2))
     try:
         if id and "+" in id:                      # grupa działek analizowana jako jeden obszar
             return await resolve_many(id.split("+"))
@@ -36,7 +50,13 @@ async def _resolve(id: str | None, lon: float | None, lat: float | None) -> Parc
     except ParcelNotFound as e:
         raise HTTPException(404, f"Nie znaleziono działki: {e}") from e
     except UldkLimited as e:
-        raise HTTPException(503, str(e), headers={"Retry-After": "60"}) from e
+        if not id and lon is not None and lat is not None:
+            try:  # punkt z mapy: analizujemy otoczenie punktu zamiast zatrzymywać całą analizę
+                return approximate_from_point(lon, lat)
+            except ParcelNotFound as e2:
+                raise HTTPException(404, f"Nie znaleziono działki: {e2}") from e2
+        raise HTTPException(503, str(e) + " Możesz też kliknąć swoje pole na mapie.",
+                            headers={"Retry-After": "60"}) from e
     raise HTTPException(422, "Podaj identyfikator działki (id) albo współrzędne (lon, lat).")
 
 
@@ -77,7 +97,8 @@ async def profile(id: str | None = None, lon: float | None = None, lat: float | 
                   date_: date | None = Query(None, alias="date"), crop: str | None = None,
                   blocks: str | None = Query(None, description="lista kluczy po przecinku"),
                   no_cache: bool = False) -> ParcelProfile:
-    ctx = AnalysisContext(parcel=await _resolve(id, lon, lat), as_of=_validate_date(date_), crop=crop)
+    as_of = _validate_date(date_)  # najpierw tania walidacja, potem ULDK
+    ctx = AnalysisContext(parcel=await _resolve(id, lon, lat), as_of=as_of, crop=crop)
     keys = [k for k in blocks.split(",") if k in BLOCKS] if blocks else None
     return await build_profile(ctx, keys, use_cache=not no_cache)
 
@@ -89,5 +110,6 @@ async def block(key: str, id: str | None = None, lon: float | None = None, lat: 
     """Pojedynczy blok – frontend odpytuje wszystkie równolegle i renderuje progresywnie."""
     if key not in BLOCKS:
         raise HTTPException(404, f"Nieznany blok: {key}")
-    ctx = AnalysisContext(parcel=await _resolve(id, lon, lat), as_of=_validate_date(date_), crop=crop)
+    as_of = _validate_date(date_)  # najpierw tania walidacja, potem ULDK
+    ctx = AnalysisContext(parcel=await _resolve(id, lon, lat), as_of=as_of, crop=crop)
     return await run_block(key, ctx, use_cache=not no_cache)

@@ -162,3 +162,17 @@ async def resolve_many(ids: list[str]) -> ParcelRef:
     for pid in clean:          # po kolei: przy limicie ULDK równoległe zapytania tylko pogarszają sprawę
         refs.append(await resolve_by_id(pid))
     return merge_parcels(refs)
+
+
+def approximate_from_point(lon: float, lat: float, half_m: float = 50.0) -> ParcelRef:
+    """Zapas, gdy GUGiK ogranicza zapytania: kwadrat ~1 ha wokół klikniętego punktu (bez granic działki).
+    Analiza meteo/gleby/satelity/terenu nadal ma sens dla tego miejsca – raport mówi o tym wprost."""
+    from shapely.geometry import box
+    if not (14.0 <= lon <= 24.2 and 49.0 <= lat <= 55.0):
+        raise ParcelNotFound("punkt leży poza Polską")
+    dlat = half_m / 111_320
+    dlon = half_m / (111_320 * max(0.2, __import__("math").cos(__import__("math").radians(lat))))
+    geom = box(lon - dlon, lat - dlat, lon + dlon, lat + dlat)
+    return ParcelRef(id=f"punkt {lat:.5f}, {lon:.5f}", geometry=GeoJSONGeometry(**geom_to_geojson(geom)),
+                     centroid=(round(lon, 6), round(lat, 6)), bbox=geom.bounds, area_ha=round(area_ha(geom), 4),
+                     approximate=True)

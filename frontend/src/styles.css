@@ -1819,3 +1819,340 @@ html.a11y-contrast .text-muted-foreground, html.a11y-contrast small { color: #1a
   html:is(.a11y-zoom-125, .a11y-zoom-150) .brand-caption { display: none; }
 }
 html:is(.a11y-zoom-125, .a11y-zoom-150) :is(.chart-box, .recharts-responsive-container) { overflow: hidden; max-width: 100%; }
+/* ───────────── AgroLegal: plakietki formalności, plan, dotacje, oczko ───────────── */
+.formality-badge { display: inline-flex; align-items: center; gap: 4px; border-radius: 4px; padding: 3px 8px;
+  font-weight: 700; font-size: 11px; border: 1px solid transparent; }
+.formality-badge.f-none, .plan-col.f-none h3 { color: var(--primary); background: var(--secondary); }
+.formality-badge.f-notice, .plan-col.f-notice h3 { color: var(--water); background: var(--water-soft); }
+.formality-badge.f-permit, .plan-col.f-permit h3 { color: var(--warning); background: var(--warning-soft); }
+.call-badge { display: inline-block; border-radius: 3px; padding: 1px 6px; font-size: 11px; font-weight: 600; }
+.call-badge.c-open { color: var(--primary); background: var(--secondary); }
+.call-badge.c-closed { color: var(--danger); background: var(--danger-soft); }
+.call-badge.c-unknown { color: var(--warning); background: var(--warning-soft); }
+.funding-list { margin: 4px 0 0; padding-left: 18px; list-style: disc; }
+.funding-list li { margin: 4px 0; }
+.funding-scope { font-size: 0.78rem; color: var(--muted-foreground); }
+.legal-plan .plan-columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.plan-col { border: 1px solid var(--border); border-radius: 8px; background: var(--card); overflow: hidden; }
+.plan-col h3 { display: flex; align-items: center; gap: 6px; margin: 0; padding: 10px 12px; font-size: 1rem; }
+.plan-col ul { margin: 0; padding: 6px 12px 12px; list-style: none; }
+.plan-col li { padding: 8px 0; border-bottom: 1px solid var(--border); display: grid; gap: 3px; font-size: 0.95rem; }
+.plan-col li:last-child { border-bottom: 0; }
+.plan-meta { font-size: 0.8rem; color: var(--muted-foreground); }
+.plan-empty { padding: 10px 12px; color: var(--muted-foreground); font-size: 0.85rem; margin: 0; }
+.plan-action { justify-self: start; display: inline-flex; align-items: center; gap: 5px; margin-top: 4px;
+  background: var(--water); color: #fff; border: 0; border-radius: 6px; padding: 8px 12px; font-size: 0.9rem;
+  font-weight: 700; cursor: pointer; min-height: 40px; }
+.plan-action:hover { filter: brightness(1.1); }
+.plan-note { display: flex; gap: 6px; align-items: flex-start; font-size: 0.8rem; color: var(--muted-foreground); margin-top: 10px; }
+.pond-calc { border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; margin: 0 0 16px; background: var(--water-soft); }
+.pond-calc h3 { display: flex; align-items: center; gap: 6px; margin: 0 0 10px; font-size: 1rem; }
+.pond-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 8px; }
+.pond-grid div { background: var(--card); border-radius: 6px; padding: 10px; display: grid; gap: 2px; }
+.pond-grid strong { font-size: 1.05rem; }
+.pond-grid span { font-size: 0.75rem; color: var(--muted-foreground); }
+@media (max-width: 760px) {
+  .legal-plan .plan-columns { grid-template-columns: 1fr; }
+  .pond-grid { grid-template-columns: 1fr 1fr; }
+}
+@media print {
+  .plan-action { display: none; }
+}
+
+/* ───────────── LLM: „Wytłumacz mi prosto” + czat działki ───────────── */
+.llm-source {
+  display: inline-block;
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.simple-explain {
+  margin: 0 0 18px;
+  padding: 16px 18px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: color-mix(in oklch, var(--water-soft) 55%, var(--card));
+}
+.simple-explain-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.simple-explain-head h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: var(--font-display);
+  color: var(--primary);
+}
+.simple-explain-head svg { color: var(--water); flex: none; }
+.simple-explain-headline {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--foreground);
+}
+.simple-explain-p {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+.simple-explain-todo {
+  margin: 12px 0 8px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+.simple-explain-todo li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-size: 1.05rem;
+}
+.simple-explain-todo-text { flex: 1 1 12rem; min-width: 0; }
+.simple-explain-disclaimer {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+}
+.simple-explain-loading { margin: 0 0 8px; color: var(--muted-foreground); }
+.simple-explain-retry { margin-top: 8px; }
+
+.parcel-chat-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--water);
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 700;
+  box-shadow: 0 6px 20px oklch(0.4 0.08 235 / 0.35);
+  cursor: pointer;
+}
+.parcel-chat-fab:hover { filter: brightness(1.08); }
+.parcel-chat-fab:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+.parcel-chat-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+.parcel-chat-sheet {
+  width: min(100vw, 28rem) !important;
+  max-width: 28rem !important;
+  padding: 0 !important;
+}
+.parcel-chat-drawer {
+  max-height: min(92vh, 720px);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+.parcel-chat-header {
+  padding: 16px 20px 8px !important;
+  text-align: left !important;
+}
+.parcel-chat-header h2,
+.parcel-chat-header [data-slot="drawer-title"],
+.parcel-chat-panel [class*="SheetTitle"],
+.parcel-chat-panel h2 {
+  font-size: 1.35rem !important;
+  font-family: var(--font-display);
+}
+.parcel-chat-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  padding: 0 16px 16px;
+  gap: 12px;
+}
+.parcel-chat-messages {
+  flex: 1;
+  min-height: 180px;
+  max-height: min(48vh, 420px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 2px 8px;
+}
+.parcel-chat-welcome {
+  margin: 8px 0;
+  color: var(--muted-foreground);
+  font-size: 1.05rem;
+}
+.parcel-chat-bubble {
+  max-width: 95%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
+.parcel-chat-bubble p { margin: 0; }
+.parcel-chat-bubble.user {
+  align-self: flex-end;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border-bottom-right-radius: 4px;
+}
+.parcel-chat-bubble.assistant {
+  align-self: flex-start;
+  background: var(--muted);
+  border-bottom-left-radius: 4px;
+}
+.parcel-chat-bubble.loading { color: var(--muted-foreground); font-style: italic; }
+.parcel-chat-meta {
+  margin-top: 8px;
+  display: grid;
+  gap: 6px;
+}
+.parcel-chat-citations {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+.parcel-chat-citations a {
+  color: var(--water);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.parcel-chat-bubble .llm-source { margin-left: 0; }
+.parcel-chat-error { color: var(--danger); margin: 0; font-size: 1rem; }
+.parcel-chat-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.parcel-chat-chip {
+  border: 1.5px solid var(--border);
+  background: var(--card);
+  color: var(--foreground);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  min-height: 44px;
+  line-height: 1.3;
+}
+.parcel-chat-chip:hover:not(:disabled) {
+  border-color: var(--water);
+  background: var(--water-soft);
+}
+.parcel-chat-chip:disabled { opacity: 0.55; cursor: not-allowed; }
+.parcel-chat-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: end;
+}
+.parcel-chat-form textarea {
+  width: 100%;
+  resize: none;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  background: var(--card);
+  color: var(--foreground);
+  min-height: 56px;
+}
+.parcel-chat-form textarea:focus {
+  outline: 3px solid var(--water);
+  outline-offset: 0;
+  border-color: var(--water);
+}
+.parcel-chat-form button { min-height: 56px; font-size: 1.05rem; }
+
+@media (max-width: 520px) {
+  .parcel-chat-fab {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    justify-content: center;
+    border-radius: 12px;
+  }
+  .simple-explain-headline { font-size: 1.15rem; }
+  .parcel-chat-form { grid-template-columns: 1fr; }
+  .parcel-chat-form button { width: 100%; }
+}
+@media print {
+  .parcel-chat-fab,
+  .simple-explain-retry { display: none !important; }
+}
+
+/* ── dwa niezależne obszary przewijania: „Twoja działka” (lewa) i raport (prawa) ──
+   Na komputerze po rozpoczęciu analizy strona ma wysokość okna, a każda kolumna przewija się osobno – rolnik czyta raport
+   i jednocześnie widzi swoją działkę i mapę. Telefon, lupa 150% (jedna kolumna) i wydruk – bez zmian (zwykłe przewijanie). */
+@media screen and (min-width: 801px) {
+  html:not(.a11y-zoom-150) .page:has(> .workspace:not(.landing)) > .intro,
+  html:not(.a11y-zoom-150) .page:has(> .workspace:not(.landing)) > .site-footer { display: none; }
+  html:not(.a11y-zoom-150) .workspace:not(.landing) {
+    height: calc(100dvh - 84px);
+    padding-top: 16px;
+    box-sizing: border-box;
+    align-items: stretch;
+  }
+  html:not(.a11y-zoom-150) .workspace:not(.landing) > :is(.field-column, .report-column) {
+    position: static;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding-bottom: 28px;
+    padding-right: 4px;
+  }
+  html:not(.a11y-zoom-150) .workspace:not(.landing) > .report-column .report-toolbar {
+    position: sticky; top: 0; z-index: 20; background: var(--background);
+  }
+}
+
+/* ── wydruk: części AgroLegal (wyjaśnienie AI, plan formalności, kalkulator oczka) ── */
+@media print {
+  .simple-explain { break-inside: auto; border: 1px solid var(--border); box-shadow: none; }
+  .simple-explain-headline, .simple-explain-todo li, .plan-col li, .pond-calc, .pond-grid div,
+  .funding-list li, .formality-badge { break-inside: avoid; }
+  .simple-explain-retry, .parcel-chat-fab, .plan-action, .llm-source { display: none !important; }
+  .legal-plan .plan-columns { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .plan-col h3 { font-size: 11px; padding: 6px 8px; }
+  .plan-col li { font-size: 10px; padding: 5px 0; }
+  .plan-note { display: block; font-size: 9px; }
+  .plan-note svg { display: none; }
+  .pond-grid { grid-template-columns: repeat(4, 1fr); }
+  .formality-badge, .call-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ── wydruk raportu analityka: jedna kolumna, karty mogą przechodzić przez strony (wcześniej dwie kolumny z kartami
+   „bez łamania” zostawiały puste pół-strony), wykresy przycięte do karty (Recharts liczy szerokość z ekranu) ── */
+@media print {
+  .analyst-grid { display: block !important; }
+  .data-card { break-inside: auto !important; margin: 0 0 12px !important; box-shadow: none !important; }
+  .data-card-title, .data-card h2, .metrics { break-after: avoid; break-inside: avoid; }
+  .data-card .chart-box { overflow: hidden !important; }
+  .data-table thead, .sheet-table thead { display: table-header-group; }   /* nagłówek tabeli na każdej stronie */
+}

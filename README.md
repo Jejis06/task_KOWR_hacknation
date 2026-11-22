@@ -22,6 +22,18 @@ Jeden kontener: FastAPI serwuje API (`/api/…`) i zbudowany frontend (`/`). Pli
 
 Lokalnie bez Dockera: `cd frontend && npm run build`, potem `cd backend && uv run uvicorn app.main:app --port 10000` – strona pod http://localhost:10000.
 
+## Analiza AI i formalności (z projektu AgroLegal)
+
+- **„Wytłumacz mi prosto”** nad raportem i czat **„Zapytaj o swoją działkę”** – OpenAI `gpt-5.4-mini` (`POST /api/llm/summary`,
+  `POST /api/llm/chat`, kontrakt w `docs/llm_contract.md`). Klucz w `.env` jako `OPENAI_API_KEY` (wzór `.env.example`; na
+  Renderze zmienna środowiskowa). **LLM wyjaśnia, nie decyduje**: ocena, formalności, opłaty i statusy naborów pochodzą z reguł;
+  model dostaje fakty i przepisy jako ponumerowane źródła, linki i plakietki dobiera serwer (testy: `backend/tests/test_llm.py`).
+  Bez klucza – teksty z szablonów.
+- **Formalności przy każdym działaniu** (bez formalności / zgłoszenie / pozwolenie, opłata za rok analizy, urząd, czas) i sekcja
+  **„Twój plan: co wolno i za ile”**; **dotacje ze statusem naboru**; **kalkulator oczka** (zagłębienie > 5000 m² → oczko 5000 m²
+  na zgłoszenie); **wstępnie wypełnione zgłoszenie wodnoprawne** do druku: `/api/forms/zgloszenie?id=…&date=…`.
+- Link prosto do widoku analityka: `?dzialka=…&data=…&uprawa=…&widok=dane`.
+
 ## Stan (F1 – dane)
 Działają: lokalizacja działki (GUGiK ULDK), meteo z 10 lat (Open-Meteo, a przy limicie NASA POWER; ET0 FAO-56), prognoza,
 lokalna baza wiedzy (prawo wodne, procedury, dofinansowania, prawo UE, uprawy). Pozostałe bloki są w budowie (AGENTS.md §4).

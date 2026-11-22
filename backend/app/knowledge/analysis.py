@@ -124,13 +124,40 @@ def cover_crop_options(ctx: AnalysisContext, soil: dict | None, n: int = 3) -> l
 
 def _funding_refs(ids: list[str]) -> list[FundingRef]:
     out = []
+    kinds = loader.meta("funding").get("call_kinds") or {}
     for i in ids:
         it = loader.get_item("funding", i)
         if not it:
             continue
         url = next((u for u in (loader.public_source(x) for x in it.get("sources") or []) if u), None)
-        out.append(FundingRef(name=it.get("name") or i, url=url))
+        kind = it.get("call_kind") or "unknown"
+        out.append(FundingRef(name=it.get("name") or i, url=url, call_kind=kind, call_label=kinds.get(kind),
+                              call=it.get("call"), scope=it.get("scope")))
     return out
+
+
+# ───────────────────── AgroLegal: czy wolno i za ile ─────────────────────
+FORMALITY_LABEL = {"none": "Bez formalności", "notification": "Zgłoszenie wodnoprawne",
+                   "permit": "Pozwolenie wodnoprawne", "depends": "Zależy od wykonania"}
+FORMALITY_WAIT = {"notification": "ok. 30 dni (urząd ma 30 dni na sprzeciw)",
+                  "permit": "kilka miesięcy – złóż przed sezonem"}
+FORMALITY_PROC = {"notification": "zgloszenie_wodnoprawne", "permit": "pozwolenie_wodnoprawne"}
+
+
+def apply_formality(rec: Recommendation, measure: dict, ctx: AnalysisContext, d: dict[str, dict | None]) -> None:
+    """Uzupełnia kartę rekomendacji o formalności z katalogu działań (reguły, nie LLM) i opłatę dla roku analizy."""
+    f = measure.get("formality") or "none"
+    note = measure.get("formality_note")
+    if _strict_protected(d.get("protected_areas")) and rec.group != "agrotechnika":
+        f = "depends"
+        note = "Działka w parku narodowym lub rezerwacie – budowa urządzeń wodnych praktycznie wykluczona; " \
+               "każde działanie uzgodnij z dyrekcją parku lub RDOŚ."
+    rec.formality, rec.formality_label, rec.formality_note = f, FORMALITY_LABEL[f], note
+    rec.wait = FORMALITY_WAIT.get(f)
+    if proc := loader.get_item("procedures", FORMALITY_PROC.get(f, "")):
+        fees = proc.get("fees") or {}
+        rec.fee_pln = fees.get(str(ctx.as_of.year)) or fees.get(ctx.as_of.year) or proc.get("fee_pln")
+        rec.office = proc.get("organ")
 
 
 def mulch_options() -> list[SowingOption]:
@@ -461,6 +488,7 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
                                    addresses=list(m.get("addresses") or []), legal_ids=list(m.get("legal_ids") or []),
                                    funding_ids=list(m.get("funding") or []), where_geojson=where, evidence=ev,
                                    sowing=sowing or [], funding=_funding_refs(m.get("funding") or [])))
+        apply_formality(recs[-1], m, ctx, d)
 
     # retencja krajobrazowa – nie w parku narodowym / rezerwacie (budowa urządzeń praktycznie wykluczona)
     if not strict:
@@ -545,7 +573,9 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
             add("pas_buforowy", "Pas zieleni lub zadrzewienie tam, gdzie woda ucieka z pola" if exits
                 else "Pas zieleni lub zadrzewienie na granicy pola", why, ev, when="jesień lub wczesna wiosna", where=where)
         grass = (lc or {}).get("classes", {})
-        is_grass = ctx.crop == "tuz" or (grass and max(grass, key=grass.get, default="").lower().startswith(("traw", "łąk")))
+        # wybrana uprawa ma pierwszeństwo: WorldCover zimą często bierze pole orne za trawę (kukurydza ≠ łąka)
+        is_grass = ctx.crop == "tuz" or (not ctx.crop and grass
+                                         and max(grass, key=grass.get, default="").lower().startswith(("traw", "łąk")))
         wet = (terr or {}).get("position") in ("valley", "depression") or (hyd or {}).get("in_groundwater_flood_area")
         if is_grass and wet:
             add("mokradlo", "Podniesienie poziomu wody na łące (ekoschemat TUZ)",
@@ -731,6 +761,47 @@ def irrigation(ctx: AnalysisContext, d: dict[str, dict | None]) -> IrrigationAdv
                             evidence=ev + [_ev(label, src)], **common)
 
 
+# Koszt wykopu małego zbiornika ziemnego (koparka, wywóz/rozplantowanie urobku), bez uszczelnienia – SZACUNEK zespołu
+POND_COST_PLN_M3 = (15.0, 40.0)
+POND_NOTIFICATION_MAX_M2 = 5000   # art. 394 ust. 1 pkt 9 Prawa wodnego (głębokość ≤ 3 m)
+I104_MAX_SHARE = 0.65             # I.10.4: rolnik do 65% kosztów kwalifikowanych (grupa rolników do 80%)
+
+
+def pond_economics(ctx: AnalysisContext, res: AnalysisResult) -> None:
+    """Kalkulator oczka (ROI w wersji uczciwej): ile wody da się zatrzymać, ile to kosztuje, ile może wrócić z dotacji.
+    Bez wyceny plonu – to byłaby pozorna precyzja. Wszystkie kwoty jako widełki i SZACUNEK.
+
+    Zagłębienie > 5000 m²: proponujemy oczko do 5000 m² w jego najniższej części – mieści się w zgłoszeniu wodnoprawnym
+    (art. 394 ust. 1 pkt 9), więc rolnik może je zrobić w ~30 dni zamiast czekać miesiącami na pozwolenie.
+    Objętość skalujemy proporcjonalnie do powierzchni (przybliżenie – środek zagłębienia jest zwykle głębszy, więc to dolny szacunek)."""
+    wb = res.water_balance or {}
+    dep_vol, dep_area = wb.get("depression_volume_m3"), wb.get("depression_area_m2")
+    rec = next((r for r in res.recommendations if r.measure_id == "oczko_zbiornik"), None)
+    if not dep_vol or not rec:
+        return
+    capped = bool(dep_area and dep_area > POND_NOTIFICATION_MAX_M2)
+    area = POND_NOTIFICATION_MAX_M2 if capped else dep_area
+    vol = dep_vol * (POND_NOTIFICATION_MAX_M2 / dep_area) if capped else dep_vol
+    inflow = wb.get("depression_inflow_m3")
+    stored = round(min(vol, inflow) if inflow else vol)
+    lo, hi = (round(vol * c, -2) for c in POND_COST_PLN_M3)
+    if capped and rec.formality == "notification":
+        rec.formality_note = (f"Całe zagłębienie ma ok. {dep_area:,.0f} m². Proponujemy oczko do 5000 m² i 3 m głębokości "
+                              "w jego najniższej części – wtedy wystarczy zgłoszenie wodnoprawne (30 dni). Oczko na całym "
+                              "zagłębieniu wymagałoby pozwolenia wodnoprawnego (kilka miesięcy).").replace(",", " ")
+    covers = round(vol / wb["season_deficit_m3"] * 100, 1) if wb.get("season_deficit_m3") else None
+    wb["pond"] = {
+        "volume_m3": round(vol), "area_m2": round(area) if area else None, "stored_per_year_m3": stored,
+        "cost_pln_min": lo, "cost_pln_max": hi, "cost_basis": f"{POND_COST_PLN_M3[0]:.0f}–{POND_COST_PLN_M3[1]:.0f} zł/m³ "
+        "wykopu (SZACUNEK; bez uszczelnienia, mnicha i przelewu)",
+        "subsidy_pln_max": round(hi * I104_MAX_SHARE, -2), "subsidy_note": "I.10.4 – do 65% kosztów, ale w 2026 r. brak "
+        "naboru; koszt musiałbyś ponieść przed zwrotem (refundacja)",
+        "fee_pln": rec.fee_pln, "formality": rec.formality, "needs_permit": False,
+        "capped": capped, "depression_area_m2": round(dep_area) if dep_area else None,
+        "depression_volume_m3": round(dep_vol), "covers_season_pct": covers,
+    }
+
+
 # ───────────────────────────── blok ─────────────────────────────
 def analyse_all(ctx: AnalysisContext, d: dict[str, dict | None], not_applicable: set[str] | None = None) -> AnalysisResult:
     missing = [DEP_TITLES[k] for k, v in d.items() if v is None and k not in (not_applicable or set())]
@@ -744,6 +815,7 @@ def analyse_all(ctx: AnalysisContext, d: dict[str, dict | None], not_applicable:
     res.water_balance = water_balance(ctx, d)
     res.recommendations = recommendations(ctx, d, res.causes, res.water_balance)
     res.irrigation = irrigation(ctx, d)
+    pond_economics(ctx, res)
     if _strict_protected(d["protected_areas"]):
         res.limitations.append("Działka leży w parku narodowym lub rezerwacie – nie proponujemy budowy zbiorników, "
                                "zastawek ani urządzeń wodnych; każde działanie uzgodnij z dyrekcją parku / RDOŚ.")
@@ -761,6 +833,9 @@ def analyse_all(ctx: AnalysisContext, d: dict[str, dict | None], not_applicable:
         "Bilans FAO-56 bez spływu powierzchniowego i podsiąku z wód gruntowych, start z gleby w pojemności polowej "
         "na początku sezonu; Kc i Ky z tabel FAO-56 są ogólnoświatowe (dla Polski przybliżone).",
     ]
+    if ctx.parcel.approximate:
+        res.limitations.insert(0, "Usługa działek GUGiK była niedostępna – analizujemy ok. 1 ha wokół wskazanego punktu, "
+                                  "a nie dokładne granice działki ewidencyjnej.")
     if missing:
         res.limitations.append("Bez danych z bloków: " + ", ".join(missing) + " – te czynniki pominięto.")
     res.method = [
@@ -784,7 +859,7 @@ class AnalysisConnector(Connector):
     uses_crop = True
     live_ttl_s = 3 * 3600
     timeout_s = 20
-    cache_version = 6   # 6: kilka zbiorników; 5: zgrubny DEM – bez zagłębień na małych działkach; 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
+    cache_version = 8   # 8: reguła łąki respektuje wybraną uprawę; 7: AgroLegal – formalności, statusy naborów, oczko do 5000 m² (zgłoszenie); 6: kilka zbiorników; 5: zgrubny DEM – bez zagłębień na małych działkach; 4: międzyplon/mulcz
     depends_on: ClassVar[tuple[str, ...]] = DEPS
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:

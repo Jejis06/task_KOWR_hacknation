@@ -3,13 +3,15 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_prefix="WODA_", env_file=".env", extra="ignore")
+    # .env w katalogu repo (uruchomienie z backend/) albo w bieżącym katalogu
+    model_config = SettingsConfigDict(env_prefix="WODA_", env_file=(REPO_ROOT / ".env", ".env"), extra="ignore")
 
     # Ścieżki
     cache_dir: Path = REPO_ROOT / "data" / "cache"
@@ -31,6 +33,12 @@ class Settings(BaseSettings):
 
     # CORS dla frontendu
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
+
+    # LLM (OpenAI) – tylko do wyjaśnień prostym językiem i czatu; decyzje prawne zostają w regułach.
+    # Bez klucza aplikacja działa w pełni (szablony tekstów zamiast LLM).
+    openai_api_key: str | None = Field(default=None, validation_alias=AliasChoices("OPENAI_API_KEY", "WODA_OPENAI_API_KEY"))
+    openai_model: str = "gpt-5.4-mini"
+    llm_timeout_s: float = 15.0
 
 
 settings = Settings()

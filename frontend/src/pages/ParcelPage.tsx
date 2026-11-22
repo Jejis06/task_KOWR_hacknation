@@ -35,6 +35,7 @@ import {
 } from "@/api/client";
 import Report from "@/components/water/Report";
 import Analyst from "@/components/water/Analyst";
+import { ParcelChat } from "@/components/water/ParcelChat";
 import { formatDate, Term } from "@/components/water/shared";
 import { groupParcels, looksLikeAddress, looksLikeParcelId } from "@/lib/groups";
 import { useA11y } from "@/lib/a11y";
@@ -64,8 +65,8 @@ function Brand() {
         />
       </svg>
       <div>
-        <div className="brand-name">Zatrzymaj wodę</div>
-        <div className="brand-caption">Dobra woda. Dobra ziemia.</div>
+        <div className="brand-name">AgroLegal</div>
+        <div className="brand-caption">Woda na polu – co zrobić, czy wolno, za ile</div>
       </div>
     </div>
   );
@@ -110,6 +111,7 @@ export function ParcelPage() {
     if (!ids) return;
     const d = q.get("data") && validDate(q.get("data")!) ? q.get("data")! : date;
     const c = q.get("uprawa") ?? "";
+    if (q.get("widok") === "dane") setTab("data");   // link prosto do widoku analityka
     setDate(d);
     setCrop(c);
     setId(ids.includes("+") ? "" : ids);
@@ -255,7 +257,8 @@ export function ParcelPage() {
     setLoading(true);
     setCount(0);
     setBlocks({});
-    setTab("report");
+    // nowa analiza otwiera raport rolnika – chyba że link prosi o widok analityka (?widok=dane)
+    setTab(new URLSearchParams(window.location.search).get("widok") === "dane" ? "data" : "report");
     setHighlight(null);
     try {
       const p = await api.resolve({ id: parcelId.trim() }, ctrl.signal);
@@ -265,7 +268,9 @@ export function ParcelPage() {
       setContext({ date: d, crop: c, parcel: p });
       // link do tego raportu (do udostępnienia, druku, testów jury)
       const url = new URL(window.location.href);
-      url.search = new URLSearchParams({ dzialka: p.id, data: d, ...(c ? { uprawa: c } : {}) }).toString();
+      const view = new URLSearchParams(window.location.search).get("widok");
+      url.search = new URLSearchParams({ dzialka: p.id, data: d, ...(c ? { uprawa: c } : {}),
+        ...(view === "dane" ? { widok: "dane" } : {}) }).toString();
       window.history.replaceState(null, "", url);
       setTotal(definitions.length);
       await Promise.all(
@@ -357,7 +362,7 @@ export function ParcelPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `zatrzymaj-wode-${(context.parcel?.id ?? "dzialka").replace(/[^\w.-]/g, "_")}-${context.date}.json`;
+    link.download = `agrolegal-${(context.parcel?.id ?? "dzialka").replace(/[^\w.-]/g, "_")}-${context.date}.json`;
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
@@ -432,9 +437,10 @@ export function ParcelPage() {
         </div>
         {context.parcel && (
           <div className="print-only print-title">
-            <h1>Zatrzymaj wodę – raport · {parcelTitle(context.parcel)}</h1>
+            <h1>AgroLegal – {tab === "data" ? "raport analityka" : "raport dla rolnika"} · {parcelTitle(context.parcel)}</h1>
             <p>
-              {context.parcel.region_name ? `Obręb ${context.parcel.region_name} · ` : ""}gmina {context.parcel.commune ?? "—"} ·{" "}
+              {context.parcel.approximate ? "Punkt z mapy (granice działki przybliżone) · "
+                : `${context.parcel.region_name ? `Obręb ${context.parcel.region_name} · ` : ""}gmina ${context.parcel.commune ?? "—"} · `}
               {context.parcel.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha · dzień oceny {formatDate(context.date)} ·
               uprawa: {crops.find((c) => c.id === context.crop)?.name_pl ?? "nie wybrano"} · wygenerowano {formatDate(new Date().toISOString())}
             </p>
@@ -620,7 +626,8 @@ export function ParcelPage() {
                 <span className="area-label">{selected.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha</span>
               </div>
               <div className="parcel-location">
-                {selected.region_name ? `Obręb ${selected.region_name} · ` : ""}gmina {selected.commune} · {selected.county}
+                {selected.approximate ? "Punkt z mapy – granice działki przybliżone (usługa GUGiK chwilowo niedostępna)"
+                  : `${selected.region_name ? `Obręb ${selected.region_name} · ` : ""}gmina ${selected.commune} · ${selected.county}`}
               </div>
               <div className="source-line">
                 {USE_MOCKS
@@ -752,19 +759,34 @@ export function ParcelPage() {
               <Report
                 blocks={blocks}
                 date={context.date}
+                parcelId={context.parcel?.id}
+                crop={context.crop}
                 onMap={showMap}
                 onData={showData}
                 loading={loading}
+                onPrepare={context.parcel ? () => {
+                  const q = new URLSearchParams({ id: context.parcel!.id, date: context.date });
+                  if (context.crop) q.set("crop", context.crop);
+                  window.open(`/api/forms/zgloszenie?${q}`, "_blank", "noopener");
+                } : undefined}
               />
             ) : (
               <Analyst blocks={blocks} onMap={showMap} loading={loading} date={context.date} />
             )}
           </div>}
         </div>
+        {context.parcel && tab === "report" && started && (
+          <ParcelChat
+            parcelId={context.parcel.id}
+            date={context.date}
+            crop={context.crop}
+            visible={!loading}
+          />
+        )}
         <footer className="site-footer">
           <span className="footer-brand">
             <Droplets size={14} />
-            Zatrzymaj wodę
+            AgroLegal
           </span>
           <span>Dla rolników. Dla ziemi. Dla przyszłości.</span>
           <span>
@@ -778,7 +800,7 @@ export function ParcelPage() {
           <DialogHeader>
             <DialogTitle>Woda na polu, krok po kroku</DialogTitle>
             <DialogDescription>
-              „Zatrzymaj wodę” pomaga zrozumieć niedobór wody i wybrać kolejność działań.
+              AgroLegal pokazuje, jak zatrzymać wodę na polu, czy to wymaga zgłoszenia lub pozwolenia i skąd wziąć na to pieniądze.
             </DialogDescription>
           </DialogHeader>
           <div className="help-content">

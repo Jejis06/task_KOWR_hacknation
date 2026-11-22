@@ -7,8 +7,32 @@ meta:
     - "Inwestycje trwale związane z nieruchomością – tylko na gruntach własnych wnioskodawcy (lub w użytkowaniu wieczystym)."
     - "Brak dedykowanego programu na zbiorniki retencyjne dla pojedynczego rolnika (stan 11.2026)."
 
+
+  call_kinds:
+    continuous: "nabór ciągły"
+    annual: "co roku we wniosku obszarowym (15 marca – maj)"
+    open: "nabór trwa"
+    closed: "brak naboru w 2026 – czekaj na kolejny"
+    unknown: "termin naboru do sprawdzenia"
+
 items:
+  - id: ekoschemat_weglowe
+    call_kind: annual
+    name: Ekoschemat „Rolnictwo węglowe i zarządzanie składnikami odżywczymi”
+    applicant: rolnik, we wniosku obszarowym (eWniosekPlus)
+    scope: "Płatność za praktyki na gruntach ornych, m.in. międzyplony ozime lub wsiewki śródplonowe (E_MPW), uproszczone systemy uprawy, wymieszanie słomy z glebą. Stawka międzyplonów w 2025 r.: 437,60 zł/ha."
+    call: "co roku w kampanii wniosków obszarowych ARiMR (od 15 marca)"
+    call_status: OK
+    rate_status: DO_WERYFIKACJI
+    for_farmer: true
+    measures: [miedzyplony, resztki_mulcz, uprawa_uproszczona]
+    status: OK
+    sources:
+      - https://www.gov.pl/web/rolnictwo/start-kampanii-doplat-bezposrednich-2026--wnioski-od-15-marca
+      - https://superbiz.se.pl/agro/pulapka-ekologicznych-doplat-rolnicy-traca-bo-zapominaja-o-kluczowej-rzeczy-aa-ZGBj-wNfk-Bkg7.html
+
   - id: fgr_plus
+    call_kind: continuous
     name: Kredyt z gwarancją FGR Plus (I.10.1.2, BGK)
     applicant: rolnik, przez bank
     scope: "Gwarancja do 80% kredytu; dopłata 60% raty odsetkowej do 24 mies.; oprocentowanie ≤6%"
@@ -24,6 +48,7 @@ items:
       - data/knowledge/raw/fgr_plus.txt
 
   - id: arimr_i1011
+    call_kind: closed
     name: ARiMR I.10.1.1 – inwestycje zwiększające konkurencyjność
     applicant: rolnik
     scope: "65% kosztów kwalifikowanych (rolnik ≤40 lat lub gospodarstwo ekologiczne), 45% pozostali"
@@ -38,6 +63,7 @@ items:
       - data/knowledge/raw/arimr_harmonogram_2026.txt
 
   - id: arimr_i104
+    call_kind: closed
     name: I.10.4 – inwestycje przyczyniające się do ochrony środowiska i klimatu
     applicant: rolnik lub grupa rolników (min. 3)
     scope: "M.in. systemy retencji wody (zbiorniki na wodę opadową), odzysk wody, maszyny do uprawy bezorkowej i siewu bezpośredniego, mulczery; rolnik do 65%, grupa do 80%"
@@ -56,6 +82,7 @@ items:
       - data/knowledge/raw/arimr_harmonogram_2026.txt
 
   - id: ekoschemat_tuz
+    call_kind: annual
     name: Ekoschemat „Retencjonowanie wody na trwałych użytkach zielonych”
     applicant: rolnik, we wniosku obszarowym
     scope: "Ok. 260,69 zł/ha/rok; warunek: zalanie lub podtopienie TUZ (≥80% wysycenia profilu) między 1 maja a 30 września"
@@ -67,6 +94,7 @@ items:
     sources: [https://www.gov.pl/attachment/5b8e988c-33e8-4d41-bda7-82157d073500]
 
   - id: interwencja_8_torfowiska
+    call_kind: annual
     name: Interwencja rolno-środowiskowo-klimatyczna 8 – ochrona torfowisk i obszarów podmokłych
     applicant: rolnik
     scope: "Wariant 8.1 TUZ: 581 zł/ha/rok"
@@ -77,6 +105,7 @@ items:
     sources: [https://www.gov.pl/attachment/bc53298a-c0a2-41b8-80e1-8a1a5616c7fe]
 
   - id: epi_grupy_operacyjne
+    call_kind: closed
     name: Grupy Operacyjne EPI (I.13.5)
     applicant: "konsorcjum: min. 1 rolnik + min. 1 inny partner"
     scope: "Etap 1: wsparcie przygotowawcze do 50 000 zł; etap 2: realizacja operacji (pilotaż)"
@@ -87,6 +116,7 @@ items:
     sources: [https://www.gov.pl/attachment/4409f804-48ef-4707-befe-75c3b8607791, data/knowledge/raw/arimr_harmonogram_2026.txt]
 
   - id: nfosigw_adaptacja
+    call_kind: open
     name: NFOŚiGW „Adaptacja do zmian klimatu”
     applicant: "DO_WERYFIKACJI – prawdopodobnie samorządy i instytucje"
     scope: "Ok. 900 mln zł dotacji i pożyczek na odporność na susze i powodzie"
@@ -96,6 +126,7 @@ items:
     sources: ["https://www.gramwzielone.pl/?p=20381695"]
 
   - id: feniks_retencja
+    call_kind: unknown
     name: FEnIKS / FEPW – mała i średnia retencja (NFOŚiGW)
     applicant: samorządy, instytucje
     scope: "Ok. 8 mld zł łącznie; rolnik pośrednio – przez projekt gminy"
@@ -104,6 +135,7 @@ items:
     sources: [https://www.gov.pl/web/nfosigw/kazda-kropla-ma-znaczenie-nfosigw-finansuje-rozwiazania-retencyjne]
 
   - id: life
+    call_kind: open
     name: LIFE (KE) + współfinansowanie NFOŚiGW
     applicant: gminy, NGO, konsorcja
     scope: duże projekty środowiskowo-klimatyczne
@@ -113,6 +145,7 @@ items:
     sources: [https://www.gov.pl/web/nfosigw/po-pierwsze-srodowisko--start-naboru-wnioskow-na-wspolfinansowanie-projektow-life]
 
   - id: mikroretencja
+    call_kind: unknown
     name: „Mikroretencja” (WFOŚiGW)
     applicant: osoby fizyczne z domem jednorodzinnym
     scope: "Do 90%, max 8 tys. zł – NIE dla działalności rolniczej"
@@ -121,6 +154,7 @@ items:
     sources: [https://www.gov.pl/web/nfosigw/mikroretencja]
 
   - id: kpo_b331
+    call_kind: unknown
     name: KPO B3.3.1 obszar B (zbiorniki, melioracje w gminach)
     applicant: gminy
     scope: "USUNIĘTE z KPO; projekty miały się zakończyć do 12.12.2025. Doniesienia o „206 mln euro z KPO na wodę w gospodarstwach” – niewiarygodne."

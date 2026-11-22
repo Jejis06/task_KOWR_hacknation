@@ -1,6 +1,17 @@
 // Dane demonstracyjne (VITE_USE_MOCKS=true) – syntetyczne, oznaczone w UI jako „Wersja demonstracyjna”.
-import { blockDefinitions, DEMO_ID, type DataBlock, type DataPayload, type Evidence, type ParcelRef, type Polygon,
-  type SeriesRow } from "./client";
+import {
+  blockDefinitions,
+  DEMO_ID,
+  type ChatMessage,
+  type DataBlock,
+  type DataPayload,
+  type Evidence,
+  type LlmChat,
+  type LlmSummary,
+  type ParcelRef,
+  type Polygon,
+  type SeriesRow,
+} from "./client";
 
 export const parcel: ParcelRef = {
   id: DEMO_ID,
@@ -405,5 +416,88 @@ export function mockBlock(key: string, date: string, crop = "wheat"): DataBlock 
         : ["Przykładowe wartości; przed działaniem potrzebne pomiary i oględziny."],
     messages: [],
     elapsed_ms: 150,
+  };
+}
+
+/** Przykład z docs/llm_contract.md – w mockach source=template (bez LLM). */
+export function mockSummary(): LlmSummary {
+  return {
+    headline: "Na Twoim polu brakuje wody bardziej niż zwykle w lipcu.",
+    paragraphs: [
+      "W ostatnich dwóch miesiącach spadło o 40 mm mniej deszczu, niż wyparowało…",
+      "Najpierw warto zatrzymać wodę: w zagłębieniu na północy działki zmieści się oczko…",
+    ],
+    todo: [
+      { text: "Zasiej międzyplon po żniwach (sierpień).", formality: "none" },
+      { text: "Zgłoś oczko wodne w Nadzorze Wodnym – opłata 132,33 zł.", formality: "notification" },
+      { text: "Złóż ekoschemat we wniosku obszarowym od 15 marca.", formality: "none" },
+    ],
+    source: "template",
+    model: null,
+    disclaimer: "Informacja orientacyjna, nie porada prawna.",
+  };
+}
+
+/** Przykład z docs/llm_contract.md – odpowiedź zależy od ostatniego pytania użytkownika. */
+export function mockChat(messages: ChatMessage[]): LlmChat {
+  const last = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
+  const lower = last.toLowerCase();
+  if (/staw|oczko|pozwolen/.test(lower)) {
+    return {
+      answer:
+        "Tak, jeśli staw ma do 5000 m² i do 3 m głębokości i napełnia go tylko deszcz lub woda gruntowa – wystarczy zgłoszenie wodnoprawne…",
+      citations: [
+        {
+          title: "Prawo wodne, art. 394 ust. 1 pkt 9",
+          url: "https://dziennikustaw.gov.pl/D2026000133501.pdf",
+        },
+      ],
+      suggestions: ["Ile kosztuje zgłoszenie?", "Jakie dotacje na oczko?", "Kiedy siać międzyplon?"],
+      source: "template",
+      model: null,
+    };
+  }
+  if (/koszt|opłat|ile/.test(lower)) {
+    return {
+      answer:
+        "Zgłoszenie wodnoprawne to obecnie ok. 132,33 zł opłaty (stawka na rok daty analizy). To nie jest koszt budowy – tylko formalność w Nadzorze Wodnym.",
+      citations: [
+        {
+          title: "Prawo wodne, art. 394 ust. 1 pkt 9",
+          url: "https://dziennikustaw.gov.pl/D2026000133501.pdf",
+        },
+      ],
+      suggestions: ["Czy mogę wykopać staw bez pozwolenia?", "Jakie dotacje na oczko?", "Kiedy siać międzyplon?"],
+      source: "template",
+      model: null,
+    };
+  }
+  if (/dotacj|ekoschemat|dofinans/.test(lower)) {
+    return {
+      answer:
+        "Na oczko wodne możesz sprawdzić programy ARiMR (m.in. I.10.4, gdy nabór jest otwarty) oraz ekoschematy we wniosku obszarowym. Status naboru widać w planie formalności w raporcie.",
+      citations: [],
+      suggestions: ["Czy mogę wykopać staw bez pozwolenia?", "Ile kosztuje zgłoszenie?", "Kiedy siać międzyplon?"],
+      source: "template",
+      model: null,
+    };
+  }
+  if (/międzyplon|siew|siać/.test(lower)) {
+    return {
+      answer:
+        "Międzyplon siej zwykle po żniwach – często w sierpniu, zanim gleba całkiem wyschnie. Konkretne gatunki i terminy są w zaleceniach agrotechniki w raporcie.",
+      citations: [],
+      suggestions: ["Czy mogę wykopać staw bez pozwolenia?", "Ile kosztuje zgłoszenie?", "Jakie dotacje na oczko?"],
+      source: "template",
+      model: null,
+    };
+  }
+  return {
+    answer:
+      "Mogę pomóc w sprawie wody na tej działce: susza, gleba, uprawa, prawo wodne i dotacje. Zadaj pytanie o jedno z tych tematów – albo wybierz podpowiedź poniżej.",
+    citations: [],
+    suggestions: ["Czy mogę wykopać staw bez pozwolenia?", "Ile kosztuje zgłoszenie?", "Jakie dotacje na oczko?"],
+    source: "template",
+    model: null,
   };
 }

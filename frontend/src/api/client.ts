@@ -20,6 +20,8 @@ export type ParcelRef = {
   centroid: [number, number];
   bbox: [number, number, number, number];
   area_ha: number;
+  /** GUGiK niedostępny – analiza ~1 ha wokół punktu z mapy */
+  approximate?: boolean;
 };
 export type Provenance = {
   source_name: string;
@@ -69,7 +71,41 @@ export type Recommendation = {
   evidence: Evidence[];
   /** międzyplon / mulcz: co i kiedy zrobić (2026-11-21, B) */
   sowing?: SowingOption[];
-  funding?: { name: string; url: string | null }[];
+  funding?: FundingRef[];
+  /** AgroLegal: czy wolno i ile kosztuje urzędowo */
+  formality?: Formality;
+  formality_label?: string | null;
+  formality_note?: string | null;
+  fee_pln?: number | null;
+  office?: string | null;
+  wait?: string | null;
+};
+export type Formality = "none" | "notification" | "permit" | "depends";
+export type FundingRef = {
+  name: string;
+  url: string | null;
+  call_kind?: "continuous" | "annual" | "open" | "closed" | "unknown";
+  call_label?: string | null;
+  call?: string | null;
+  scope?: string | null;
+};
+export type Pond = {
+  volume_m3: number;
+  area_m2: number | null;
+  stored_per_year_m3: number;
+  cost_pln_min: number;
+  cost_pln_max: number;
+  cost_basis: string;
+  subsidy_pln_max: number;
+  subsidy_note: string;
+  fee_pln: number | null;
+  formality: Formality;
+  needs_permit: boolean;
+  /** zagłębienie > 5000 m² – proponujemy oczko 5000 m² (zgłoszenie) w jego najniższej części */
+  capped?: boolean;
+  depression_area_m2?: number | null;
+  depression_volume_m3?: number | null;
+  covers_season_pct: number | null;
 };
 export type SoilWaterDay = { date: string; dr_mm: number; raw_mm: number; taw_mm: number; forecast: boolean };
 export type Irrigation = {
@@ -105,6 +141,7 @@ export type WaterBalance = {
   depression_inflow_m3?: number | null;
   depression_fill_pct?: number | null;
   coverage_season_pct?: number | null;
+  pond?: Pond;
 };
 export type SeriesRow = {
   label: string;
@@ -146,6 +183,27 @@ export type DataBlock = {
 export type GeocodeResult = { label: string; lon: number; lat: number; has_house_number: boolean; source: string };
 export type Crop = { id: string; name_pl: string; type: string; sowing: string | null; harvest: string | null };
 
+/** Odpowiedzi LLM (docs/llm_contract.md) – source "template" = zapas bez klucza / błędu */
+export type LlmSource = "llm" | "template";
+export type SummaryTodo = { text: string; formality: Formality };
+export type LlmSummary = {
+  headline: string;
+  paragraphs: string[];
+  todo: SummaryTodo[];
+  source: LlmSource;
+  model: string | null;
+  disclaimer: string;
+};
+export type ChatMessage = { role: "user" | "assistant"; content: string };
+export type ChatCitation = { title: string; url: string | null };
+export type LlmChat = {
+  answer: string;
+  citations: ChatCitation[];
+  suggestions: string[];
+  source: LlmSource;
+  model: string | null;
+};
+
 /** Bloki pokazywane w UI (kolejność kart). Tytuły po stronie frontu – krótsze niż w backendzie. */
 export const blockDefinitions = [
   ["weather_history", "Opady i pogoda", "Pogoda"],
@@ -180,8 +238,8 @@ export function doseToVolume(mm: number) {
   return mm * 10;
 }
 
-async function request<T>(path: string, signal?: AbortSignal): Promise<T> {
-  const response = await fetch(path, signal ? { signal } : {});
+async function request<T>(path: string, signal?: AbortSignal, init?: RequestInit): Promise<T> {
+  const response = await fetch(path, { ...(init ?? {}), signal: signal ?? init?.signal });
   if (!response.ok) {
     let detail = "";
     try {
@@ -192,6 +250,13 @@ async function request<T>(path: string, signal?: AbortSignal): Promise<T> {
     throw new Error(detail || `Nie udało się pobrać danych (${response.status}). Spróbuj ponownie.`);
   }
   return response.json() as Promise<T>;
+}
+async function postJson<T>(path: string, body: unknown, signal?: AbortSignal): Promise<T> {
+  return request<T>(path, signal, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  });
 }
 function wait(ms: number, signal?: AbortSignal) {
   return new Promise<void>((resolve, reject) => {
@@ -276,5 +341,42 @@ export const api = {
     const { mockBlock } = await import("./mocks");
     await wait(350 + (blockDefinitions.findIndex((b) => b.key === key) + 1) * 100, signal);
     return mockBlock(key, date, crop);
+  },
+  /** „Wytłumacz mi prosto” – docs/llm_contract.md §1 */
+  async summary(
+    input: { id: string; date: string; crop?: string },
+    signal?: AbortSignal,
+  ): Promise<LlmSummary> {
+    if (!USE_MOCKS) {
+      return postJson<LlmSummary>("/api/llm/summary", {
+        id: input.id,
+        date: input.date,
+        ...(input.crop ? { crop: input.crop } : {}),
+      }, signal);
+    }
+    const { mockSummary } = await import("./mocks");
+    await wait(400, signal);
+    return mockSummary();
+  },
+  /** Czat „Zapytaj o swoją działkę” – docs/llm_contract.md §2 */
+  async chat(
+    input: { id: string; date: string; crop?: string; messages: ChatMessage[] },
+    signal?: AbortSignal,
+  ): Promise<LlmChat> {
+    const messages = input.messages.slice(-12).map((m) => ({
+      role: m.role,
+      content: m.content.slice(0, 1000),
+    }));
+    if (!USE_MOCKS) {
+      return postJson<LlmChat>("/api/llm/chat", {
+        id: input.id,
+        date: input.date,
+        ...(input.crop ? { crop: input.crop } : {}),
+        messages,
+      }, signal);
+    }
+    const { mockChat } = await import("./mocks");
+    await wait(500, signal);
+    return mockChat(messages);
   },
 };

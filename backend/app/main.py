@@ -8,7 +8,7 @@ from datetime import date, timedelta
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import geocode, health, knowledge, parcel, tiles
+from app.api.routes import forms, geocode, health, knowledge, llm, parcel, tiles
 from app.config import REPO_ROOT, settings
 from app.core.http import close_client
 
@@ -51,6 +51,8 @@ app.include_router(parcel.router)
 app.include_router(knowledge.router)
 app.include_router(tiles.router)
 app.include_router(geocode.router)
+app.include_router(forms.router)
+app.include_router(llm.router)
 
 
 # Zbudowany frontend (Docker): ten sam adres dla strony i API – bez CORS. Lokalnie (vite dev) katalogu nie ma.
