@@ -100,6 +100,18 @@ export function ParcelPage() {
   const bounds = dateBounds();
   /** ekran startowy = sam formularz; mapa i raport dopiero po „Sprawdź działkę” */
   const started = loading || !!context.parcel;
+  // link z parametrami (?dzialka=ID[+ID…]&data=RRRR-MM-DD&uprawa=klucz) – od razu liczy raport
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const ids = q.get("dzialka");
+    if (!ids) return;
+    const d = q.get("data") && validDate(q.get("data")!) ? q.get("data")! : date;
+    const c = q.get("uprawa") ?? "";
+    setDate(d);
+    setCrop(c);
+    setId(ids.includes("+") ? "" : ids);
+    void runAnalysis(ids, d, c);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const ctrl = new AbortController();
     api
@@ -226,9 +238,9 @@ export function ParcelPage() {
     setGroupIdx(i);
     await runAnalysis(groups[i]!.map((p) => p.id).join("+"));
   }
-  async function runAnalysis(parcelId: string) {
+  async function runAnalysis(parcelId: string, d: string = date, c: string = crop) {
     setError("");
-    if (!validDate(date)) {
+    if (!validDate(d)) {
       setError(
         "Wybierz dzień od " + formatDate(bounds.min) + " do " + formatDate(bounds.max) + ".",
       );
@@ -247,14 +259,18 @@ export function ParcelPage() {
       const definitions = await api.blocks(ctrl.signal);
       if (ctrl.signal.aborted) return;
       setSelected(p);
-      setContext({ date, crop, parcel: p });
+      setContext({ date: d, crop: c, parcel: p });
+      // link do tego raportu (do udostępnienia, druku, testów jury)
+      const url = new URL(window.location.href);
+      url.search = new URLSearchParams({ dzialka: p.id, data: d, ...(c ? { uprawa: c } : {}) }).toString();
+      window.history.replaceState(null, "", url);
       setTotal(definitions.length);
       await Promise.all(
         definitions.map(async (def) => {
           let block: DataBlock;
           try {
             block = def.implemented
-              ? await api.block(def.key, p.id, date, crop, ctrl.signal)
+              ? await api.block(def.key, p.id, d, c, ctrl.signal)
               : {
                   key: def.key,
                   title: def.title,
@@ -401,6 +417,16 @@ export function ParcelPage() {
             </span>
           )}
         </div>
+        {context.parcel && (
+          <div className="print-only print-title">
+            <h1>Zatrzymaj wodę – raport · {parcelTitle(context.parcel)}</h1>
+            <p>
+              {context.parcel.region_name ? `Obręb ${context.parcel.region_name} · ` : ""}gmina {context.parcel.commune ?? "—"} ·{" "}
+              {context.parcel.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha · dzień oceny {formatDate(context.date)} ·
+              uprawa: {crops.find((c) => c.id === context.crop)?.name_pl ?? "nie wybrano"} · wygenerowano {formatDate(new Date().toISOString())}
+            </p>
+          </div>
+        )}
         <div className={started ? "workspace" : "workspace landing"}>
           <aside className="field-column" aria-label="Wybór działki">
             <form className="form-section" onSubmit={analyze}>

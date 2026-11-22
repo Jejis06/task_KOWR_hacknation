@@ -1746,3 +1746,41 @@
   box-shadow: 0 4px 14px rgb(0 0 0 / 0.25); text-align: center; }
 .map-tool.active { outline: 2px solid #f59e0b; }
 .legend-sample.picked { border: 2px dashed #f59e0b; background: #fde68a66; }
+
+/* ── druk / PDF: treść płynie przez strony, nie dzielimy tylko małych elementów (wcześniej całe sekcje skakały
+   na nową stronę i zostawiały puste kartki) ── */
+.print-only { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 12mm 16mm; }
+  html, body { background: #fff !important; }
+  body { font-size: 10.5px; }
+  .print-only { display: block; }
+  .site-header, .intro, .selection-box, .multi-toggle, .map-gesture-hint, .map-banner, .group-notice button,
+  .location-link, .export-actions, .term-trigger, .leaflet-control-zoom, .map-toolbar { display: none !important; }
+  .print-title { border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-bottom: 10px; }
+  .print-title h1 { font-size: 20px; font-weight: 700; color: var(--primary); }
+  .print-title p { font-size: 11px; color: #333; margin-top: 2px; }
+  .story-section { break-inside: auto; margin-bottom: 14px; }
+  .story-heading, h2, h3 { break-after: avoid; }
+  .verdict-panel, .recommendation, .cause-row, .key-facts li, .irrigation-panel > h3, .irrigation-values,
+  .balance-panel, .crop-calendar .cal-track, .flip-evidence li, .sowing-list li, .data-table tr, .sheet-table tr,
+  .metric, .chart-box, .water-gauge, .map-shell, .parcel-details { break-inside: avoid; }
+  .map-shell { height: 260px !important; }
+  /* „Na czym to opieramy” – zwięzła lista źródeł zamiast dużych ramek */
+  .flip-back { border: 0 !important; padding: 2px 0 0 !important; background: none !important; margin-top: 4px !important; }
+  .flip-back-head { margin-bottom: 4px; }
+  .flip-back-head .source-chip { display: none; }
+  .flip-back-title { font-size: 10px; }
+  .flip-evidence { gap: 3px; }
+  .flip-evidence .ev-text { font-size: 9.5px; }
+  .flip-evidence .ev-meta { font-size: 8.5px; }
+  .details-box { border-top: 0; }
+  .details-box > summary { font-weight: 650; padding: 6px 0 2px; }
+  .key-facts li { padding: 6px 10px; font-size: 12px; }
+  .report-footer { break-inside: avoid; }
+  a[href^="http"]::after { content: ""; }
+}
+@media print {
+  details > summary, .more-info-title, .timeline-label { break-after: avoid; }
+  .details-box { break-inside: auto; }
+}
