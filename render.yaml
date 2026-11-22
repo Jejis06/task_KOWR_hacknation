@@ -1,0 +1,11 @@
+# Render Blueprint: New → Blueprint → wskaż to repozytorium (prywatne repo GitHub jest OK).
+services:
+  - type: web
+    name: zatrzymaj-wode
+    runtime: docker
+    plan: free            # darmowy usypia się po 15 min bez ruchu → budzi go .github/workflows/keepalive.yml
+    region: frankfurt
+    healthCheckPath: /api/health
+    envVars:
+      - key: WODA_CACHE_DIR
+        value: /var/cache/woda

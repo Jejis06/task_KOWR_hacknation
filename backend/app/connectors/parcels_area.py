@@ -37,7 +37,7 @@ def _connection():
     if _con is None:
         import duckdb
         _con = duckdb.connect()
-        _con.execute("INSTALL httpfs; LOAD httpfs; SET enable_http_metadata_cache = true; SET enable_progress_bar = false;")
+        _con.execute("INSTALL httpfs; LOAD httpfs; SET enable_http_metadata_cache = true; SET enable_progress_bar = false; SET memory_limit = '200MB'; SET threads = 2;")
     return _con
 
 

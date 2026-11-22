@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routes import geocode, health, knowledge, parcel, tiles
-from app.config import settings
+from app.config import REPO_ROOT, settings
 from app.core.http import close_client
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -52,3 +52,10 @@ app.include_router(parcel.router)
 app.include_router(knowledge.router)
 app.include_router(tiles.router)
 app.include_router(geocode.router)
+
+
+# Zbudowany frontend (Docker): ten sam adres dla strony i API – bez CORS. Lokalnie (vite dev) katalogu nie ma.
+_DIST = REPO_ROOT / "frontend" / "dist"
+if _DIST.is_dir():
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/", StaticFiles(directory=_DIST, html=True), name="frontend")
