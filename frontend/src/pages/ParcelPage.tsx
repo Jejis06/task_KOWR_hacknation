@@ -66,7 +66,7 @@ function Brand() {
       </svg>
       <div>
         <div className="brand-name">AgroLegal</div>
-        <div className="brand-caption">Woda na polu – co zrobić, czy wolno, za ile</div>
+        <div className="brand-caption">Zachowaj kroplę dla siebie na dłużej</div>
       </div>
     </div>
   );

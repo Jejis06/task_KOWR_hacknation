@@ -62,6 +62,8 @@ type Props = {
   highContrast?: boolean;
 };
 /** urządzenie dotykowe (telefon, tablet) – inne gesty mapy */
+/** Obrys sprawdzanej działki – żółty (uwaga rolników: zielony ginie na zdjęciu lotniczym pól). */
+const PARCEL_YELLOW = "#facc15";
 const touch = typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
 /** Kafelki przez backend (cache na dysku + w przeglądarce); w trybie demo bez backendu – prosto ze źródeł. */
 const TILE = USE_MOCKS
@@ -217,16 +219,19 @@ export default function ParcelMap({
     if (!m) return;
     const css = getComputedStyle(document.documentElement);
     const token = (name: string) => css.getPropertyValue(name).trim();
-    const green = token("--primary"),
-      blue = token("--water"),
+    const blue = token("--water"),
       orange = token("--warning"),
       waterDark = "#1e3a8a",
       lw = (n: number) => (highContrast ? n + 2 : n);   // grubsze linie w trybie wysokiego kontrastu
     const group = L.featureGroup().addTo(m);
     features.current = {};
     if (parcel) {
+      // ciemna obwódka pod żółtą linią – żółty obrys jest widoczny i na zdjęciu lotniczym, i na jasnej mapie
+      L.geoJSON(parcel.geometry as GeoJSON.GeoJsonObject, {
+        style: { color: "#1c1917", weight: lw(3) + 3, opacity: 0.55, fill: false }, interactive: false,
+      }).addTo(group);
       const boundary = L.geoJSON(parcel.geometry as GeoJSON.GeoJsonObject, {
-        style: { color: green, weight: lw(3), fillColor: green, fillOpacity: 0.06 },
+        style: { color: PARCEL_YELLOW, weight: lw(3), fillColor: PARCEL_YELLOW, fillOpacity: 0.08 },
       }).addTo(group);
       features.current["parcel"] = boundary;
       boundary.on("click", (e: L.LeafletMouseEvent) => {
@@ -607,7 +612,7 @@ export default function ParcelMap({
         {showAnalysis && (
           <>
             <div className="legend-row">
-              <span className="legend-sample" />
+              <span className="legend-sample checked" />
               Sprawdzana działka
             </div>
             <div className="legend-row">

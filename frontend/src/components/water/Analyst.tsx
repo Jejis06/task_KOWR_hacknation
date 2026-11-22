@@ -14,7 +14,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { blockDefinitions, canShowAdvice, type DataBlock } from "@/api/client";
 import { seasonRows, seasonWindow } from "@/api/adapt";
-import { CropCalendarView, SourceStrip, Sources, Term } from "./shared";
+import { CropCalendarView, ForecastChart, SourceStrip, Sources, Term } from "./shared";
 type Props = { blocks: Record<string, DataBlock>; onMap: (id: string) => void; loading: boolean; date: string };
 const STATUS: Record<string, string> = {
   ok: "Dane kompletne", partial: "Dane częściowe", error: "Błąd źródła", no_data: "Brak danych",
@@ -28,6 +28,7 @@ function DataChart({ block }: { block: DataBlock }) {
   const data = block.data.series ?? [];
   return (
     <>
+      {forecast ? <ForecastChart rows={data} /> : (<>
       <div
         className="chart-box"
         role="img"
@@ -142,6 +143,7 @@ function DataChart({ block }: { block: DataBlock }) {
           </>
         )}
       </div>
+      </>)}
       <details className="details-box">
         <summary>Wartości na wykresie</summary>
         <div className="details-content">

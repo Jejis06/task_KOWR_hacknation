@@ -2,7 +2,8 @@ import { useState, type ReactNode } from "react";
 import { CircleHelp, FileText, Info, RotateCcw, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import type { DataBlock, Evidence } from "@/api/client";
+import { Bar, CartesianGrid, ComposedChart, LabelList, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import type { DataBlock, Evidence, SeriesRow } from "@/api/client";
 export const formatDate = (date: string | null | undefined) =>
   date
     ? new Intl.DateTimeFormat("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric" }).format(
@@ -354,5 +355,42 @@ export function LandscapeIllustration({
         </>
       )}
     </svg>
+  );
+}
+
+/** Prognoza pogody na 16 dni: słupki deszczu (z wartością nad słupkiem) i linia parowania, duże podpisy dni i osi.
+ *  Ten sam wykres w raporcie rolnika i w widoku analityka. */
+export function ForecastChart({ rows }: { rows: SeriesRow[] }) {
+  if (!rows.length) return null;
+  const rain = rows.reduce((a, r) => a + (r.rain ?? 0), 0);
+  const evap = rows.reduce((a, r) => a + (r.evaporation ?? 0), 0);
+  const fmt = (v: number) => v.toLocaleString("pl-PL", { maximumFractionDigits: 1 });
+  return (
+    <figure className="forecast-chart">
+      <figcaption className="forecast-totals">
+        <span><i className="rain" />Deszcz razem: <strong>{fmt(rain)} mm</strong></span>
+        <span><i className="evaporation" />Parowanie razem: <strong>{fmt(evap)} mm</strong> <Term name="ET₀" /></span>
+      </figcaption>
+      <div className="forecast-chart-box" role="img"
+        aria-label={`Prognoza na ${rows.length} dni: deszcz razem ${fmt(rain)} mm, parowanie razem ${fmt(evap)} mm.`}>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={rows} margin={{ top: 22, right: 12, bottom: 4, left: 0 }}>
+            <CartesianGrid stroke="var(--border)" vertical={false} />
+            <XAxis dataKey="label" tick={{ fontSize: 13, fill: "var(--foreground)" }} tickLine={false}
+              axisLine={{ stroke: "var(--border)" }} interval="preserveStartEnd" minTickGap={14} />
+            <YAxis width={44} tick={{ fontSize: 13, fill: "var(--muted-foreground)" }} tickLine={false} axisLine={false}
+              allowDecimals={false} unit=" mm" />
+            <Tooltip formatter={(v, name) => [`${fmt(Number(v))} mm`, name]} labelFormatter={(l) => `Dzień ${l}`}
+              contentStyle={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 6, fontSize: 14 }} />
+            <Bar dataKey="rain" name="Deszcz" fill="var(--water)" radius={[3, 3, 0, 0]} maxBarSize={28} isAnimationActive={false}>
+              <LabelList dataKey="rain" position="top" fontSize={12} fill="var(--foreground)"
+                formatter={(v) => (Number(v) > 0 ? fmt(Number(v)) : "")} />
+            </Bar>
+            <Line type="monotone" dataKey="evaporation" name="Parowanie" stroke="var(--evaporation)" strokeWidth={2.5}
+              dot={{ r: 3, fill: "var(--card)", strokeWidth: 2 }} isAnimationActive={false} />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
   );
 }
