@@ -60,3 +60,20 @@ async def test_chat_template_answers_pond_question(monkeypatch):
     monkeypatch.setattr(openai_client, "complete_json", none)
     r = await service.chat(grounding(), [service.ChatMessage(role="user", content="Czy mogę wykopać staw?")])
     assert r.source == "template" and "5000" in r.answer
+
+
+@pytest.mark.parametrize("topic", list(service.FAQ))
+async def test_faq_template_every_topic_without_llm(monkeypatch, topic):
+    async def none(*a, **k):
+        return None
+    monkeypatch.setattr(openai_client, "complete_json", none)
+    r = await service.faq(grounding(), topic)
+    assert r.source == "template" and r.question and (r.paragraphs or r.bullets)
+
+
+async def test_faq_costs_never_invent_amounts_in_template(monkeypatch):
+    async def none(*a, **k):
+        return None
+    monkeypatch.setattr(openai_client, "complete_json", none)
+    r = await service.faq(grounding(), "koszty")
+    assert any("nie szacujemy" in p for p in r.paragraphs)

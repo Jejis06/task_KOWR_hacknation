@@ -2156,3 +2156,95 @@ html:is(.a11y-zoom-125, .a11y-zoom-150) :is(.chart-box, .recharts-responsive-con
   .data-card .chart-box { overflow: hidden !important; }
   .data-table thead, .sheet-table thead { display: table-header-group; }   /* nagłówek tabeli na każdej stronie */
 }
+
+/* ───────────── układ: wąska lewa kolumna (działka + mapa), szeroki środek z raportem ───────────── */
+@media screen and (min-width: 1101px) {
+  .workspace:not(.landing) { grid-template-columns: 330px minmax(0, 1fr); gap: 24px; }
+}
+@media screen and (min-width: 801px) and (max-width: 1100px) {
+  .workspace:not(.landing) { grid-template-columns: 290px minmax(0, 1fr); gap: 18px; }
+}
+@media screen and (min-width: 801px) {
+  .workspace:not(.landing) .map-shell { height: 300px; }
+  .workspace:not(.landing) .form-section { padding: 16px; }
+}
+
+/* ───────────── rozwijane tematy raportu (natywne <details>) ───────────── */
+.report-intro { margin: 18px 0 10px; }
+.report-intro h2 { font-size: 1.25rem; font-weight: 700; margin: 0 0 2px; }
+.report-intro p { font-size: 0.95rem; color: var(--muted-foreground); margin: 0; }
+.report-accordion { display: grid; gap: 10px; }
+.acc { border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+.acc[open] { box-shadow: 0 4px 18px rgb(0 0 0 / 0.06); }
+.acc-summary { list-style: none; display: grid; grid-template-columns: 36px minmax(0, 1fr) 24px; align-items: center; gap: 12px;
+  padding: 14px 16px; min-height: 56px; cursor: pointer; border-radius: 10px; }
+.acc-summary::-webkit-details-marker { display: none; }
+.acc-summary:hover { background: var(--muted); }
+.acc-summary:focus-visible, .faq-summary:focus-visible, .faq-more > summary:focus-visible {
+  outline: 3px solid var(--water); outline-offset: 2px; }
+.acc-num { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 50%;
+  background: var(--primary); color: var(--primary-foreground); font-weight: 700; font-size: 16px; }
+.acc-num.acc-icon { background: var(--secondary); color: var(--primary); }
+.acc-text { display: grid; gap: 3px; min-width: 0; }
+.acc-title { font-size: 1.1rem; font-weight: 700; margin: 0; line-height: 1.3; }
+.acc-teaser { font-size: 0.95rem; color: var(--muted-foreground); line-height: 1.4; }
+.acc-pill { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 1px 8px; border-radius: 999px;
+  background: var(--secondary); color: var(--primary); }
+.acc-pill.lvl-moderate { background: var(--warning-soft); color: var(--warning); }
+.acc-pill.lvl-high, .acc-pill.lvl-very_high { background: var(--danger-soft); color: var(--danger); }
+.acc-chevron { transition: transform 0.2s; color: var(--muted-foreground); }
+details[open] > summary .acc-chevron { transform: rotate(180deg); }
+.acc-body { padding: 4px 18px 18px; border-top: 1px solid var(--border); }
+.acc-body > :first-child { margin-top: 14px; }
+.veg-sub { font-size: 1rem; font-weight: 650; margin: 16px 0 6px; }
+.veg-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 8px; margin: 10px 0; }
+.veg-metrics div { background: var(--muted); border-radius: 8px; padding: 8px 10px; }
+.veg-metrics dt { font-size: 0.8rem; color: var(--muted-foreground); }
+.veg-metrics dd { font-size: 1.1rem; font-weight: 700; margin: 0; }
+.limits-list { padding-left: 20px; list-style: disc; display: grid; gap: 4px; font-size: 0.95rem; }
+.missing-note { background: var(--warning-soft); border-radius: 8px; padding: 8px 12px; font-size: 0.95rem; }
+@media (prefers-reduced-motion: reduce) { .acc-chevron { transition: none; } }
+
+/* ───────────── „Podpowiedzi dla Twojego pola” (AI) ───────────── */
+.ask-agrolegal { border: 1px solid color-mix(in oklch, var(--water) 30%, var(--border)); background: var(--water-soft);
+  border-radius: 12px; padding: 14px; margin-bottom: 4px; }
+.ask-head { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; color: var(--water); }
+.ask-head h2 { font-size: 1.2rem; font-weight: 700; margin: 0; color: var(--foreground); }
+.ask-head p { font-size: 0.9rem; margin: 2px 0 0; color: var(--muted-foreground); }
+.faq-list { display: grid; gap: 6px; }
+.faq-item { background: var(--card); border: 1px solid var(--border); border-radius: 9px; }
+.faq-summary { list-style: none; display: grid; grid-template-columns: 24px minmax(0, 1fr) 22px; gap: 10px; align-items: center;
+  padding: 12px 14px; min-height: 48px; cursor: pointer; font-size: 1.05rem; font-weight: 650; border-radius: 9px; }
+.faq-summary::-webkit-details-marker { display: none; }
+.faq-summary:hover { background: var(--muted); }
+.faq-icon { color: var(--water); }
+.faq-body { padding: 2px 16px 14px 48px; font-size: 1rem; line-height: 1.55; }
+.faq-p { margin: 8px 0; }
+.faq-bullets { list-style: disc; padding-left: 20px; display: grid; gap: 5px; margin: 8px 0; }
+.faq-loading { color: var(--muted-foreground); font-size: 0.95rem; }
+.faq-error { color: var(--danger); }
+.faq-retry, .ask-own { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 8px 14px; border-radius: 8px;
+  border: 1px solid var(--water); background: var(--card); color: var(--water); font-weight: 650; cursor: pointer; }
+.ask-own { margin-top: 10px; }
+.faq-more { margin-top: 8px; border-top: 1px dashed var(--border); padding-top: 6px; }
+.faq-more > summary { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 600;
+  color: var(--water); min-height: 36px; }
+.faq-more-body { font-size: 0.9rem; color: var(--muted-foreground); }
+.faq-cites { list-style: disc; padding-left: 18px; }
+.faq-cites a { color: var(--water); text-decoration: underline; }
+.faq-disclaimer { font-size: 0.8rem; }
+@media (max-width: 560px) { .faq-body { padding-left: 16px; } .acc-summary { grid-template-columns: 30px minmax(0,1fr) 22px; gap: 8px; padding: 12px; } }
+
+/* ───────────── wydruk: wszystkie tematy rozwinięte, bez pytań AI ───────────── */
+@media print {
+  .ask-agrolegal, .ask-own { display: none !important; }
+  .acc { break-inside: auto; border: 0; box-shadow: none !important; }
+  .acc-summary { padding: 6px 0; min-height: 0; break-after: avoid; }
+  .acc-chevron { display: none; }
+  .acc-body { border-top: 0; padding: 0 0 10px; }
+  details.acc::details-content { content-visibility: visible; display: block; }
+}
+/* wąska lewa kolumna: data i uprawa jedna pod drugą (pełna nazwa uprawy widoczna) */
+@media screen and (min-width: 801px) {
+  .workspace:not(.landing) .field-column .form-row { grid-template-columns: minmax(0, 1fr); }
+}

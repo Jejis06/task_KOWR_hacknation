@@ -166,6 +166,8 @@ export type DataPayload = {
   water_balance?: WaterBalance | null;
   limitations?: string[];
   method?: string[];
+  /** bloki bez danych, pominięte w analizie – pokazujemy wprost („bez pozornej precyzji”) */
+  missing_blocks?: string[];
   /** surowe dane bloku z backendu (kontrakt backend/app/contracts/models.py) */
   raw?: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
@@ -195,6 +197,18 @@ export type LlmSummary = {
   disclaimer: string;
 };
 export type ChatMessage = { role: "user" | "assistant"; content: string };
+/** Rozwijane pytania nad raportem (POST /api/llm/faq) – odpowiedź liczy się dopiero po rozwinięciu */
+export type FaqTopic = "sytuacja" | "zatrzymac" | "koszty" | "zysk" | "dotacje" | "formalnosci" | "kiedy";
+export type LlmFaq = {
+  topic: FaqTopic;
+  question: string;
+  paragraphs: string[];
+  bullets: string[];
+  citations: { title: string; url: string | null }[];
+  source: LlmSource;
+  model: string | null;
+  disclaimer: string;
+};
 export type ChatCitation = { title: string; url: string | null };
 export type LlmChat = {
   answer: string;
@@ -357,6 +371,17 @@ export const api = {
     const { mockSummary } = await import("./mocks");
     await wait(400, signal);
     return mockSummary();
+  },
+  /** Jedno z rozwijanych pytań nad raportem */
+  async faq(input: { id: string; date: string; crop?: string; topic: FaqTopic }, signal?: AbortSignal): Promise<LlmFaq> {
+    if (!USE_MOCKS) {
+      return postJson<LlmFaq>("/api/llm/faq", {
+        id: input.id, date: input.date, topic: input.topic, ...(input.crop ? { crop: input.crop } : {}),
+      }, signal);
+    }
+    const { mockFaq } = await import("./mocks");
+    await wait(400, signal);
+    return mockFaq(input.topic);
   },
   /** Czat „Zapytaj o swoją działkę” – docs/llm_contract.md §2 */
   async chat(

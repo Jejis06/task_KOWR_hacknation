@@ -1,6 +1,7 @@
 import {
   ArrowRight,
   Check,
+  ChevronDown,
   CloudRain,
   Droplets,
   Eye,
@@ -11,12 +12,13 @@ import {
   Waves,
   Wind,
 } from "lucide-react";
+import type React from "react";
 import { CartesianGrid, ComposedChart, Line, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { canShowAdvice, doseToVolume, USE_MOCKS, type DataBlock, type Irrigation, type Recommendation, type WaterBalance } from "@/api/client";
 import { smm } from "@/api/adapt";
 import { FormalityBadge, FundingList, LegalDetails, LegalPlan, PondCalculator } from "./LegalPlan";
-import { SimpleExplain } from "./SimpleExplain";
+import { AskAgroLegal } from "./AskAgroLegal";
 import { CropCalendarView, FlipCard, formatDate, LandscapeIllustration, SourceLine, Sources, Term } from "./shared";
 type Props = {
   blocks: Record<string, DataBlock>;
@@ -31,13 +33,23 @@ type Props = {
   onPrepare?: (r: Recommendation) => void;
 };
 const months = ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"];
-function StoryHeading({ number, title, extra }: { number: number; title: string; extra?: string }) {
+/** Rozwijany temat raportu: nagłówek + jedno zdanie widoczne bez rozwijania. Natywne <details> – działa z klawiatury
+ *  i czytnikiem ekranu; name="raport" → otwarty jest tylko jeden temat naraz (mniej przewijania). */
+function Panel({ n, icon, title, teaser, open, children }: {
+  n?: number; icon?: React.ReactNode; title: string; teaser?: React.ReactNode; open?: boolean; children: React.ReactNode;
+}) {
   return (
-    <div className="story-heading">
-      <span className="step-number">{number}</span>
-      <h2>{title}</h2>
-      {extra && <span className="step-subtitle">{extra}</span>}
-    </div>
+    <details className="acc" {...{ name: "raport" }} open={open}>
+      <summary className="acc-summary">
+        {n != null ? <span className="acc-num" aria-hidden="true">{n}</span> : <span className="acc-num acc-icon">{icon}</span>}
+        <span className="acc-text">
+          <h2 className="acc-title">{n != null && <span className="sr-only">Krok {n}: </span>}{title}</h2>
+          {teaser && <span className="acc-teaser">{teaser}</span>}
+        </span>
+        <ChevronDown size={22} aria-hidden="true" className="acc-chevron" />
+      </summary>
+      <div className="acc-body">{children}</div>
+    </details>
   );
 }
 function Measure({
@@ -55,7 +67,7 @@ function Measure({
   }[];
   const hint = hints.find((h) => (h.legal_ids ?? []).some((id) => r.legal_ids.includes(id)));
   return (
-    <FlipCard items={r.evidence} blocks={blocks} label="Skąd to zalecenie?">
+    <FlipCard items={r.evidence} blocks={blocks} label="Skąd to wiemy?">
     <article className="recommendation">
       <LandscapeIllustration kind={ILLU[r.measure_id] ?? (r.group === "agrotechnika" ? "soil" : r.group === "nawadnianie" ? "irrigation" : "terrain")} />
       <div>
@@ -211,7 +223,11 @@ function WaterGauge({ cur, norm }: { cur: number | null; norm: number | null }) 
 /** Bilans ilościowy: niedobór wody na całej działce [m³] vs pojemność i napływ do zagłębienia. */
 function WaterBalancePanel({ wb, onMap }: { wb: WaterBalance; onMap: (id: string) => void }) {
   const need = wb.season_deficit_m3 ?? 0;
-  const cap = wb.depression_volume_m3 ?? 0;
+  // jeśli zagłębienie > 5000 m², liczymy oczko do 5000 m² (zgłoszenie) – te same liczby co w kalkulatorze oczka
+  const capped = !!wb.pond?.capped;
+  const cap = (capped ? wb.pond?.volume_m3 : wb.depression_volume_m3) ?? 0;
+  const coverage = capped ? wb.pond?.covers_season_pct : wb.coverage_season_pct;
+  const capLabel = capped ? "Oczko do 5000 m²" : "Zagłębienie na polu";
   const max = Math.max(need, cap, 1);
   return (
     <div className="balance-panel">
@@ -220,18 +236,18 @@ function WaterBalancePanel({ wb, onMap }: { wb: WaterBalance; onMap: (id: string
         Na {nf(wb.area_ha, 2)} ha to około <strong>{nf(wb.season_deficit_m3)} m³</strong> wody
         {wb.worst_season_deficit_m3 ? <> (w najsuchszym roku {nf(wb.worst_season_deficit_m3)} m³)</> : null}.
         {wb.deficit_60d_m3 ? <> Z ostatnich 60 dni brakuje {nf(wb.deficit_60d_m3)} m³.</> : null}</p>
-      <div className="balance-bars" role="img" aria-label={`Niedobór ${nf(need)} m³, pojemność zagłębienia ${nf(cap)} m³`}>
+      <div className="balance-bars" role="img" aria-label={`Niedobór ${nf(need)} m³, ${capLabel.toLowerCase()}: ${nf(cap)} m³`}>
         <div className="balance-row"><span>Niedobór w sezonie</span>
           <span className="balance-track"><span className="balance-fill need" style={{ width: `${(need / max) * 100}%` }} /></span>
           <strong>{nf(need)} m³</strong></div>
         {cap > 0 && (
-          <div className="balance-row"><span>Zagłębienie na polu</span>
+          <div className="balance-row"><span>{capLabel}</span>
             <span className="balance-track"><span className="balance-fill cap" style={{ width: `${Math.max(1, (cap / max) * 100)}%` }} /></span>
             <strong>{nf(cap)} m³</strong></div>
         )}
       </div>
       {cap > 0 && (
-        <p className="text-xs">Zagłębienie pokryje ok. <strong>{nf(wb.coverage_season_pct, 1)}%</strong> sezonowego niedoboru.
+        <p className="text-xs">{capped ? "Oczko" : "Zagłębienie"} pokryje ok. <strong>{nf(coverage, 1)}%</strong> sezonowego niedoboru.
           {wb.depression_catchment_ha != null && <> Woda spływa do niego z ok. <strong>{nf(wb.depression_catchment_ha, 1)} ha</strong>;
           zimą może dopłynąć do {nf(wb.depression_inflow_m3)} m³ ({(wb.depression_fill_pct ?? 0) >= 100 ? "wystarczy, by je napełnić" :
             `ok. ${nf(wb.depression_fill_pct)}% pojemności – oczko może być okresowo suche`}).</>}
@@ -310,21 +326,37 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
   ];
   const protectedHit = (blocks["protected_areas"]?.data.raw?.hits ?? []).length > 0;
   const deficit = data?.water_balance?.season_deficit_m3;
+  const veg = blocks["vegetation"];
+  const cal = blocks["crop_calendar"];
+  const topCause = data?.causes?.[0];
+  const missing = data?.missing_blocks ?? [];
+  const severity = a.current_level === "high" || a.current_level === "very_high" ? "Duże zagrożenie suszą"
+    : a.current_level === "moderate" ? "Umiarkowane zagrożenie suszą" : "Małe zagrożenie suszą";
+  const irrLabel = !irrigation ? "Brak oceny nawadniania" : irrigation.recommended === "monitor" ? "Obserwuj, zanim zaczniesz"
+    : irrigation.recommended === "yes" ? "Rozważ nawadnianie" : irrigation.recommended === "no" ? "Teraz nie nawadniaj" : "Brak oceny nawadniania";
+  const nForms = recs.filter((r) => r.formality === "notification" || r.formality === "permit").length;
   return (
     <div id="report-content" role="tabpanel" aria-labelledby="report-tab">
-      {parcelId && <SimpleExplain parcelId={parcelId} date={date} crop={crop} />}
+      {parcelId && <AskAgroLegal parcelId={parcelId} date={date} crop={crop}
+        onOpenChat={() => window.dispatchEvent(new Event("agrolegal:open-chat"))} />}
+      <div className="report-intro">
+        <h2>Raport dla Twojego pola</h2>
+        <p>Policzony z danych pobranych dla tej działki (pogoda z 10 lat, satelita, gleba, teren, wody) na dzień{" "}
+          <strong>{formatDate(date)}</strong> – bez AI. Kliknij temat, żeby go rozwinąć.</p>
+      </div>
       {protectedHit && (
         <div className="protected-notice">
-          <ShieldCheck size={15} />
+          <ShieldCheck size={15} aria-hidden="true" />
           <div>
             {blocks["protected_areas"]!.data.summary}
             <SourceLine block={blocks["protected_areas"]} />
           </div>
         </div>
       )}
-      <section className="story-section">
-        <StoryHeading number={1} title="Jak jest z wodą?" extra="Teraz i w ostatnich 10 latach" />
-        <FlipCard items={a.evidence} blocks={blocks} label="Skąd ta ocena?">
+      <div className="report-accordion">
+        <Panel n={1} title="Jak jest z wodą?" open
+          teaser={<><span className={`acc-pill lvl-${a.current_level ?? "none"}`}>{severity}</span> {a.current_label_pl} · susza w {nDry} z 10 lat</>}>
+        <FlipCard items={a.evidence} blocks={blocks} label="Skąd to wiemy?">
         <div className="verdict-panel">
           <div className="verdict-main">
             <div>
@@ -418,9 +450,9 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
             <SourceLine block={weather} />
           </div>
         </details>
-      </section>
-      <section className="story-section">
-        <StoryHeading number={2} title="Dlaczego brakuje wody?" />
+        </Panel>
+        <Panel n={2} title="Dlaczego brakuje wody?"
+          teaser={topCause ? <>Najważniejsza przyczyna: {topCause.label_pl.toLowerCase()} (~{topCause.share}%)</> : "Brak danych o przyczynach"}>
         {data?.causes?.map((cause, i) => (
           <FlipCard key={cause.key} items={cause.evidence} blocks={blocks} label="Skąd to wiemy?">
           <div className="cause-row">
@@ -438,9 +470,9 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
           </div>
           </FlipCard>
         ))}
-      </section>
-      <section className="story-section">
-        <StoryHeading number={3} title="Co zrobić?" extra="Od najważniejszego" />
+        </Panel>
+        <Panel n={3} title="Co zrobić, żeby zatrzymać wodę?"
+          teaser={recs[0] ? <>Zacznij od: {recs[0].title.charAt(0).toLowerCase()}{recs[0].title.slice(1)}</> : "Brak zaleceń"}>
         <div className="recommendation-list">
           {recs.map((r) => (
             <Measure key={r.measure_id} recommendation={r} blocks={blocks} onMap={onMap} />
@@ -455,12 +487,14 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
             </div>
           </details>
         )}
-      </section>
-      <LegalPlan recs={recs} onPrepare={onPrepare} />
-      {irrigation && (
-        <section className="story-section">
-          <StoryHeading number={4} title="Czy nawadniać?" extra="Dopiero po zatrzymaniu wody" />
-          <FlipCard items={irrigation.evidence} blocks={blocks} label="Skąd to wyliczenie?">
+        </Panel>
+        <Panel n={4} title="Czy to wymaga formalności i ile kosztuje?"
+          teaser={nForms ? `${nForms} ${nForms === 1 ? "działanie wymaga" : "działania wymagają"} zgłoszenia lub pozwolenia – reszta od razu` : "Wszystko możesz zrobić bez urzędu"}>
+          <LegalPlan recs={recs} onPrepare={onPrepare} bare />
+        </Panel>
+        {irrigation && (
+          <Panel n={5} title="Czy podlewać?" teaser={<>{irrLabel}{irrigation.dose_mm != null ? ` · dawka ${irrigation.dose_mm} mm` : ""}</>}>
+          <FlipCard items={irrigation.evidence} blocks={blocks} label="Skąd to wiemy?">
           <div className="irrigation-panel">
             <h3>
               <Eye size={20} />
@@ -504,14 +538,10 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
             <SourceLine block={analysis} />
           </div>
           </FlipCard>
-        </section>
-      )}
-      <section className="story-section more-info">
-        <h2 className="more-info-title">Więcej informacji</h2>
+          </Panel>
+        )}
         {forecast && forecast.data.series && (
-          <details className="details-box">
-            <summary><CloudRain size={14} /> Pogoda na 16 dni</summary>
-            <div className="details-content">
+          <Panel icon={<CloudRain size={18} aria-hidden="true" />} title="Pogoda na 16 dni" teaser={forecast.data.summary ?? ""}>
               <div className="forecast-preview">
                 <div>
                   <p>{forecast.data.summary}</p>
@@ -525,32 +555,48 @@ export default function Report({ blocks, date, parcelId, crop, onMap, onData, lo
                   <ArrowRight />
                 </Button>
               </div>
-            </div>
-          </details>
+          </Panel>
         )}
-        {blocks["crop_calendar"] && (
-          <details className="details-box">
-            <summary><Leaf size={14} /> Kalendarz uprawy – kiedy woda jest najważniejsza</summary>
-            <div className="details-content">
-              <CropCalendarView block={blocks["crop_calendar"]} asOf={date} />
-              <SourceLine block={blocks["crop_calendar"]} />
-            </div>
-          </details>
+        {(veg || cal) && (
+          <Panel icon={<Leaf size={18} aria-hidden="true" />} title="Rośliny i kalendarz uprawy"
+            teaser={veg?.data.summary ?? "Fazy rozwoju i okresy, w których woda jest najważniejsza"}>
+            {veg && (
+              <div className="veg-panel">
+                <p>{veg.data.summary}</p>
+                {veg.data.metrics && (
+                  <dl className="veg-metrics">
+                    {veg.data.metrics.map((m) => (
+                      <div key={m.label}><dt>{m.label}{m.term && <> <Term name={m.term} /></>}</dt><dd>{m.value}</dd></div>
+                    ))}
+                  </dl>
+                )}
+                <SourceLine block={veg} />
+              </div>
+            )}
+            {cal && (
+              <>
+                <h3 className="veg-sub">Kalendarz uprawy – kiedy woda jest najważniejsza</h3>
+                <CropCalendarView block={cal} asOf={date} />
+                <SourceLine block={cal} />
+              </>
+            )}
+          </Panel>
         )}
-        <details className="details-box">
-          <summary><Wind size={14} /> Ograniczenia – co warto sprawdzić w terenie</summary>
-          <div className="details-content">
-            <ul>{data?.limitations?.map((t) => <li key={t}>{t}</li>)}</ul>
-          </div>
-        </details>
-        <details className="details-box">
-          <summary><Check size={14} /> Jak powstała ocena</summary>
-          <div className="details-content">
-            <ul>{data?.method?.map((t) => <li key={t}>{t}</li>)}</ul>
-          </div>
-        </details>
-        <Sources block={analysis} />
-      </section>
+        <Panel icon={<Wind size={18} aria-hidden="true" />} title="Czego nie wiemy – ograniczenia i brakujące dane"
+          teaser={missing.length ? `Brak danych: ${missing.join(", ")}` : `${data?.limitations?.length ?? 0} rzeczy, które warto sprawdzić w terenie`}>
+          {missing.length > 0 && (
+            <p className="missing-note"><strong>Brakujące dane:</strong> {missing.join(", ")} – tych czynników nie uwzględniliśmy.</p>
+          )}
+          <ul className="limits-list">{data?.limitations?.map((t) => <li key={t}>{t}</li>)}</ul>
+          <p className="text-xs text-muted-foreground">Pewność oceny: {a.confidence?.toLowerCase()}. Wyniki to szacunki z danych publicznych, nie pomiar na polu.</p>
+        </Panel>
+        <Panel icon={<Check size={18} aria-hidden="true" />} title="Skąd są dane – źródła i metoda"
+          teaser={`Data analizy ${formatDate(date)} · ${analysis?.provenance?.length ?? 0} źródeł z datami`}>
+          <h3 className="veg-sub">Jak powstała ocena</h3>
+          <ul className="limits-list">{data?.method?.map((t) => <li key={t}>{t}</li>)}</ul>
+          <Sources block={analysis} />
+        </Panel>
+      </div>
       <div className="report-footer">
         {USE_MOCKS
           ? "Ten raport pokazuje przykładowy scenariusz (dane demonstracyjne). "

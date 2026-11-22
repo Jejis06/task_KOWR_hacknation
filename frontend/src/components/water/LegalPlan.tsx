@@ -86,15 +86,17 @@ const COLUMNS: { key: string; title: string; match: (f: Formality) => boolean; c
   { key: "permit", title: "Po pozwoleniu lub uzgodnieniu", match: (f) => f === "permit" || f === "depends", cls: "f-permit", Icon: ShieldAlert },
 ];
 
-export function LegalPlan({ recs, onPrepare }: { recs: Recommendation[]; onPrepare?: (r: Recommendation) => void }) {
+export function LegalPlan({ recs, onPrepare, bare }: { recs: Recommendation[]; onPrepare?: (r: Recommendation) => void; bare?: boolean }) {
   if (!recs.length) return null;
   return (
-    <section className="story-section legal-plan" aria-labelledby="legal-plan-title">
-      <div className="story-heading">
-        <ShieldCheck size={19} className="text-primary" />
-        <h2 id="legal-plan-title">Twój plan: co wolno i za ile</h2>
-        <span className="step-subtitle">od najłatwiejszego</span>
-      </div>
+    <section className={bare ? "legal-plan" : "story-section legal-plan"} aria-labelledby={bare ? undefined : "legal-plan-title"}>
+      {!bare && (
+        <div className="story-heading">
+          <ShieldCheck size={19} className="text-primary" />
+          <h2 id="legal-plan-title">Twój plan: co wolno i za ile</h2>
+          <span className="step-subtitle">od najłatwiejszego</span>
+        </div>
+      )}
       <div className="plan-columns">
         {COLUMNS.map((c) => {
           const items = recs.filter((r) => c.match(r.formality ?? "none"));

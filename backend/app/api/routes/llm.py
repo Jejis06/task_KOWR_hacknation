@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from app.api.routes.parcel import _resolve, _validate_date
 from app.contracts.models import AnalysisContext
 from app.llm import grounding, service
-from app.llm.service import ChatMessage, ChatResponse, SummaryResponse
+from app.llm.service import FAQ, ChatMessage, ChatResponse, FaqResponse, FaqTopic, SummaryResponse
 
 router = APIRouter(prefix="/api/llm", tags=["llm"])
 
@@ -42,3 +42,19 @@ async def summary(q: ParcelQuery) -> SummaryResponse:
 async def chat(q: ChatRequest) -> ChatResponse:
     """„Zapytaj o swoją działkę” – odpowiedź z cytatami wyłącznie ze źródeł z naszej bazy."""
     return await service.chat(await _grounding(q), q.messages)
+
+
+class FaqRequest(ParcelQuery):
+    topic: FaqTopic
+
+
+@router.get("/faq/topics")
+async def faq_topics() -> list[dict[str, str]]:
+    """Stała lista pytań (frontend pokazuje je od razu, odpowiedź liczy się dopiero po rozwinięciu)."""
+    return [{"topic": k, "question": v[0]} for k, v in FAQ.items()]
+
+
+@router.post("/faq", response_model=FaqResponse)
+async def faq(q: FaqRequest) -> FaqResponse:
+    """Odpowiedź na jedno z pytań – LLM z ugruntowaniem, a bez klucza / przy błędzie – z reguł (source="template")."""
+    return await service.faq(await _grounding(q), q.topic)

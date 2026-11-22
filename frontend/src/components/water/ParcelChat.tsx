@@ -34,6 +34,11 @@ const STARTERS = [
 
 export function ParcelChat({ parcelId, date, crop, visible = true }: Props) {
   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const h = () => setOpen(true);
+    window.addEventListener("agrolegal:open-chat", h);
+    return () => window.removeEventListener("agrolegal:open-chat", h);
+  }, []);
   const [input, setInput] = useState("");
   const [turns, setTurns] = useState<Turn[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>(STARTERS);

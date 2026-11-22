@@ -104,6 +104,23 @@ export function ParcelPage() {
   const { a11y, cycleZoom, toggleContrast } = useA11y();
   /** ekran startowy = sam formularz; mapa i raport dopiero po „Sprawdź działkę” */
   const started = loading || !!context.parcel;
+  // wydruk / PDF (przycisk albo Ctrl+P): rozwijamy wszystkie tematy; tematy raportu otwierają się pojedynczo (name=…),
+  // więc na czas druku zdejmujemy grupę, a po druku przywracamy stan sprzed
+  useEffect(() => {
+    let saved: { d: HTMLDetailsElement; open: boolean; name: string | null }[] = [];
+    const before = () => {
+      saved = Array.from(document.querySelectorAll("details")).map((d) => ({ d, open: d.open, name: d.getAttribute("name") }));
+      saved.forEach(({ d }) => { d.removeAttribute("name"); d.open = true; });
+    };
+    const after = () => {
+      saved.forEach(({ d, open }) => { d.open = false; d.open = open; });
+      saved.forEach(({ d, name }) => { if (name) d.setAttribute("name", name); });
+      saved = [];
+    };
+    window.addEventListener("beforeprint", before);
+    window.addEventListener("afterprint", after);
+    return () => { window.removeEventListener("beforeprint", before); window.removeEventListener("afterprint", after); };
+  }, []);
   // link z parametrami (?dzialka=ID[+ID…]&data=RRRR-MM-DD&uprawa=klucz) – od razu liczy raport
   useEffect(() => {
     const q = new URLSearchParams(window.location.search);
@@ -367,19 +384,7 @@ export function ParcelPage() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
   function printReport() {
-    const details = Array.from(document.querySelectorAll("details"));
-    const states = details.map((d) => d.open);
-    details.forEach((d) => {
-      d.open = true;
-    });
-    const restore = () => {
-      details.forEach((d, i) => {
-        d.open = states[i] ?? false;
-      });
-      window.removeEventListener("afterprint", restore);
-    };
-    window.addEventListener("afterprint", restore);
-    window.print();
+    window.print();   // rozwinięcie wszystkich tematów robi obsługa „beforeprint” (działa też dla Ctrl+P)
   }
   return (
     <>
@@ -468,7 +473,8 @@ export function ParcelPage() {
                     setId(e.target.value);
                     setError("");
                   }}
-                  aria-describedby="parcel-hint"
+                  aria-describedby={error ? "parcel-hint parcel-error" : "parcel-hint"}
+                  aria-invalid={error ? true : undefined}
                   autoComplete="off"
                   spellCheck={false}
                 />
@@ -554,7 +560,7 @@ export function ParcelPage() {
                 Bez logowania i zapisywania Twoich danych
               </div>
               {error && (
-                <div className="error-notice" role="alert">
+                <div className="error-notice" role="alert" id="parcel-error">
                   {error}
                   {USE_MOCKS && (
                     <Button

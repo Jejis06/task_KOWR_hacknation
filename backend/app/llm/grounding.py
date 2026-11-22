@@ -5,6 +5,7 @@ na linki i plakietki formalności z reguł. Dzięki temu nie da się „wyhalucy
 """
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -12,6 +13,7 @@ from app.contracts.models import AnalysisContext
 from app.knowledge import loader
 from app.services.profile import run_block
 
+log = logging.getLogger(__name__)
 MONTHS = ["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "paź", "lis", "gru"]
 FORMALITY_PL = {"none": "bez formalności", "notification": "zgłoszenie wodnoprawne", "permit": "pozwolenie wodnoprawne",
                 "depends": "zależy od wykonania"}
@@ -114,6 +116,25 @@ async def build(ctx: AnalysisContext) -> Grounding:
         if a.get("limitations"):
             lines.append("\n## OGRANICZENIA ANALIZY")
             lines += [f"- {t}" for t in a["limitations"][:5]]
+
+    # prognoza i kalendarz uprawy – do pytań „co i kiedy zrobić” (bloki z cache, liczone już dla raportu)
+    try:
+        fc = _dump((await run_block("weather_forecast", ctx)).data) or {}
+        if fc.get("dates"):
+            rain = sum(x or 0 for x in fc.get("precip_mm") or [])
+            et0 = sum(x or 0 for x in fc.get("et0_mm") or [])
+            lines.append(f"\n## PROGNOZA ({len(fc['dates'])} dni od {fc['dates'][0]}): opad {rain:.0f} mm, parowanie {et0:.0f} mm, "
+                         f"bilans {rain - et0:+.0f} mm.")
+    except Exception as e:  # noqa: BLE001 – prognoza jest dodatkiem, brak nie blokuje odpowiedzi
+        log.info("LLM grounding: brak prognozy (%s)", e)
+    try:
+        cal = _dump((await run_block("crop_calendar", ctx)).data) or {}
+        if cal.get("crop_name_pl"):
+            lines.append(f"\n## UPRAWA: {cal['crop_name_pl']}; w sezonie: {'tak' if cal.get('in_season_on_as_of') else 'nie'}; "
+                         f"faza: {cal.get('current_stage') or '-'}; okresy krytyczne: {', '.join(cal.get('critical_water_periods') or []) or '-'}; "
+                         f"uwagi: {'; '.join(cal.get('warnings') or []) or '-'}")
+    except Exception as e:  # noqa: BLE001
+        log.info("LLM grounding: brak kalendarza uprawy (%s)", e)
 
     lines.append("\n## PRZEPISY (Prawo wodne i powiązane; cytuj numerem źródła)")
     for it in loader.items("legal_pl"):

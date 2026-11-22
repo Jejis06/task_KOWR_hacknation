@@ -501,3 +501,17 @@ export function mockChat(messages: ChatMessage[]): LlmChat {
     model: null,
   };
 }
+
+
+export function mockFaq(topic: import("./client").FaqTopic): import("./client").LlmFaq {
+  return {
+    topic,
+    question: "Pytanie demonstracyjne",
+    paragraphs: ["W wersji demonstracyjnej odpowiedź jest przykładowa. Prawdziwa powstaje z danych Twojej działki."],
+    bullets: ["Zasiej międzyplon po żniwach.", "Zgłoś oczko wodne w Nadzorze Wodnym – opłata 132,33 zł."],
+    citations: [{ title: "Prawo wodne, art. 394 ust. 1 pkt 9", url: "https://dziennikustaw.gov.pl/D2026000133501.pdf" }],
+    source: "template",
+    model: null,
+    disclaimer: "Informacja orientacyjna, nie porada prawna.",
+  };
+}

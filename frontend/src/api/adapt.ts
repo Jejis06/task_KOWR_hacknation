@@ -289,6 +289,7 @@ function analysis(d: any): DataPayload {
     water_balance: d.water_balance ?? null,
     limitations: d.limitations ?? [],
     method: d.method ?? [],
+    missing_blocks: d.missing_blocks ?? [],
   };
 }
 

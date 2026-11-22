@@ -20,7 +20,9 @@ STYLE = """Piszesz dla polskiego rolnika, często starszego (70+), bez wiedzy te
 Zasady: prosty polski, krótkie zdania, zero żargonu (zamiast „KBW” pisz „bilans opadów i parowania”), liczby z jednostkami,
 zwracaj się per „Ty”. Opieraj się WYŁĄCZNIE na faktach z sekcji KONTEKST. Nie zmieniaj oceny, formalności, opłat ani statusów
 naborów – są wyliczone regułami. Jeśli czegoś nie ma w kontekście, powiedz wprost, że tego nie wiesz. Nie obiecuj dotacji,
-gdy nabór jest zamknięty. Nie podawaj adresów www ani numerów artykułów spoza kontekstu."""
+gdy nabór jest zamknięty. Nie podawaj adresów www ani numerów artykułów spoza kontekstu.
+NIE licz samodzielnie nowych kwot, sum ani iloczynów (np. stawka × hektary) – podawaj liczby dokładnie tak, jak są
+w kontekście (np. „437,60 zł za hektar”); rachunki zostaw rolnikowi lub doradcy."""
 
 
 class TodoItem(BaseModel):
@@ -140,7 +142,7 @@ def _ctx_message(g: Grounding) -> dict[str, str]:
 
 async def summary(g: Grounding) -> SummaryResponse:
     key = make_key("llm_summary", id=g.ctx.parcel.id, date=g.ctx.as_of.isoformat(), crop=g.ctx.crop,
-                   model=settings.openai_model, v=2)
+                   model=settings.openai_model, v=3)
     if (hit := cache_get(key)) is not None:
         return SummaryResponse.model_validate(hit)
     tpl = summary_template(g)
@@ -184,3 +186,134 @@ async def chat(g: Grounding, messages: list[ChatMessage]) -> ChatResponse:
 
 
 __all__ = ["FORMALITY_PL", "ChatMessage", "ChatResponse", "SummaryResponse", "chat", "summary"]
+
+
+# ───────────────────── FAQ: rozwijane pytania nad raportem ─────────────────────
+FaqTopic = Literal["sytuacja", "zatrzymac", "koszty", "zysk", "dotacje", "formalnosci", "kiedy"]
+FAQ: dict[str, tuple[str, str]] = {
+    "sytuacja": ("Co się dzieje z wodą na moim polu?",
+                 "Streść ocenę: jak jest teraz, jak bywało w 10 latach, kiedy najgorzej i dlaczego."),
+    "zatrzymac": ("Jak mogę zatrzymać wodę na moim polu?",
+                  "Wymień działania z listy DZIAŁANIA w kolejności: retencja (miejsca na działce), potem gleba. Przy każdym: "
+                  "gdzie, jak, kiedy. Nawadnianie tylko na końcu, jeśli jest w kontekście."),
+    "koszty": ("Ile to będzie kosztować?",
+               "Podaj tylko koszty z kontekstu: opłaty urzędowe, widełki kosztu oczka. Dla działań bez kwoty w kontekście napisz, "
+               "od czego zależy koszt (nasiona, praca, sprzęt), ale NIE wymyślaj kwot."),
+    "zysk": ("Co na tym zyskam?",
+             "Opisz korzyści z kontekstu: ile wody zatrzyma oczko (m³) i jaki to procent niedoboru, ograniczenie strat plonu "
+             "(jeśli jest szacunek spadku plonu), płatności ekoschematów (stawki z kontekstu). Nie wyceniaj plonu w złotych, "
+             "jeśli kontekst tego nie podaje – powiedz to wprost."),
+    "dotacje": ("Jakie dofinansowania mogę dostać?",
+                "Wymień programy z sekcji DZIAŁANIA (pieniądze) i DOTACJE, które są dla rolnika. Przy każdym: na co, ile (jeśli "
+                "jest w kontekście) i STATUS NABORU. Programy z zamkniętym naborem opisz jako „czekaj na nabór”."),
+    "formalnosci": ("Jakie formalności muszę załatwić?",
+                    "Pogrupuj działania: bez formalności / zgłoszenie wodnoprawne / pozwolenie. Podaj urząd, opłatę, czas i że "
+                    "zgłoszenie składa się przed rozpoczęciem prac. Formalności bierz wyłącznie z kontekstu."),
+    "kiedy": ("Co zrobić w najbliższych tygodniach?",
+              "Na podstawie daty analizy, fazy uprawy, prognozy i terminów działań: co zrobić teraz, co przed wiosną, co w "
+              "sezonie. Konkretne miesiące."),
+}
+
+
+class FaqResponse(BaseModel):
+    topic: str
+    question: str
+    paragraphs: list[str] = Field(default_factory=list)
+    bullets: list[str] = Field(default_factory=list)
+    citations: list[Citation] = Field(default_factory=list)
+    source: Literal["llm", "template"] = "template"
+    model: str | None = None
+    disclaimer: str = DISCLAIMER
+
+
+FAQ_SYS = STYLE + """
+Odpowiadasz na JEDNO pytanie rolnika o jego działkę. Krótko: 1–2 akapity po 1–3 zdania i do 6 punktów (każdy 1 zdanie).
+Zwróć JSON: {"paragraphs": ["…"], "bullets": ["…"], "sources": ["S3", "S7"]}. W tekście nie wstawiaj numerów źródeł."""
+
+
+def _zl(v: float | None, dec: int = 0) -> str:
+    return "—" if v is None else f"{v:,.{dec}f} zł".replace(",", " ").replace(".", ",")
+
+
+def faq_template(g: Grounding, topic: str) -> FaqResponse:
+    """Odpowiedzi z reguł – bez LLM. Tylko fakty z analizy; brak danych mówimy wprost."""
+    q = FAQ[topic][0]
+    a = g.analysis or {}
+    wb = a.get("water_balance") or {}
+    pond = wb.get("pond") or {}
+    recs = _sorted_recs(g)
+    paras: list[str] = []
+    bullets: list[str] = []
+    if not a.get("assessment"):
+        return FaqResponse(topic=topic, question=q, paragraphs=["Nie mamy dość danych, żeby odpowiedzieć dla tej działki i daty."])
+    if topic == "sytuacja":
+        s = summary_template(g)
+        paras, bullets = [s.headline, *s.paragraphs[:2]], []
+    elif topic == "zatrzymac":
+        paras = ["Najpierw zatrzymaj wodę na polu, potem popraw glebę – nawadnianie na końcu."]
+        bullets = [f"{r['title']}: {r.get('why') or ''}".strip() for r in g.recs][:6]
+    elif topic == "koszty":
+        if pond:
+            bullets.append(f"Oczko (ok. {pond.get('volume_m3')} m³): wykop {_zl(pond.get('cost_pln_min'))} – {_zl(pond.get('cost_pln_max'))} "
+                           "(szacunek, bez uszczelnienia i przelewu).")
+        for r in recs:
+            if r.get("fee_pln"):
+                bullets.append(f"{r['title']}: opłata urzędowa {_zl(r['fee_pln'], 2)} ({FORMALITY_PL.get(r.get('formality') or 'none')}).")
+        paras = ["Koszt międzyplonu, mulczu czy uprawy uproszczonej zależy od nasion, sprzętu i pracy – tego nie szacujemy."]
+    elif topic == "zysk":
+        if pond:
+            bullets.append(f"Oczko zatrzyma do ok. {pond.get('stored_per_year_m3')} m³ wody w roku"
+                           + (f" – ok. {pond['covers_season_pct']}% sezonowego niedoboru." if pond.get("covers_season_pct") else "."))
+        irr = a.get("irrigation") or {}
+        if irr.get("yield_loss_pct"):
+            bullets.append(f"Bez wody spadek plonu w tym sezonie szacujemy na ok. {irr['yield_loss_pct']:.0f}% (FAO-56).")
+        for f in {f["name"]: f for r in recs for f in r.get("funding") or []}.values():
+            if f.get("call_kind") == "annual" and f.get("scope"):
+                bullets.append(f"{f['name']}: {f['scope']}")
+        paras = ["Plonu nie wyceniamy w złotych – zależy od ceny skupu i pogody."]
+    elif topic == "dotacje":
+        seen = {}
+        for r in recs:
+            for f in r.get("funding") or []:
+                seen.setdefault(f["name"], f)
+        bullets = [f"{f['name']} – {f.get('call_label')}" for f in seen.values()] or ["Dla działań z raportu nie ma przypisanego programu."]
+        paras = ["Większość dotacji inwestycyjnych to zwrot kosztów po realizacji. Ekoschematy składasz co roku we wniosku obszarowym."]
+    elif topic == "formalnosci":
+        for r in recs:
+            f = r.get("formality") or "none"
+            extra = f" – {r['office']}, opłata {_zl(r.get('fee_pln'), 2)}, {r.get('wait')}" if f in ("notification", "permit") else ""
+            bullets.append(f"{r['title']}: {FORMALITY_PL.get(f)}{extra}.")
+        paras = ["Zgłoszenie lub pozwolenie składasz przed rozpoczęciem prac."]
+    elif topic == "kiedy":
+        bullets = [f"{r['title']}: {r['when']}" for r in g.recs if r.get("when")][:6]
+        crit = (a.get("assessment") or {}).get("critical_months") or []
+        if crit:
+            paras = ["Najwięcej wody brakuje w miesiącach: " + ", ".join(str(m) for m in crit) + " – zatrzymaj wodę wcześniej."]
+    return FaqResponse(topic=topic, question=q, paragraphs=paras, bullets=bullets)
+
+
+async def faq(g: Grounding, topic: str) -> FaqResponse:
+    key = make_key("llm_faq", id=g.ctx.parcel.id, date=g.ctx.as_of.isoformat(), crop=g.ctx.crop, topic=topic,
+                   model=settings.openai_model, v=2)
+    if (hit := cache_get(key)) is not None:
+        return FaqResponse.model_validate(hit)
+    tpl = faq_template(g, topic)
+    if not (g.analysis or {}).get("assessment"):
+        return tpl
+    question, instr = FAQ[topic]
+    out = await openai_client.complete_json(FAQ_SYS, [_ctx_message(g), {"role": "user", "content": f"PYTANIE: {question}\nWSKAZÓWKI: {instr}"}],
+                                            max_tokens=900)
+    if not out or not (out.get("paragraphs") or out.get("bullets")):
+        return tpl
+    cites, seen = [], set()
+    for sid in out.get("sources") or []:
+        s = g.source(str(sid).strip("[] "))
+        if s and s.sid not in seen:
+            seen.add(s.sid)
+            cites.append(Citation(title=s.title, url=s.url))
+    clean = lambda t: re.sub(r"\s*\[S\d+\]", "", str(t)).strip()
+    res = FaqResponse(topic=topic, question=question, paragraphs=[clean(p) for p in out.get("paragraphs") or []][:3],
+                      bullets=[clean(b) for b in out.get("bullets") or []][:6], citations=cites[:5], source="llm",
+                      model=settings.openai_model)
+    cache_set(key, res.model_dump(mode="json"), SUMMARY_TTL_S)
+    return res

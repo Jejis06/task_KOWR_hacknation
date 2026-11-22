@@ -33,6 +33,17 @@ Lokalnie bez Dockera: `cd frontend && npm run build`, potem `cd backend && uv ru
   **„Twój plan: co wolno i za ile”**; **dotacje ze statusem naboru**; **kalkulator oczka** (zagłębienie > 5000 m² → oczko 5000 m²
   na zgłoszenie); **wstępnie wypełnione zgłoszenie wodnoprawne** do druku: `/api/forms/zgloszenie?id=…&date=…`.
 - Link prosto do widoku analityka: `?dzialka=…&data=…&uprawa=…&widok=dane`.
+- **Wymagania obowiązkowe KOWR (pkt 3.3) działają bez LLM**: ocena, przyczyny, rekomendacje, nawadnianie, data, źródła,
+  ograniczenia i brakujące dane liczy aplikacja z pobranych danych regułami. AI to wyłącznie dodatek nad raportem.
+- **Widok rolnika**: wąska lewa kolumna (działka, mapa), szeroki środek. Na górze **„Podpowiedzi dla Twojego pola”** – 7 rozwijanych
+  pytań (jak zatrzymać wodę, koszty, zysk, dotacje, formalności, co i kiedy; `POST /api/llm/faq`, odpowiedź liczona dopiero po
+  rozwinięciu, zapas z reguł). Pod nimi raport jako rozwijane tematy (otwarty jeden naraz): woda → przyczyny → co zrobić →
+  formalności i koszty → podlewanie → pogoda 16 dni → rośliny i kalendarz uprawy → ograniczenia i brakujące dane → źródła.
+  Wydruk/PDF (przycisk lub Ctrl+P) rozwija wszystkie tematy. Szczegóły wszystkich bloków danych – zakładka „Wszystkie dane”.
+- **WCAG 2.0, zasada 3 (zrozumiałość)**: `lang="pl"`, natywne rozwijane sekcje z nagłówkami (klawiatura, czytnik ekranu), spójne
+  nazwy tych samych funkcji („Skąd to wiemy?”), błędy formularza powiązane z polem (`aria-invalid`, `role="alert"`) z podpowiedzią
+  formatu, zmiana uprawy/daty nie uruchamia analizy sama, wyjaśnienia skrótów (NDVI, KBW…), prosty język, informacja o linkach
+  otwieranych w nowej karcie.
 
 ## Stan (F1 – dane)
 Działają: lokalizacja działki (GUGiK ULDK), meteo z 10 lat (Open-Meteo, a przy limicie NASA POWER; ET0 FAO-56), prognoza,
