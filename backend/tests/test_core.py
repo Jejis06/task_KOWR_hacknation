@@ -113,3 +113,23 @@ def test_api_cache_headers():
     with TestClient(app) as c:
         r = c.get("/api/knowledge/crops")
         assert r.status_code == 200 and "max-age=86400" in r.headers["cache-control"]
+
+
+async def test_parcels_in_polygon_filters_by_shape(monkeypatch):
+    """Obrys: zostają działki przecinane przez krawędź lub w środku; reszta z prostokąta grup wierszy odpada."""
+    from shapely.geometry import box
+
+    from app.connectors import parcels_area as PA
+    from app.core.geo import to_2180
+    from shapely.geometry import Polygon
+    ring = [(17.255, 52.197), (17.262, 52.197), (17.262, 52.202), (17.255, 52.202)]
+    poly = to_2180(Polygon(ring))
+    minx, miny, maxx, maxy = poly.bounds
+    inside = box(minx + 10, miny + 10, minx + 60, miny + 60).wkb
+    outside = box(maxx + 500, maxy + 500, maxx + 560, maxy + 560).wkb
+    monkeypatch.setattr(PA, "_query", lambda b: [("999999_9.9999.1", "1", "TEST", "999999_9", "Gm", inside),
+                                                 ("999999_9.9999.2", "2", "TEST", "999999_9", "Gm", outside)])
+    monkeypatch.setattr(PA, "cache_get", lambda k: None)
+    monkeypatch.setattr(PA, "cache_set", lambda *a, **k: None)
+    out = await PA.parcels_in_polygon(ring)
+    assert [p.id for p in out] == ["999999_9.9999.1"] and 0.2 < out[0].area_ha < 0.3

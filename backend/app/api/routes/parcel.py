@@ -4,6 +4,7 @@ from datetime import date
 from typing import Any
 
 from fastapi import APIRouter, HTTPException, Query
+from pydantic import BaseModel
 
 from app.config import settings
 from app.connectors.registry import BLOCKS
@@ -43,6 +44,24 @@ async def _resolve(id: str | None, lon: float | None, lat: float | None) -> Parc
 async def resolve(id: str | None = None, lon: float | None = None, lat: float | None = None) -> ParcelRef:
     """Identyfikator działki (np. 146505_8.0116.5) lub „obręb numer”, albo punkt z mapy."""
     return await _resolve(id, lon, lat)
+
+
+class AreaQuery(BaseModel):
+    ring: list[tuple[float, float]]     # obrys [(lon, lat), …] w EPSG:4326
+
+
+@router.post("/in-area", response_model=list[ParcelRef])
+async def in_area(q: AreaQuery) -> list[ParcelRef]:
+    """Działki w obrysie narysowanym na mapie (przecinane przez krawędź i w środku), maks. 25."""
+    from app.connectors.parcels_area import AreaTooLarge, parcels_in_polygon
+    if len(q.ring) < 3:
+        raise HTTPException(422, "Obrys musi mieć co najmniej 3 punkty.")
+    try:
+        return await parcels_in_polygon(q.ring)
+    except AreaTooLarge as e:
+        raise HTTPException(422, str(e)) from e
+    except Exception as e:  # noqa: BLE001 – źródło (plik GUGiK) niedostępne
+        raise HTTPException(503, "Nie udało się pobrać działek z obszaru – spróbuj ponownie albo zaznacz działki kliknięciem.") from e
 
 
 @router.get("/blocks", response_model=list[BlockInfo])

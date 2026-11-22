@@ -16,6 +16,7 @@ dependencies = [
     "pyyaml>=6.0",
     "rasterio>=1.4.4",
     "scipy>=1.17.1",
+    "duckdb>=2.0.1",
 ]
 
 [dependency-groups]
