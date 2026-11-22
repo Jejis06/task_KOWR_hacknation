@@ -15,7 +15,7 @@ from typing import Any
 
 import numpy as np
 from shapely import contains_xy
-from shapely.geometry import LineString, mapping, shape
+from shapely.geometry import LineString, MultiLineString, mapping, shape
 from shapely.ops import linemerge, unary_union
 
 from app.config import settings
@@ -39,6 +39,18 @@ NMT_PARALLEL = 3  # więcej równoległych zapytań → usługa zaczyna zwracać
 CELL_LEVELS = (5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 40.0, 50.0)
 EDGE_MARGIN_M = 150.0  # obiekty dalej niż tyle od działki są zależne od brzegu okna – nie pokazujemy ich
 
+
+
+def _merged_lines(segs: list) -> list[LineString]:
+    """Sklej odcinki w możliwie długie linie. `linemerge` w shapely 2 przyjmuje tylko MultiLineString – gdy unia odcinków
+    daje jedną linię (albo kolekcję z punktami), zwracamy ją wprost, zamiast przerywać blok terenu błędem."""
+    u = unary_union(segs)
+    if isinstance(u, LineString):
+        return [u]
+    if isinstance(u, MultiLineString):
+        m = linemerge(u)
+        return list(m.geoms) if hasattr(m, "geoms") else [m]
+    return [g for g in getattr(u, "geoms", []) if isinstance(g, LineString)]
 
 def snapped_grid(bounds: tuple[float, float, float, float], max_points: int = MAX_POINTS,
                  min_cell: float = 5.0) -> tuple[tuple[float, float, float, float], float, int, int]:
@@ -240,8 +252,7 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
         segs.append(LineString([(xs[c], ys[r]), (xs[c + dc], ys[r + dr])]))
     flow_feats = []
     if segs:
-        merged = linemerge(unary_union(segs))
-        lines = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
+        lines = _merged_lines(segs)
         for ln in lines:
             if ln.length < 3 * cell:
                 continue
@@ -305,8 +316,7 @@ def _runoff_exits(fd: np.ndarray, acc: np.ndarray, inside: np.ndarray, xs: np.nd
     if not pieces:
         return []
     out = []
-    merged = linemerge(unary_union([s for s, _ in pieces]))
-    for ln in (list(merged.geoms) if hasattr(merged, "geoms") else [merged]):
+    for ln in _merged_lines([s for s, _ in pieces]):
         ha = max(a for s, a in pieces if s.distance(ln) < 1.0)
         out.append({"geom": ln, "props": {"catchment_ha": round(ha, 2), "length_m": round(ln.length)}})
     out.sort(key=lambda f: -f["props"]["catchment_ha"])

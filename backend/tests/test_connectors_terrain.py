@@ -89,3 +89,16 @@ async def test_live_terrain_lubelskie_slope():
     ctx = AnalysisContext(parcel=await resolve_by_id("060406_2.0136.AR_3.783/2"), as_of=date(2024, 7, 1))
     b = await TerrainConnector().fetch(ctx)
     assert b.status.value == "ok" and b.data.slope_mean_deg > 3
+
+
+def test_merged_lines_handles_single_line_and_collections():
+    """Regresja: działka 061408_4.0006.828 – unia odcinków dawała jedną linię i `linemerge` przerywał blok terenu."""
+    from shapely.geometry import LineString
+
+    from app.connectors.terrain import _merged_lines
+
+    one = _merged_lines([LineString([(0, 0), (1, 0)]), LineString([(1, 0), (2, 1)])])
+    assert len(one) == 1 and one[0].length > 2
+    two = _merged_lines([LineString([(0, 0), (1, 0)]), LineString([(5, 5), (6, 5)])])
+    assert len(two) == 2
+    assert _merged_lines([LineString([(0, 0), (1, 0)])])[0].length == 1
