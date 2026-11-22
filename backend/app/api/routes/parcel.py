@@ -7,7 +7,7 @@ from fastapi import APIRouter, HTTPException, Query
 
 from app.config import settings
 from app.connectors.registry import BLOCKS
-from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy
+from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy, resolve_many
 from app.contracts.models import AnalysisContext, BlockInfo, DataBlock, ParcelProfile, ParcelRef
 from app.services.profile import build_profile, run_block
 
@@ -26,6 +26,8 @@ def _validate_date(as_of: date | None) -> date:
 
 async def _resolve(id: str | None, lon: float | None, lat: float | None) -> ParcelRef:
     try:
+        if id and "+" in id:                      # grupa działek analizowana jako jeden obszar
+            return await resolve_many(id.split("+"))
         if id:
             return await resolve_by_id(id)
         if lon is not None and lat is not None:

@@ -189,3 +189,25 @@ def test_coarse_dem_small_parcel_skips_depressions():
     r = analyse_all(c, d)
     assert "oczko_zbiornik" not in [x.measure_id for x in r.recommendations]
     assert any("Copernicus 30 m" in t for t in r.limitations)
+
+
+def test_several_reservoir_sites_on_large_parcel():
+    c = ctx()
+    d = dry_data(c)
+    dep = d["terrain"]["depressions_geojson"]["features"][0]
+    d["terrain"]["depressions_geojson"]["features"] = [
+        {**dep, "properties": {**dep["properties"], "volume_m3": v}} for v in (700, 400, 900, 120, 300, 50)]
+    r = analyse_all(c, d)
+    oczko = next(x for x in r.recommendations if x.measure_id == "oczko_zbiornik")
+    assert oczko.where_geojson["type"] == "FeatureCollection" and len(oczko.where_geojson["features"]) == 5
+    assert "5 miejsc" in oczko.title and r.water_balance["sites_volume_m3"] == 2420
+
+
+def test_merge_parcels_union_and_stable_id():
+    from app.connectors.uldk import merge_parcels
+    a = ParcelRef(id="302504_5.0024.7", geometry=GeoJSONGeometry(type="Polygon", coordinates=[[[17.19, 52.21], [17.2, 52.21],
+                  [17.2, 52.22], [17.19, 52.21]]]), centroid=(17.195, 52.215), bbox=(17.19, 52.21, 17.2, 52.22), area_ha=14.47)
+    b = ParcelRef(id="302504_5.0024.8", geometry=GeoJSONGeometry(type="Polygon", coordinates=[[[17.21, 52.22], [17.22, 52.22],
+                  [17.22, 52.23], [17.21, 52.22]]]), centroid=(17.215, 52.225), bbox=(17.21, 52.22, 17.22, 52.23), area_ha=2.0)
+    m1, m2 = merge_parcels([a, b]), merge_parcels([b, a])
+    assert m1.id == m2.id == "302504_5.0024.7+302504_5.0024.8" and abs(m1.area_ha - 16.47) < 1e-6

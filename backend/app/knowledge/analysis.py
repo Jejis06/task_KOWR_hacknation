@@ -384,6 +384,16 @@ def _coarse_terrain(ctx: AnalysisContext, terr: dict | None) -> bool:
     return bool(res and res >= COARSE_DEM_M and (ctx.parcel.area_ha or 0) < COARSE_MIN_AREA_HA)
 
 
+MAX_SITES = 5
+
+
+def _reservoir_sites(terr: dict | None, n: int = MAX_SITES) -> list[dict]:
+    """Do n zagłębień przy działce, od największej pojemności – miejsca na kilka zbiorników (duże działki i grupy)."""
+    deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
+            if (f.get("properties") or {}).get("touches_parcel")]
+    return sorted(deps, key=lambda f: -((f.get("properties") or {}).get("volume_m3") or 0))[:n]
+
+
 def _best_depression(terr: dict | None) -> dict | None:
     deps = [f for f in ((terr or {}).get("depressions_geojson") or {}).get("features") or []
             if (f.get("properties") or {}).get("touches_parcel")]
@@ -425,6 +435,11 @@ def water_balance(ctx: AnalysisContext, d: dict[str, dict | None]) -> dict | Non
                    depression_fill_pct=round(min(100.0, inflow / vol * 100)) if inflow is not None and vol else None,
                    coverage_season_pct=round(vol / out["season_deficit_m3"] * 100, 1)
                    if out.get("season_deficit_m3") else None)
+    sites = _reservoir_sites(terr)
+    if len(sites) > 1:
+        total = sum((f.get("properties") or {}).get("volume_m3") or 0 for f in sites)
+        out.update(sites_count=len(sites), sites_volume_m3=round(total),
+                   coverage_sites_pct=round(total / out["season_deficit_m3"] * 100, 1) if out.get("season_deficit_m3") else None)
     return out
 
 
@@ -489,8 +504,22 @@ def recommendations(ctx: AnalysisContext, d: dict[str, dict | None], cs: list[Ca
             if wb.get("coverage_season_pct") is not None and wb.get("season_deficit_m3"):
                 ev.append(_ev(_pl_dec(f"pojemność pokrywa ok. {wb['coverage_season_pct']:.0f}% średniego niedoboru wody w sezonie "
                               f"({wb['season_deficit_m3']:.0f} m³ na całą działkę)"), "weather_history"))
-            add("oczko_zbiornik", "Oczko wodne lub mały zbiornik w zagłębieniu terenu", why, ev,
-                when="poza sezonem (paź–mar), po zgłoszeniu wodnoprawnym", where=best)
+            sites = _reservoir_sites(terr)
+            title, where = "Oczko wodne lub mały zbiornik w zagłębieniu terenu", best
+            if len(sites) > 1:
+                total = sum((f.get("properties") or {}).get("volume_m3") or 0 for f in sites)
+                title = f"Kilka zbiorników w zagłębieniach terenu ({len(sites)} miejsca)" if len(sites) < 5 else \
+                    f"Kilka zbiorników w zagłębieniach terenu ({len(sites)} miejsc)"
+                where = {"type": "FeatureCollection", "features": sites}
+                why += (f" Na polu jest {len(sites)} takich miejsc – razem zmieszczą ok. {total:.0f} m³ wody"
+                        + (f", czyli ok. {total / wb['season_deficit_m3'] * 100:.0f}% sezonowego niedoboru."
+                           if wb.get("season_deficit_m3") else ".")
+                        + " Kilka mniejszych zbiorników (każdy do 5000 m² i 3 m) łatwiej zbudować etapami; pamiętaj, że stawy"
+                          " na jednym gruncie sumują się przy kwalifikacji wodnoprawnej.")
+                ev += [_ev(_pl_dec(f"miejsce {i}: {(f.get('properties') or {}).get('area_m2', 0):.0f} m², pojemność ok. "
+                                   f"{(f.get('properties') or {}).get('volume_m3', 0):.0f} m³"), "terrain")
+                       for i, f in enumerate(sites, 1)]
+            add("oczko_zbiornik", title, why, ev, when="poza sezonem (paź–mar), po zgłoszeniu wodnoprawnym", where=where)
         slope = (terr or {}).get("slope_mean_deg")
         near_water = [x for x in (hyd or {}).get("nearest_water") or [] if x["distance_m"] <= 100 and x.get("kind") != "ditch"]
         exits = [] if _coarse_terrain(ctx, terr) else \
@@ -755,7 +784,7 @@ class AnalysisConnector(Connector):
     uses_crop = True
     live_ttl_s = 3 * 3600
     timeout_s = 20
-    cache_version = 5   # 5: zgrubny DEM – bez zagłębień na małych działkach; 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
+    cache_version = 6   # 6: kilka zbiorników; 5: zgrubny DEM – bez zagłębień na małych działkach; 4: międzyplon/mulcz – gatunki i terminy (sowing), miesiące skrótami
     depends_on: ClassVar[tuple[str, ...]] = DEPS
 
     async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:

@@ -116,3 +116,49 @@ async def resolve_by_xy(lon: float, lat: float) -> ParcelRef:
     cache_set(key, ref.model_dump(mode="json"), PARCEL_TTL_S)
     cache_set(make_key("uldk_id", id=ref.id), ref.model_dump(mode="json"), PARCEL_TTL_S)
     return ref
+
+
+MAX_PARCELS = 25
+
+
+def merge_parcels(refs: list[ParcelRef]) -> ParcelRef:
+    """Kilka działek → jeden obszar analizy (suma geometrii, łączna powierzchnia). Id = posortowane id połączone „+”,
+    więc ta sama grupa ma zawsze ten sam klucz cache. Jedna działka wraca bez zmian."""
+    from shapely.geometry import shape
+    from shapely.ops import unary_union
+
+    uniq = list({r.id: r for r in refs}.values())
+    if len(uniq) == 1:
+        return uniq[0]
+    uniq.sort(key=lambda r: r.id)
+    geom = unary_union([shape(r.geometry.model_dump()) for r in uniq])
+    if geom.geom_type == "GeometryCollection":     # zostawiamy części powierzchniowe (działki to poligony)
+        from shapely.geometry import MultiPolygon
+        polys = [g for g in geom.geoms if g.geom_type in ("Polygon", "MultiPolygon")]
+        geom = unary_union(polys) if polys else geom.convex_hull
+        if geom.geom_type == "GeometryCollection":
+            geom = MultiPolygon([])
+    minx, miny, maxx, maxy = geom.bounds
+    c = geom.representative_point()
+    first = uniq[0]
+    return ParcelRef(
+        id="+".join(r.id for r in uniq), teryt_unit=first.teryt_unit, region_code=first.region_code,
+        parcel_number=", ".join(r.parcel_number or r.id for r in uniq), voivodeship=first.voivodeship,
+        county=first.county, commune=first.commune,
+        region_name=", ".join(dict.fromkeys(r.region_name for r in uniq if r.region_name)) or None,
+        geometry=GeoJSONGeometry(**geom_to_geojson(geom)), centroid=(round(c.x, 6), round(c.y, 6)),
+        bbox=(minx, miny, maxx, maxy), area_ha=round(sum(r.area_ha for r in uniq), 4),
+    )
+
+
+async def resolve_many(ids: list[str]) -> ParcelRef:
+    """Lista identyfikatorów (z zaznaczenia na mapie / wpisanych) → jeden obszar. Działki z cache nie pytają ULDK."""
+    clean = list(dict.fromkeys(i.strip() for i in ids if i.strip()))
+    if not clean:
+        raise ParcelNotFound("pusta lista działek")
+    if len(clean) > MAX_PARCELS:
+        raise ParcelNotFound(f"za dużo działek naraz (maks. {MAX_PARCELS})")
+    refs = []
+    for pid in clean:          # po kolei: przy limicie ULDK równoległe zapytania tylko pogarszają sprawę
+        refs.append(await resolve_by_id(pid))
+    return merge_parcels(refs)

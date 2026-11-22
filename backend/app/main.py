@@ -9,7 +9,7 @@ from datetime import date, timedelta
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api.routes import health, knowledge, parcel, tiles
+from app.api.routes import geocode, health, knowledge, parcel, tiles
 from app.config import settings
 from app.core.http import close_client
 
@@ -42,7 +42,7 @@ async def cache_headers(request: Request, call_next):
         except ValueError:
             old = False
         response.headers["Cache-Control"] = f"public, max-age={7 * 24 * 3600 if old else 3600}"
-    elif path.startswith(("/api/parcel/resolve", "/api/knowledge", "/api/parcel/blocks")):
+    elif path.startswith(("/api/parcel/resolve", "/api/knowledge", "/api/parcel/blocks", "/api/geocode")):
         response.headers["Cache-Control"] = "public, max-age=86400"
     return response
 
@@ -51,3 +51,4 @@ app.include_router(health.router)
 app.include_router(parcel.router)
 app.include_router(knowledge.router)
 app.include_router(tiles.router)
+app.include_router(geocode.router)
