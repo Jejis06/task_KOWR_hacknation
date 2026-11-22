@@ -12,7 +12,7 @@ PARCEL = ParcelRef(id="302504_5.0024.7", geometry=GeoJSONGeometry(type="Point", 
 
 
 def cal(d: date, crop: str | None):
-    status, info, unc, msgs = crop_calendar(d, crop)
+    status, info, _unc, _msgs = crop_calendar(d, crop)
     return status, info
 
 
@@ -35,12 +35,12 @@ def test_calendar_january_winter_wheat_dormant():
     names = [s.name for s in i.stages]
     assert names[0].startswith("siew") and "zbiór" in names
     # fazy FAO od ruszenia wegetacji wiosną 2026
-    fao = [s for s in i.stages if s.name == "faza początkowa"][0]
+    fao = next(s for s in i.stages if s.name == "faza początkowa")
     assert fao.start == date(2026, 3, 25) and fao.kc == 0.4
 
 
 def test_calendar_april_maize_before_sowing_and_suggestions():
-    status, i = cal(date(2026, 4, 10), "kukurydza_ziarno")
+    _status, i = cal(date(2026, 4, 10), "kukurydza_ziarno")
     assert i.in_season_on_as_of is False and i.current_stage == "przed siewem"
     assert i.sowing_ok_now is False
     assert any("za wcześnie" in w for w in i.warnings)
@@ -49,23 +49,23 @@ def test_calendar_april_maize_before_sowing_and_suggestions():
 
 
 def test_calendar_july_maize_critical_period():
-    status, i = cal(date(2026, 7, 15), "kukurydza_ziarno")
+    _status, i = cal(date(2026, 7, 15), "kukurydza_ziarno")
     assert i.in_season_on_as_of is True
     assert i.current_stage in ("rozwój roślin", "pełnia wzrostu")
     assert any("okres krytyczny" in w for w in i.warnings)
-    mid = [s for s in i.stages if s.name == "pełnia wzrostu"][0]
+    mid = next(s for s in i.stages if s.name == "pełnia wzrostu")
     assert mid.kc == 1.2
 
 
 def test_calendar_october_winter_wheat_sowing_ok():
-    status, i = cal(date(2026, 10, 5), "pszenica_ozima")
+    _status, i = cal(date(2026, 10, 5), "pszenica_ozima")
     assert i.sowing_ok_now is True
     assert i.in_season_on_as_of is True  # kampania 2026/27 już trwa (siew od 15.09)
     assert any("termin siewu" in w for w in i.warnings)
 
 
 def test_calendar_november_maize_too_late():
-    status, i = cal(date(2026, 11, 21), "kukurydza_ziarno")
+    _status, i = cal(date(2026, 11, 21), "kukurydza_ziarno")
     assert i.sowing_ok_now is False and i.in_season_on_as_of is False
     w = " ".join(i.warnings)
     assert "Listopad" in w and "niemożliwy" in w and "130–160 dni" in w and "8 °C" in w
@@ -81,7 +81,7 @@ def test_calendar_without_crop():
 
 
 def test_calendar_unknown_crop():
-    status, i, unc, msgs = crop_calendar(date(2026, 7, 1), "banan")
+    status, i, _unc, msgs = crop_calendar(date(2026, 7, 1), "banan")
     assert status == BlockStatus.no_data and i is None and msgs
 
 

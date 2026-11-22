@@ -243,20 +243,6 @@ class VegetationInfo(BaseModel):
     ndmi_anomaly: float | None = None
 
 
-class YieldRecord(BaseModel):
-    year: int
-    crop: str
-    yield_t_ha: float | None
-    level: Literal["powiat", "voivodeship", "country", "parcel_proxy"]
-    unit_name: str | None = None
-
-
-class YieldInfo(BaseModel):
-    official: list[YieldRecord] = Field(default_factory=list)      # GUS BDL (powiat/województwo)
-    parcel_productivity_index: list[dict] = Field(default_factory=list)  # [{year, peak_ndvi, rel_index}]
-    note: str | None = None
-
-
 class LandCoverInfo(BaseModel):
     classes: dict[str, float] = Field(default_factory=dict)  # klasa -> udział % działki
     agricultural_share_pct: float | None = None

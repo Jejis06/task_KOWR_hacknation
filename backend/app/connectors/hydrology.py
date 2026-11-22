@@ -294,7 +294,7 @@ class HydrologyConnector(Connector):
             provs.append(self.prov("PIG-PIB – Główne Zbiorniki Wód Podziemnych (GZWP)", source_url=PIG_VIEWER,
                                    licence=LIC_PIG))
         if not isinstance(t_jcwpd, Exception) and t_jcwpd:
-            best = sorted(t_jcwpd, key=lambda r: 0 if r["layerId"] == 2 else 1)[0]["attributes"]
+            best = min(t_jcwpd, key=lambda r: 0 if r["layerId"] == 2 else 1)["attributes"]
             region = (best.get("Region wodny") or "").strip()
             region_name = region if region.lower().startswith("region") else f"region wodny {region}"
             info.jcwpd_code = best.get("Kod UE")

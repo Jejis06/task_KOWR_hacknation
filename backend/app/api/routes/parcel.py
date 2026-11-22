@@ -62,7 +62,7 @@ async def in_area(q: AreaQuery, response: Response) -> list[ParcelRef]:
         return parcels
     except AreaTooLarge as e:
         raise HTTPException(422, str(e)) from e
-    except Exception as e:  # noqa: BLE001 – źródło (plik GUGiK) niedostępne
+    except Exception as e:
         raise HTTPException(503, "Nie udało się pobrać działek z obszaru – spróbuj ponownie albo zaznacz działki kliknięciem.") from e
 
 

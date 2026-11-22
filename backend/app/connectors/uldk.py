@@ -72,7 +72,7 @@ def _parse(body: str) -> ParcelRef:
     f = lines[1].split("|")
     try:
         geom = parse_wkt(f[0])
-    except Exception as e:  # noqa: BLE001 – uszkodzona geometria (np. strona zastępcza przy limicie)
+    except Exception as e:
         raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.") from e
     if geom.is_empty or not all(abs(v) < 1e6 for v in geom.bounds):
         raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.")

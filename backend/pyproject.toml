@@ -36,3 +36,8 @@ addopts = "-m 'not live'"
 [tool.ruff]
 line-length = 110
 target-version = "py311"
+
+[tool.ruff.lint]
+# ISC004: wielolinijkowe komunikaty w listach (ograniczenia, metoda) są sklejane celowo;
+# B008: Query(...) jako wartość domyślna to standardowy wzorzec FastAPI.
+ignore = ["ISC004", "B008"]

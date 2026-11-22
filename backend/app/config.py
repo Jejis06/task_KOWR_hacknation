@@ -32,9 +32,5 @@ class Settings(BaseSettings):
     # CORS dla frontendu
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
 
-    # Opcjonalne klucze (podstawowe funkcje NIE mogą ich wymagać)
-    copernicus_client_id: str | None = None
-    copernicus_client_secret: str | None = None
-
 
 settings = Settings()

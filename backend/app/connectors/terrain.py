@@ -49,7 +49,7 @@ def snapped_grid(bounds: tuple[float, float, float, float], max_points: int = MA
             continue
         x0, y0 = math.floor(minx / cell) * cell, math.floor(miny / cell) * cell
         x1, y1 = math.ceil(maxx / cell) * cell, math.ceil(maxy / cell) * cell
-        ncols, nrows = int(round((x1 - x0) / cell)) + 1, int(round((y1 - y0) / cell)) + 1
+        ncols, nrows = round((x1 - x0) / cell) + 1, round((y1 - y0) / cell) + 1
         if nrows * ncols <= max_points:
             break
     return (x0, y0, x1, y1), cell, nrows, ncols
@@ -75,7 +75,7 @@ def parse_heights(text: str) -> list[float | None]:
 
 async def fetch_grid(bounds: tuple[float, float, float, float], cell: float, nrows: int,
                      ncols: int) -> np.ndarray:
-    minx, miny, maxx, maxy = bounds
+    minx, _miny, _maxx, maxy = bounds
     # wiersz 0 = północ
     pts = [(maxy - r * cell, minx + c * cell) for r in range(nrows) for c in range(ncols)]
     chunks = [pts[i:i + CHUNK] for i in range(0, len(pts), CHUNK)]
@@ -191,7 +191,7 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
     inside = contains_xy(parcel_2180, XX, YY)
     if inside.sum() < 1:  # działka mniejsza niż komórka – najbliższa komórka
         c = parcel_2180.representative_point()
-        inside[int(round((y0 - c.y) / cell)), int(round((c.x - x0) / cell))] = True
+        inside[round((y0 - c.y) / cell), round((c.x - x0) / cell)] = True
 
     slope, aspect = T.slope_aspect(z, cell)
     tpi_r = T.tpi(z, cell, radius_m=150)
@@ -247,8 +247,8 @@ def analyse(z: np.ndarray, cell: float, origin: tuple[float, float], parcel_2180
                 continue
             # zlewnia na końcu linii
             ex, ey = ln.coords[-1]
-            ci = min(ncols - 1, max(0, int(round((ex - x0) / cell))))
-            ri = min(nrows - 1, max(0, int(round((y0 - ey) / cell))))
+            ci = min(ncols - 1, max(0, round((ex - x0) / cell)))
+            ri = min(nrows - 1, max(0, round((y0 - ey) / cell)))
             flow_feats.append({"geom": ln.simplify(cell / 2), "props": {
                 "length_m": round(ln.length), "catchment_ha": round(float(acc[ri, ci] * cell ** 2 / 1e4), 2),
                 "crosses_parcel": bool(ln.intersects(parcel_2180))}})

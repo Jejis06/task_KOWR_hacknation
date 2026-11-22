@@ -15,8 +15,16 @@ from datetime import date, timedelta
 from typing import Any, ClassVar
 
 from app.connectors.base import Connector
-from app.contracts.models import (AnalysisContext, BlockStatus, CropCalendarInfo, CropStage, DataBlock,
-                                  LegalContextInfo, LegalHint, Provenance)
+from app.contracts.models import (
+    AnalysisContext,
+    BlockStatus,
+    CropCalendarInfo,
+    CropStage,
+    DataBlock,
+    LegalContextInfo,
+    LegalHint,
+    Provenance,
+)
 from app.knowledge import loader
 
 MONTHS_PL = ["styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień",
@@ -179,9 +187,7 @@ def _winter_rules(as_of: date) -> list[str]:
     m = as_of.month
     out = []
     for r in rules:
-        if r.startswith("Siew jesienny") and m in (9, 10):
-            out.append(r)
-        elif r.startswith("Lis–lut") and m in (11, 12, 1, 2):
+        if r.startswith("Siew jesienny") and m in (9, 10) or r.startswith("Lis–lut") and m in (11, 12, 1, 2):
             out.append(r)
     return out
 

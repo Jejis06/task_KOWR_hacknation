@@ -23,7 +23,7 @@ def test_priority_flood_fills_bowl():
 
 
 def test_d8_accumulation_on_plane_flows_south():
-    r, k, c, cell = _grid()
+    r, _k, _c, _cell = _grid()
     z = 100 - 0.05 * r                                     # spadek na południe (wiersze rosną)
     fdir, acc = T.d8_accumulation(T.priority_flood(z, eps=1e-3))
     assert fdir[10, 10] == 4                               # S
@@ -31,7 +31,7 @@ def test_d8_accumulation_on_plane_flows_south():
 
 
 def test_slope_and_aspect():
-    r, k, c, cell = _grid()
+    r, _k, _c, cell = _grid()
     z = 100 - 0.1 * r * 1.0                                # 0.1 m na 10 m → ~0.57°, spadek na S
     slope, aspect = T.slope_aspect(z, cell)
     assert 0.4 < slope[20, 20] < 0.8 and abs(aspect[20, 20] - 180) < 1

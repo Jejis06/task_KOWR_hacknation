@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
-
 from datetime import date, timedelta
 
 from fastapi import FastAPI, Request

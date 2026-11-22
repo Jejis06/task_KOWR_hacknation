@@ -288,7 +288,7 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                   </thead>
                   <tbody>
                     {b.data.rows.map((r, ri) => (
-                      <tr key={`${r.label}-${ri}`} className={[r.dry ? "dry" : "", r.after ? "after" : ""].join(" ").trim()}>
+                      <tr key={`${r.label}-${ri}`} className={r.dry ? "dry" : undefined}>
                         <td>
                           {r.mapId ? (
                             <Button

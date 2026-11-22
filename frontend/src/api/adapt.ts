@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Tłumaczy bloki z backendu (backend/app/contracts/models.py) na format prezentacji nowego UI.
 // Zasada: żadnych zmyślonych liczb – wszystko liczone z `raw`; brak danych → „brak danych”.
-import type { DataBlock, DataPayload, Row, SeriesRow } from "./client";
+import type { DataBlock, DataPayload, SeriesRow } from "./client";
 
 const MONTHS = ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"];
 const nf = (v: number, d = 0) => v.toLocaleString("pl-PL", { maximumFractionDigits: d, minimumFractionDigits: d });
@@ -40,27 +40,13 @@ function weatherHistory(d: any): DataPayload {
     return { label: `${MONTHS[m - 1]} ${k.slice(2, 4)}`, rain: Math.round(sums.get(k)!.p),
       normal: Math.round(clim.get(m)?.precip_mean_mm ?? 0), evaporation: Math.round(sums.get(k)!.e), value: 0 };
   });
-  const seasons = [...(d.seasons ?? [])];
-  const after = new Set((d.seasons_after_as_of ?? []).map((s: any) => s.year));
-  const cwbs = seasons.map((s: any) => s.cwb_apr_sep_mm).filter((v: any) => v != null) as number[];
-  const mean = cwbs.length ? cwbs.reduce((a, b) => a + b, 0) / cwbs.length : null;
-  const sd = mean != null && cwbs.length > 1 ? Math.sqrt(cwbs.reduce((a, b) => a + (b - mean) ** 2, 0) / cwbs.length) : null;
-  const limit = mean != null && sd != null ? Math.max(30, 0.5 * sd) : null;
-  const rows: Row[] = [...seasons, ...(d.seasons_after_as_of ?? [])].sort((a: any, b: any) => b.year - a.year).map((s: any) => ({
-    label: String(s.year),
-    value: mm(s.precip_apr_sep_mm),
-    detail: `Parowanie ${mm(s.et0_apr_sep_mm)} · bilans ${smm(s.cwb_apr_sep_mm)} · najdłużej bez deszczu ${s.longest_dry_spell_days ?? "–"} dni`
-      + (after.has(s.year) ? " · po dacie analizy (tylko porównanie)" : ""),
-    dry: !after.has(s.year) && s.cwb_apr_sep_mm != null && mean != null && limit != null && s.cwb_apr_sep_mm < mean - limit,
-    after: after.has(s.year),
-  }));
   const diff = d.cwb_60d_mm != null && d.cwb_60d_normal_mm != null ? d.cwb_60d_mm - d.cwb_60d_normal_mm : null;
   const summary = diff == null ? "Bilans wody z 60 dni: brak danych."
     : Math.abs(diff) < 10 ? "Bilans wody z ostatnich 60 dni jest w normie dla tej pory roku."
     : diff < 0 ? `Sucho: w ostatnich 60 dniach o ${mm(-diff)} wody mniej niż zwykle o tej porze roku.`
     : `Wilgotniej niż zwykle: o ${mm(diff)} wody więcej niż zwykle o tej porze roku.`;
   return {
-    summary, series, rows, raw: d, balance_mm: d.cwb_60d_mm, normal_mm: d.cwb_60d_normal_mm,
+    summary, series, raw: d, balance_mm: d.cwb_60d_mm, normal_mm: d.cwb_60d_normal_mm,
     metrics: [
       { label: `Bilans wody z 60 dni (do ${dstr(d.end)})`, value: smm(d.cwb_60d_mm), term: "KBW" },
       { label: "Zwykle o tej porze", value: smm(d.cwb_60d_normal_mm) },

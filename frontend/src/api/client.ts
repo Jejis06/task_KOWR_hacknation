@@ -114,7 +114,7 @@ export type SeriesRow = {
   value: number;
   value2?: number | null;
 };
-export type Row = { label: string; value: string; detail: string; dry?: boolean; after?: boolean; mapId?: string };
+export type Row = { label: string; value: string; detail: string; dry?: boolean; mapId?: string };
 export type DataPayload = {
   summary?: string;
   metrics?: { label: string; value: string; term?: string }[];

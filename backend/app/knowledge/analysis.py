@@ -704,9 +704,9 @@ def irrigation(ctx: AnalysisContext, d: dict[str, dict | None]) -> IrrigationAdv
         ev.append(_ev(f"od początku sezonu rośliny zużyły {ratio:.0%} wody, której potrzebowały (Ks < 1 w {sum(1 for x in bal.days if not x.forecast and x.ks < 1)} dniach)", "weather_history"))
     if loss:
         ev.append(_ev(_pl_dec(f"szacowany spadek plonu przez niedobór wody: ok. {loss:.0%} (FAO-56 równ. 90, Ky = {ky:.2f})"), "crop_calendar"))
-    common = dict(depletion_mm=now.dr, taw_mm=now.taw, raw_mm=now.raw, ks=now.ks, horizon_days=horizon,
-                  season_et_ratio=ratio, yield_loss_pct=round(loss * 100, 1) if loss is not None else None,
-                  soil_water=series, days_to_stress=days_to, stress_date=stress.day.isoformat() if stress else None)
+    common = {"depletion_mm": now.dr, "taw_mm": now.taw, "raw_mm": now.raw, "ks": now.ks, "horizon_days": horizon,
+                  "season_et_ratio": ratio, "yield_loss_pct": round(loss * 100, 1) if loss is not None else None,
+                  "soil_water": series, "days_to_stress": days_to, "stress_date": stress.day.isoformat() if stress else None}
     if now.dr > now.raw:
         dose = round(min(now.dr, 35.0))
         return IrrigationAdvice(recommended="yes", dose_mm=dose, deficit_mm=round(now.dr, 1),

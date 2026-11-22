@@ -1601,7 +1601,6 @@
 /* drobne */
 .chart-legend i.water { background: var(--water); }
 .chart-legend i.danger { background: var(--danger); }
-.data-table tr.after td { color: var(--muted-foreground); font-style: italic; background: var(--muted); }
 .text-warning { color: var(--warning); }
 
 /* tabela sezonów – układ arkusza (kolumny liczb wyrównane do prawej, siatka) */

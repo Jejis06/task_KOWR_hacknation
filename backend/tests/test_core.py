@@ -1,7 +1,8 @@
+from datetime import date, timedelta
+
 import httpx
 import pytest
 import respx
-from datetime import date, timedelta
 
 from app.connectors.uldk import _parse, looks_like_parcel_id
 from app.contracts.models import DailySeries
@@ -117,11 +118,10 @@ def test_api_cache_headers():
 
 async def test_parcels_in_polygon_filters_by_shape(monkeypatch):
     """Obrys: zostają działki przecinane przez krawędź lub w środku; reszta z prostokąta grup wierszy odpada."""
-    from shapely.geometry import box
+    from shapely.geometry import Polygon, box
 
     from app.connectors import parcels_area as PA
     from app.core.geo import to_2180
-    from shapely.geometry import Polygon
     ring = [(17.255, 52.197), (17.262, 52.197), (17.262, 52.202), (17.255, 52.202)]
     poly = to_2180(Polygon(ring))
     minx, miny, maxx, maxy = poly.bounds
