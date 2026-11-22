@@ -9,6 +9,15 @@ Rolnik wpisuje numer działki ewidencyjnej (albo adres, albo klika mapę), wybie
 czy na działce brakuje wody i dlaczego, gdzie i jak ją zatrzymać, czy podlewać, czy na dane działanie potrzebne jest zgłoszenie
 lub pozwolenie, ile to kosztuje i skąd wziąć dofinansowanie.
 
+## Zespół i podział pracy
+
+| Osoba | Zakres |
+|---|---|
+| **Ignacy Buczek** | backend: API (FastAPI), konektory danych (ULDK, pogoda, susza, gleba, teren, wody, satelita, pokrycie terenu, ochrona przyrody), analiza regułowa (ocena → przyczyny → rekomendacje → nawadnianie FAO-56), baza wiedzy (prawo wodne, opłaty, dotacje, uprawy), cache i obsługa limitów źródeł, testy, wdrożenie (Docker, serwer) |
+| **Mateusz Portka** | frontend: interfejs rolnika i widok analityka (React), mapa z miejscami na wodę i zaznaczaniem działek, raport w rozwijanych tematach, wykresy, wydruk i PDF, dostępność (lupa, wysoki kontrast), asystent AI w interfejsie (podpowiedzi i czat) |
+
+Wspólnie: koncepcja rozwiązania, dobór źródeł danych, testy na działkach z całej Polski, dokumentacja.
+
 ## Opis rozwiązania
 
 **Problem.** Dane o wodzie, glebie, suszy i terenie są publiczne, ale rozproszone po kilkunastu portalach i wymagają wiedzy z GIS,
