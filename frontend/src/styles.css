@@ -835,47 +835,6 @@
   color: var(--muted-foreground);
   font-size: 10px;
 }
-.forecast-preview {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: var(--water-soft);
-  padding: 13px 17px;
-  border-radius: 5px;
-  margin: 18px 0 25px;
-}
-.forecast-preview > svg {
-  color: var(--water);
-  flex-shrink: 0;
-}
-.forecast-preview h3 {
-  font-size: 12px;
-  font-weight: 650;
-}
-.forecast-preview p {
-  font-size: 11px;
-  color: var(--muted-foreground);
-  margin-top: 3px;
-}
-.forecast-preview .forecast-rain {
-  color: var(--water);
-  font-weight: 650;
-  font-size: 19px;
-  white-space: nowrap;
-  margin-left: auto;
-}
-.forecast-mini {
-  display: flex;
-  align-items: flex-end;
-  height: 35px;
-  gap: 3px;
-  margin-left: auto;
-}
-.forecast-mini span {
-  width: 5px;
-  background: var(--water);
-  border-radius: 2px 2px 0 0;
-}
 .cause-row {
   margin-bottom: 16px;
 }
@@ -1400,9 +1359,6 @@
   }
   .story-heading h2 {
     font-size: 18px;
-  }
-  .forecast-mini {
-    display: none;
   }
   .protected-notice {
     align-items: flex-start;
@@ -2187,11 +2143,6 @@ html:is(.a11y-zoom-125, .a11y-zoom-150) :is(.chart-box, .recharts-responsive-con
 .acc-num.acc-icon { background: var(--secondary); color: var(--primary); }
 .acc-text { display: grid; gap: 3px; min-width: 0; }
 .acc-title { font-size: 1.1rem; font-weight: 700; margin: 0; line-height: 1.3; }
-.acc-teaser { font-size: 0.95rem; color: var(--muted-foreground); line-height: 1.4; }
-.acc-pill { display: inline-block; font-size: 0.8rem; font-weight: 700; padding: 1px 8px; border-radius: 999px;
-  background: var(--secondary); color: var(--primary); }
-.acc-pill.lvl-moderate { background: var(--warning-soft); color: var(--warning); }
-.acc-pill.lvl-high, .acc-pill.lvl-very_high { background: var(--danger-soft); color: var(--danger); }
 .acc-chevron { transition: transform 0.2s; color: var(--muted-foreground); }
 details[open] > summary .acc-chevron { transform: rotate(180deg); }
 .acc-body { padding: 4px 18px 18px; border-top: 1px solid var(--border); }
@@ -2356,3 +2307,26 @@ details[open] > summary .acc-chevron { transform: rotate(180deg); }
   .data-acc .acc-chevron { display: none; }
   .data-acc { break-inside: auto; }
 }
+
+/* ── uwagi z 22.11: park narodowy wyraźniej, nagłówek treści tematu, duży wykres pogody, szersza mapa ── */
+.protected-notice { font-size: 16px; font-weight: 600; color: var(--foreground); align-items: flex-start; gap: 12px;
+  padding: 16px 18px; background: var(--warning-soft); border: 2px solid var(--warning); border-radius: 8px; }
+.protected-notice svg { width: 26px; height: 26px; color: var(--warning); }
+.protected-notice .source-line { font-weight: 400; font-size: 12px; margin-top: 6px; }
+.acc-heading { font-size: 1.05rem; font-weight: 650; line-height: 1.4; margin: 14px 0 10px; }
+.forecast-chart { margin: 8px 0 0; }
+.forecast-totals { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15px; margin-bottom: 4px; }
+.forecast-totals span { display: inline-flex; align-items: center; gap: 7px; }
+.forecast-totals i { width: 14px; height: 14px; border-radius: 3px; background: var(--water); }
+.forecast-totals i.evaporation { height: 3px; border-radius: 2px; background: var(--evaporation); }
+.forecast-chart-box { height: 300px; width: 100%; }
+.forecast-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.legend-sample.checked { border: 2px solid #facc15; background: rgb(250 204 21 / 0.18); box-shadow: 0 0 0 1px rgb(28 25 23 / 0.55); }
+@media screen and (min-width: 1101px) {
+  .workspace:not(.landing) { grid-template-columns: 400px minmax(0, 1fr); }
+}
+@media screen and (min-width: 801px) and (max-width: 1100px) {
+  .workspace:not(.landing) { grid-template-columns: 350px minmax(0, 1fr); }
+}
+.map-top { flex-wrap: wrap; }
+.map-top > :last-child { margin-left: auto; }
