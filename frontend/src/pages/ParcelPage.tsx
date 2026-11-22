@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import {
   ArrowRight,
+  Contrast,
   Check,
   Download,
   Droplets,
@@ -36,6 +37,7 @@ import Report from "@/components/water/Report";
 import Analyst from "@/components/water/Analyst";
 import { formatDate, Term } from "@/components/water/shared";
 import { groupParcels, looksLikeAddress, looksLikeParcelId } from "@/lib/groups";
+import { useA11y } from "@/lib/a11y";
 const MAX_SELECTION = 25;
 /** „Działka 7” albo „3 działki: 7, 8, 9” / „25 działek: 101, 110/74, 110/81…” */
 function parcelTitle(p: ParcelRef): string {
@@ -98,6 +100,7 @@ export function ParcelPage() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const idInput = useRef<HTMLInputElement>(null);
   const bounds = dateBounds();
+  const { a11y, cycleZoom, toggleContrast } = useA11y();
   /** ekran startowy = sam formularz; mapa i raport dopiero po „Sprawdź działkę” */
   const started = loading || !!context.parcel;
   // link z parametrami (?dzialka=ID[+ID…]&data=RRRR-MM-DD&uprawa=klucz) – od razu liczy raport
@@ -392,6 +395,16 @@ export function ParcelPage() {
             <Button variant="ghost" onClick={() => setHelp(true)}>
               O raporcie
             </Button>
+            <div className="a11y-tools" role="group" aria-label="Dostępność">
+              <Button variant="outline" className="a11y-button" onClick={cycleZoom}
+                aria-label={`Powiększ tekst (teraz ${a11y.zoom}%)`} title="Większy tekst">
+                <span aria-hidden="true">Aa</span>{a11y.zoom !== 100 && <small>{a11y.zoom}%</small>}
+              </Button>
+              <Button variant={a11y.contrast ? "default" : "outline"} className="a11y-button" onClick={toggleContrast}
+                aria-pressed={a11y.contrast} title="Wysoki kontrast">
+                <Contrast aria-hidden="true" /> <span className="a11y-label">Kontrast</span>
+              </Button>
+            </div>
             <span className="privacy">
               <LockKeyhole size={13} />
               Bez logowania. Bez danych osobowych.
@@ -580,6 +593,7 @@ export function ParcelPage() {
               )}
               <Suspense fallback={<div className="map-shell skeleton" aria-label="Wczytywanie mapy" />}>
                   <ParcelMap
+                    highContrast={a11y.contrast}
                     selection={selection}
                     flyTo={flyTo}
                     onLasso={lassoSelect}

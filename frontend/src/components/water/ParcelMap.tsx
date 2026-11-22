@@ -58,6 +58,8 @@ type Props = {
   /** obrys narysowany na mapie (pierścień [lon, lat]) */
   onLasso?: (ring: [number, number][]) => void;
   lassoBusy?: boolean;
+  /** tryb wysokiego kontrastu: grubsze, ciemniejsze obrysy na mapie */
+  highContrast?: boolean;
 };
 /** urządzenie dotykowe (telefon, tablet) – inne gesty mapy */
 const touch = typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
@@ -70,6 +72,7 @@ const TILE = USE_MOCKS
     }
   : { ortho: "/api/tiles/ortho/{z}/{x}/{y}", osm: "/api/tiles/osm/{z}/{x}/{y}", parcels: "/api/tiles/parcels/{z}/{x}/{y}" };
 export default function ParcelMap({
+  highContrast = false,
   selection = [],
   onAnalyze,
   flyTo = null,
@@ -192,12 +195,13 @@ export default function ParcelMap({
     const green = token("--primary"),
       blue = token("--water"),
       orange = token("--warning"),
-      waterDark = "#1e3a8a";
+      waterDark = "#1e3a8a",
+      lw = (n: number) => (highContrast ? n + 2 : n);   // grubsze linie w trybie wysokiego kontrastu
     const group = L.featureGroup().addTo(m);
     features.current = {};
     if (parcel) {
       const boundary = L.geoJSON(parcel.geometry as GeoJSON.GeoJsonObject, {
-        style: { color: green, weight: 3, fillColor: green, fillOpacity: 0.06 },
+        style: { color: green, weight: lw(3), fillColor: green, fillOpacity: 0.06 },
       }).addTo(group);
       features.current["parcel"] = boundary;
       boundary.on("click", (e: L.LeafletMouseEvent) => {
@@ -247,7 +251,7 @@ export default function ParcelMap({
         el.append(btn);
       }
       const pl = L.geoJSON(sp.geometry as GeoJSON.GeoJsonObject, {
-        style: { color: "#f59e0b", weight: 3, dashArray: "6 5", fillColor: "#fde68a", fillOpacity: 0.25 },
+        style: { color: "#f59e0b", weight: lw(3), dashArray: "6 5", fillColor: "#fde68a", fillOpacity: 0.25 },
       }).bindPopup(el).on("click", stop).addTo(group);
       if (!multiSel && i === 0) setTimeout(() => pl.openPopup(), 50);
     });
@@ -256,10 +260,10 @@ export default function ParcelMap({
     const recs = showAnalysis ? blocks["analysis"]?.data.recommendations ?? [] : [];
     if (visible.water) {
       (terrain?.flow_lines_geojson?.features ?? []).forEach((f: GeoJSON.Feature) =>
-        L.geoJSON(f, { style: { color: blue, weight: 2, dashArray: "6 7" }, interactive: false }).addTo(group));
+        L.geoJSON(f, { style: { color: blue, weight: lw(2), dashArray: "6 7" }, interactive: false }).addTo(group));
       (terrain?.depressions_geojson?.features ?? []).forEach((f: GeoJSON.Feature<GeoJSON.Geometry, Record<string, number>>, i: number) => {
         const pr = f.properties ?? {};
-        const l = L.geoJSON(f, { style: { color: blue, weight: 2, fillColor: blue, fillOpacity: 0.35 } })
+        const l = L.geoJSON(f, { style: { color: blue, weight: lw(2), fillColor: blue, fillOpacity: 0.35 } })
           .bindPopup(popup("Zagłębienie terenu – zbiera się tu woda",
             `${(pr.area_m2 ?? 0).toLocaleString("pl-PL")} m² · do ${(pr.max_depth_m ?? 0).toLocaleString("pl-PL")} m · ok. ${(pr.volume_m3 ?? 0).toLocaleString("pl-PL")} m³`,
             "terrain", pr.catchment_ha != null ? `Woda spływa tu z ok. ${pr.catchment_ha.toLocaleString("pl-PL")} ha` : ""))
@@ -268,7 +272,7 @@ export default function ParcelMap({
         if (!features.current["depression"] && (f.properties as unknown as { touches_parcel?: boolean })?.touches_parcel) features.current["depression"] = l;
       });
       (terrain?.runoff_exits_geojson?.features ?? []).forEach((f: GeoJSON.Feature<GeoJSON.Geometry, Record<string, number>>, i: number) => {
-        const l = L.geoJSON(f, { style: { color: waterDark, weight: 6, opacity: 0.85, lineCap: "round" } })
+        const l = L.geoJSON(f, { style: { color: waterDark, weight: lw(6), opacity: 0.85, lineCap: "round" } })
           .bindPopup(popup("Tu woda ucieka z pola", `ok. ${f.properties?.length_m ?? "?"} m granicy · spływ z ${f.properties?.catchment_ha?.toLocaleString("pl-PL") ?? "?"} ha`,
             "terrain"))
           .on("click", stop).addTo(group);
@@ -277,7 +281,7 @@ export default function ParcelMap({
       (hydro?.nearest_water ?? []).forEach((w: { kind: string; name: string | null; distance_m: number; geometry: GeoJSON.Geometry | null }, i: number) => {
         if (!w.geometry) return;
         const kind = WATER_KIND[w.kind] ?? "Woda";
-        const l = L.geoJSON(w.geometry, { style: { color: w.kind === "ditch" ? "#0e7490" : blue, weight: 4, fillColor: blue, fillOpacity: 0.55 } })
+        const l = L.geoJSON(w.geometry, { style: { color: w.kind === "ditch" ? "#0e7490" : blue, weight: lw(4), fillColor: blue, fillOpacity: 0.55 } })
           .bindPopup(popup(w.name && !kind.toLowerCase().includes(w.name.toLowerCase()) ? `${kind}: ${w.name}` : kind, `${dist(w.distance_m)} od działki`, "hydrology", "BDOT10k (GUGiK)"))
           .bindTooltip(`${kind} · ${dist(w.distance_m)}`)
           .on("click", stop).addTo(group);
@@ -298,7 +302,7 @@ export default function ParcelMap({
         pts.forEach((p, i) => L.marker(p, { icon: pin(kind, i === 0 ? REC_LABEL[kind] ?? r.title : ""), keyboard: true, title: r.title }).addTo(fg));
         if (kind === "pond")
           L.geoJSON(r.where_geojson as GeoJSON.GeoJsonObject, {
-            style: { color: orange, weight: 2.5, dashArray: "5 5", fill: false }, interactive: false,
+            style: { color: orange, weight: lw(2.5), dashArray: "5 5", fill: false }, interactive: false,
           }).addTo(fg);
         fg.bindPopup(popup(r.title, r.when ? `Kiedy: ${r.when}` : "", null, "Proponowane miejsce – sprawdź w terenie przed pracami"))
           .on("click", stop);
@@ -331,7 +335,7 @@ export default function ParcelMap({
       group.remove();
       wms?.remove();
     };
-  }, [parcel, selection, visible, blocks, showAnalysis]);
+  }, [parcel, selection, visible, blocks, showAnalysis, highContrast]);
   // wycentruj wskazany obiekt (z tabeli analityka lub przycisku w raporcie) na mapie – bez powiększania
   useEffect(() => {
     const m = map.current;
