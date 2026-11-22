@@ -2073,8 +2073,13 @@ html:is(.a11y-zoom-125, .a11y-zoom-150) :is(.chart-box, .recharts-responsive-con
     box-sizing: border-box;
     align-items: stretch;
   }
+  /* position: relative – elementy pozycjonowane absolutnie w kolumnie (np. teksty .sr-only dla czytników ekranu)
+     liczą się względem kolumny i są w niej przycinane; przy `static` liczyły się względem strony i wydłużały ją
+     (całą stronę dało się przewinąć w górę, choć kolumny miały własne paski). */
+  html:not(.a11y-zoom-150):has(.workspace:not(.landing)) { overflow: hidden; }
   html:not(.a11y-zoom-150) .workspace:not(.landing) > :is(.field-column, .report-column) {
-    position: static;
+    position: relative;
+    top: auto;
     height: 100%;
     min-height: 0;
     overflow-y: auto;
