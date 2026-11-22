@@ -236,12 +236,13 @@ Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_c
 | scipy | BSD-3 | backend (terrain) |
 | rasterio (+ GDAL w kole binarnym: MIT/X) | BSD-3 | backend (terrain, vegetation, land_cover) |
 | diskcache | Apache-2.0 | backend |
+| DuckDB (+ rozszerzenie httpfs) | MIT | backend (działki w obrysie z krajowego GeoParquet GUGiK) |
 | PyYAML | MIT | backend |
 | pypdf (skrypt) | BSD-3 | scripts |
 | React, react-dom | MIT | frontend |
 | Leaflet | BSD-2 | frontend |
 | Vite, TypeScript | MIT, Apache-2.0 | frontend |
-| Recharts, Radix UI / shadcn, lucide-react, Tailwind 4, sonner, vaul, cmdk, zod… | MIT / ISC / Apache-2.0 | frontend v2 (sprawdzone 21.11.2026 skryptem po node_modules – brak GPL/Hippocratic) |
+| Recharts, Radix UI (dialog, popover, slot), class-variance-authority, clsx, tailwind-merge, lucide-react, Tailwind 4, tw-animate-css | MIT / ISC | frontend (22.11: usunięto 44 nieużywane komponenty shadcn i ich biblioteki) |
 
 | Dane | Licencja / warunki |
 |---|---|
@@ -254,6 +255,8 @@ Spójność: `backend/tests/test_knowledge_blocks.py::test_yaml_references_are_c
 | PIG-PIB (CBDH, GZWP, JCWPd, BDOT10k kopia) | dane publiczne, z podaniem źródła |
 | GDOŚ (CRFOP), PGW Wody Polskie (ISOK MZP) | dane publiczne, z podaniem źródła |
 | SoilGrids, ESA WorldCover | CC BY 4.0 |
+| OpenStreetMap (kafelki, Nominatim) | ODbL; kafelki i geokoder przez nasz cache, ≤1 zapytanie/s do Nominatim |
+| GUGiK eksport działek (GeoParquet, opendata.geoportal.gov.pl) | bezpłatne, PZGiK |
 | GUS BDL | otwarte dane |
 | IMGW-PIB (dane dobowe synop) | dane publiczne, wymagane podanie źródła IMGW-PIB |
 | OSM | ODbL (podkład mapy) |
@@ -290,6 +293,8 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 - 2026-11-21 · B · addytywnie: `SowingOption` {name, when, why, source_title, source_url} i `FundingRef` {name, url}; `Recommendation` += `sowing` (międzyplon/mulcz: gatunki i terminy), `funding` (programy po nazwie z linkiem zamiast samych `funding_ids`); `zastawka_row.where_geojson` = punkt rowu najbliższy działce. `client.ts` lustro (pola opcjonalne).
 
+- 2026-11-22 · B · addytywnie: `TerrainInfo.dem_source`; `WaterBalance` += `sites_count`, `sites_volume_m3`, `coverage_sites_pct` (kilka zbiorników); API: `id=ID1+ID2…` = grupa działek jako jeden obszar (maks. 25), `POST /api/parcel/in-area` {ring} → działki w obrysie (+nagłówek `X-Total-Count`), `GET /api/geocode?q=`, `GET /api/tiles/{ortho|parcels|osm}/{z}/{x}/{y}`. Usunięto nieużywane `YieldInfo`/`YieldRecord` i `StubConnector`.
+
 ## 14. Prośby między zespołami
 
 *(format: `- [A→B] data · opis · status`)*
@@ -305,6 +310,7 @@ Skąd brać treść: punkty 4–5 i 7 z §4, §8 i §11; punkt 8 z §10.
 
 ## 15. Dziennik prac (najnowsze na górze, 1 linia na zmianę)
 
+- 2026-11-22 · B · runda poprawek (feat/runda-poprawek): pełny ekran mapy bez przebić (sticky = osobny kontekst warstw), gesty mapy (kółko po kliknięciu, dwa palce), czytelna miarka KBW, źródła przy wskaźnikach z plakietką „źródło zapasowe”, wspólna przerwa po limicie GUGiK (302 na /resp/), nagłówki cache API, bez wniosków o zagłębieniach z DEM 30 m na działkach < 3 ha, raport rolnika w 4 krokach, start z mapą Polski (OSM z cache) i wyszukiwarką adresu (UUG → Nominatim), zaznaczanie wielu działek (klik, tryb „wiele”, obrys przez GeoParquet + DuckDB), grupy > 500 m liczone po kolei, do 5 zbiorników, czysty wydruk PDF, linki ?dzialka=…&data=…&uprawa=…, lupa i wysoki kontrast, Dockerfile + Render + keepalive, sprzątanie (ESLint, Ruff, 44 komponenty UI i ~40 bibliotek mniej).
 - 2026-11-21 · B · ULDK: przy limicie GUGiK odsyła 302 na `integracja01…/resp/uldk.php` (strona zastępcza: „0” + fikcyjna geometria z `inf`) → był błąd 500; teraz bez podążania za przekierowaniem, 3 próby, potem 503 z komunikatem. Nowy `/api/tiles/{ortho|parcels|osm}/{z}/{x}/{y}` – proxy kafelków z cache na dysku (30 dni) i w przeglądarce (7 dni), semafor i 60 s przerwy po limicie źródła. Front: ekran startowy = sam formularz; mapa (zoom kółkiem, przeciąganie) przybliżona do działki dopiero po „Sprawdź działkę”; klik w inną działkę → dymek z danymi i „Sprawdź tę działkę”; automatyczne przełączenie na OSM, gdy ortofotomapa nie odpowiada.
 - 2026-11-21 · B · fix/farmer-feedback-3: międzyplon i mulcz bez formalności/wsparcia – gatunki dobrane do uprawy i gleby + okno siewu (`crops/cover_crops.yaml`, źródła CDR/IUNG/FAO-56); miesiące skrótami (sty…gru) zamiast rzymskich w danych i tekstach; tabela sezonów jak arkusz, okno = okres wegetacji uprawy (domyślnie mar–wrz); źródła = tytuły dokumentów z linkami (bez nazw plików kodu), programy dotacji po nazwie; miarka KBW w skali mm z linią zera; favicon = logo kropla z listkiem; mapa: woda osobno od proponowanych działań (pinezki: zastawka na rowie, zbiornik, pas zieleni, studnia).
 - 2026-11-21 · koordynator · frontend v2 (Lovable → SPA Vite, bez TanStack Start/Lovable): adapter bloków, mapa z prawdziwymi warstwami (zagłębienia, spływ, miejsca odpływu, wody, rekomendacje), obracane karty „Skąd to wiemy?”, kalendarz uprawy w raporcie, bilans m³, wykres wody w glebie FAO-56, KBW×NDMI; centrowanie małej mapy po kliknięciu wody; kafle WMS 512 px (4× mniej zapytań).

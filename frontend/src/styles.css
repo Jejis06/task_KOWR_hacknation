@@ -1601,7 +1601,6 @@
 /* drobne */
 .chart-legend i.water { background: var(--water); }
 .chart-legend i.danger { background: var(--danger); }
-.data-table tr.after td { color: var(--muted-foreground); font-style: italic; background: var(--muted); }
 .text-warning { color: var(--warning); }
 
 /* tabela sezonów – układ arkusza (kolumny liczb wyrównane do prawej, siatka) */
@@ -1629,20 +1628,7 @@
 .sowing-when { font-weight: 650; color: var(--primary); font-size: 12px; }
 .sowing-src { font-size: 11px; color: var(--muted-foreground); text-decoration: underline; }
 
-/* miarka bilansu wody – skala w mm z linią zera */
-.water-gauge { position: relative; display: flex; flex-direction: column; align-items: center; padding-bottom: 18px; }
-.water-gauge svg { overflow: visible; }
-.wg-frame { fill: var(--water-soft); stroke: var(--border); }
-.wg-tick { stroke: var(--muted-foreground); stroke-width: 1; }
-.wg-zero { stroke: var(--foreground); stroke-width: 1.6; }
-.wg-tick-lbl, .wg-unit { font-size: 9px; fill: var(--muted-foreground); font-variant-numeric: tabular-nums; }
-.wg-bar.cur.neg { fill: var(--danger); }
-.wg-bar.cur.pos { fill: var(--water); }
-.wg-bar.norm { fill: none; stroke: var(--warning); stroke-width: 2; stroke-dasharray: 4 3; }
-.wg-val { font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
-.wg-val.cur { fill: var(--foreground); }
-.wg-val.norm { fill: var(--warning); }
-.wg-lbl { font-size: 10px; fill: var(--muted-foreground); }
+
 
 /* mapa: woda (niebieskie) osobno od proponowanych działań (pinezki) */
 .legend-sample.exit { height: 0; border: 0; border-top: 4px solid #1e3a8a; background: none; border-radius: 2px; }
@@ -1662,9 +1648,174 @@
 .rec-pin.icon-only { padding: 4px; }
 
 /* ekran startowy: tylko formularz, wyśrodkowany; mapa i raport po „Sprawdź działkę” */
-.workspace.landing { grid-template-columns: minmax(0, 520px); justify-content: center; padding-bottom: 48px; }
+.workspace.landing { grid-template-columns: minmax(0, 760px); justify-content: center; padding-bottom: 48px; }
 .workspace.landing .field-column { position: static; }
-.workspace.landing .form-section { border-radius: 10px; padding: 28px; box-shadow: 0 8px 30px rgb(0 0 0 / 0.06); }
+.workspace.landing .form-section { border-radius: 10px 10px 0 0; padding: 28px; box-shadow: 0 8px 30px rgb(0 0 0 / 0.06); }
+.workspace.landing .map-shell { height: min(460px, 60vh); }
 .page:has(.workspace.landing) .intro { justify-content: center; text-align: center; padding-top: 56px; }
 .picked-popup { display: grid; gap: 3px; min-width: 190px; }
 .picked-popup small { color: var(--muted-foreground); font-size: 10px; }
+
+/* pełny ekran mapy: lewa kolumna jest `sticky`, a sticky tworzy własny kontekst warstw – z-index mapy działałby
+   tylko wewnątrz kolumny i raport przebijałby się przez mapę. Na czas pełnego ekranu kolumna przestaje być sticky. */
+.field-column:has(.map-fullscreen) { position: static; }
+.map-fullscreen { z-index: 5000; isolation: isolate; }
+/* bez białych szwów między kafelkami przy ułamkowym przeskalowaniu (1 px zakładki) */
+.tiles-512 img.leaflet-tile { width: 513px !important; height: 513px !important; }
+.leaflet-container img.leaflet-tile { mix-blend-mode: normal; }
+
+/* podpowiedź gestu na mapie */
+.map-gesture-hint { position: absolute; inset: 0; z-index: 900; display: flex; align-items: center; justify-content: center;
+  background: rgb(0 0 0 / 0.45); color: #fff; font-size: 15px; font-weight: 600; text-align: center; padding: 24px;
+  pointer-events: none; }
+
+/* miarka bilansu wody: skala w mm, linia zera, czytelne etykiety; skaluje się z kolumną */
+.verdict-main { grid-template-columns: minmax(0, 1fr) 210px; }
+.water-gauge { margin: 0; display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.water-gauge svg { width: 100%; height: auto; overflow: visible; display: block; }
+.wg-frame { fill: var(--water-soft); stroke: var(--border); }
+.wg-tick { stroke: var(--muted-foreground); stroke-width: 1; }
+.wg-zero { stroke: var(--foreground); stroke-width: 2; }
+.wg-tick-lbl, .wg-unit { font-size: 11px; fill: var(--muted-foreground); font-variant-numeric: tabular-nums; }
+.wg-bar.cur.neg { fill: var(--danger); }
+.wg-bar.cur.pos { fill: var(--water); }
+.wg-bar.norm { fill: color-mix(in oklch, var(--warning) 12%, transparent); stroke: var(--warning); stroke-width: 2; stroke-dasharray: 5 4; }
+.wg-val { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.wg-val.cur { fill: var(--foreground); }
+.wg-val.norm { fill: var(--warning); }
+.wg-lbl { font-size: 12px; font-weight: 600; fill: var(--muted-foreground); }
+.water-gauge .gauge-caption { position: static; display: grid; gap: 1px; text-align: center; font-size: 11px; color: var(--muted-foreground); }
+.water-gauge .gauge-caption small { font-size: 10px; }
+@media (max-width: 560px) {
+  .verdict-main { grid-template-columns: minmax(0, 1fr); }
+  .water-gauge { max-width: 240px; margin: 4px auto 0; }
+  .timeline { grid-template-columns: repeat(5, 1fr); }
+  .month-ribbon { grid-template-columns: repeat(6, 1fr); }
+  .year-tile, .month-tile { font-size: 11px; }
+}
+
+/* obracana karta: niewidoczna strona nie zajmuje miejsca (wcześniej długie „dowody” robiły pustą dziurę pod kartą) */
+.flip:not(.is-flipped) .flip-back, .flip.is-flipped .flip-front { position: absolute; inset: 0 0 auto 0; }
+.flip-inner { position: relative; }
+@media print {
+  .flip:not(.is-flipped) .flip-back, .flip.is-flipped .flip-front { position: static; }
+}
+
+/* źródła przy wskaźnikach w panelu analizy */
+.source-strip { display: grid; gap: 4px; margin: 10px 0 4px; padding: 8px 10px; border-radius: 6px; background: var(--muted);
+  font-size: 12px; color: var(--muted-foreground); }
+.source-item { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; gap: 2px 6px; }
+.source-item .fallback-badge { grid-column: 2; justify-self: start; }
+.source-item svg { margin-top: 3px; }
+.source-item a { color: var(--foreground); text-decoration: underline; text-underline-offset: 2px; }
+.fallback-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: var(--warning);
+  border: 1px solid var(--warning); border-radius: 999px; padding: 1px 7px; background: var(--warning-soft); }
+
+/* raport rolnika – najważniejsze fakty w trzech linijkach */
+.key-facts { list-style: none; margin: 14px 0 6px; padding: 0; display: grid; gap: 8px; }
+.key-facts li { display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 10px 12px; border-radius: 8px;
+  background: var(--secondary); color: var(--foreground); }
+.key-facts li svg { flex: none; color: var(--primary); }
+.key-facts li.bad { background: var(--danger-soft); }
+.key-facts li.bad svg { color: var(--danger); }
+.cause-expl { font-size: 13px; color: var(--muted-foreground); }
+.irrigation-dose { font-size: 15px; margin-top: 8px; }
+.more-info-title { font-size: 18px; font-weight: 650; margin-bottom: 4px; }
+.more-info .details-box summary { font-size: 14px; }
+
+/* wyszukiwarka i zaznaczenie wielu działek */
+.search-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.search-row .search-button { height: 48px; width: 48px; padding: 0; }
+.multi-toggle { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; font-size: 13px; cursor: pointer; }
+.multi-toggle input { width: 18px; height: 18px; accent-color: var(--primary); }
+.selection-box { margin: 10px 0 4px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--muted); }
+.selection-head { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.selection-head span { color: var(--muted-foreground); }
+.selection-head button { margin-left: auto; }
+.selection-chips { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow: auto; }
+.selection-chips li { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; padding: 3px 4px 3px 9px; border-radius: 999px;
+  background: var(--card); border: 1px solid #f59e0b; }
+.selection-chips button { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 0;
+  background: transparent; color: var(--muted-foreground); cursor: pointer; }
+.selection-chips button:hover { background: var(--muted); color: var(--foreground); }
+.group-notice { margin: 0 0 14px; padding: 10px 14px; border-radius: 8px; background: var(--water-soft); font-size: 13px;
+  border: 1px solid color-mix(in oklch, var(--water) 35%, transparent); }
+.map-banner { position: absolute; left: 50%; top: 56px; transform: translateX(-50%); z-index: 850; max-width: calc(100% - 24px);
+  background: var(--foreground); color: var(--background); font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.25); text-align: center; }
+.map-tool.active { outline: 2px solid #f59e0b; }
+.legend-sample.picked { border: 2px dashed #f59e0b; background: #fde68a66; }
+
+/* ── druk / PDF: treść płynie przez strony, nie dzielimy tylko małych elementów (wcześniej całe sekcje skakały
+   na nową stronę i zostawiały puste kartki) ── */
+.print-only { display: none; }
+@media print {
+  @page { size: A4; margin: 14mm 12mm 16mm; }
+  html, body { background: #fff !important; }
+  body { font-size: 10.5px; }
+  .print-only { display: block; }
+  .site-header, .intro, .selection-box, .multi-toggle, .map-gesture-hint, .map-banner, .group-notice button,
+  .location-link, .export-actions, .term-trigger, .leaflet-control-zoom, .map-toolbar { display: none !important; }
+  .print-title { border-bottom: 2px solid var(--primary); padding-bottom: 8px; margin-bottom: 10px; }
+  .print-title h1 { font-size: 20px; font-weight: 700; color: var(--primary); }
+  .print-title p { font-size: 11px; color: #333; margin-top: 2px; }
+  .story-section { break-inside: auto; margin-bottom: 14px; }
+  .story-heading, h2, h3 { break-after: avoid; }
+  .verdict-panel, .recommendation, .cause-row, .key-facts li, .irrigation-panel > h3, .irrigation-values,
+  .balance-panel, .crop-calendar .cal-track, .flip-evidence li, .sowing-list li, .data-table tr, .sheet-table tr,
+  .metric, .chart-box, .water-gauge, .map-shell, .parcel-details { break-inside: avoid; }
+  .map-shell { height: 260px !important; }
+  /* „Na czym to opieramy” – zwięzła lista źródeł zamiast dużych ramek */
+  .flip-back { border: 0 !important; padding: 2px 0 0 !important; background: none !important; margin-top: 4px !important; }
+  .flip-back-head { margin-bottom: 4px; }
+  .flip-back-head .source-chip { display: none; }
+  .flip-back-title { font-size: 10px; }
+  .flip-evidence { gap: 3px; }
+  .flip-evidence .ev-text { font-size: 9.5px; }
+  .flip-evidence .ev-meta { font-size: 8.5px; }
+  .details-box { border-top: 0; }
+  .details-box > summary { font-weight: 650; padding: 6px 0 2px; }
+  .key-facts li { padding: 6px 10px; font-size: 12px; }
+  .report-footer { break-inside: avoid; }
+  a[href^="http"]::after { content: ""; }
+}
+@media print {
+  details > summary, .more-info-title, .timeline-label { break-after: avoid; }
+  .details-box { break-inside: auto; }
+}
+
+/* ── dostępność: przełączniki w nagłówku ── */
+.a11y-tools { display: flex; gap: 6px; }
+.a11y-button { height: 38px; min-width: 44px; padding: 0 10px; font-weight: 700; font-size: 15px; }
+.a11y-button small { font-size: 10px; font-weight: 600; margin-left: 2px; }
+@media (max-width: 800px) { .a11y-label { display: none; } }
+
+/* lupa: powiększamy treść (bez mapy – CSS zoom psuje współrzędne myszy w Leaflet); przy 150% jedna kolumna */
+html.a11y-zoom-125 :is(.site-header .header-inner, .intro, .form-section, .parcel-details, .field-note, .report-column, .site-footer) { zoom: 1.25; }
+html.a11y-zoom-150 :is(.site-header .header-inner, .intro, .form-section, .parcel-details, .field-note, .report-column, .site-footer) { zoom: 1.5; }
+html.a11y-zoom-125 .site-header, html.a11y-zoom-150 .site-header { height: auto; min-height: 84px; }
+html.a11y-zoom-150 .workspace { grid-template-columns: minmax(0, 1fr); }
+html.a11y-zoom-150 .field-column { position: static; }
+html.a11y-zoom-150 .page, html.a11y-zoom-150 .header-inner { width: min(1320px, calc(100% - 32px)); }
+html.a11y-zoom-125 .leaflet-control, html.a11y-zoom-150 .leaflet-control,
+html.a11y-zoom-125 .map-legend, html.a11y-zoom-150 .map-legend { font-size: 14px; }
+
+/* wysoki kontrast: czarny tekst na białym, wyraźne obramowania i podkreślone linki (WCAG AA z zapasem) */
+html.a11y-contrast {
+  --background: #ffffff; --foreground: #000000; --card: #ffffff; --muted: #f2f2f2; --muted-foreground: #1a1a1a;
+  --border: #000000; --primary: #00441b; --primary-foreground: #ffffff; --secondary: #e6f2e9; --accent: #e6f2e9;
+  --water: #003c8f; --water-soft: #e3edff; --warning: #6b3a00; --warning-soft: #fff1d6; --danger: #9b0000;
+  --danger-soft: #ffe5e5; --evaporation: #4b0082; --shadow: none;
+}
+html.a11y-contrast body { color: #000; }
+html.a11y-contrast a { text-decoration: underline; text-underline-offset: 2px; }
+html.a11y-contrast :is(.verdict-panel, .recommendation, .data-card, .form-section, .story-section .cause-bar, .key-facts li, .details-box, .source-strip) { border: 2px solid #000 !important; }
+html.a11y-contrast :focus-visible { outline: 3px solid #000 !important; outline-offset: 2px; }
+html.a11y-contrast .text-muted-foreground, html.a11y-contrast small { color: #1a1a1a !important; }
+/* na telefonie mniejsze stopnie lupy (ekran już jest wąski), wykresy nie wychodzą poza ramkę */
+@media (max-width: 700px) {
+  html.a11y-zoom-125 :is(.site-header .header-inner, .intro, .form-section, .parcel-details, .field-note, .report-column, .site-footer) { zoom: 1.15; }
+  html.a11y-zoom-150 :is(.site-header .header-inner, .intro, .form-section, .parcel-details, .field-note, .report-column, .site-footer) { zoom: 1.3; }
+  html:is(.a11y-zoom-125, .a11y-zoom-150) .brand-caption { display: none; }
+}
+html:is(.a11y-zoom-125, .a11y-zoom-150) :is(.chart-box, .recharts-responsive-container) { overflow: hidden; max-width: 100%; }

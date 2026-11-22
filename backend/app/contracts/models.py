@@ -197,6 +197,7 @@ class TerrainInfo(BaseModel):
     # ── 2026-11-21 (koordynator) ── odcinki granicy działki, przez które spływ (D8) wypływa z pola
     # FeatureCollection LineString (EPSG:4326), properties {catchment_ha, length_m}; zagłębienia mają też {catchment_ha}
     runoff_exits_geojson: dict | None = None
+    dem_source: str | None = None               # 2026-11-22 (B): które źródło wysokości zadziałało (NMT / Copernicus zapasowo)
 
 
 class WaterFeature(BaseModel):
@@ -240,20 +241,6 @@ class VegetationInfo(BaseModel):
     # ── 2026-11-21 (koordynator) ── NDMI (wilgotność liści, B08/B11) liczony w tej samej serii co NDVI
     ndmi_baseline_same_doy: float | None = None
     ndmi_anomaly: float | None = None
-
-
-class YieldRecord(BaseModel):
-    year: int
-    crop: str
-    yield_t_ha: float | None
-    level: Literal["powiat", "voivodeship", "country", "parcel_proxy"]
-    unit_name: str | None = None
-
-
-class YieldInfo(BaseModel):
-    official: list[YieldRecord] = Field(default_factory=list)      # GUS BDL (powiat/województwo)
-    parcel_productivity_index: list[dict] = Field(default_factory=list)  # [{year, peak_ndvi, rel_index}]
-    note: str | None = None
 
 
 class LandCoverInfo(BaseModel):

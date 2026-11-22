@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
-import { Expand, Layers, LocateFixed, X } from "lucide-react";
+import { Expand, Lasso, Layers, LocateFixed } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { USE_MOCKS, type DataBlock, type ParcelRef } from "@/api/client";
 import { dist, WATER_KIND } from "@/api/adapt";
@@ -49,10 +49,20 @@ type Props = {
   onMore: (key: string) => void;
   fullscreen: boolean;
   onFullscreen: () => void;
-  /** działka kliknięta na mapie (inna niż analizowana) – obrys + dymek z informacjami */
-  picked?: ParcelRef | null;
+  /** zaznaczone działki (klik, tryb „wiele”, obrys, wyszukiwarka) – obrysy + dymek z danymi */
+  selection?: ParcelRef[];
+  /** „Sprawdź tę działkę” z dymka */
   onAnalyze?: (id: string) => void;
+  /** przeleć do punktu (wynik wyszukiwania adresu); `n` zmienia się przy każdym wyszukaniu */
+  flyTo?: { lon: number; lat: number; zoom: number; n: number } | null;
+  /** obrys narysowany na mapie (pierścień [lon, lat]) */
+  onLasso?: (ring: [number, number][]) => void;
+  lassoBusy?: boolean;
+  /** tryb wysokiego kontrastu: grubsze, ciemniejsze obrysy na mapie */
+  highContrast?: boolean;
 };
+/** urządzenie dotykowe (telefon, tablet) – inne gesty mapy */
+const touch = typeof window !== "undefined" && !!window.matchMedia?.("(pointer: coarse)").matches;
 /** Kafelki przez backend (cache na dysku + w przeglądarce); w trybie demo bez backendu – prosto ze źródeł. */
 const TILE = USE_MOCKS
   ? {
@@ -62,8 +72,12 @@ const TILE = USE_MOCKS
     }
   : { ortho: "/api/tiles/ortho/{z}/{x}/{y}", osm: "/api/tiles/osm/{z}/{x}/{y}", parcels: "/api/tiles/parcels/{z}/{x}/{y}" };
 export default function ParcelMap({
-  picked = null,
+  highContrast = false,
+  selection = [],
   onAnalyze,
+  flyTo = null,
+  onLasso,
+  lassoBusy = false,
   parcel,
   blocks,
   showAnalysis,
@@ -76,25 +90,44 @@ export default function ParcelMap({
   const host = useRef<HTMLDivElement>(null);
   const map = useRef<L.Map | null>(null);
   const features = useRef<Record<string, L.Layer>>({});
-  const callbacks = useRef({ onSelect, onMore, onAnalyze });
-  callbacks.current = { onSelect, onMore, onAnalyze };
-  const [base, setBase] = useState<"ortho" | "osm">("ortho");
+  const callbacks = useRef({ onSelect, onMore, onAnalyze, onLasso });
+  callbacks.current = { onSelect, onMore, onAnalyze, onLasso };
+  /** „auto”: mapa OSM dla widoku kraju/regionu (mało kafelków, wspólny cache), zdjęcie lotnicze od przybliżenia 13 */
+  const [base, setBase] = useState<"auto" | "ortho" | "osm">("auto");
+  const [zoom, setZoom] = useState(6);
+  const effectiveBase = base === "auto" ? (zoom >= 13 ? "ortho" : "osm") : base;
+  const [lasso, setLasso] = useState(false);
+  const lassoRef = useRef(false);
+  lassoRef.current = lasso;
+  const [locMsg, setLocMsg] = useState<string | null>(null);
   const [menu, setMenu] = useState(false);
   const [visible, setVisible] = useState({ water: true, recommendations: true, boundaries: true });
   const [tileWarning, setTileWarning] = useState(false);
+  /** podpowiedź gestu, gdy mapa nie przechwyciła przewijania (kółko bez aktywacji / jeden palec na telefonie) */
+  const [gestureHint, setGestureHint] = useState<string | null>(null);
   useEffect(() => {
     if (!host.current) return;
-    const m = L.map(host.current, { zoomControl: true, scrollWheelZoom: true, dragging: true, doubleClickZoom: true }).setView([52.1, 19.4], 6);
+    const m = L.map(host.current, {
+      zoomControl: true, scrollWheelZoom: false, dragging: !touch, doubleClickZoom: true, touchZoom: true,
+      // jawne granice: bez nich Leaflet przejmuje minZoom warstwy granic działek (15) i „przeskakuje” z widoku kraju
+      minZoom: 5, maxZoom: 20,
+    }).setView([52.1, 19.4], 6);
     map.current = m;
     L.control.scale({ imperial: false, position: "bottomright" }).addTo(m);
-    const click = (e: L.LeafletMouseEvent) =>
-      callbacks.current.onSelect(e.latlng.lng, e.latlng.lat);
+    const click = (e: L.LeafletMouseEvent) => {
+      if (!lassoRef.current) callbacks.current.onSelect(e.latlng.lng, e.latlng.lat);
+    };
     m.on("click", click);
+    m.on("zoomend", () => setZoom(m.getZoom()));
     return () => {
       m.remove();
       map.current = null;
     };
   }, []);
+  // wynik wyszukiwania adresu → przeleć w to miejsce
+  useEffect(() => {
+    if (flyTo) map.current?.flyTo([flyTo.lat, flyTo.lon], flyTo.zoom, { duration: 0.8 });
+  }, [flyTo]);
   // nowa działka → dopasuj widok (mapa zostaje ta sama, bez przeładowania podkładu)
   useEffect(() => {
     const m = map.current;
@@ -106,7 +139,7 @@ export default function ParcelMap({
     if (!m) return;
     setTileWarning(false);
     const layer =
-      base === "osm"
+      effectiveBase === "osm"
         ? L.tileLayer(TILE.osm, {
             maxZoom: 19,
             updateWhenIdle: true,
@@ -121,6 +154,7 @@ export default function ParcelMap({
               maxZoom: 20,
               updateWhenIdle: true,
               keepBuffer: 2,
+              className: "tiles-512",
               attribution: "Ortofotomapa © GUGiK / Geoportal",
             })
           : L.tileLayer.wms(
@@ -144,7 +178,7 @@ export default function ParcelMap({
       if (errors >= 3) {
         setTileWarning(true);
         // zdjęcie lotnicze limitowane → sam przełączam na mapę, zamiast zostawiać szare pole
-        if (base === "ortho") setBase("osm");
+        if (effectiveBase === "ortho") setBase("osm");
       }
     });
     layer.addTo(m);
@@ -152,7 +186,7 @@ export default function ParcelMap({
     return () => {
       layer.remove();
     };
-  }, [base]);
+  }, [effectiveBase]);
   useEffect(() => {
     const m = map.current;
     if (!m) return;
@@ -161,12 +195,13 @@ export default function ParcelMap({
     const green = token("--primary"),
       blue = token("--water"),
       orange = token("--warning"),
-      waterDark = "#1e3a8a";
+      waterDark = "#1e3a8a",
+      lw = (n: number) => (highContrast ? n + 2 : n);   // grubsze linie w trybie wysokiego kontrastu
     const group = L.featureGroup().addTo(m);
     features.current = {};
     if (parcel) {
       const boundary = L.geoJSON(parcel.geometry as GeoJSON.GeoJsonObject, {
-        style: { color: green, weight: 3, fillColor: green, fillOpacity: 0.06 },
+        style: { color: green, weight: lw(3), fillColor: green, fillOpacity: 0.06 },
       }).addTo(group);
       features.current["parcel"] = boundary;
       boundary.on("click", (e: L.LeafletMouseEvent) => {
@@ -197,37 +232,38 @@ export default function ParcelMap({
       return el;
     };
     const stop = (e: L.LeafletEvent) => L.DomEvent.stopPropagation(e as L.LeafletMouseEvent);
-    if (picked && picked.id !== parcel?.id) {
+    const multiSel = selection.length > 1;
+    selection.filter((sp) => !parcel || !parcel.id.split("+").includes(sp.id) || !showAnalysis).forEach((sp, i) => {
       const el = document.createElement("div");
       el.className = "picked-popup";
       const t = document.createElement("strong");
-      t.textContent = `Działka ${picked.parcel_number ?? picked.id}`;
+      t.textContent = `Działka ${sp.parcel_number ?? sp.id}`;
       const info = document.createElement("div");
-      info.textContent = `${picked.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha · ${picked.region_name ? `obręb ${picked.region_name} · ` : ""}gmina ${picked.commune ?? "?"}`;
+      info.textContent = `${sp.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha${sp.region_name ? ` · obręb ${sp.region_name}` : ""}${sp.commune ? ` · gmina ${sp.commune}` : ""}`;
       const idEl = document.createElement("small");
-      idEl.textContent = picked.id;
+      idEl.textContent = sp.id;
       el.append(t, info, idEl);
-      if (callbacks.current.onAnalyze) {
-        const b = document.createElement("button");
-        b.className = "map-popup-action";
-        b.textContent = "Sprawdź tę działkę →";
-        b.addEventListener("click", () => callbacks.current.onAnalyze?.(picked.id));
-        el.append(b);
+      if (callbacks.current.onAnalyze && !multiSel) {
+        const btn = document.createElement("button");
+        btn.className = "map-popup-action";
+        btn.textContent = "Sprawdź tę działkę →";
+        btn.addEventListener("click", () => callbacks.current.onAnalyze?.(sp.id));
+        el.append(btn);
       }
-      const pl = L.geoJSON(picked.geometry as GeoJSON.GeoJsonObject, {
-        style: { color: "#f8fafc", weight: 3, dashArray: "6 5", fillColor: "#f8fafc", fillOpacity: 0.12 },
+      const pl = L.geoJSON(sp.geometry as GeoJSON.GeoJsonObject, {
+        style: { color: "#f59e0b", weight: lw(3), dashArray: "6 5", fillColor: "#fde68a", fillOpacity: 0.25 },
       }).bindPopup(el).on("click", stop).addTo(group);
-      setTimeout(() => pl.openPopup(), 50);
-    }
+      if (!multiSel && i === 0) setTimeout(() => pl.openPopup(), 50);
+    });
     const terrain = showAnalysis ? blocks["terrain"]?.data.raw : null;
     const hydro = showAnalysis ? blocks["hydrology"]?.data.raw : null;
     const recs = showAnalysis ? blocks["analysis"]?.data.recommendations ?? [] : [];
     if (visible.water) {
       (terrain?.flow_lines_geojson?.features ?? []).forEach((f: GeoJSON.Feature) =>
-        L.geoJSON(f, { style: { color: blue, weight: 2, dashArray: "6 7" }, interactive: false }).addTo(group));
+        L.geoJSON(f, { style: { color: blue, weight: lw(2), dashArray: "6 7" }, interactive: false }).addTo(group));
       (terrain?.depressions_geojson?.features ?? []).forEach((f: GeoJSON.Feature<GeoJSON.Geometry, Record<string, number>>, i: number) => {
         const pr = f.properties ?? {};
-        const l = L.geoJSON(f, { style: { color: blue, weight: 2, fillColor: blue, fillOpacity: 0.35 } })
+        const l = L.geoJSON(f, { style: { color: blue, weight: lw(2), fillColor: blue, fillOpacity: 0.35 } })
           .bindPopup(popup("Zagłębienie terenu – zbiera się tu woda",
             `${(pr.area_m2 ?? 0).toLocaleString("pl-PL")} m² · do ${(pr.max_depth_m ?? 0).toLocaleString("pl-PL")} m · ok. ${(pr.volume_m3 ?? 0).toLocaleString("pl-PL")} m³`,
             "terrain", pr.catchment_ha != null ? `Woda spływa tu z ok. ${pr.catchment_ha.toLocaleString("pl-PL")} ha` : ""))
@@ -236,7 +272,7 @@ export default function ParcelMap({
         if (!features.current["depression"] && (f.properties as unknown as { touches_parcel?: boolean })?.touches_parcel) features.current["depression"] = l;
       });
       (terrain?.runoff_exits_geojson?.features ?? []).forEach((f: GeoJSON.Feature<GeoJSON.Geometry, Record<string, number>>, i: number) => {
-        const l = L.geoJSON(f, { style: { color: waterDark, weight: 6, opacity: 0.85, lineCap: "round" } })
+        const l = L.geoJSON(f, { style: { color: waterDark, weight: lw(6), opacity: 0.85, lineCap: "round" } })
           .bindPopup(popup("Tu woda ucieka z pola", `ok. ${f.properties?.length_m ?? "?"} m granicy · spływ z ${f.properties?.catchment_ha?.toLocaleString("pl-PL") ?? "?"} ha`,
             "terrain"))
           .on("click", stop).addTo(group);
@@ -245,7 +281,7 @@ export default function ParcelMap({
       (hydro?.nearest_water ?? []).forEach((w: { kind: string; name: string | null; distance_m: number; geometry: GeoJSON.Geometry | null }, i: number) => {
         if (!w.geometry) return;
         const kind = WATER_KIND[w.kind] ?? "Woda";
-        const l = L.geoJSON(w.geometry, { style: { color: w.kind === "ditch" ? "#0e7490" : blue, weight: 4, fillColor: blue, fillOpacity: 0.55 } })
+        const l = L.geoJSON(w.geometry, { style: { color: w.kind === "ditch" ? "#0e7490" : blue, weight: lw(4), fillColor: blue, fillOpacity: 0.55 } })
           .bindPopup(popup(w.name && !kind.toLowerCase().includes(w.name.toLowerCase()) ? `${kind}: ${w.name}` : kind, `${dist(w.distance_m)} od działki`, "hydrology", "BDOT10k (GUGiK)"))
           .bindTooltip(`${kind} · ${dist(w.distance_m)}`)
           .on("click", stop).addTo(group);
@@ -266,7 +302,7 @@ export default function ParcelMap({
         pts.forEach((p, i) => L.marker(p, { icon: pin(kind, i === 0 ? REC_LABEL[kind] ?? r.title : ""), keyboard: true, title: r.title }).addTo(fg));
         if (kind === "pond")
           L.geoJSON(r.where_geojson as GeoJSON.GeoJsonObject, {
-            style: { color: orange, weight: 2.5, dashArray: "5 5", fill: false }, interactive: false,
+            style: { color: orange, weight: lw(2.5), dashArray: "5 5", fill: false }, interactive: false,
           }).addTo(fg);
         fg.bindPopup(popup(r.title, r.when ? `Kiedy: ${r.when}` : "", null, "Proponowane miejsce – sprawdź w terenie przed pracami"))
           .on("click", stop);
@@ -299,7 +335,7 @@ export default function ParcelMap({
       group.remove();
       wms?.remove();
     };
-  }, [parcel, picked, visible, blocks, showAnalysis]);
+  }, [parcel, selection, visible, blocks, showAnalysis, highContrast]);
   // wycentruj wskazany obiekt (z tabeli analityka lub przycisku w raporcie) na mapie – bez powiększania
   useEffect(() => {
     const m = map.current;
@@ -320,9 +356,119 @@ export default function ParcelMap({
     }
     setTimeout(() => (f as L.Layer & { openPopup?: () => void }).openPopup?.(), 650);
   }, [highlight, parcel, visible, blocks]);
+  // Gesty: mapa nie „łapie” przewijania strony. Kółko działa po kliknięciu/naciśnięciu mapy (do wyjechania kursorem) albo z Ctrl;
+  // na telefonie jeden palec przewija stronę, a mapę przesuwa się i przybliża dwoma palcami. Pełny ekran = pełna kontrola.
   useEffect(() => {
-    const t = setTimeout(() => map.current?.invalidateSize(), 100);
-    return () => clearTimeout(t);
+    const m = map.current, el = host.current;
+    if (!m || !el) return;
+    let hintTimer: ReturnType<typeof setTimeout> | undefined;
+    const hint = (text: string) => {
+      setGestureHint(text);
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(() => setGestureHint(null), 1600);
+    };
+    if (fullscreen) {
+      m.scrollWheelZoom.enable();
+      m.dragging.enable();
+      setGestureHint(null);
+      return () => clearTimeout(hintTimer);
+    }
+    m.scrollWheelZoom.disable();
+    if (touch) m.dragging.disable();
+    const activate = () => m.scrollWheelZoom.enable();
+    const deactivate = () => m.scrollWheelZoom.disable();
+    const wheel = (e: WheelEvent) => {
+      if (m.scrollWheelZoom.enabled()) return;
+      if (e.ctrlKey || e.metaKey) {
+        e.preventDefault();
+        m.setZoom(m.getZoom() + (e.deltaY < 0 ? 1 : -1));
+      } else hint("Kliknij mapę, aby przybliżać kółkiem (albo przytrzymaj Ctrl)");
+    };
+    const touchMove = (e: TouchEvent) => {
+      if (touch && e.touches.length === 1) hint("Przesuwaj i przybliżaj mapę dwoma palcami");
+    };
+    const touchStart = (e: TouchEvent) => {
+      if (!touch) return;
+      if (e.touches.length >= 2) m.dragging.enable();
+    };
+    const touchEnd = (e: TouchEvent) => {
+      if (touch && e.touches.length === 0) m.dragging.disable();
+    };
+    m.on("mousedown", activate);
+    m.on("mouseout", deactivate);
+    el.addEventListener("wheel", wheel, { passive: false });
+    el.addEventListener("touchstart", touchStart, { passive: true });
+    el.addEventListener("touchmove", touchMove, { passive: true });
+    el.addEventListener("touchend", touchEnd, { passive: true });
+    return () => {
+      clearTimeout(hintTimer);
+      m.off("mousedown", activate);
+      m.off("mouseout", deactivate);
+      el.removeEventListener("wheel", wheel);
+      el.removeEventListener("touchstart", touchStart);
+      el.removeEventListener("touchmove", touchMove);
+      el.removeEventListener("touchend", touchEnd);
+    };
+  }, [fullscreen]);
+  // Obrys odręczny: wciśnij i prowadź palcem/myszą dookoła działek, puść – zaznaczą się działki w środku i na krawędzi.
+  useEffect(() => {
+    const m = map.current, el = host.current;
+    if (!m || !el || !lasso) return;
+    m.dragging.disable();
+    el.style.touchAction = "none";
+    let pts: L.LatLng[] = [];
+    let line: L.Polyline | null = null;
+    const ll = (e: PointerEvent) => m.mouseEventToLatLng(e as unknown as MouseEvent);
+    const down = (e: PointerEvent) => {
+      e.preventDefault();
+      el.setPointerCapture(e.pointerId);
+      pts = [ll(e)];
+      line = L.polyline(pts, { color: "#f59e0b", weight: 3, dashArray: "4 4" }).addTo(m);
+    };
+    const move = (e: PointerEvent) => {
+      if (!line) return;
+      pts.push(ll(e));
+      line.setLatLngs(pts);
+    };
+    const up = () => {
+      if (!line) return;
+      line.remove();
+      line = null;
+      if (pts.length >= 4) callbacks.current.onLasso?.(pts.map((p) => [p.lng, p.lat] as [number, number]));
+      pts = [];
+      setLasso(false);
+    };
+    el.addEventListener("pointerdown", down);
+    el.addEventListener("pointermove", move);
+    el.addEventListener("pointerup", up);
+    return () => {
+      el.removeEventListener("pointerdown", down);
+      el.removeEventListener("pointermove", move);
+      el.removeEventListener("pointerup", up);
+      el.style.touchAction = "";
+      line?.remove();
+      if (!touch || fullscreen) m.dragging.enable();
+    };
+  }, [lasso, fullscreen]);
+  function locate() {
+    if (!navigator.geolocation) {
+      setLocMsg("Ta przeglądarka nie udostępnia lokalizacji.");
+      return;
+    }
+    setLocMsg("Szukam Twojej okolicy…");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        map.current?.flyTo([pos.coords.latitude, pos.coords.longitude], 14, { duration: 0.8 });
+        setLocMsg(null);
+      },
+      () => setLocMsg("Nie udało się ustalić lokalizacji – przybliż mapę ręcznie albo wyszukaj adres."),
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 600000 },
+    );
+  }
+  // po zmianie rozmiaru kontenera Leaflet musi przeliczyć widok, inaczej część kafelków się nie doładuje
+  useEffect(() => {
+    const ts = [60, 250, 600].map((ms) => setTimeout(() => map.current?.invalidateSize(), ms));
+    return () => ts.forEach(clearTimeout);
   }, [fullscreen]);
   return (
     <div className="map-shell">
@@ -332,26 +478,42 @@ export default function ParcelMap({
         role="region"
         aria-label="Mapa działki, obniżeń terenu i wody w okolicy"
       />
+      {gestureHint && !lasso && <div className="map-gesture-hint" role="status">{gestureHint}</div>}
+      {(lasso || lassoBusy || locMsg) && (
+        <div className="map-banner" role="status">
+          {lassoBusy ? "Szukam działek w obrysie… (do kilkunastu sekund)" : lasso ? "Wciśnij i obrysuj działki, potem puść." : locMsg}
+        </div>
+      )}
       <div className="map-top">
         <div className="map-base-switch" aria-label="Podkład mapy">
           <Button
-            variant={base === "ortho" ? "secondary" : "ghost"}
+            variant={effectiveBase === "ortho" ? "secondary" : "ghost"}
             className="map-choice"
             onClick={() => setBase("ortho")}
-            aria-pressed={base === "ortho"}
+            aria-pressed={effectiveBase === "ortho"}
           >
             Zdjęcie lotnicze
           </Button>
           <Button
-            variant={base === "osm" ? "secondary" : "ghost"}
+            variant={effectiveBase === "osm" ? "secondary" : "ghost"}
             className="map-choice"
             onClick={() => setBase("osm")}
-            aria-pressed={base === "osm"}
+            aria-pressed={effectiveBase === "osm"}
           >
             Mapa
           </Button>
         </div>
         <div className="map-toolbar">
+          <Button variant="ghost" className="map-tool" aria-label="Pokaż moją okolicę" title="Pokaż moją okolicę" onClick={locate}>
+            <LocateFixed />
+          </Button>
+          {onLasso && (
+            <Button variant={lasso ? "secondary" : "ghost"} className={`map-tool ${lasso ? "active" : ""}`} aria-pressed={lasso}
+              aria-label="Zaznacz działki obrysem" title="Zaznacz działki obrysem" disabled={lassoBusy}
+              onClick={() => setLasso((v) => !v)}>
+              <Lasso />
+            </Button>
+          )}
           <Button
             variant="ghost"
             className="map-tool"
@@ -362,15 +524,11 @@ export default function ParcelMap({
           >
             <Layers />
           </Button>
-          <Button
-            variant="ghost"
-            className="map-tool"
-            aria-label={fullscreen ? "Zamknij dużą mapę" : "Powiększ mapę"}
-            title={fullscreen ? "Zamknij mapę" : "Powiększ mapę"}
-            onClick={onFullscreen}
-          >
-            {fullscreen ? <X /> : <Expand />}
-          </Button>
+          {!fullscreen && (
+            <Button variant="ghost" className="map-tool" aria-label="Powiększ mapę" title="Powiększ mapę" onClick={onFullscreen}>
+              <Expand />
+            </Button>
+          )}
         </div>
       </div>
       {menu && (
@@ -412,31 +570,42 @@ export default function ParcelMap({
         </div>
       )}
       <div className="map-legend">
-        <div className="legend-row">
-          <span className="legend-sample" />
-          Twoja działka
-        </div>
-        <div className="legend-row">
-          <span className="legend-sample blue" />
-          Miejsce zbierania wody
-        </div>
-        <div className="legend-row">
-          <span className="legend-sample flow" />
-          Kierunek odpływu
-        </div>
-        <div className="legend-row">
-          <span className="legend-sample exit" />
-          Tu woda ucieka z pola
-        </div>
-        <div className="legend-row">
-          <span className="legend-pin" />
-          Proponowane działanie
-        </div>
+        {selection.length > 0 && (
+          <div className="legend-row">
+            <span className="legend-sample picked" />
+            Zaznaczona działka
+          </div>
+        )}
+        {showAnalysis && (
+          <>
+            <div className="legend-row">
+              <span className="legend-sample" />
+              Sprawdzana działka
+            </div>
+            <div className="legend-row">
+              <span className="legend-sample blue" />
+              Miejsce zbierania wody
+            </div>
+            <div className="legend-row">
+              <span className="legend-sample flow" />
+              Kierunek odpływu
+            </div>
+            <div className="legend-row">
+              <span className="legend-sample exit" />
+              Tu woda ucieka z pola
+            </div>
+            <div className="legend-row">
+              <span className="legend-pin" />
+              Proponowane działanie
+            </div>
+          </>
+        )}
+        {!showAnalysis && !selection.length && <div className="legend-row">Kliknij działkę, aby ją zaznaczyć</div>}
         {tileWarning && (
           <Button
             variant="link"
             className="h-auto p-0 text-xs"
-            onClick={() => setBase(base === "ortho" ? "osm" : "ortho")}
+            onClick={() => setBase(effectiveBase === "ortho" ? "osm" : "ortho")}
           >
             Nie wczytano podkładu. Zmień widok.
           </Button>

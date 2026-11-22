@@ -1,0 +1,18 @@
+# Budzi stronę na Render co 10 minut (darmowy plan usypia usługę po 15 min bez ruchu).
+# Ustaw w repo: Settings → Secrets and variables → Actions → Variables → RENDER_URL = https://<twoja-usługa>.onrender.com
+# Uwaga: GitHub uruchamia harmonogram z opóźnieniem do kilku minut; w prywatnym repo każde uruchomienie zużywa
+# minuty Actions (ok. 4300 min/miesiąc przy 10 min) – po hackathonie wyłącz workflow (Actions → Keep alive → Disable).
+name: Keep alive
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Ping /api/health
+        run: |
+          test -n "${{ vars.RENDER_URL }}" || { echo "Brak zmiennej RENDER_URL"; exit 0; }
+          curl -fsS --retry 3 --retry-delay 10 --max-time 60 "${{ vars.RENDER_URL }}/api/health"

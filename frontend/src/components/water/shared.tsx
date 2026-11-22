@@ -75,12 +75,48 @@ export function SourceLine({ block, label }: { block: DataBlock | undefined; lab
     </div>
   );
 }
+/** Rozdzielczość / skala danych bloku – tylko tam, gdzie wynika z danych lub ze specyfikacji źródła. */
+function resolutionOf(block: DataBlock): string | null {
+  const r = block.data.raw ?? {};
+  switch (block.key) {
+    case "weather_history": return r.grid_resolution_note ?? null;
+    case "terrain": return r.dem_resolution_m != null ? `siatka ${Math.round(r.dem_resolution_m)} m` : null;
+    case "vegetation": return "Sentinel-2: 10 m (zieloność), 20 m (woda w liściach)";
+    case "drought": return "gmina (SMSR) · punkt działki (KBW) · ok. 5 km (EDO)";
+    case "hydrology": return "BDOT10k, skala 1:10 000";
+    default: return null;
+  }
+}
+const isFallback = (p: { source_name: string; notes: string | null }) =>
+  /zapas|fallback/i.test(`${p.source_name} ${p.notes ?? ""}`) || /NASA POWER/i.test(p.source_name);
+
+/** Źródła widoczne od razu przy wskaźnikach: nazwa z linkiem, data danych, rozdzielczość, plakietka źródła zapasowego. */
+export function SourceStrip({ block }: { block: DataBlock }) {
+  if (!block.provenance.length) return null;
+  const res = resolutionOf(block);
+  return (
+    <div className="source-strip" aria-label="Źródła danych">
+      {block.provenance.map((p, i) => (
+        <div key={i} className="source-item">
+          <Info size={12} aria-hidden="true" />
+          <span>
+            {p.source_url ? <a href={p.source_url} target="_blank" rel="noreferrer">{p.source_name}</a> : p.source_name}
+            {" · "}dane: {formatDate(p.data_as_of ?? p.snapshot_date ?? p.retrieved_at)}
+            {i === 0 && res ? ` · ${res}` : ""}
+          </span>
+          {isFallback(p) && <span className="fallback-badge" title="Główne źródło było niedostępne – użyliśmy zapasowego">źródło zapasowe</span>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function Sources({ block }: { block: DataBlock | undefined }) {
   if (!block || (!block.provenance.length && !block.uncertainty.length)) return null;
   return (
     <details className="details-box">
       <summary>
-        <FileText size={13} /> Źródła i niepewność
+        <FileText size={13} /> Licencje i niepewność
       </summary>
       <div className="details-content">
         {block.provenance.map((p, i) => (

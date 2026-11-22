@@ -13,7 +13,7 @@ import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { blockDefinitions, canShowAdvice, type DataBlock } from "@/api/client";
 import { seasonRows, seasonWindow } from "@/api/adapt";
-import { CropCalendarView, SourceLine, Sources, Term } from "./shared";
+import { CropCalendarView, SourceStrip, Sources, Term } from "./shared";
 type Props = { blocks: Record<string, DataBlock>; onMap: (id: string) => void; loading: boolean; date: string };
 const STATUS: Record<string, string> = {
   ok: "Dane kompletne", partial: "Dane częściowe", error: "Błąd źródła", no_data: "Brak danych",
@@ -258,6 +258,7 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                 ))}
               </div>
             )}
+            <SourceStrip block={b} />
             {b.data.series && <DataChart block={b} />}{" "}
             {b.key === "land_cover" &&
               b.data.rows?.map((r, ri) => (
@@ -287,7 +288,7 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                   </thead>
                   <tbody>
                     {b.data.rows.map((r, ri) => (
-                      <tr key={`${r.label}-${ri}`} className={[r.dry ? "dry" : "", r.after ? "after" : ""].join(" ").trim()}>
+                      <tr key={`${r.label}-${ri}`} className={r.dry ? "dry" : undefined}>
                         <td>
                           {r.mapId ? (
                             <Button
@@ -324,7 +325,6 @@ export default function Analyst({ blocks, onMap, loading, date }: Props) {
                   </div>
                 </div>
               ))}
-            <SourceLine block={b} />
             <Sources block={b} />
           </article>
         );

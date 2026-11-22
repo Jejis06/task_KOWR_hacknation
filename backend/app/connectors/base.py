@@ -93,11 +93,3 @@ class Connector(ABC):
         if blk.status in (BlockStatus.ok, BlockStatus.partial, BlockStatus.no_data, BlockStatus.not_applicable):
             cache_set(key, blk.model_dump(mode="json"), ttl_for(ctx.as_of, self.live_ttl_s))
         return blk
-
-
-class StubConnector(Connector):
-    """Szablon dla jeszcze niezaimplementowanych źródeł – zwraca `not_implemented`."""
-    implemented: ClassVar[bool] = False
-
-    async def fetch(self, ctx: AnalysisContext) -> DataBlock[Any]:
-        raise NotImplementedError

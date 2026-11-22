@@ -13,6 +13,15 @@ cd frontend && npm install && npm run dev                                   # UI
 ```
 Bez backendu: `cd frontend && VITE_USE_MOCKS=true npm run dev`. Testy: `make test`.
 
+## Wdrożenie (Render, Docker)
+Jeden kontener: FastAPI serwuje API (`/api/…`) i zbudowany frontend (`/`). Pliki: `Dockerfile`, `render.yaml`, `.github/workflows/keepalive.yml`.
+1. Render → **New → Blueprint** → wskaż to (prywatne) repozytorium GitHub. Render zbuduje obraz z `Dockerfile` (plan `free`, region Frankfurt).
+2. Po pierwszym wdrożeniu skopiuj adres usługi (np. `https://zatrzymaj-wode.onrender.com`).
+3. GitHub → Settings → Secrets and variables → Actions → **Variables** → `RENDER_URL` = ten adres. Workflow „Keep alive” pinguje `/api/health` co 10 min, żeby darmowa usługa nie usypiała. Po hackathonie wyłącz go (zużywa minuty Actions w prywatnym repo).
+4. Link do konkretnego raportu: `https://…/?dzialka=302504_5.0024.7&data=2026-07-15&uprawa=pszenica_ozima` (kilka działek: `dzialka=ID1+ID2`).
+
+Lokalnie bez Dockera: `cd frontend && npm run build`, potem `cd backend && uv run uvicorn app.main:app --port 10000` – strona pod http://localhost:10000.
+
 ## Stan (F1 – dane)
 Działają: lokalizacja działki (GUGiK ULDK), meteo z 10 lat (Open-Meteo, a przy limicie NASA POWER; ET0 FAO-56), prognoza,
 lokalna baza wiedzy (prawo wodne, procedury, dofinansowania, prawo UE, uprawy). Pozostałe bloki są w budowie (AGENTS.md §4).

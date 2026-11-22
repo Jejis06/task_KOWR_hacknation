@@ -3,11 +3,12 @@ from __future__ import annotations
 from datetime import date
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Response
+from pydantic import BaseModel
 
 from app.config import settings
 from app.connectors.registry import BLOCKS
-from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy
+from app.connectors.uldk import ParcelNotFound, UldkLimited, resolve_by_id, resolve_by_xy, resolve_many
 from app.contracts.models import AnalysisContext, BlockInfo, DataBlock, ParcelProfile, ParcelRef
 from app.services.profile import build_profile, run_block
 
@@ -26,6 +27,8 @@ def _validate_date(as_of: date | None) -> date:
 
 async def _resolve(id: str | None, lon: float | None, lat: float | None) -> ParcelRef:
     try:
+        if id and "+" in id:                      # grupa działek analizowana jako jeden obszar
+            return await resolve_many(id.split("+"))
         if id:
             return await resolve_by_id(id)
         if lon is not None and lat is not None:
@@ -41,6 +44,26 @@ async def _resolve(id: str | None, lon: float | None, lat: float | None) -> Parc
 async def resolve(id: str | None = None, lon: float | None = None, lat: float | None = None) -> ParcelRef:
     """Identyfikator działki (np. 146505_8.0116.5) lub „obręb numer”, albo punkt z mapy."""
     return await _resolve(id, lon, lat)
+
+
+class AreaQuery(BaseModel):
+    ring: list[tuple[float, float]]     # obrys [(lon, lat), …] w EPSG:4326
+
+
+@router.post("/in-area", response_model=list[ParcelRef])
+async def in_area(q: AreaQuery, response: Response) -> list[ParcelRef]:
+    """Działki w obrysie narysowanym na mapie (przecinane przez krawędź i w środku), maks. 25."""
+    from app.connectors.parcels_area import AreaTooLarge, parcels_in_polygon
+    if len(q.ring) < 3:
+        raise HTTPException(422, "Obrys musi mieć co najmniej 3 punkty.")
+    try:
+        parcels, total = await parcels_in_polygon(q.ring)
+        response.headers["X-Total-Count"] = str(total)
+        return parcels
+    except AreaTooLarge as e:
+        raise HTTPException(422, str(e)) from e
+    except Exception as e:
+        raise HTTPException(503, "Nie udało się pobrać działek z obszaru – spróbuj ponownie albo zaznacz działki kliknięciem.") from e
 
 
 @router.get("/blocks", response_model=list[BlockInfo])

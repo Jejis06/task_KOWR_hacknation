@@ -15,7 +15,7 @@ import re
 from app.contracts.models import GeoJSONGeometry, ParcelRef
 from app.core.cache import cache_get, cache_set, make_key
 from app.core.geo import area_ha, geom_to_geojson, parse_wkt
-from app.core.http import get_client
+from app.core.http import get_client, is_limit_response, is_limited, mark_limited
 
 log = logging.getLogger(__name__)
 
@@ -39,6 +39,8 @@ async def _uldk_get(params: dict, attempts: int = 3) -> str:
     """ULDK bez podążania za przekierowaniem: przy limicie GUGiK odsyła 302 na stronę zastępczą, która zwraca „0” i
     fikcyjną geometrię (punkt z `inf`) – wcześniej kończyło się to błędem 500. Krótko ponawiamy, potem UldkLimited."""
     client = get_client()
+    if is_limited(ULDK_URL):
+        raise UldkLimited("Usługa GUGiK ULDK chwilowo ogranicza liczbę zapytań – spróbuj ponownie za minutę.")
     for i in range(attempts):
         try:
             r = await client.get(ULDK_URL, params=params, timeout=10, follow_redirects=False)
@@ -47,6 +49,8 @@ async def _uldk_get(params: dict, attempts: int = 3) -> str:
             r = None
         if r is not None and r.status_code == 200:
             return r.text
+        if r is not None and is_limit_response(r) and i == attempts - 1:
+            mark_limited(ULDK_URL, 45)
         log.warning("ULDK ogranicza zapytania (HTTP %s, próba %d/%d)", r.status_code if r else "brak", i + 1, attempts)
         if i < attempts - 1:
             await asyncio.sleep(1.0 + i)
@@ -68,7 +72,7 @@ def _parse(body: str) -> ParcelRef:
     f = lines[1].split("|")
     try:
         geom = parse_wkt(f[0])
-    except Exception as e:  # noqa: BLE001 – uszkodzona geometria (np. strona zastępcza przy limicie)
+    except Exception as e:
         raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.") from e
     if geom.is_empty or not all(abs(v) < 1e6 for v in geom.bounds):
         raise UldkLimited("GUGiK ULDK zwrócił niepoprawną geometrię – spróbuj ponownie za chwilę.")
@@ -112,3 +116,49 @@ async def resolve_by_xy(lon: float, lat: float) -> ParcelRef:
     cache_set(key, ref.model_dump(mode="json"), PARCEL_TTL_S)
     cache_set(make_key("uldk_id", id=ref.id), ref.model_dump(mode="json"), PARCEL_TTL_S)
     return ref
+
+
+MAX_PARCELS = 25
+
+
+def merge_parcels(refs: list[ParcelRef]) -> ParcelRef:
+    """Kilka działek → jeden obszar analizy (suma geometrii, łączna powierzchnia). Id = posortowane id połączone „+”,
+    więc ta sama grupa ma zawsze ten sam klucz cache. Jedna działka wraca bez zmian."""
+    from shapely.geometry import shape
+    from shapely.ops import unary_union
+
+    uniq = list({r.id: r for r in refs}.values())
+    if len(uniq) == 1:
+        return uniq[0]
+    uniq.sort(key=lambda r: r.id)
+    geom = unary_union([shape(r.geometry.model_dump()) for r in uniq])
+    if geom.geom_type == "GeometryCollection":     # zostawiamy części powierzchniowe (działki to poligony)
+        from shapely.geometry import MultiPolygon
+        polys = [g for g in geom.geoms if g.geom_type in ("Polygon", "MultiPolygon")]
+        geom = unary_union(polys) if polys else geom.convex_hull
+        if geom.geom_type == "GeometryCollection":
+            geom = MultiPolygon([])
+    minx, miny, maxx, maxy = geom.bounds
+    c = geom.representative_point()
+    first = uniq[0]
+    return ParcelRef(
+        id="+".join(r.id for r in uniq), teryt_unit=first.teryt_unit, region_code=first.region_code,
+        parcel_number=", ".join(r.parcel_number or r.id for r in uniq), voivodeship=first.voivodeship,
+        county=first.county, commune=first.commune,
+        region_name=", ".join(dict.fromkeys(r.region_name for r in uniq if r.region_name)) or None,
+        geometry=GeoJSONGeometry(**geom_to_geojson(geom)), centroid=(round(c.x, 6), round(c.y, 6)),
+        bbox=(minx, miny, maxx, maxy), area_ha=round(sum(r.area_ha for r in uniq), 4),
+    )
+
+
+async def resolve_many(ids: list[str]) -> ParcelRef:
+    """Lista identyfikatorów (z zaznaczenia na mapie / wpisanych) → jeden obszar. Działki z cache nie pytają ULDK."""
+    clean = list(dict.fromkeys(i.strip() for i in ids if i.strip()))
+    if not clean:
+        raise ParcelNotFound("pusta lista działek")
+    if len(clean) > MAX_PARCELS:
+        raise ParcelNotFound(f"za dużo działek naraz (maks. {MAX_PARCELS})")
+    refs = []
+    for pid in clean:          # po kolei: przy limicie ULDK równoległe zapytania tylko pogarszają sprawę
+        refs.append(await resolve_by_id(pid))
+    return merge_parcels(refs)

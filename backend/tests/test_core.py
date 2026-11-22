@@ -1,7 +1,8 @@
+from datetime import date, timedelta
+
 import httpx
 import pytest
 import respx
-from datetime import date, timedelta
 
 from app.connectors.uldk import _parse, looks_like_parcel_id
 from app.contracts.models import DailySeries
@@ -94,3 +95,41 @@ def test_tile_bbox_3857_world_and_quadrant():
     assert abs(w[0] + 20037508.34) < 1 and abs(w[3] - 20037508.34) < 1
     q = tile_bbox_3857(1, 1, 0)          # prawa górna ćwiartka
     assert abs(q[0]) < 1e-6 and abs(q[1]) < 1e-6
+
+
+def test_gugik_redirect_is_limit_and_cooldown():
+    from app.core import http as H
+    req = httpx.Request("GET", "https://services.gugik.gov.pl/nmt/")
+    redirect = httpx.Response(302, headers={"Location": "https://integracja01.gugik.gov.pl/resp/nmt.php"}, request=req)
+    assert H.is_limit_response(redirect)
+    assert not H.is_limit_response(httpx.Response(200, request=req))
+    H.mark_limited("https://example-limit.test/x", 30)
+    assert H.is_limited("https://example-limit.test/other") and not H.is_limited("https://inny.test/")
+
+
+def test_api_cache_headers():
+    from fastapi.testclient import TestClient
+
+    from app.main import app
+    with TestClient(app) as c:
+        r = c.get("/api/knowledge/crops")
+        assert r.status_code == 200 and "max-age=86400" in r.headers["cache-control"]
+
+
+async def test_parcels_in_polygon_filters_by_shape(monkeypatch):
+    """Obrys: zostają działki przecinane przez krawędź lub w środku; reszta z prostokąta grup wierszy odpada."""
+    from shapely.geometry import Polygon, box
+
+    from app.connectors import parcels_area as PA
+    from app.core.geo import to_2180
+    ring = [(17.255, 52.197), (17.262, 52.197), (17.262, 52.202), (17.255, 52.202)]
+    poly = to_2180(Polygon(ring))
+    minx, miny, maxx, maxy = poly.bounds
+    inside = box(minx + 10, miny + 10, minx + 60, miny + 60).wkb
+    outside = box(maxx + 500, maxy + 500, maxx + 560, maxy + 560).wkb
+    monkeypatch.setattr(PA, "_query", lambda b: [("999999_9.9999.1", "1", "TEST", "999999_9", "Gm", inside),
+                                                 ("999999_9.9999.2", "2", "TEST", "999999_9", "Gm", outside)])
+    monkeypatch.setattr(PA, "cache_get", lambda k: None)
+    monkeypatch.setattr(PA, "cache_set", lambda *a, **k: None)
+    out, total = await PA.parcels_in_polygon(ring)
+    assert [p.id for p in out] == ["999999_9.9999.1"] and total == 1 and 0.2 < out[0].area_ha < 0.3

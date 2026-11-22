@@ -178,3 +178,36 @@ def test_provenance_cites_documents_not_code():
     from app.knowledge.blocks import doc_prov
     p = doc_prov("cdr_eporadnik_2025", "2026-11-21")
     assert p.source_url and p.source_url.startswith("https://") and ".py" not in p.source_name and ".yaml" not in p.source_name
+
+
+def test_coarse_dem_small_parcel_skips_depressions():
+    small = ParcelRef(id="x", geometry=PARCEL.geometry, centroid=PARCEL.centroid, bbox=PARCEL.bbox, area_ha=1.2)
+    c = AnalysisContext(parcel=small, as_of=date(2026, 7, 10), crop="kukurydza_ziarno")
+    d = dry_data(c)
+    d["terrain"]["dem_resolution_m"] = 30
+    d["terrain"]["dem_source"] = "Copernicus DEM GLO-30 (30 m, źródło zapasowe)"
+    r = analyse_all(c, d)
+    assert "oczko_zbiornik" not in [x.measure_id for x in r.recommendations]
+    assert any("Copernicus 30 m" in t for t in r.limitations)
+
+
+def test_several_reservoir_sites_on_large_parcel():
+    c = ctx()
+    d = dry_data(c)
+    dep = d["terrain"]["depressions_geojson"]["features"][0]
+    d["terrain"]["depressions_geojson"]["features"] = [
+        {**dep, "properties": {**dep["properties"], "volume_m3": v}} for v in (700, 400, 900, 120, 300, 50)]
+    r = analyse_all(c, d)
+    oczko = next(x for x in r.recommendations if x.measure_id == "oczko_zbiornik")
+    assert oczko.where_geojson["type"] == "FeatureCollection" and len(oczko.where_geojson["features"]) == 5
+    assert "5 miejsc" in oczko.title and r.water_balance["sites_volume_m3"] == 2420
+
+
+def test_merge_parcels_union_and_stable_id():
+    from app.connectors.uldk import merge_parcels
+    a = ParcelRef(id="302504_5.0024.7", geometry=GeoJSONGeometry(type="Polygon", coordinates=[[[17.19, 52.21], [17.2, 52.21],
+                  [17.2, 52.22], [17.19, 52.21]]]), centroid=(17.195, 52.215), bbox=(17.19, 52.21, 17.2, 52.22), area_ha=14.47)
+    b = ParcelRef(id="302504_5.0024.8", geometry=GeoJSONGeometry(type="Polygon", coordinates=[[[17.21, 52.22], [17.22, 52.22],
+                  [17.22, 52.23], [17.21, 52.22]]]), centroid=(17.215, 52.225), bbox=(17.21, 52.22, 17.22, 52.23), area_ha=2.0)
+    m1, m2 = merge_parcels([a, b]), merge_parcels([b, a])
+    assert m1.id == m2.id == "302504_5.0024.7+302504_5.0024.8" and abs(m1.area_ha - 16.47) < 1e-6
