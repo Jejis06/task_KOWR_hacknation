@@ -1710,3 +1710,15 @@
 .source-item a { color: var(--foreground); text-decoration: underline; text-underline-offset: 2px; }
 .fallback-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.02em; text-transform: uppercase; color: var(--warning);
   border: 1px solid var(--warning); border-radius: 999px; padding: 1px 7px; background: var(--warning-soft); }
+
+/* raport rolnika – najważniejsze fakty w trzech linijkach */
+.key-facts { list-style: none; margin: 14px 0 6px; padding: 0; display: grid; gap: 8px; }
+.key-facts li { display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 10px 12px; border-radius: 8px;
+  background: var(--secondary); color: var(--foreground); }
+.key-facts li svg { flex: none; color: var(--primary); }
+.key-facts li.bad { background: var(--danger-soft); }
+.key-facts li.bad svg { color: var(--danger); }
+.cause-expl { font-size: 13px; color: var(--muted-foreground); }
+.irrigation-dose { font-size: 15px; margin-top: 8px; }
+.more-info-title { font-size: 18px; font-weight: 650; margin-bottom: 4px; }
+.more-info .details-box summary { font-size: 14px; }
