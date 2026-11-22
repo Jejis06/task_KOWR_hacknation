@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import BaseModel
 
 from app.config import settings
@@ -51,13 +51,15 @@ class AreaQuery(BaseModel):
 
 
 @router.post("/in-area", response_model=list[ParcelRef])
-async def in_area(q: AreaQuery) -> list[ParcelRef]:
+async def in_area(q: AreaQuery, response: Response) -> list[ParcelRef]:
     """Działki w obrysie narysowanym na mapie (przecinane przez krawędź i w środku), maks. 25."""
     from app.connectors.parcels_area import AreaTooLarge, parcels_in_polygon
     if len(q.ring) < 3:
         raise HTTPException(422, "Obrys musi mieć co najmniej 3 punkty.")
     try:
-        return await parcels_in_polygon(q.ring)
+        parcels, total = await parcels_in_polygon(q.ring)
+        response.headers["X-Total-Count"] = str(total)
+        return parcels
     except AreaTooLarge as e:
         raise HTTPException(422, str(e)) from e
     except Exception as e:  # noqa: BLE001 – źródło (plik GUGiK) niedostępne

@@ -1649,9 +1649,10 @@
 .rec-pin.icon-only { padding: 4px; }
 
 /* ekran startowy: tylko formularz, wyśrodkowany; mapa i raport po „Sprawdź działkę” */
-.workspace.landing { grid-template-columns: minmax(0, 520px); justify-content: center; padding-bottom: 48px; }
+.workspace.landing { grid-template-columns: minmax(0, 760px); justify-content: center; padding-bottom: 48px; }
 .workspace.landing .field-column { position: static; }
-.workspace.landing .form-section { border-radius: 10px; padding: 28px; box-shadow: 0 8px 30px rgb(0 0 0 / 0.06); }
+.workspace.landing .form-section { border-radius: 10px 10px 0 0; padding: 28px; box-shadow: 0 8px 30px rgb(0 0 0 / 0.06); }
+.workspace.landing .map-shell { height: min(460px, 60vh); }
 .page:has(.workspace.landing) .intro { justify-content: center; text-align: center; padding-top: 56px; }
 .picked-popup { display: grid; gap: 3px; min-width: 190px; }
 .picked-popup small { color: var(--muted-foreground); font-size: 10px; }
@@ -1722,3 +1723,26 @@
 .irrigation-dose { font-size: 15px; margin-top: 8px; }
 .more-info-title { font-size: 18px; font-weight: 650; margin-bottom: 4px; }
 .more-info .details-box summary { font-size: 14px; }
+
+/* wyszukiwarka i zaznaczenie wielu działek */
+.search-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.search-row .search-button { height: 48px; width: 48px; padding: 0; }
+.multi-toggle { display: flex; align-items: center; gap: 8px; margin: 12px 0 4px; font-size: 13px; cursor: pointer; }
+.multi-toggle input { width: 18px; height: 18px; accent-color: var(--primary); }
+.selection-box { margin: 10px 0 4px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--muted); }
+.selection-head { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.selection-head span { color: var(--muted-foreground); }
+.selection-head button { margin-left: auto; }
+.selection-chips { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; max-height: 120px; overflow: auto; }
+.selection-chips li { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; padding: 3px 4px 3px 9px; border-radius: 999px;
+  background: var(--card); border: 1px solid #f59e0b; }
+.selection-chips button { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 0;
+  background: transparent; color: var(--muted-foreground); cursor: pointer; }
+.selection-chips button:hover { background: var(--muted); color: var(--foreground); }
+.group-notice { margin: 0 0 14px; padding: 10px 14px; border-radius: 8px; background: var(--water-soft); font-size: 13px;
+  border: 1px solid color-mix(in oklch, var(--water) 35%, transparent); }
+.map-banner { position: absolute; left: 50%; top: 56px; transform: translateX(-50%); z-index: 850; max-width: calc(100% - 24px);
+  background: var(--foreground); color: var(--background); font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 999px;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.25); text-align: center; }
+.map-tool.active { outline: 2px solid #f59e0b; }
+.legend-sample.picked { border: 2px dashed #f59e0b; background: #fde68a66; }

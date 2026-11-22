@@ -23,8 +23,8 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="Zatrzymaj wodę – API danych o działce", version="0.1.0", lifespan=lifespan)
-app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["GET"],
-                   allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_methods=["GET", "POST"],
+                   allow_headers=["*"], expose_headers=["X-Total-Count"])
 
 
 @app.middleware("http")

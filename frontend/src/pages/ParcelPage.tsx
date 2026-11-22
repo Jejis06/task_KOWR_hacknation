@@ -9,6 +9,7 @@ import {
   LockKeyhole,
   MapPin,
   Printer,
+  Search,
   ShieldCheck,
   Sprout,
   X,
@@ -34,6 +35,16 @@ import {
 import Report from "@/components/water/Report";
 import Analyst from "@/components/water/Analyst";
 import { formatDate, Term } from "@/components/water/shared";
+import { groupParcels, looksLikeAddress, looksLikeParcelId } from "@/lib/groups";
+const MAX_SELECTION = 25;
+/** „Działka 7” albo „3 działki: 7, 8, 9” / „25 działek: 101, 110/74, 110/81…” */
+function parcelTitle(p: ParcelRef): string {
+  const n = p.id.split("+").length;
+  if (n === 1) return `Działka ${p.parcel_number ?? p.id}`;
+  const nums = (p.parcel_number ?? "").split(", ");
+  const word = n < 5 ? "działki" : "działek";
+  return `${n} ${word}: ${nums.slice(0, 3).join(", ")}${nums.length > 3 ? "…" : ""}`;
+}
 const ParcelMap = lazy(() => import("@/components/water/ParcelMap"));
 const today = new Date().toISOString().slice(0, 10);
 const sampleDate = USE_MOCKS ? "2026-07-15" : today;
@@ -63,8 +74,14 @@ export function ParcelPage() {
   const [crop, setCrop] = useState(USE_MOCKS ? "wheat" : "");
   const [crops, setCrops] = useState<Crop[]>([]);
   const [selected, setSelected] = useState<ParcelRef | null>(null);
-  /** działka kliknięta na mapie po analizie – pokazujemy jej dane, analiza dopiero po „Sprawdź tę działkę” */
-  const [picked, setPicked] = useState<ParcelRef | null>(null);
+  /** zaznaczenie: działki z kliknięcia, trybu „wiele”, obrysu i wyszukiwarki – jedna wspólna lista (maks. 25) */
+  const [selection, setSelection] = useState<ParcelRef[]>([]);
+  const [multi, setMulti] = useState(false);
+  const [groups, setGroups] = useState<ParcelRef[][]>([]);
+  const [groupIdx, setGroupIdx] = useState(0);
+  const [flyTo, setFlyTo] = useState<{ lon: number; lat: number; zoom: number; n: number } | null>(null);
+  const [searching, setSearching] = useState(false);
+  const [lassoBusy, setLassoBusy] = useState(false);
   const [context, setContext] = useState<{ date: string; crop: string; parcel: ParcelRef | null }>({ date: sampleDate, crop: "", parcel: null });
   const [blocks, setBlocks] = useState<Record<string, DataBlock>>({});
   const [tab, setTab] = useState<"report" | "data">("report");
@@ -141,13 +158,76 @@ export function ParcelPage() {
     }
     return undefined;
   }, [tab, focusBlock]);
+  /** Dodaj działki do zaznaczenia: w trybie „wiele” dopisujemy (klik na zaznaczonej = odznaczenie), inaczej zastępujemy. */
+  function addToSelection(ps: ParcelRef[], toggle = false) {
+    setSelection((prev) => {
+      if (!multi && !toggle) return ps.slice(0, MAX_SELECTION);
+      let next = [...prev];
+      for (const p of ps) {
+        const has = next.some((x) => x.id === p.id);
+        next = has ? (toggle ? next.filter((x) => x.id !== p.id) : next) : [...next, p];
+      }
+      if (next.length > MAX_SELECTION) setError(`Można zaznaczyć maksymalnie ${MAX_SELECTION} działek naraz.`);
+      return next.slice(0, MAX_SELECTION);
+    });
+  }
+  /** Wyszukiwarka: numer działki, „obręb numer” albo adres. Zwraca znalezione działki (do natychmiastowej analizy). */
+  async function search(q: string): Promise<ParcelRef[]> {
+    const text = q.trim();
+    if (!text) return [];
+    setSearching(true);
+    setError("");
+    try {
+      if (looksLikeParcelId(text) || !looksLikeAddress(text)) {
+        try {
+          const p = await api.resolve({ id: text });
+          addToSelection([p]);
+          return [p];
+        } catch (err) {
+          if (looksLikeParcelId(text)) throw err;      // pełny numer działki – nie ma sensu szukać adresu
+        }
+      }
+      const g = await api.geocode(text);
+      if (g.has_house_number) {
+        const p = await api.resolve({ lon: g.lon, lat: g.lat });
+        addToSelection([p]);
+        setFlyTo({ lon: g.lon, lat: g.lat, zoom: 16, n: Date.now() });
+        setSelectionMessage(`Znaleziono adres: ${g.label}. Zaznaczono działkę ${p.parcel_number ?? p.id}.`);
+        return [p];
+      }
+      setFlyTo({ lon: g.lon, lat: g.lat, zoom: 14, n: Date.now() });
+      setSelectionMessage(`Znaleziono: ${g.label}. Kliknij działkę na mapie, aby ją zaznaczyć.`);
+      return [];
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Nie udało się wyszukać.");
+      return [];
+    } finally {
+      setSearching(false);
+    }
+  }
   async function analyze(e: React.FormEvent) {
     e.preventDefault();
-    await runAnalysis(id);
+    // zaznaczone działki mają pierwszeństwo; pole wyszukiwania liczy się tylko, gdy nic nie zaznaczono
+    let chosen = selection;
+    const typed = id.trim();
+    if (!chosen.length && typed) chosen = await search(typed);
+    if (!chosen.length) {
+      if (!typed) setError("Wpisz adres albo numer działki, albo kliknij działkę na mapie.");
+      return;
+    }
+    const gs = groupParcels(chosen);
+    setGroups(gs);
+    setGroupIdx(0);
+    await runAnalysis(gs[0]!.map((p) => p.id).join("+"));
+  }
+  async function nextGroup() {
+    const i = groupIdx + 1;
+    if (i >= groups.length) return;
+    setGroupIdx(i);
+    await runAnalysis(groups[i]!.map((p) => p.id).join("+"));
   }
   async function runAnalysis(parcelId: string) {
     setError("");
-    setPicked(null);
     if (!validDate(date)) {
       setError(
         "Wybierz dzień od " + formatDate(bounds.min) + " do " + formatDate(bounds.max) + ".",
@@ -213,15 +293,28 @@ export function ParcelPage() {
   async function selectMap(lon: number, lat: number) {
     try {
       const p = await api.resolve({ lon, lat });
-      setPicked(p.id === selected?.id ? null : p);
-      setSelectionMessage(
-        p.id === selected?.id
-          ? `To analizowana działka ${p.parcel_number}.`
-          : `Działka ${p.parcel_number}, ${p.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha. Aby ją ocenić, wybierz „Sprawdź tę działkę” na mapie.`,
-      );
+      addToSelection([p], multi);
+      setSelectionMessage(`Działka ${p.parcel_number ?? p.id}, ${p.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha.`);
       setError("");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Nie udało się wybrać działki.");
+    }
+  }
+  async function lassoSelect(ring: [number, number][]) {
+    setLassoBusy(true);
+    setError("");
+    try {
+      const { parcels: ps, total } = await api.inArea(ring);
+      if (!ps.length) setError("W obrysie nie ma działek ewidencyjnych.");
+      else if (total > ps.length)
+        setError(`W obrysie jest ${total} działek – zaznaczyłem ${ps.length} największych (limit). Zaznacz mniejszy obszar, jeśli chodzi o inne działki.`);
+      // obrys zawsze dopisuje do zaznaczenia (łączy się z kliknięciami i trybem „wiele”)
+      setSelection((prev) => [...prev, ...ps.filter((p) => !prev.some((x) => x.id === p.id))].slice(0, MAX_SELECTION));
+      setSelectionMessage(`Obrys: zaznaczono ${ps.length} działek.`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Nie udało się zaznaczyć działek obrysem.");
+    } finally {
+      setLassoBusy(false);
     }
   }
   /** Pokaż obiekt na mapie: wycentruj go na małej mapie obok (bez otwierania pełnego ekranu). */
@@ -316,26 +409,58 @@ export function ParcelPage() {
                 Twoja działka
               </h2>
               <label className="form-label" htmlFor="parcel-id">
-                Numer działki
+                Adres albo numer działki
               </label>
-              <input
-                ref={idInput}
-                id="parcel-id"
-                name="parcel"
-                className="parcel-input"
-                value={id}
-                onChange={(e) => {
-                  setId(e.target.value);
-                  setError("");
-                }}
-                required
-                aria-describedby="parcel-hint"
-                autoComplete="off"
-                spellCheck={false}
-              />
-              <div id="parcel-hint" className="form-hint">
-                Np. {DEMO_ID} albo „obręb numer”, np. Słupia Wielka 7
+              <div className="search-row">
+                <input
+                  ref={idInput}
+                  id="parcel-id"
+                  name="parcel"
+                  className="parcel-input"
+                  value={id}
+                  placeholder="np. Środa Wielkopolska, Kosynierów 1"
+                  onChange={(e) => {
+                    setId(e.target.value);
+                    setError("");
+                  }}
+                  aria-describedby="parcel-hint"
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+                <Button type="button" variant="secondary" className="search-button" disabled={searching || !id.trim()}
+                  aria-label="Szukaj na mapie" title="Szukaj na mapie" onClick={() => void search(id)}>
+                  <Search />
+                </Button>
               </div>
+              <div id="parcel-hint" className="form-hint">
+                Numer działki (np. {DEMO_ID}), „obręb numer” (np. Słupia Wielka 7) albo adres. Możesz też kliknąć działkę na mapie.
+              </div>
+              <label className="multi-toggle">
+                <input type="checkbox" checked={multi} onChange={(e) => setMulti(e.target.checked)} />
+                Zaznaczaj wiele działek (kliknięcie dodaje lub usuwa działkę)
+              </label>
+              {selection.length > 0 && (
+                <div className="selection-box" aria-label="Zaznaczone działki">
+                  <div className="selection-head">
+                    <strong>Zaznaczone: {selection.length} {selection.length === 1 ? "działka" : selection.length < 5 ? "działki" : "działek"}</strong>
+                    <span>{selection.reduce((a, p) => a + p.area_ha, 0).toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha</span>
+                    <Button type="button" variant="link" className="h-auto p-0 text-xs" onClick={() => { setSelection([]); setGroups([]); }}>
+                      Wyczyść
+                    </Button>
+                  </div>
+                  <ul className="selection-chips">
+                    {selection.map((p) => (
+                      <li key={p.id}>
+                        {p.parcel_number ?? p.id}{p.region_name ? ` · ${p.region_name}` : ""}
+                        <button type="button" aria-label={`Usuń działkę ${p.parcel_number ?? p.id}`}
+                          onClick={() => setSelection((prev) => prev.filter((x) => x.id !== p.id))}>
+                          <X size={12} />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="form-row">
                 <div>
                   <label className="form-label" htmlFor="report-date">
@@ -374,7 +499,7 @@ export function ParcelPage() {
                 ) : (
                   <>
                     <Droplets />
-                    Sprawdź działkę
+                    {selection.length > 1 ? `Sprawdź działki (${selection.length})` : "Sprawdź działkę"}
                     <ArrowRight className="ml-auto" />
                   </>
                 )}
@@ -402,7 +527,7 @@ export function ParcelPage() {
                 </div>
               )}
             </form>
-            {started && <div
+            <div
               ref={mapContainer}
               className={fullscreen ? "map-fullscreen" : ""}
               role={fullscreen ? "dialog" : undefined}
@@ -412,7 +537,7 @@ export function ParcelPage() {
               {fullscreen && (
                 <div className="fullscreen-title">
                   <div>
-                    <strong>{selected ? `Działka ${selected.parcel_number ?? selected.id}` : "Mapa"}</strong>
+                    <strong>{selected ? parcelTitle(selected) : "Mapa"}</strong>
                     <span className="ml-3 text-xs text-muted-foreground">
                       {USE_MOCKS ? "Lokalizacje demonstracyjne" : ""}
                     </span>
@@ -427,12 +552,15 @@ export function ParcelPage() {
                   </Button>
                 </div>
               )}
-              {selected ? (
               <Suspense fallback={<div className="map-shell skeleton" aria-label="Wczytywanie mapy" />}>
                   <ParcelMap
-                    picked={picked}
+                    selection={selection}
+                    flyTo={flyTo}
+                    onLasso={lassoSelect}
+                    lassoBusy={lassoBusy}
                     onAnalyze={(pid) => {
-                      setId(pid);
+                      setGroups([selection.filter((p) => p.id === pid)]);
+                      setGroupIdx(0);
                       void runAnalysis(pid);
                     }}
                     parcel={selected}
@@ -445,13 +573,10 @@ export function ParcelPage() {
                     onFullscreen={() => setFullscreen((v) => !v)}
                   />
               </Suspense>
-              ) : (
-                <div className="map-shell skeleton" aria-label="Wyszukuję działkę na mapie" />
-              )}
-            </div>}
+            </div>
             {started && selected && <div className="parcel-details">
               <div className="parcel-details-top">
-                <strong>Działka {selected.parcel_number ?? selected.id}</strong>
+                <strong title={selected.parcel_number ?? selected.id}>{parcelTitle(selected)}</strong>
                 <span className="area-label">{selected.area_ha.toLocaleString("pl-PL", { maximumFractionDigits: 2 })} ha</span>
               </div>
               <div className="parcel-location">
@@ -570,6 +695,17 @@ export function ParcelPage() {
                     style={{ width: `${total ? (count / total) * 100 : 0}%` }}
                   />
                 </div>
+              </div>
+            )}
+            {groups.length > 1 && context.parcel && (
+              <div className="group-notice" role="status">
+                <strong>Grupa {groupIdx + 1} z {groups.length}.</strong> Zaznaczone działki leżą w {groups.length} oddalonych
+                miejscach (ponad 500 m od siebie), więc każde miejsce liczymy osobno – pogoda i gleba mogą się tam różnić.
+                {groupIdx + 1 < groups.length && (
+                  <Button variant="secondary" size="sm" className="ml-2" disabled={loading} onClick={() => void nextGroup()}>
+                    Policz następną grupę ({groups[groupIdx + 1]!.length} {groups[groupIdx + 1]!.length === 1 ? "działka" : "działki"})
+                  </Button>
+                )}
               </div>
             )}
             {tab === "report" ? (

@@ -143,6 +143,7 @@ export type DataBlock = {
   messages: string[];
   elapsed_ms: number | null;
 };
+export type GeocodeResult = { label: string; lon: number; lat: number; has_house_number: boolean; source: string };
 export type Crop = { id: string; name_pl: string; type: string; sowing: string | null; harvest: string | null };
 
 /** Bloki pokazywane w UI (kolejność kart). Tytuły po stronie frontu – krótsze niż w backendzie. */
@@ -221,6 +222,28 @@ export const api = {
     if (input.id && input.id.trim() !== DEMO_ID)
       throw new Error(`W wersji demonstracyjnej dostępna jest działka ${DEMO_ID}. Wybierz ją na mapie lub użyj przykładu.`);
     return { ...parcel };
+  },
+  async geocode(q: string, signal?: AbortSignal): Promise<GeocodeResult> {
+    if (!USE_MOCKS) return request(`/api/geocode?${new URLSearchParams({ q })}`, signal);
+    const { parcel } = await import("./mocks");
+    await wait(150, signal);
+    return { label: q, lon: parcel.centroid[0], lat: parcel.centroid[1], has_house_number: false, source: "dane demonstracyjne" };
+  },
+  async inArea(ring: [number, number][], signal?: AbortSignal): Promise<{ parcels: ParcelRef[]; total: number }> {
+    if (!USE_MOCKS) {
+      const r = await fetch("/api/parcel/in-area", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ring }), signal });
+      if (!r.ok) {
+        let detail = "";
+        try { detail = ((await r.json()) as { detail?: string }).detail ?? ""; } catch { /* brak treści */ }
+        throw new Error(detail || "Nie udało się pobrać działek z obszaru.");
+      }
+      const parcels = (await r.json()) as ParcelRef[];
+      return { parcels, total: Number(r.headers.get("X-Total-Count") ?? parcels.length) };
+    }
+    const { parcel } = await import("./mocks");
+    await wait(300, signal);
+    return { parcels: [{ ...parcel }], total: 1 };
   },
   async blocks(signal?: AbortSignal) {
     if (!USE_MOCKS) {

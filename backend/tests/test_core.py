@@ -131,5 +131,5 @@ async def test_parcels_in_polygon_filters_by_shape(monkeypatch):
                                                  ("999999_9.9999.2", "2", "TEST", "999999_9", "Gm", outside)])
     monkeypatch.setattr(PA, "cache_get", lambda k: None)
     monkeypatch.setattr(PA, "cache_set", lambda *a, **k: None)
-    out = await PA.parcels_in_polygon(ring)
-    assert [p.id for p in out] == ["999999_9.9999.1"] and 0.2 < out[0].area_ha < 0.3
+    out, total = await PA.parcels_in_polygon(ring)
+    assert [p.id for p in out] == ["999999_9.9999.1"] and total == 1 and 0.2 < out[0].area_ha < 0.3

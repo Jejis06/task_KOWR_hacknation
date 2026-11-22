@@ -52,8 +52,9 @@ def _query(bounds: tuple[float, float, float, float]) -> list[tuple]:
             [minx, maxx, miny, maxy]).fetchall()
 
 
-async def parcels_in_polygon(ring_lonlat: list[tuple[float, float]]) -> list[ParcelRef]:
-    """Działki przecinane przez krawędź obrysu albo leżące w jego środku (EPSG:4326 na wejściu i wyjściu)."""
+async def parcels_in_polygon(ring_lonlat: list[tuple[float, float]]) -> tuple[list[ParcelRef], int]:
+    """Działki przecinane przez krawędź obrysu albo leżące w jego środku (EPSG:4326 na wejściu i wyjściu).
+    Zwraca (do 25 największych działek, liczba wszystkich działek w obrysie)."""
     poly4326 = Polygon(ring_lonlat)
     if not poly4326.is_valid:
         poly4326 = poly4326.buffer(0)
@@ -62,7 +63,7 @@ async def parcels_in_polygon(ring_lonlat: list[tuple[float, float]]) -> list[Par
         raise AreaTooLarge(f"Obrys jest za duży (maks. {MAX_AREA_HA} ha) – zaznacz mniejszy obszar.")
     key = make_key("parcels_area", wkt=poly.simplify(1).wkt)
     if (hit := cache_get(key)) is not None:
-        return [ParcelRef.model_validate(x) for x in hit]
+        return [ParcelRef.model_validate(x) for x in hit["parcels"]], hit["total"]
     rows = await asyncio.to_thread(_query, poly.bounds)
     out: list[ParcelRef] = []
     for pid, num, obreb, _unit, gmina, geom_wkb in rows:
@@ -77,9 +78,10 @@ async def parcels_in_polygon(ring_lonlat: list[tuple[float, float]]) -> list[Par
                              geometry=GeoJSONGeometry(**mapping(g4326)), centroid=(round(c.x, 6), round(c.y, 6)),
                              bbox=(minx, miny, maxx, maxy), area_ha=round(g.area / 10_000, 4)))
     out.sort(key=lambda p: -p.area_ha)
+    total = len(out)
     out = out[:MAX_PARCELS]
-    cache_set(key, [p.model_dump(mode="json") for p in out], TTL_S)
+    cache_set(key, {"parcels": [p.model_dump(mode="json") for p in out], "total": total}, TTL_S)
     # każda działka z obrysu trafia też do cache ULDK – późniejsza analiza nie pyta ULDK
     for p in out:
         cache_set(make_key("uldk_id", id=p.id), p.model_dump(mode="json"), 7 * 24 * 3600)
-    return out
+    return out, total
